@@ -8,22 +8,22 @@
 @layer base {
   :root {
     /* Dark theme (default) */
-    --background: 140 8% 5%;
-    --background-secondary: 140 6% 8%;
+    --background: 0 0% 9%;
+    --background-secondary: 0 0% 11%;
     --foreground: 0 0% 100%;
     --foreground-secondary: 0 0% 63%;
     --foreground-tertiary: 0 0% 42%;
     --accent: 142 71% 58%;
     --accent-secondary: 142 76% 45%;
-    --card: 140 6% 8%;
+    --card: 0 0% 11%;
     --card-foreground: 0 0% 100%;
-    --popover: 140 6% 8%;
+    --popover: 0 0% 11%;
     --popover-foreground: 0 0% 100%;
     --primary: 142 71% 58%;
-    --primary-foreground: 140 8% 5%;
-    --secondary: 140 4% 15%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 140 4% 15%;
+    --muted: 0 0% 15%;
     --muted-foreground: 0 0% 63%;
     --border: 0 0% 100% / 0.1;
     --input: 0 0% 100% / 0.1;
@@ -81,7 +81,7 @@
   }
 
   .gradient-bg {
-    background: radial-gradient(ellipse at center, hsl(150 20% 15%) 0%, hsl(140 8% 5%) 70%);
+    background: radial-gradient(ellipse at center, hsl(0 0% 13%) 0%, hsl(0 0% 9%) 70%);
   }
 
   [data-theme="light"] .gradient-bg {
@@ -177,6 +177,16 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--foreground-secondary));
+}
+
+/* Hide scrollbar utility for horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Selection */
