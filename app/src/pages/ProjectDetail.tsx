@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -97,32 +97,43 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
 
   const totalScreens = images.length;
 
-  // Scroll progress for the tall pinned container (image swapping + expand/shrink)
-  const { scrollYProgress } = useScroll({
+  // Tracker 1: expand/shrink as section enters/leaves viewport
+  const { scrollYProgress: expandProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Map middle portion of scroll to image index (skip expand/shrink zones)
-  // 0-0.15 = expanding, 0.15-0.85 = image swapping, 0.85-1.0 = shrinking
+  // Tracker 2: image swapping while pinned (tight range)
+  const { scrollYProgress: swapProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Map swap progress directly to image index
   const currentIndexMV = useTransform(
-    scrollYProgress,
-    [0.15, 0.85],
+    swapProgress,
+    [0, 1],
     [0, totalScreens - 1]
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const prevIndexRef = useRef(0);
 
   useMotionValueEvent(currentIndexMV, "change", (latest) => {
     if (isArrowNavRef.current) return;
     const clamped = Math.min(Math.max(latest, 0), totalScreens - 1);
     const rounded = Math.round(clamped);
-    setCurrentIndex(rounded);
+    if (rounded !== prevIndexRef.current) {
+      setDirection(rounded > prevIndexRef.current ? 1 : -1);
+      prevIndexRef.current = rounded;
+      setCurrentIndex(rounded);
+    }
   });
 
-  // Width: expand 80%→100% in first 15%, hold at 100%, shrink 100%→80% in last 15%
-  const width = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], ["80%", "100%", "100%", "80%"]);
-  const borderRadius = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [24, 0, 0, 24]);
+  // Width expand/shrink based on visibility progress
+  const width = useTransform(expandProgress, [0, 0.25, 0.75, 1], ["80%", "100%", "100%", "80%"]);
+  const borderRadius = useTransform(expandProgress, [0, 0.25, 0.75, 1], [24, 0, 0, 24]);
 
   // Scroll to the position for a given image index
   const scrollToImage = useCallback(
@@ -130,12 +141,16 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const containerTop = window.scrollY + rect.top;
-      const scrollableHeight = containerRef.current.scrollHeight;
-      // Map index to the 0.15-0.85 range of total scroll
-      const targetProgress = 0.15 + (index / (totalScreens - 1)) * 0.7;
-      const targetScroll = containerTop + targetProgress * scrollableHeight - window.innerHeight / 2;
+      const containerHeight = containerRef.current.offsetHeight;
+      // With offset ["start start", "end end"]:
+      // progress 0 = containerTop, progress 1 = containerTop + containerHeight - viewportHeight
+      const scrollRange = containerHeight - window.innerHeight;
+      const targetProgress = index / (totalScreens - 1);
+      const targetScroll = containerTop + targetProgress * scrollRange;
 
       isArrowNavRef.current = true;
+      setDirection(index > currentIndex ? 1 : -1);
+      prevIndexRef.current = index;
       setCurrentIndex(index);
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
 
@@ -143,7 +158,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
         isArrowNavRef.current = false;
       }, 800);
     },
-    [totalScreens]
+    [totalScreens, currentIndex]
   );
 
   const switchImage = useCallback(
@@ -162,7 +177,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
     <section
       ref={containerRef}
       className="relative"
-      style={{ height: `${(totalScreens + 2) * 60}vh` }}
+      style={{ height: `${totalScreens * 50}vh` }}
     >
       {/* Sticky wrapper */}
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center relative">
@@ -182,22 +197,26 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
               <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
                 {/* Screen Bezel */}
                 <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
-                  {/* Screen Content – Crossfading Images */}
+                  {/* Screen Content – Sliding Images */}
                   <div className="relative w-full h-full">
-                    {images.map((image, index) => (
+                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img
-                        key={image}
-                        src={image}
-                        alt={`${title} screenshot ${index + 1}`}
+                        key={currentIndex}
+                        src={images[currentIndex]}
+                        alt={`${title} screenshot ${currentIndex + 1}`}
                         className="absolute inset-0 w-full h-full object-cover"
-                        initial={false}
-                        animate={{
-                          opacity: index === currentIndex ? 1 : 0,
-                          x: index === currentIndex ? 0 : index < currentIndex ? -40 : 40,
+                        custom={direction}
+                        variants={{
+                          enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
+                          center: { x: 0, opacity: 1 },
+                          exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
                         }}
-                        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                       />
-                    ))}
+                    </AnimatePresence>
                   </div>
 
                   {/* Screen Reflection */}
@@ -224,12 +243,12 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3">
           <button
             onClick={() => switchImage('prev')}
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
               }`}
             disabled={currentIndex === 0}
             aria-label="Previous image"
           >
-            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
 
           <div className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[var(--accent)]/80">
@@ -248,12 +267,12 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
 
           <button
             onClick={() => switchImage('next')}
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
               }`}
             disabled={currentIndex === images.length - 1}
             aria-label="Next image"
           >
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
         </div>
       </div>
