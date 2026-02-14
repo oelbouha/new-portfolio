@@ -71,10 +71,9 @@ export function ServicesGrid() {
   };
 
   const item = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      y: 0,
       transition: {
         duration: 0.7,
         ease: [0.16, 1, 0.3, 1]
@@ -87,7 +86,7 @@ export function ServicesGrid() {
       <div className="w-full">
         {/* Label with line */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
@@ -103,28 +102,27 @@ export function ServicesGrid() {
         <div className="hidden md:grid lg:grid-cols-3 gap-8">
           {/* Left Column - Sticky Title */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
             className="lg:sticky lg:top-20 lg:self-start"
           >
-              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 sm:p-10 lg:p-12 overflow-hidden">
-                {/* Background Image */}
-                <div className="absolute inset-0 opacity-20">
-                  <img 
-                    src="/images/background-line.webp" 
-                    alt="" 
-                    className="w-full h-full object-cover"
+              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden">
+                <div className="absolute inset-0 opacity-5">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+                      backgroundSize: '20px 20px'
+                    }}
                   />
                 </div>
-              
-                {/* Content */}
                 <div className="relative z-10">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent mb-2">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2">
                 Our Approach to
               </h2>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
                 Design and Build
               </h2>
                 </div>
@@ -132,31 +130,26 @@ export function ServicesGrid() {
           </motion.div>
 
           {/* Right Two Columns - Service Cards */}
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-            className="lg:col-span-2 grid md:grid-cols-2 gap-6"
-          >
+          <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
             {services.map((service) => (
-              <motion.div
+              <section
                 key={service.category}
-                variants={item}
-                className="group relative bg-card border border-border rounded-2xl p-8 sm:p-10 hover:border-accent/50 transition-all duration-300"
+                className="flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 bg-[#454545] border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full"
               >
-                <p className="text-xs font-medium tracking-wider text-foreground-secondary uppercase mb-4">
-                  {service.category}
-                </p>
-                <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4 leading-tight">
+                <div>
+                  <p className="tag-font text-[#e8e8e8] uppercase text-[12px] tracking-wider">
+                    {service.category}
+                  </p>
+                  <h4 className="subheading-regular pb-2 hidden !text-[24px] !leading-[32px] !font-normal">
+                    {service.title}
+                  </h4>
+                </div>
+                <h4 className="w-[390px] max-xl:w-[80%] subheading-regular pb-2 text-[#ffffff] !text-[24px] !leading-[32px] !font-normal">
                   {service.title}
-                </h3>
-                <p className="text-foreground-secondary text-sm sm:text-base leading-relaxed">
-                  {service.description}
-                </p>
-              </motion.div>
+                </h4>
+              </section>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Mobile Layout — Swipeable Cards */}
@@ -169,19 +162,18 @@ export function ServicesGrid() {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 overflow-hidden">
-                {/* Background Image */}
-                <div className="absolute inset-0 opacity-20">
-                  <img 
-                    src="/images/background-line.webp" 
-                    alt="" 
-                    className="w-full h-full object-cover"
+              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 overflow-hidden">
+                <div className="absolute inset-0 opacity-5">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+                      backgroundSize: '20px 20px'
+                    }}
                   />
                 </div>
-              
-                {/* Content */}
                 <div className="relative z-10">
-              <h2 className="text-2xl font-bold text-accent mb-2">
+              <h2 className="text-2xl font-bold text-accent mb-">
                 Our Approach to
               </h2>
               <h2 className="text-2xl font-bold text-accent">
@@ -203,30 +195,34 @@ export function ServicesGrid() {
                 msOverflowStyle: 'none',
               }}
             >
-              {services.map((service, index) => (
-                <motion.div
+              {services.map((service) => (
+                <section
                   key={service.category}
-                  initial={{ opacity: 0, x: 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex-shrink-0 bg-card border border-border rounded-2xl p-6"
+                  className="flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 bg-[#454545] border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full flex-shrink-0"
                   style={{
                     width: '80vw',
                     maxWidth: '340px',
                     scrollSnapAlign: 'start',
                   }}
                 >
-                  <p className="text-xs font-medium tracking-wider text-foreground-secondary uppercase mb-3">
-                    {service.category}
-                  </p>
-                  <h3 className="text-lg font-bold text-foreground mb-3 leading-tight">
+                  <div>
+                    <p className="tag-font text-[#e8e8e8] uppercase">
+                      {service.category}
+                    </p>
+                    <h4 className="subheading-regular pb-2 hidden !text-[24px] !leading-[32px] !font-normal">
+                      {service.title}
+                    </h4>
+                  </div>
+                  <h4 className="w-[390px] max-xl:w-[80%] subheading-regular pb-2 text-[#ffffff] !text-[24px] !leading-[32px] !font-normal">
                     {service.title}
-                  </h3>
-                  <p className="text-foreground-secondary text-sm leading-relaxed">
+                  </h4>
+                  <p className="text-[#ffffff] !text-[32px] !leading-[40px] !tracking-[-0.544px] !font-normal">
                     {service.description}
                   </p>
-                </motion.div>
+                  <p className="text-[#ffffff] !text-[32px] !leading-[40px] !tracking-[-0.544px] !font-normal">
+                    {service.description}
+                  </p>
+                </section>
               ))}
             </div>
 

@@ -14,7 +14,7 @@ export function CTASection() {
                 <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden">
                     {/* Content */}
                     <div className="relative z-10 max-w-2xl">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground mb-4 leading-tight">
                             Let's Build Something Amazing Together
                         </h2>
                         <p className="text-lg sm:text-xl text-foreground-secondary mb-8">
@@ -22,7 +22,7 @@ export function CTASection() {
                         </p>
 
                         <a
-                            href="mailto:outmanelbouhali@gmail.com"
+                            href="mailto:outmanelbouhali5@gmail.com"
                             className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-background font-semibold rounded-full hover:bg-accent-secondary transition-all duration-300 hover:scale-105 group"
                         >
                             Get In Touch
@@ -31,13 +31,13 @@ export function CTASection() {
                     </div>
 
                     {/* Pixel Art Graphic */}
-                        <div className="absolute right-8 top-1/2 -translate-y-1/2 lg:right-16 pointer-events-none">
+                        <div className="absolute right-4 bottom-[-12px] sm:right-6 lg:right-10 pointer-events-none">
                             <img 
                                 src="/images/BlinkingFrog.gif" 
                                 alt="Blinking Frog" 
-                                className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 object-contain"
+                                className="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 object-contain origin-bottom"
                             />
-                    </div>
+                        </div>
 
                     {/* Background Pattern */}
                     <div className="absolute inset-0 opacity-5">

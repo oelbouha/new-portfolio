@@ -42,7 +42,7 @@ export function Footer() {
             <Linkedin className="w-5 h-5" />
           </a>
           <a
-            href="mailto:outman.elbouhali@example.com"
+            href="mailto:outmanelbouhali5@gmail.com"
             className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/50 text-foreground hover:bg-accent hover:text-background transition-all duration-300"
             aria-label="Email"
           >
@@ -53,12 +53,12 @@ export function Footer() {
         {/* Contact Info */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h3 className="text-lg font-medium text-foreground mb-2">Tétouan, Morocco</h3>
-          <p className="text-foreground-secondary text-sm mb-1">outman.elbouhali@example.com</p>
+          <p className="text-foreground-secondary text-sm mb-1">outmanelbouhali5@gmail.com</p>
           <p className="text-foreground-secondary text-sm">Full Stack Developer</p>
         </div>
 
         {/* Copyright */}
-        <div className="text-center pt-8 border-t border-border/50">
+        <div className="text-center pt-8  border-border/50">
           <p className="text-sm text-foreground-tertiary">
             © {new Date().getFullYear()} Outman Elbouhali. All Rights Reserved.
           </p>
