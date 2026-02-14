@@ -240,10 +240,10 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
         </motion.div>
 
         {/* Arrow Navigation – outside all overflow:hidden containers */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3">
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
           <button
             onClick={() => switchImage('prev')}
-            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
+            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
               }`}
             disabled={currentIndex === 0}
             aria-label="Previous image"
@@ -251,14 +251,14 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
             <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
 
-          <div className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[var(--accent)]/80">
+          <div className="flex items-center gap-1.5">
             {images.map((_, index) => (
               <button
                 key={index}
                 onClick={() => scrollToImage(index)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
-                  ? 'bg-white w-5'
-                  : 'bg-white/40 w-1.5 hover:bg-white/70'
+                  ? 'bg-[hsl(var(--accent))] w-5'
+                  : 'bg-[hsl(var(--accent)/0.4)] w-1.5 hover:bg-[hsl(var(--accent)/0.7)]'
                   }`}
                 aria-label={`View image ${index + 1}`}
               />
@@ -267,7 +267,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
 
           <button
             onClick={() => switchImage('next')}
-            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
+            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
               }`}
             disabled={currentIndex === images.length - 1}
             aria-label="Next image"
