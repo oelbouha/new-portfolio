@@ -7,13 +7,13 @@ import { cn } from '@/lib/utils';
 const projects = [
   {
     id: 1,
-    slug: 'pong-arena',
-    name: 'Pong Arena',
-    image: 'https://images.unsplash.com/photo-1534158914592-062992fbe900?w=800&h=600&fit=crop',
+    slug: 'Revo Website',
+    name: 'Revo Website',
+    image: '/images/revo/revo.jpeg',
     category: 'Web Development',
     height: 'tall',
-    description: 'A dynamic gaming website featuring Ping Pong and Slap Hands, playable offline or online with friends.',
-    tech: 'JavaScript, WebSocket, Full-Stack'
+    description: 'Custom React website built with a focus on performance and responsive design.',
+    tech: 'React, Custom Design'
   },
   {
     id: 2,
@@ -34,6 +34,27 @@ const projects = [
     height: 'tall',
     description: 'Custom HTTP server built from scratch in C++98, handling multiple connections with non-blocking I/O.',
     tech: 'C++98, HTTP 1.1, Network Programming'
+  },
+  {
+    id: 4,
+    slug: 'Wordpress website',
+    name: 'Wordpress Website',
+    image: '/images/zerotocoder/Create_a_mockup_2k_202602141803.jpeg',
+    category: 'Web Development',
+    height: 'medium',
+    description: 'Custom WordPress website built with a focus on performance and responsive design.',
+    tech: 'WordPress, Custom Theme, NGINX, Oracle Cloud'
+  },
+ 
+   {
+    id: 5,
+    slug: 'pong-arena',
+    name: 'Pong Arena',
+    image: '/images/pong/pongarena.jpeg',
+    category: 'Web Development',
+    height: 'tall',
+    description: 'A dynamic gaming website featuring Ping Pong and Slap Hands, playable offline or online with friends.',
+    tech: 'JavaScript, WebSocket, Full-Stack'
   },
 ];
 

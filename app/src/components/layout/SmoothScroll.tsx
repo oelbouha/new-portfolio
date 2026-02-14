@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
 
 interface SmoothScrollProps {
@@ -7,6 +8,7 @@ interface SmoothScrollProps {
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
     const lenisRef = useRef<Lenis | null>(null);
+    const location = useLocation();
 
     useEffect(() => {
         // Initialize Lenis
@@ -37,6 +39,14 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
             lenis.destroy();
         };
     }, []);
+
+    // Scroll to top on route change
+    useEffect(() => {
+        if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, [location.pathname]);
 
     return <>{children}</>;
 }

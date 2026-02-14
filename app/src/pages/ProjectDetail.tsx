@@ -17,9 +17,11 @@ const projectsData = [
     overview: 'A dynamic gaming website featuring Ping Pong and Slap Hands, playable offline or online with friends.',
     conclusion: 'Successfully delivered a real-time multiplayer gaming platform with smooth gameplay and responsive design.',
     images: [
-      'https://images.unsplash.com/photo-1534158914592-062992fbe900?w=1200&h=675&fit=crop',
-      'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800&h=600&fit=crop',
+      '/images/pong/pongarena.jpeg',
+      '/images/pong/pongarena1.jpeg',
+      '/images/pong/Create_a_mockup_2k_202602141751.jpeg',
+      '/images/pong/Create_a_mockup_2k_202602141753.jpeg',
+      '/images/pong/Create_a_mockup_2k_202602141753 (1).jpeg',
     ]
   },
   {
@@ -48,6 +50,38 @@ const projectsData = [
       'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&h=600&fit=crop',
     ]
   },
+  {
+    id: 4,
+    slug: 'Wordpress website',
+    title: 'Wordpress Website',
+    tags: ['Web Development', 'WordPress', 'Custom Theme', 'Responsive Design', 'Performance Optimization', 'oracle cloud', 'linux server', 'nginx'],
+    link: '',
+    overview: 'Custom WordPress website built with a focus on performance and responsive design.',
+    conclusion: 'Successfully delivered a fully responsive and optimized WordPress website with custom theme development.',
+    images: [
+      '/images/zerotocoder/Create_a_mockup_2k_202602141803.jpeg',
+      '/images/zerotocoder/Create_a_mockup_2k_202602141803 (1).jpeg',
+      '/images/zerotocoder/Create_a_mockup_2k_202602141801.jpeg',
+      '/images/zerotocoder/Create_a_mockup_2k_202602141801 (1).jpeg',
+    ]
+  },
+  {
+    id: 5,
+    slug: 'Revo Website',
+    title: 'Revo Website portfolio',
+    tags: ['Web Development', 'React', 'Custom Design'],
+    link: 'www.revo.ma',
+    overview: 'Custom React website built with a focus on performance and responsive design.',
+    conclusion: 'Successfully delivered a fully responsive and optimized React website.',
+    images: [
+      '/images/revo/revo.jpeg',
+      '/images/revo/revo1.jpeg',
+      '/images/revo/revoo.jpeg',
+      '/images/revo/revoo2.jpeg',
+      '/images/revo/revo3.jpeg',
+      '/images/revo/revo4.jpeg',
+    ]
+  },
 ];
 
 /* ─────────────── Scroll-Driven Image Showcase ─────────────── */
@@ -58,143 +92,171 @@ interface ScrollImageShowcaseProps {
 }
 
 function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastProgressRef = useRef(0);
-  const thresholdRef = useRef(0);
+  const isArrowNavRef = useRef(false);
 
+  const totalScreens = images.length;
+
+  // Scroll progress for the tall pinned container (image swapping + expand/shrink)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Expand width from 80% → 100% as section scrolls into view
-  const width = useTransform(scrollYProgress, [0, 0.35], ["80%", "100%"]);
-  const borderRadius = useTransform(scrollYProgress, [0, 0.35], [24, 0]);
-
-  // Switch images based on scroll direction
-  const switchImage = useCallback(
-    (direction: 'next' | 'prev') => {
-      setCurrentIndex((prev) => {
-        if (direction === 'next') {
-          return prev < images.length - 1 ? prev + 1 : prev;
-        }
-        return prev > 0 ? prev - 1 : prev;
-      });
-    },
-    [images.length]
+  // Map middle portion of scroll to image index (skip expand/shrink zones)
+  // 0-0.15 = expanding, 0.15-0.85 = image swapping, 0.85-1.0 = shrinking
+  const currentIndexMV = useTransform(
+    scrollYProgress,
+    [0.15, 0.85],
+    [0, totalScreens - 1]
   );
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const diff = latest - lastProgressRef.current;
-    thresholdRef.current += diff;
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Only switch after accumulating enough scroll delta
-    if (thresholdRef.current > 0.12) {
-      switchImage('next');
-      thresholdRef.current = 0;
-    } else if (thresholdRef.current < -0.12) {
-      switchImage('prev');
-      thresholdRef.current = 0;
-    }
-
-    lastProgressRef.current = latest;
+  useMotionValueEvent(currentIndexMV, "change", (latest) => {
+    if (isArrowNavRef.current) return;
+    const clamped = Math.min(Math.max(latest, 0), totalScreens - 1);
+    const rounded = Math.round(clamped);
+    setCurrentIndex(rounded);
   });
+
+  // Width: expand 80%→100% in first 15%, hold at 100%, shrink 100%→80% in last 15%
+  const width = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], ["80%", "100%", "100%", "80%"]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [24, 0, 0, 24]);
+
+  // Scroll to the position for a given image index
+  const scrollToImage = useCallback(
+    (index: number) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const containerTop = window.scrollY + rect.top;
+      const scrollableHeight = containerRef.current.scrollHeight;
+      // Map index to the 0.15-0.85 range of total scroll
+      const targetProgress = 0.15 + (index / (totalScreens - 1)) * 0.7;
+      const targetScroll = containerTop + targetProgress * scrollableHeight - window.innerHeight / 2;
+
+      isArrowNavRef.current = true;
+      setCurrentIndex(index);
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+
+      setTimeout(() => {
+        isArrowNavRef.current = false;
+      }, 800);
+    },
+    [totalScreens]
+  );
+
+  const switchImage = useCallback(
+    (direction: 'next' | 'prev') => {
+      const newIndex = direction === 'next'
+        ? Math.min(currentIndex + 1, images.length - 1)
+        : Math.max(currentIndex - 1, 0);
+      if (newIndex !== currentIndex) {
+        scrollToImage(newIndex);
+      }
+    },
+    [currentIndex, images.length, scrollToImage]
+  );
 
   return (
     <section
       ref={containerRef}
-      className="relative py-16 overflow-hidden"
-      style={{ minHeight: '80vh' }}
+      className="relative"
+      style={{ height: `${(totalScreens + 2) * 60}vh` }}
     >
-      <motion.div
-        style={{ width, borderRadius }}
-        className="mx-auto"
-      >
+      {/* Sticky wrapper */}
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center relative">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ width, borderRadius, overflow: 'hidden' }}
+          className="mx-auto"
         >
-          {/* Laptop Frame */}
-          <div className="relative">
-            {/* Laptop Screen */}
-            <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-              {/* Screen Bezel */}
-              <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
-                {/* Screen Content – Crossfading Images */}
-                <div className="relative w-full h-full overflow-hidden">
-                  {images.map((image, index) => (
-                    <motion.img
-                      key={image}
-                      src={image}
-                      alt={`${title} screenshot ${index + 1}`}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      initial={false}
-                      animate={{
-                        opacity: index === currentIndex ? 1 : 0,
-                        x: index === currentIndex ? 0 : index < currentIndex ? -40 : 40,
-                      }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                    />
-                  ))}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Laptop Frame */}
+            <div className="relative">
+              {/* Laptop Screen */}
+              <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
+                {/* Screen Bezel */}
+                <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
+                  {/* Screen Content – Crossfading Images */}
+                  <div className="relative w-full h-full">
+                    {images.map((image, index) => (
+                      <motion.img
+                        key={image}
+                        src={image}
+                        alt={`${title} screenshot ${index + 1}`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        initial={false}
+                        animate={{
+                          opacity: index === currentIndex ? 1 : 0,
+                          x: index === currentIndex ? 0 : index < currentIndex ? -40 : 40,
+                        }}
+                        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Screen Reflection */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 </div>
 
-                {/* Screen Reflection */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-
-                {/* Arrow Navigation Buttons */}
-                <button
-                  onClick={() => switchImage('prev')}
-                  className={`absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary flex items-center justify-center transition-all duration-300 shadow-lg ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
-                    }`}
-                  disabled={currentIndex === 0}
-                  aria-label="Previous image"
-                >
-                  <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
-                </button>
-                <button
-                  onClick={() => switchImage('next')}
-                  className={`absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary flex items-center justify-center transition-all duration-300 shadow-lg ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
-                    }`}
-                  disabled={currentIndex === images.length - 1}
-                  aria-label="Next image"
-                >
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
-                </button>
+                {/* Camera */}
+                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
               </div>
 
-              {/* Camera */}
-              <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
-            </div>
+              {/* Laptop Base */}
+              <div className="relative">
+                <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
+              </div>
 
-            {/* Laptop Base */}
-            <div className="relative">
-              <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
+              {/* Shadow */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
             </div>
-
-            {/* Shadow */}
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Image Indicators */}
-        <div className="flex justify-center gap-2 mt-8">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                ? 'bg-accent w-6'
-                : 'bg-foreground-secondary/30 hover:bg-foreground-secondary/60'
-                }`}
-              aria-label={`View image ${index + 1}`}
-            />
-          ))}
+        {/* Arrow Navigation – outside all overflow:hidden containers */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3">
+          <button
+            onClick={() => switchImage('prev')}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
+              }`}
+            disabled={currentIndex === 0}
+            aria-label="Previous image"
+          >
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </button>
+
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-[var(--accent)]/80">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToImage(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
+                  ? 'bg-white w-5'
+                  : 'bg-white/40 w-1.5 hover:bg-white/70'
+                  }`}
+                aria-label={`View image ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => switchImage('next')}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--accent)] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-90 hover:opacity-100 hover:scale-110'
+              }`}
+            disabled={currentIndex === images.length - 1}
+            aria-label="Next image"
+          >
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </button>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
