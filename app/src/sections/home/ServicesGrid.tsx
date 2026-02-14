@@ -84,7 +84,7 @@ export function ServicesGrid() {
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full">
         {/* Label with line */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -109,13 +109,25 @@ export function ServicesGrid() {
             transition={{ duration: 0.6 }}
             className="lg:sticky lg:top-20 lg:self-start"
           >
-            <div className="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 sm:p-10 lg:p-12">
+              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 sm:p-10 lg:p-12 overflow-hidden">
+                {/* Background Image */}
+                <div className="absolute inset-0 opacity-20">
+                  <img 
+                    src="/images/background-line.webp" 
+                    alt="" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              
+                {/* Content */}
+                <div className="relative z-10">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent mb-2">
                 Our Approach to
               </h2>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent">
                 Design and Build
               </h2>
+                </div>
             </div>
           </motion.div>
 
@@ -157,13 +169,25 @@ export function ServicesGrid() {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <div className="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8">
+              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 overflow-hidden">
+                {/* Background Image */}
+                <div className="absolute inset-0 opacity-20">
+                  <img 
+                    src="/images/background-line.webp" 
+                    alt="" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              
+                {/* Content */}
+                <div className="relative z-10">
               <h2 className="text-2xl font-bold text-accent mb-2">
                 Our Approach to
               </h2>
               <h2 className="text-2xl font-bold text-accent">
                 Design and Build
               </h2>
+                </div>
             </div>
           </motion.div>
 

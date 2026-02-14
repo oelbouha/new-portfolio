@@ -9,7 +9,7 @@ export function CTASection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-7xl mx-auto"
+                    className="w-full"
             >
                 <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden">
                     {/* Content */}
@@ -31,41 +31,12 @@ export function CTASection() {
                     </div>
 
                     {/* Pixel Art Graphic */}
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-20 lg:opacity-40 pointer-events-none">
-                        <svg
-                            width="200"
-                            height="200"
-                            viewBox="0 0 200 200"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="text-accent"
-                        >
-                            {/* Simple pixel art frog-like pattern */}
-                            <rect x="60" y="40" width="20" height="20" fill="currentColor" />
-                            <rect x="120" y="40" width="20" height="20" fill="currentColor" />
-                            <rect x="40" y="60" width="20" height="20" fill="currentColor" />
-                            <rect x="60" y="60" width="20" height="20" fill="currentColor" />
-                            <rect x="80" y="60" width="20" height="20" fill="currentColor" />
-                            <rect x="100" y="60" width="20" height="20" fill="currentColor" />
-                            <rect x="120" y="60" width="20" height="20" fill="currentColor" />
-                            <rect x="140" y="60" width="20" height="20" fill="currentColor" />
-                            <rect x="40" y="80" width="20" height="20" fill="currentColor" />
-                            <rect x="60" y="80" width="20" height="20" fill="currentColor" />
-                            <rect x="80" y="80" width="20" height="20" fill="currentColor" />
-                            <rect x="100" y="80" width="20" height="20" fill="currentColor" />
-                            <rect x="120" y="80" width="20" height="20" fill="currentColor" />
-                            <rect x="140" y="80" width="20" height="20" fill="currentColor" />
-                            <rect x="60" y="100" width="20" height="20" fill="currentColor" />
-                            <rect x="80" y="100" width="20" height="20" fill="currentColor" />
-                            <rect x="100" y="100" width="20" height="20" fill="currentColor" />
-                            <rect x="120" y="100" width="20" height="20" fill="currentColor" />
-                            <rect x="80" y="120" width="20" height="20" fill="currentColor" />
-                            <rect x="100" y="120" width="20" height="20" fill="currentColor" />
-                            <rect x="40" y="140" width="20" height="20" fill="currentColor" />
-                            <rect x="60" y="140" width="20" height="20" fill="currentColor" />
-                            <rect x="120" y="140" width="20" height="20" fill="currentColor" />
-                            <rect x="140" y="140" width="20" height="20" fill="currentColor" />
-                        </svg>
+                        <div className="absolute right-8 top-1/2 -translate-y-1/2 lg:right-16 pointer-events-none">
+                            <img 
+                                src="/images/BlinkingFrog.gif" 
+                                alt="Blinking Frog" 
+                                className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 object-contain"
+                            />
                     </div>
 
                     {/* Background Pattern */}
