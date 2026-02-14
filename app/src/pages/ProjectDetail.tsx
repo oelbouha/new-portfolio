@@ -3,6 +3,8 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
 
 // Project data (will be expanded with real data)
 const projectsData = [
@@ -202,10 +204,27 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Update clock
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      setCurrentTime(`${hours}:${minutes}`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Scroll to top when page loads
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [slug]);
 
   const project = projectsData.find(p => p.slug === slug);
@@ -228,13 +247,36 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col gap-10 px-5 pt-[120px] pb-20">
+      {/* Fixed Top Bar */}
+      <div className="hero-topbar" style={{ position: 'fixed', top: 0, left: 0, right: 0, padding: '24px 40px', zIndex: 50, background: 'hsl(var(--background))' }}>
+        <div className="hero-topbar-left">
+          <span className="hero-local-label">TÉTOUAN, MOROCCO</span>
+          <span className="hero-time">{currentTime}</span>
+        </div>
+
+        <button
+          className="hero-menu-dots"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+        >
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </button>
+
+        <div className="hero-topbar-right">
+          <ThemeToggle />
+        </div>
+      </div>
+
+      <main className="flex min-h-screen flex-col gap-10 pt-[120px] pb-20">
         {/* Hero Section */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-7xl mx-auto w-full"
+          className="w-full px-[40px]"
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             {project.title}
@@ -271,7 +313,7 @@ export default function ProjectDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-7xl mx-auto w-full flex gap-5 max-sm:flex-col"
+          className="w-full px-[40px] flex gap-5 max-sm:flex-col"
         >
           {/* Project Overview */}
           <div className="flex h-auto min-h-[300px] flex-1 flex-col justify-between gap-10 rounded-2xl bg-card/50 backdrop-blur-sm border border-border p-8">
@@ -299,7 +341,7 @@ export default function ProjectDetail() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-7xl mx-auto w-full py-12"
+          className="w-full px-[40px] py-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
             Our Deliver.
@@ -317,7 +359,7 @@ export default function ProjectDetail() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="max-w-7xl mx-auto w-full"
+          className="w-full px-[40px]"
         >
           <button
             onClick={() => navigate('/')}
@@ -331,6 +373,8 @@ export default function ProjectDetail() {
 
       {/* Footer */}
       <Footer />
+
+      <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Columns2, Columns3, Columns4 } from 'lucide-react';
 
@@ -48,7 +49,7 @@ export function PortfolioGrid() {
               )}
               aria-label={`${value} column layout`}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className="w-5 h-5" strokeWidth={value === 2 ? 1.5 : 2} />
             </button>
           ))}
         </div>
@@ -63,9 +64,9 @@ export function PortfolioGrid() {
           )}
         >
           {projects.map((project) => (
-            <a
+            <Link
               key={project.id}
-              href={`/work/${project.id}`}
+              to={`/work/${project.id}`}
               className="group relative overflow-hidden rounded-xl aspect-[4/3]"
             >
               <img
@@ -84,7 +85,7 @@ export function PortfolioGrid() {
                   {project.name}
                 </h3>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

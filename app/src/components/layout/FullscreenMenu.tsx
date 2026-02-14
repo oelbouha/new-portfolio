@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface FullscreenMenuProps {
@@ -17,11 +18,11 @@ const overlayVariants = {
     hidden: { y: '100%' },
     visible: {
         y: 0,
-        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
     exit: {
         opacity: 0,
-        transition: { delay: 0.4, duration: 0.3, ease: 'easeOut' },
+        transition: { delay: 0.4, duration: 0.3, ease: 'easeOut' as const },
     },
 };
 
@@ -33,7 +34,7 @@ const itemVariants = {
         transition: {
             delay: 0.4 + i * 0.1,
             duration: 0.7,
-            ease: [0.16, 1, 0.3, 1],
+            ease: [0.16, 1, 0.3, 1] as const,
         },
     }),
     exit: (i: number) => ({
@@ -42,7 +43,7 @@ const itemVariants = {
         transition: {
             delay: i * 0.05,
             duration: 0.3,
-            ease: 'easeOut',
+            ease: 'easeOut' as const,
         },
     }),
 };
@@ -52,12 +53,12 @@ const textRevealVariants = (enterDelay: number) => ({
     visible: {
         opacity: 1,
         y: 0,
-        transition: { delay: enterDelay, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        transition: { delay: enterDelay, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
     },
     exit: {
         opacity: 0,
         y: -10,
-        transition: { duration: 0.25, ease: 'easeOut' },
+        transition: { duration: 0.25, ease: 'easeOut' as const },
     },
 });
 
@@ -66,12 +67,12 @@ const closeBtnVariants = {
     visible: {
         opacity: 1,
         scale: 1,
-        transition: { delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        transition: { delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
     },
     exit: {
         opacity: 0,
         scale: 0.8,
-        transition: { duration: 0.25, ease: 'easeOut' },
+        transition: { duration: 0.25, ease: 'easeOut' as const },
     },
 };
 
@@ -119,18 +120,29 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
         return () => window.removeEventListener('keydown', handleKey);
     }, [isOpen, onClose]);
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const handleMenuClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
         onClose();
 
-        setTimeout(() => {
-            const targetId = href.replace('#', '');
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }, 800);
-    }, [onClose]);
+        const targetId = href.replace('#', '');
+
+        if (location.pathname !== '/') {
+            // Navigate to home page first, then scroll after mount
+            setTimeout(() => {
+                navigate('/?section=' + targetId);
+            }, 600);
+        } else {
+            setTimeout(() => {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 800);
+        }
+    }, [onClose, navigate, location.pathname]);
 
     return (
         <AnimatePresence>
