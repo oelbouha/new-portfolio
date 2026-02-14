@@ -196,6 +196,109 @@
 }
 
 /* ==========================================
+   PRELOADER
+   ========================================== */
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.preloader-top {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preloader-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.preloader-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.preloader-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.preloader-counter {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(6rem, 20vw, 14rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: hsl(var(--foreground));
+}
+
+.preloader-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preloader-bar-track {
+  width: 100%;
+  height: 2px;
+  background: hsl(var(--foreground) / 0.2);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.preloader-bar-fill {
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--foreground));
+  transform-origin: left;
+}
+
+.preloader-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .preloader {
+    padding: 24px 20px;
+  }
+
+  .preloader-name {
+    font-size: 12px;
+  }
+
+  .preloader-title {
+    font-size: 10px;
+  }
+}
+
+/* ==========================================
    HERO SECTION (bdsn.club style)
    ========================================== */
 
@@ -246,7 +349,7 @@
   display: grid;
   grid-template-columns: repeat(2, 6px);
   grid-template-rows: repeat(2, 6px);
-  gap: 4px;
+  gap: 10px;
   padding: 12px;
   background: none;
   border: none;
@@ -259,12 +362,12 @@
 }
 
 .hero-menu-dots:hover {
-  transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(90deg);
 }
 
 .hero-menu-dots .dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: hsl(var(--foreground));
   transition: background 0.3s ease;
@@ -323,8 +426,10 @@
   color: hsl(var(--foreground));
   margin: 0 0 32px 0;
   text-transform: uppercase;
-  opacity: 0;
-  animation: heroFadeIn 0.8s ease-out 0.2s forwards;
+}
+
+.hero-line {
+  display: block;
 }
 
 .hero-subtitle {
@@ -335,8 +440,6 @@
   color: hsl(var(--foreground-secondary));
   text-transform: uppercase;
   max-width: 600px;
-  opacity: 0;
-  animation: heroFadeIn 0.8s ease-out 0.5s forwards;
 }
 
 /* Bottom Bar */
@@ -388,18 +491,7 @@
   color: hsl(var(--foreground-secondary));
 }
 
-/* Hero fade-in animation */
-@keyframes heroFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* ==========================================
    FULLSCREEN MENU OVERLAY
@@ -418,34 +510,10 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 24px 40px;
-
-  /* Start below viewport */
-  transform: translateY(100%);
-  visibility: hidden;
-  /* No transition when closing - let it fade out */
-  transition: none;
-}
-
-.fullscreen-menu--open {
-  /* Slide up into view */
-  transform: translateY(0);
-  visibility: visible;
-  /* Slide up animation when opening */
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 0s;
-}
-
-/* When closing, fade out after content exits */
-.fullscreen-menu.fullscreen-menu--closing {
-  transform: translateY(0);
-  opacity: 0;
-  transition: opacity 0.3s ease-out 0.2s;
 }
 
 /* Close Button */
 .menu-close-btn {
-  /* Match the menu dots button dimensions EXACTLY */
-  /* Menu dots: 2x2 grid of 6px dots with 4px gap = 16px, plus 12px padding each side = 40px total */
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -456,54 +524,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: scale(0.8);
-  /* Center the button to match dots position */
+  transition: background 0.3s ease;
   position: absolute;
   left: 50%;
   margin-left: -20px;
-  /* Half of width to center */
-}
-
-.fullscreen-menu--open .menu-close-btn {
-  animation: menuFadeScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-}
-
-/* Exit animation for close button - exits first */
-.fullscreen-menu:not(.fullscreen-menu--open) .menu-close-btn {
-  animation: menuFadeOut 0.3s ease-out forwards;
 }
 
 .menu-close-btn:hover {
-  transform: rotate(90deg) scale(1.1);
-  margin-left: -20px;
-  /* Maintain center during hover */
-  background: hsl(var(--accent));
-}
 
-/* Menu top bar text fade in */
-.fullscreen-menu .hero-topbar-left,
-.fullscreen-menu .hero-topbar-right {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.fullscreen-menu--open .hero-topbar-left {
-  animation: menuTextReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-}
-
-.fullscreen-menu--open .hero-topbar-right {
-  animation: menuTextReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
-}
-
-/* Exit animations for top bar - exit first with delay */
-.fullscreen-menu:not(.fullscreen-menu--open) .hero-topbar-left {
-  animation: menuTextExit 0.3s ease-out forwards;
-}
-
-.fullscreen-menu:not(.fullscreen-menu--open) .hero-topbar-right {
-  animation: menuTextExit 0.3s ease-out 0.05s forwards;
 }
 
 /* Menu Navigation — Centered */
@@ -526,50 +554,7 @@
   text-decoration: none;
   text-transform: uppercase;
   position: relative;
-  opacity: 0;
-  transform: translateY(80px);
   transition: color 0.3s ease;
-}
-
-.fullscreen-menu--open .fullscreen-menu-item {
-  animation: menuItemReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.fullscreen-menu--open .fullscreen-menu-item:nth-child(1) {
-  animation-delay: 0.4s;
-}
-
-.fullscreen-menu--open .fullscreen-menu-item:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.fullscreen-menu--open .fullscreen-menu-item:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-.fullscreen-menu--open .fullscreen-menu-item:nth-child(4) {
-  animation-delay: 0.7s;
-}
-
-/* Exit animation for menu items - staggered exit */
-.fullscreen-menu:not(.fullscreen-menu--open) .fullscreen-menu-item {
-  animation: menuItemExit 0.4s ease-out forwards;
-}
-
-.fullscreen-menu:not(.fullscreen-menu--open) .fullscreen-menu-item:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.fullscreen-menu:not(.fullscreen-menu--open) .fullscreen-menu-item:nth-child(2) {
-  animation-delay: 0.05s;
-}
-
-.fullscreen-menu:not(.fullscreen-menu--open) .fullscreen-menu-item:nth-child(3) {
-  animation-delay: 0.1s;
-}
-
-.fullscreen-menu:not(.fullscreen-menu--open) .fullscreen-menu-item:nth-child(4) {
-  animation-delay: 0.15s;
 }
 
 .fullscreen-menu-item:hover {
@@ -593,17 +578,6 @@
   justify-content: space-between;
   width: 100%;
   z-index: 10;
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.fullscreen-menu--open .fullscreen-menu-bottom {
-  animation: menuTextReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-}
-
-/* Exit animation for bottom bar */
-.fullscreen-menu:not(.fullscreen-menu--open) .fullscreen-menu-bottom {
-  animation: menuTextExit 0.3s ease-out forwards;
 }
 
 .fullscreen-menu-bottom-left {
@@ -637,82 +611,6 @@
 .external-arrow {
   font-size: 11px;
   margin-left: 2px;
-}
-
-/* Menu item reveal — slides up with opacity */
-@keyframes menuItemReveal {
-  from {
-    opacity: 0;
-    transform: translateY(80px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Generic text fade-in for topbar, bottombar */
-@keyframes menuTextReveal {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Close button scale in */
-@keyframes menuFadeScale {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Exit animations */
-@keyframes menuFadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-}
-
-@keyframes menuItemExit {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-}
-
-@keyframes menuTextExit {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
 }
 
 /* ==========================================

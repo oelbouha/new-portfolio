@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FullscreenMenuProps {
     isOpen: boolean;
@@ -12,46 +13,100 @@ const menuItems = [
     { label: 'CONTACT', href: '#contact' },
 ];
 
-export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
-    const overlayRef = useRef<HTMLDivElement>(null);
-    const [isAnimating, setIsAnimating] = useState(false);
-    const [isClosing, setIsClosing] = useState(false);
+const overlayVariants = {
+    hidden: { y: '100%' },
+    visible: {
+        y: 0,
+        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    },
+    exit: {
+        opacity: 0,
+        transition: { delay: 0.4, duration: 0.3, ease: 'easeOut' },
+    },
+};
 
-    // Prevent scrolling using overflow hidden to avoid visual jump
+const itemVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: (i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            delay: 0.4 + i * 0.1,
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+        },
+    }),
+    exit: (i: number) => ({
+        opacity: 0,
+        y: -40,
+        transition: {
+            delay: i * 0.05,
+            duration: 0.3,
+            ease: 'easeOut',
+        },
+    }),
+};
+
+const textRevealVariants = (enterDelay: number) => ({
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { delay: enterDelay, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+    exit: {
+        opacity: 0,
+        y: -10,
+        transition: { duration: 0.25, ease: 'easeOut' },
+    },
+});
+
+const closeBtnVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0.8,
+        transition: { duration: 0.25, ease: 'easeOut' },
+    },
+};
+
+const topbarLeftVariants = textRevealVariants(0.4);
+const topbarRightVariants = textRevealVariants(0.7);
+const bottomBarVariants = textRevealVariants(0.8);
+
+export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
+    // Prevent scrolling while keeping scrollbar visible
     useEffect(() => {
         if (isOpen) {
-            // Prevent scrolling by hiding overflow
             const scrollY = window.scrollY;
-            document.documentElement.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
-            // Keep the scroll position visually
+            const prevHtmlOverflowY = document.documentElement.style.overflowY;
+            const prevBodyPosition = document.body.style.position;
+            const prevBodyTop = document.body.style.top;
+            const prevBodyWidth = document.body.style.width;
+            const prevScrollBehavior = document.documentElement.style.scrollBehavior;
+
+            document.documentElement.style.overflowY = 'scroll';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
             document.documentElement.style.scrollBehavior = 'auto';
 
             return () => {
-                // Restore scrolling
-                document.documentElement.style.overflow = '';
-                document.body.style.overflow = '';
-                document.documentElement.style.scrollBehavior = '';
+                const y = Math.abs(parseInt(document.body.style.top || '0', 10)) || 0;
+                document.documentElement.style.overflowY = prevHtmlOverflowY;
+                document.body.style.position = prevBodyPosition;
+                document.body.style.top = prevBodyTop;
+                document.body.style.width = prevBodyWidth;
+                document.documentElement.style.scrollBehavior = prevScrollBehavior;
+                window.scrollTo(0, y);
             };
         }
     }, [isOpen]);
-
-    // Handle opening/closing with animation delay
-    useEffect(() => {
-        if (isOpen) {
-            setIsAnimating(true);
-            setIsClosing(false);
-        } else if (isAnimating) {
-            // Start closing animation
-            setIsClosing(true);
-            // Wait for exit animations to complete before hiding
-            const timer = setTimeout(() => {
-                setIsAnimating(false);
-                setIsClosing(false);
-            }, 500); // Faster exit to match bdsn.club
-            return () => clearTimeout(timer);
-        }
-    }, [isOpen, isAnimating]);
 
     // Handle ESC key
     useEffect(() => {
@@ -64,96 +119,117 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
         return () => window.removeEventListener('keydown', handleKey);
     }, [isOpen, onClose]);
 
-    const handleMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const handleMenuClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
         onClose();
 
-        // Smooth scroll to section
         setTimeout(() => {
             const targetId = href.replace('#', '');
             const targetElement = document.getElementById(targetId);
-
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }, 700); // Wait for menu close animation
-    };
-
-    // Determine class names
-    const menuClasses = [
-        'fullscreen-menu',
-        isOpen && isAnimating && !isClosing ? 'fullscreen-menu--open' : '',
-        isClosing ? 'fullscreen-menu--closing' : ''
-    ].filter(Boolean).join(' ');
+        }, 800);
+    }, [onClose]);
 
     return (
-        <div
-            ref={overlayRef}
-            className={menuClasses}
-            aria-hidden={!isOpen}
-            style={{ display: isAnimating || isOpen ? 'flex' : 'none' }}
-        >
-            {/* Top Bar */}
-            <div className="hero-topbar">
-                <div className="hero-topbar-left">
-                    <span className="hero-local-label">LOCAL/</span>
-                    <span className="hero-time" style={{ fontWeight: 400 }}>35° 46' N</span>
-                </div>
-
-                <button
-                    className="menu-close-btn"
-                    onClick={onClose}
-                    aria-label="Close menu"
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    className="fullscreen-menu"
+                    variants={overlayVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    aria-hidden={!isOpen}
                 >
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        <line x1="1" y1="1" x2="17" y2="17" />
-                        <line x1="17" y1="1" x2="1" y2="17" />
-                    </svg>
-                </button>
+                    {/* Top Bar */}
+                    <div className="hero-topbar">
+                        <motion.div
+                            className="hero-topbar-left"
+                            variants={topbarLeftVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                        >
+                            <span className="hero-local-label">LOCAL/</span>
+                            <span className="hero-time" style={{ fontWeight: 400 }}>35° 46' N</span>
+                        </motion.div>
 
-                <div className="hero-topbar-right">
-                    <a href="mailto:contact@outman.dev" className="hero-cta-btn">
-                        LET'S TALK <span className="hero-cta-arrow">→</span>
-                    </a>
-                </div>
-            </div>
+                        <motion.button
+                            className="menu-close-btn"
+                            onClick={onClose}
+                            aria-label="Close menu"
+                            variants={closeBtnVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            whileHover={{ rotate: 90, scale: 1.1 }}
+                        >
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                <line x1="1" y1="1" x2="17" y2="17" />
+                                <line x1="17" y1="1" x2="1" y2="17" />
+                            </svg>
+                        </motion.button>
 
-            {/* Menu Items */}
-            <nav className="fullscreen-menu-nav">
-                {menuItems.map((item, index) => (
-                    <a
-                        key={item.label}
-                        href={item.href}
-                        className="fullscreen-menu-item"
-                        style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-                        onClick={(e) => handleMenuClick(e, item.href)}
+                        <motion.div
+                            className="hero-topbar-right"
+                            variants={topbarRightVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                        >
+                            <a href="mailto:contact@outman.dev" className="hero-cta-btn">
+                                LET'S TALK <span className="hero-cta-arrow">→</span>
+                            </a>
+                        </motion.div>
+                    </div>
+
+                    {/* Menu Items */}
+                    <nav className="fullscreen-menu-nav">
+                        {menuItems.map((item, index) => (
+                            <motion.a
+                                key={item.label}
+                                href={item.href}
+                                className="fullscreen-menu-item"
+                                custom={index}
+                                variants={itemVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                onClick={(e) => handleMenuClick(e, item.href)}
+                            >
+                                {index === 0 && <span className="menu-item-number">(1)</span>}
+                                {item.label}
+                            </motion.a>
+                        ))}
+                    </nav>
+
+                    {/* Bottom Bar */}
+                    <motion.div
+                        className="fullscreen-menu-bottom"
+                        variants={bottomBarVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                     >
-                        {index === 0 && <span className="menu-item-number">(1)</span>}
-                        {item.label}
-                    </a>
-                ))}
-            </nav>
-
-            {/* Bottom Bar */}
-            <div className="fullscreen-menu-bottom">
-                <div className="fullscreen-menu-bottom-left">
-                    ©2025 ALL RIGHTS RESERVED
-                </div>
-                <div className="fullscreen-menu-bottom-right">
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                        INSTAGRAM<span className="external-arrow">↗</span>
-                    </a>
-                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                        LINKEDIN<span className="external-arrow">↗</span>
-                    </a>
-                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
-                        GITHUB<span className="external-arrow">↗</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+                        <div className="fullscreen-menu-bottom-left">
+                            ©2025 ALL RIGHTS RESERVED
+                        </div>
+                        <div className="fullscreen-menu-bottom-right">
+                            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                                INSTAGRAM<span className="external-arrow">↗</span>
+                            </a>
+                            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                                LINKEDIN<span className="external-arrow">↗</span>
+                            </a>
+                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+                                GITHUB<span className="external-arrow">↗</span>
+                            </a>
+                        </div>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }

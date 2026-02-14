@@ -5,12 +5,12 @@ import { PortfolioCarousel } from '@/sections/home/PortfolioCarousel';
 import { ServicesGrid } from '@/sections/home/ServicesGrid';
 import { CTASection } from '@/sections/home/CTASection';
 
-export function Home() {
+export function Home({ preloaderDone = true }: { preloaderDone?: boolean }) {
   return (
     <div className="min-h-screen bg-background">
       <main>
         <div id="hero">
-          <HeroSection />
+          <HeroSection preloaderDone={preloaderDone} />
         </div>
         <LaptopShowcase />
         <div id="work">
