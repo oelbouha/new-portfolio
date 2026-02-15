@@ -19,7 +19,7 @@ const projects = [
     id: 2,
     slug: 'inception',
     name: 'Inception Unleashed',
-    image: 'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&h=600&fit=crop',
+    image: '/images/docker1.png',
     category: 'DevOps',
     height: 'medium',
     description: 'Dockerized web stack with NGINX, WordPress, and MariaDB showcasing containerization and automation.',
@@ -29,7 +29,7 @@ const projects = [
     id: 3,
     slug: 'webserv',
     name: 'Webserv',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop',
+    image: '/images/webserv1.avif',
     category: 'System Programming',
     height: 'tall',
     description: 'Custom HTTP server built from scratch in C++98, handling multiple connections with non-blocking I/O.',
@@ -87,11 +87,7 @@ export function PortfolioCarousel() {
     '2-col': 'grid-cols-1 sm:grid-cols-2'
   };
 
-  const heightClasses = {
-    'short': 'aspect-[4/3]',
-    'medium': 'aspect-[4/4]',
-    'tall': 'aspect-[4/5]'
-  };
+
 
   const container = {
     hidden: { opacity: 0 },
@@ -220,7 +216,6 @@ export function PortfolioCarousel() {
                 <ProjectCard
                   project={project}
                   viewMode={viewMode}
-                  heightClass={heightClasses[project.height as keyof typeof heightClasses]}
                   item={item}
                 />
               </motion.div>
@@ -235,11 +230,10 @@ export function PortfolioCarousel() {
 interface ProjectCardProps {
   project: typeof projects[0];
   viewMode: ViewMode;
-  heightClass: string;
   item: any;
 }
 
-function ProjectCard({ project, viewMode, heightClass, item }: ProjectCardProps) {
+function ProjectCard({ project, viewMode, item }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [arrowPosition, setArrowPosition] = useState({ x: 50, y: 50 });
 
@@ -269,13 +263,13 @@ function ProjectCard({ project, viewMode, heightClass, item }: ProjectCardProps)
     >
       {/* Image Container */}
       <div className={cn(
-        "relative overflow-hidden bg-card",
-        viewMode === 'list' ? "w-48 h-32 flex-shrink-0" : heightClass
+        "relative overflow-hidden",
+        viewMode === 'list' && "w-48 flex-shrink-0"
       )}>
         <img
           src={project.image}
           alt={project.name}
-          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+          className="w-full h-auto object-contain transition-all duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
 
