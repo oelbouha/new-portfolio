@@ -38,8 +38,6 @@ export function LaptopShowcase() {
     return () => clearInterval(interval);
   }, []);
 
-  const currentProject = projects[currentIndex];
-
   return (
     <section ref={containerRef} className="relative py-20 overflow-hidden">
       <motion.div

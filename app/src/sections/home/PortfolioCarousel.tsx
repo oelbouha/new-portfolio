@@ -73,24 +73,9 @@ type ViewMode = '4-col' | '3-col' | '2-col';
 
 export function PortfolioCarousel() {
   const [viewMode, setViewMode] = useState<ViewMode>('3-col');
-  const [shuffledProjects, setShuffledProjects] = useState(projects);
+  const [shuffledProjects] = useState(projects);
 
-  // Shuffle function
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  };
 
-  // Handle grid change with shuffle
-  const handleGridChange = (mode: ViewMode) => {
-    if (mode === viewMode) return;
-    setViewMode(mode);
-    setShuffledProjects(shuffleArray([...projects]));
-  };
 
   const gridClasses = {
     '4-col': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
@@ -99,21 +84,6 @@ export function PortfolioCarousel() {
   };
 
 
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -227,7 +197,6 @@ export function PortfolioCarousel() {
                 <ProjectCard
                   project={project}
                   viewMode={viewMode}
-                  item={item}
                 />
               </motion.div>
             ))}
@@ -241,10 +210,9 @@ export function PortfolioCarousel() {
 interface ProjectCardProps {
   project: typeof projects[0];
   viewMode: ViewMode;
-  item: any;
 }
 
-function ProjectCard({ project, viewMode, item }: ProjectCardProps) {
+function ProjectCard({ project }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [arrowPosition, setArrowPosition] = useState({ x: 50, y: 50 });
 
@@ -269,13 +237,11 @@ function ProjectCard({ project, viewMode, item }: ProjectCardProps) {
       onMouseMove={handleMouseMove}
       className={cn(
         "group block",
-        viewMode === 'list' && "flex gap-4 items-center"
       )}
     >
       {/* Image Container */}
       <div className={cn(
-        "relative overflow-hidden",
-        viewMode === 'list' && "w-48 flex-shrink-0"
+        "relative overflow-hidden"
       )}>
         <img
           src={project.image}

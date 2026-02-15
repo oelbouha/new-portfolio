@@ -60,27 +60,6 @@ export function ServicesGrid() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, [hasScrolled]);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1]
-      }
-    }
-  };
-
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="w-full">
