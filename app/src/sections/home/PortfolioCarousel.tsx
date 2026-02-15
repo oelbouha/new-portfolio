@@ -29,7 +29,7 @@ const projects = [
     id: 3,
     slug: 'webserv',
     name: 'Webserv',
-    image: '/images/webserv1.avif',
+    image: '/images/webserv2.png',
     category: 'System Programming',
     height: 'tall',
     description: 'Custom HTTP server built from scratch in C++98, handling multiple connections with non-blocking I/O.',
@@ -39,7 +39,7 @@ const projects = [
     id: 4,
     slug: 'Wordpress website',
     name: 'Wordpress Website',
-    image: '/images/zerotocoder/Create_a_mockup_2k_202602141803.jpeg',
+    image: '/images/zerotocoder/2.jpeg',
     category: 'Web Development',
     height: 'medium',
     description: 'Custom WordPress website built with a focus on performance and responsive design.',
@@ -55,6 +55,17 @@ const projects = [
     height: 'tall',
     description: 'A dynamic gaming website featuring Ping Pong and Slap Hands, playable offline or online with friends.',
     tech: 'JavaScript, WebSocket, Full-Stack'
+  },
+  {
+    id: 6,
+    slug: 'portfolio',
+    name: 'Portfolio Website',
+    image: '/images/portfolio.jpeg',
+    category: 'Web Development',
+    height: 'tall',
+    description: 'A dynamic portfolio website showcasing projects and skills.',
+    tech: 'React, TypeScript, Tailwind CSS'
+
   },
 ];
 
@@ -116,7 +127,7 @@ export function PortfolioCarousel() {
           className="mb-6"
         >
           <div className="flex items-center gap-4">
-            <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">Our Work</span>
+            <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">My Work</span>
             <div className="flex-1 h-px bg-border"></div>
           </div>
         </motion.div>

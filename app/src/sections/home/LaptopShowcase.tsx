@@ -3,16 +3,16 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 const projects = [
   {
-    name: 'Assa Paper',
-    image: '/images/portfolio/assa-paper.jpg',
+    name: 'Revo Website',
+    image: '/images/revo/revo4.jpeg',
   },
   {
-    name: 'Sumber Anugerah Shipyard',
-    image: '/images/portfolio/sumber-anugerah.jpg',
+    name: 'Revo Branding',
+    image: '/images/revo/revoo.jpeg',
   },
   {
-    name: 'Zizi Calligraphy',
-    image: '/images/portfolio/zizi-calligraphy.jpg',
+    name: 'WordPress Website',
+    image: '/images/zerotocoder/3.jpeg',
   },
 ];
 

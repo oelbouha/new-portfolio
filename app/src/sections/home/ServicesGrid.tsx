@@ -93,7 +93,7 @@ export function ServicesGrid() {
           className="mb-12"
         >
           <div className="flex items-center gap-4">
-            <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">Our Services</span>
+            <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">Services</span>
             <div className="flex-1 h-px bg-border"></div>
           </div>
         </motion.div>
@@ -120,10 +120,10 @@ export function ServicesGrid() {
                 </div>
                 <div className="relative z-10">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2">
-                Our Approach to
+                How I Approach
               </h2>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
-                Design and Build
+                Design & Development
               </h2>
                 </div>
             </div>
@@ -174,10 +174,10 @@ export function ServicesGrid() {
                 </div>
                 <div className="relative z-10">
               <h2 className="text-2xl font-bold text-accent mb-">
-                Our Approach to
+                How I Approach
               </h2>
               <h2 className="text-2xl font-bold text-accent">
-                Design and Build
+                Design & Development
               </h2>
                 </div>
             </div>

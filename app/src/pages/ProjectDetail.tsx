@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence, useInView } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -33,8 +33,11 @@ const projectsData = [
     overview: 'Dockerized web stack with NGINX, WordPress, and MariaDB showcasing containerization and automation.',
     conclusion: 'Built a robust, scalable infrastructure demonstrating modern DevOps practices and container orchestration.',
     images: [
-      'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1200&h=675&fit=crop',
-      'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=600&fit=crop',
+      '/images/docker.jpeg',
+      '/images/docker1.png',
+      '/images/docker2.webp',
+      '/images/docker4.png',
+      '/images/docker5.png',
     ]
   },
   {
@@ -46,8 +49,9 @@ const projectsData = [
     overview: 'Custom HTTP server built from scratch in C++98, handling multiple connections with non-blocking I/O.',
     conclusion: 'Developed a high-performance web server from the ground up, deepening understanding of HTTP protocol and network programming.',
     images: [
-      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=675&fit=crop',
-      'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&h=600&fit=crop',
+      '/images/webserv.png',
+      '/images/webserv1.avif',
+      '/images/webserv2.png',
     ]
   },
   {
@@ -59,10 +63,10 @@ const projectsData = [
     overview: 'Custom WordPress website built with a focus on performance and responsive design.',
     conclusion: 'Successfully delivered a fully responsive and optimized WordPress website with custom theme development.',
     images: [
-      '/images/zerotocoder/Create_a_mockup_2k_202602141803.jpeg',
-      '/images/zerotocoder/Create_a_mockup_2k_202602141803 (1).jpeg',
-      '/images/zerotocoder/Create_a_mockup_2k_202602141801.jpeg',
-      '/images/zerotocoder/Create_a_mockup_2k_202602141801 (1).jpeg',
+      '/images/zerotocoder/1.jpeg',
+      '/images/zerotocoder/2.jpeg',
+      '/images/zerotocoder/3.jpeg',
+      '/images/zerotocoder/4.jpeg',
     ]
   },
   {
@@ -82,6 +86,22 @@ const projectsData = [
       '/images/revo/revo4.jpeg',
     ]
   },
+  {
+    id: 6,
+    slug: 'portfolio',
+    title: 'Portfolio Website',
+    tags: ['Web Development', 'React', 'TypeScript', 'Tailwind CSS'],
+    link: '',
+    overview: 'A dynamic portfolio website showcasing projects and skills with modern design and smooth animations.',
+    conclusion: 'Successfully delivered a polished portfolio website with responsive design and engaging user experience.',
+    images: [
+      '/images/portfolio.jpeg',
+      '/images/portfolio1.jpeg',
+      '/images/portfolio2.jpeg',
+      '/images/portfolio4.jpeg',
+      '/images/portfolio5.jpeg',
+    ]
+  },
 ];
 
 /* ─────────────── Scroll-Driven Image Showcase ─────────────── */
@@ -93,6 +113,8 @@ interface ScrollImageShowcaseProps {
 
 function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const laptopRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(laptopRef, { once: true, margin: "-80px" });
   const isArrowNavRef = useRef(false);
 
   const totalScreens = images.length;
@@ -179,16 +201,16 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
       className="relative"
       style={{ height: `${totalScreens * 50}vh` }}
     >
-      {/* Sticky wrapper */}
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center relative">
+      {/* Sticky wrapper — offset for fixed navbar (~80px) */}
+      <div className="sticky top-[80px] flex flex-col items-center justify-center relative" style={{ height: 'calc(100vh - 80px)' }}>
         <motion.div
           style={{ width, borderRadius, overflow: 'hidden' }}
           className="mx-auto"
         >
           <motion.div
+            ref={laptopRef}
             initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Laptop Frame */}
@@ -204,7 +226,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
                         key={currentIndex}
                         src={images[currentIndex]}
                         alt={`${title} screenshot ${currentIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-contain"
                         custom={direction}
                         variants={{
                           enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -425,15 +447,15 @@ export default function ProjectDetail() {
           className="w-full px-[40px] py-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Our Deliver.
+            The Process.
           </h2>
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mt-2">
-            Best Result For Our Client.
+            Crafted With Precision & Care.
           </h3>
         </motion.div>
 
         {/* Scroll-Driven Image Showcase */}
-        <ScrollImageShowcase images={project.images} title={project.title} />
+        <ScrollImageShowcase key={project.slug} images={project.images} title={project.title} />
 
         {/* Back Button */}
         <motion.div
