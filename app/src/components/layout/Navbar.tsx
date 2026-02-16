@@ -47,7 +47,7 @@ export function Navbar({ currentPage = 'home' }: NavbarProps) {
           {/* Right Side Actions */}
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <div className="hidden sm:block">
+            <div className={cn("hidden sm:block", mobileMenuOpen && "!hidden")}>
               <CTAButton variant="primary" size="sm" showArrow>
                 Book a Call
               </CTAButton>
@@ -105,11 +105,6 @@ export function Navbar({ currentPage = 'home' }: NavbarProps) {
             >
               About
             </a>
-            <div className="pt-2">
-              <CTAButton variant="primary" size="md" showArrow className="w-full">
-                Book a Call
-              </CTAButton>
-            </div>
           </div>
         </div>
       </div>

@@ -185,7 +185,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
                         </motion.button>
 
                         <motion.div
-                            className="hero-topbar-right"
+                            className="hero-topbar-right hidden md:block"
                             variants={topbarRightVariants}
                             initial="hidden"
                             animate="visible"

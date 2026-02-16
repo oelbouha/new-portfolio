@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const projects = [
   {
@@ -25,11 +26,20 @@ export function LaptopShowcase() {
     offset: ["start end", "end start"]
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   // Transform scroll progress to width (from 80% to 100%)
   const width = useTransform(scrollYProgress, [0, 0.5], ["80%", "100%"]);
 
   // Transform scroll progress to padding (from normal to 0)
-  const padding = useTransform(scrollYProgress, [0, 0.5], [32, 0]);
+  const padding = useTransform(scrollYProgress, [0, 0.5], isMobile ? [16, 0] : [32, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,9 +63,9 @@ export function LaptopShowcase() {
           {/* Laptop Mockup */}
           <div className="relative">
             {/* Laptop Screen */}
-            <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
+            <div className={cn("relative bg-[#1a1a1a] shadow-2xl", isMobile ? "rounded-xl p-1" : "rounded-t-2xl p-3 sm:p-4")}>
               {/* Screen Bezel */}
-              <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
+              <div className={cn("relative bg-black overflow-hidden rounded-lg", isMobile ? "h-[90vh]" : "aspect-[16/10]")}>
                 {/* Screen Content - Scrolling Images */}
                 <div className="relative w-full h-full overflow-hidden">
                   {projects.map((project, index) => (
@@ -76,20 +86,22 @@ export function LaptopShowcase() {
               </div>
 
               {/* Camera */}
-              <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
+              {!isMobile && <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />}
             </div>
 
-            {/* Laptop Base */}
-            <div className="relative">
-              {/* Keyboard Area */}
-              <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
+            {/* Laptop Base — hidden on mobile */}
+            {!isMobile && (
+              <div className="relative">
+                {/* Keyboard Area */}
+                <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
 
-              {/* Trackpad */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
-            </div>
+                {/* Trackpad */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
+              </div>
+            )}
 
             {/* Shadow */}
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
+            {!isMobile && <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />}
           </div>
         </motion.div>
       </motion.div>

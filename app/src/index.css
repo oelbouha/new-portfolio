@@ -528,6 +528,7 @@
   position: absolute;
   left: 50%;
   margin-left: -20px;
+  padding: 10px;
 }
 
 .menu-close-btn:hover {
@@ -623,12 +624,20 @@
   }
 
   .hero-topbar-left {
-    gap: 4px;
+    display: none;
   }
 
-  .hero-local-label,
-  .hero-time {
-    font-size: 11px;
+  .hero-topbar {
+    justify-content: space-between;
+  }
+
+  .hero-menu-dots {
+    position: static;
+    transform: none;
+  }
+
+  .hero-menu-dots:hover {
+    transform: rotate(90deg);
   }
 
   .hero-cta-btn {
@@ -652,6 +661,11 @@
 
   .fullscreen-menu {
     padding: 16px 20px;
+  }
+
+  .menu-close-btn {
+    position: static;
+    margin-left: 0;
   }
 
 

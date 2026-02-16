@@ -131,38 +131,8 @@ export function ServicesGrid() {
           </div>
         </div>
 
-        {/* Mobile Layout — Swipeable Cards */}
+        {/* Mobile Layout — Swipeable Cards (including title card) */}
         <div className="md:hidden">
-          {/* Title Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 overflow-hidden">
-                <div className="absolute inset-0 opacity-5">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
-                      backgroundSize: '20px 20px'
-                    }}
-                  />
-                </div>
-                <div className="relative z-10">
-              <h2 className="text-2xl font-bold text-accent mb-">
-                How I Approach
-              </h2>
-              <h2 className="text-2xl font-bold text-accent">
-                Design & Development
-              </h2>
-                </div>
-            </div>
-          </motion.div>
-
-          {/* Scrollable Row */}
           <div className="relative">
             <div
               ref={scrollContainerRef}
@@ -174,40 +144,61 @@ export function ServicesGrid() {
                 msOverflowStyle: 'none',
               }}
             >
+              {/* "How I Approach" card in the row */}
+              <div
+                className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-5 overflow-hidden flex-shrink-0 flex items-center"
+                style={{
+                  width: '80vw',
+                  maxWidth: '340px',
+                  scrollSnapAlign: 'start',
+                  minHeight: '220px',
+                }}
+              >
+                <div className="absolute inset-0 opacity-5">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+                      backgroundSize: '20px 20px'
+                    }}
+                  />
+                </div>
+                <div className="relative z-10">
+                  <h2 className="text-2xl font-bold text-accent mb-1">
+                    How I Approach
+                  </h2>
+                  <h2 className="text-2xl font-bold text-accent">
+                    Design & Development
+                  </h2>
+                </div>
+              </div>
+
+              {/* Service cards */}
               {services.map((service) => (
                 <section
                   key={service.category}
-                  className="flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 bg-[#454545] border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full flex-shrink-0"
+                  className="flex flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 bg-[#454545] border border-border hover:border-accent/50 service-card skill-item flex-shrink-0"
                   style={{
                     width: '80vw',
                     maxWidth: '340px',
                     scrollSnapAlign: 'start',
+                    minHeight: '220px',
                   }}
                 >
                   <div>
-                    <p className="tag-font text-[#e8e8e8] uppercase">
+                    <p className="tag-font text-[#e8e8e8] uppercase text-[12px] tracking-wider">
                       {service.category}
                     </p>
-                    <h4 className="subheading-regular pb-2 hidden !text-[24px] !leading-[32px] !font-normal">
-                      {service.title}
-                    </h4>
                   </div>
-                  <h4 className="w-[390px] max-xl:w-[80%] subheading-regular pb-2 text-[#ffffff] !text-[24px] !leading-[32px] !font-normal">
+                  <h4 className="subheading-regular pb-2 text-[#ffffff] !text-[24px] !leading-[32px] !font-normal">
                     {service.title}
                   </h4>
-                  <p className="text-[#ffffff] !text-[32px] !leading-[40px] !tracking-[-0.544px] !font-normal">
-                    {service.description}
-                  </p>
-                  <p className="text-[#ffffff] !text-[32px] !leading-[40px] !tracking-[-0.544px] !font-normal">
-                    {service.description}
-                  </p>
                 </section>
               ))}
             </div>
 
             {/* Swipe Indicators */}
             <div className="flex items-center justify-center gap-2 mt-4">
-              {/* Left arrow hint */}
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: scrollPosition !== 'start' ? 0.7 : 0 }}
@@ -219,7 +210,6 @@ export function ServicesGrid() {
 
               <span className="text-foreground-tertiary mx-2">·</span>
 
-              {/* Right arrow hint */}
               <motion.span
                 initial={{ opacity: 1 }}
                 animate={{
