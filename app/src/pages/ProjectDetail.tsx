@@ -111,9 +111,15 @@ const projectsData = [
     overview: 'A modern Flutter application that connects travelers with people who need to ship packages. It provides a platform for peer-to-peer package delivery services, featuring real-time tracking, secure Stripe payments, multi-language support, and in-app messaging.',
     conclusion: 'Successfully delivered a full-featured mobile application with real-time notifications, secure payment processing, and a seamless user experience for both senders and couriers.',
     images: [
+      '/images/mobile/cover.png',
       '/images/mobile/mobile.png',
       '/images/mobile/mobile1.png',
       '/images/mobile/mobile2.png',
+      '/images/mobile/Whisk_10a992c7bc333a9ab644a7d2c85b159edr.png',
+      '/images/mobile/Whisk_188c37540388ac2af8f4f5905a9f78d3dr.png',
+      '/images/mobile/Whisk_9ff658375fc0f839dfc4f628c878c6a0dr.png',
+      '/images/mobile/Whisk_b19742d35327f6ab3474c6018115f2a4dr.png',
+      '/images/mobile/Whisk_dfdc40498fd356faa444ae925c369615dr.png',
     ]
   },
 ];
@@ -123,12 +129,13 @@ const projectsData = [
 interface ScrollImageShowcaseProps {
   images: string[];
   title: string;
+  isMobile?: boolean;
 }
 
-function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
+function ScrollImageShowcase({ images, title, isMobile = false }: ScrollImageShowcaseProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const laptopRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(laptopRef, { once: true, margin: "-80px" });
+  const frameRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(frameRef, { once: true, margin: "-80px" });
   const isArrowNavRef = useRef(false);
 
   const totalScreens = images.length;
@@ -139,7 +146,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
     offset: ["start end", "end start"],
   });
 
-  // Tracker 2: image swapping while pinned (tight range)
+  // Tracker 2: image swapping while pinned
   const { scrollYProgress: swapProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -167,9 +174,13 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
     }
   });
 
-  // Width expand/shrink based on visibility progress
-  const width = useTransform(expandProgress, [0, 0.25, 0.75, 1], ["80%", "100%", "100%", "80%"]);
-  const borderRadius = useTransform(expandProgress, [0, 0.25, 0.75, 1], [24, 0, 0, 24]);
+  // Fullscreen expand: when pinned, go to full viewport (top:0, 100vh) and above navbar
+  const top = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [80, 0, 0, 80]);
+  const height = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [
+    'calc(100vh - 80px)', '100vh', '100vh', 'calc(100vh - 80px)'
+  ]);
+  const zIndex = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [40, 60, 60, 40]);
+  const bgOpacity = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [0, 1, 1, 0]);
 
   // Scroll to the position for a given image index
   const scrollToImage = useCallback(
@@ -178,8 +189,6 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
       const rect = containerRef.current.getBoundingClientRect();
       const containerTop = window.scrollY + rect.top;
       const containerHeight = containerRef.current.offsetHeight;
-      // With offset ["start start", "end end"]:
-      // progress 0 = containerTop, progress 1 = containerTop + containerHeight - viewportHeight
       const scrollRange = containerHeight - window.innerHeight;
       const targetProgress = index / (totalScreens - 1);
       const targetScroll = containerTop + targetProgress * scrollRange;
@@ -198,8 +207,8 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
   );
 
   const switchImage = useCallback(
-    (direction: 'next' | 'prev') => {
-      const newIndex = direction === 'next'
+    (dir: 'next' | 'prev') => {
+      const newIndex = dir === 'next'
         ? Math.min(currentIndex + 1, images.length - 1)
         : Math.max(currentIndex - 1, 0);
       if (newIndex !== currentIndex) {
@@ -215,32 +224,51 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
       className="relative"
       style={{ height: `${totalScreens * 50}vh` }}
     >
-      {/* Sticky wrapper — offset for fixed navbar (~80px) */}
-      <div className="sticky top-[80px] flex flex-col items-center justify-center relative" style={{ height: 'calc(100vh - 80px)' }}>
+      {/* Sticky fullscreen wrapper — covers navbar when pinned */}
+      <motion.div
+        className="sticky left-0 right-0 w-full flex flex-col items-center justify-center"
+        style={{ top, height, zIndex }}
+      >
+        {/* Background overlay that appears when fullscreen */}
         <motion.div
-          style={{ width, borderRadius, overflow: 'hidden' }}
-          className="mx-auto"
-        >
+          className="absolute inset-0 bg-background"
+          style={{ opacity: bgOpacity }}
+        />
+
+        {/* Content with padding */}
+        <div className="relative w-full h-full flex flex-col items-center justify-center p-6 sm:p-10">
           <motion.div
-            ref={laptopRef}
+            ref={frameRef}
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-1 flex items-center justify-center w-full"
           >
-            {/* Laptop Frame */}
-            <div className="relative">
-              {/* Laptop Screen */}
-              <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-                {/* Screen Bezel */}
-                <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
-                  {/* Screen Content – Sliding Images */}
-                  <div className="relative w-full h-full">
+            {isMobile ? (
+              /* ── Phone Frame ── */
+              <div className="relative h-full flex items-center justify-center">
+                <div
+                  className="relative bg-[#1a1a1a] rounded-[3rem] shadow-2xl flex flex-col"
+                  style={{ height: 'min(calc(100vh - 160px), 680px)', aspectRatio: '9/19.5' }}
+                >
+                  {/* Side buttons */}
+                  <div className="absolute -left-[3px] top-24 w-[3px] h-8 bg-[#333] rounded-l-sm" />
+                  <div className="absolute -left-[3px] top-36 w-[3px] h-12 bg-[#333] rounded-l-sm" />
+                  <div className="absolute -left-[3px] top-52 w-[3px] h-12 bg-[#333] rounded-l-sm" />
+                  <div className="absolute -right-[3px] top-32 w-[3px] h-16 bg-[#333] rounded-r-sm" />
+
+                  {/* Screen area */}
+                  <div className="flex-1 bg-black rounded-[2.6rem] m-2 overflow-hidden relative">
+                    {/* Notch */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#1a1a1a] rounded-full z-10" />
+
+                    {/* Screen Content */}
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img
                         key={currentIndex}
                         src={images[currentIndex]}
                         alt={`${title} screenshot ${currentIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-contain"
+                        className="absolute inset-0 w-full h-full object-cover"
                         custom={direction}
                         variants={{
                           enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -253,65 +281,96 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
                         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                       />
                     </AnimatePresence>
+
+                    {/* Screen Reflection */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-10" />
                   </div>
 
-                  {/* Screen Reflection */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                  {/* Home indicator */}
+                  <div className="flex justify-center pb-2">
+                    <div className="w-24 h-1 bg-white/30 rounded-full" />
+                  </div>
                 </div>
 
-                {/* Camera */}
-                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
+                {/* Phone shadow */}
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-black/30 blur-xl rounded-full" />
               </div>
-
-              {/* Laptop Base */}
-              <div className="relative">
-                <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
+            ) : (
+              /* ── Laptop Frame ── */
+              <div className="relative w-full">
+                <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
+                  <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
+                    <div className="relative w-full h-full">
+                      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                        <motion.img
+                          key={currentIndex}
+                          src={images[currentIndex]}
+                          alt={`${title} screenshot ${currentIndex + 1}`}
+                          className="absolute inset-0 w-full h-full object-contain"
+                          custom={direction}
+                          variants={{
+                            enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
+                            center: { x: 0, opacity: 1 },
+                            exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
+                          }}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                        />
+                      </AnimatePresence>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                  </div>
+                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
+                </div>
+                <div className="relative">
+                  <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
+                </div>
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
               </div>
-
-              {/* Shadow */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
-            </div>
+            )}
           </motion.div>
-        </motion.div>
 
-        {/* Arrow Navigation – outside all overflow:hidden containers */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
-          <button
-            onClick={() => switchImage('prev')}
-            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
-              }`}
-            disabled={currentIndex === 0}
-            aria-label="Previous image"
-          >
-            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-          </button>
+          {/* Arrow Navigation */}
+          <div className="relative z-50 flex items-center gap-4 mt-4 shrink-0">
+            <button
+              onClick={() => switchImage('prev')}
+              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
+                }`}
+              disabled={currentIndex === 0}
+              aria-label="Previous image"
+            >
+              <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
 
-          <div className="flex items-center gap-1.5">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToImage(index)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
-                  ? 'bg-[hsl(var(--accent))] w-5'
-                  : 'bg-[hsl(var(--accent)/0.4)] w-1.5 hover:bg-[hsl(var(--accent)/0.7)]'
-                  }`}
-                aria-label={`View image ${index + 1}`}
-              />
-            ))}
+            <div className="flex items-center gap-1.5">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToImage(index)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
+                      ? 'bg-[hsl(var(--accent))] w-5'
+                      : 'bg-[hsl(var(--accent)/0.4)] w-1.5 hover:bg-[hsl(var(--accent)/0.7)]'
+                    }`}
+                  aria-label={`View image ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => switchImage('next')}
+              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
+                }`}
+              disabled={currentIndex === images.length - 1}
+              aria-label="Next image"
+            >
+              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            </button>
           </div>
-
-          <button
-            onClick={() => switchImage('next')}
-            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
-              }`}
-            disabled={currentIndex === images.length - 1}
-            aria-label="Next image"
-          >
-            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-          </button>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -469,7 +528,12 @@ export default function ProjectDetail() {
         </motion.div>
 
         {/* Scroll-Driven Image Showcase */}
-        <ScrollImageShowcase key={project.slug} images={project.images} title={project.title} />
+        <ScrollImageShowcase
+          key={project.slug}
+          images={project.images}
+          title={project.title}
+          isMobile={project.slug === 'quickdrop'}
+        />
 
         {/* Back Button */}
         <motion.div
