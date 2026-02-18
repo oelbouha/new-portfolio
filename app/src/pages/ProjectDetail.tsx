@@ -129,10 +129,9 @@ const projectsData = [
 interface ScrollImageShowcaseProps {
   images: string[];
   title: string;
-  isMobile?: boolean;
 }
 
-function ScrollImageShowcase({ images, title, isMobile = false }: ScrollImageShowcaseProps) {
+function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(frameRef, { once: true, margin: "-80px" });
@@ -242,33 +241,19 @@ function ScrollImageShowcase({ images, title, isMobile = false }: ScrollImageSho
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 flex items-center justify-center w-full"
+            className="flex-1 flex items-center justify-center w-full max-w-6xl max-h-[80vh]"
           >
-            {isMobile ? (
-              /* ── Phone Frame ── */
-              <div className="relative h-full flex items-center justify-center">
-                <div
-                  className="relative bg-[#1a1a1a] rounded-[3rem] shadow-2xl flex flex-col"
-                  style={{ height: 'min(calc(100vh - 160px), 680px)', aspectRatio: '9/19.5' }}
-                >
-                  {/* Side buttons */}
-                  <div className="absolute -left-[3px] top-24 w-[3px] h-8 bg-[#333] rounded-l-sm" />
-                  <div className="absolute -left-[3px] top-36 w-[3px] h-12 bg-[#333] rounded-l-sm" />
-                  <div className="absolute -left-[3px] top-52 w-[3px] h-12 bg-[#333] rounded-l-sm" />
-                  <div className="absolute -right-[3px] top-32 w-[3px] h-16 bg-[#333] rounded-r-sm" />
-
-                  {/* Screen area */}
-                  <div className="flex-1 bg-black rounded-[2.6rem] m-2 overflow-hidden relative">
-                    {/* Notch */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#1a1a1a] rounded-full z-10" />
-
-                    {/* Screen Content */}
+            {/* ── Laptop Frame ── */}
+            <div className="relative w-full">
+              <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
+                <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
+                  <div className="relative w-full h-full">
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img
                         key={currentIndex}
                         src={images[currentIndex]}
                         alt={`${title} screenshot ${currentIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-contain"
                         custom={direction}
                         variants={{
                           enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -281,56 +266,17 @@ function ScrollImageShowcase({ images, title, isMobile = false }: ScrollImageSho
                         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                       />
                     </AnimatePresence>
-
-                    {/* Screen Reflection */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-10" />
                   </div>
-
-                  {/* Home indicator */}
-                  <div className="flex justify-center pb-2">
-                    <div className="w-24 h-1 bg-white/30 rounded-full" />
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 </div>
-
-                {/* Phone shadow */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[60%] h-8 bg-black/30 blur-xl rounded-full" />
+                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
               </div>
-            ) : (
-              /* ── Laptop Frame ── */
-              <div className="relative w-full">
-                <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-                  <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10]">
-                    <div className="relative w-full h-full">
-                      <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                        <motion.img
-                          key={currentIndex}
-                          src={images[currentIndex]}
-                          alt={`${title} screenshot ${currentIndex + 1}`}
-                          className="absolute inset-0 w-full h-full object-contain"
-                          custom={direction}
-                          variants={{
-                            enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
-                            center: { x: 0, opacity: 1 },
-                            exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
-                          }}
-                          initial="enter"
-                          animate="center"
-                          exit="exit"
-                          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                        />
-                      </AnimatePresence>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-                  </div>
-                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
-                </div>
-                <div className="relative">
-                  <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
-                </div>
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
+              <div className="relative">
+                <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
               </div>
-            )}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
+            </div>
           </motion.div>
 
           {/* Arrow Navigation */}
@@ -351,8 +297,8 @@ function ScrollImageShowcase({ images, title, isMobile = false }: ScrollImageSho
                   key={index}
                   onClick={() => scrollToImage(index)}
                   className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
-                      ? 'bg-[hsl(var(--accent))] w-5'
-                      : 'bg-[hsl(var(--accent)/0.4)] w-1.5 hover:bg-[hsl(var(--accent)/0.7)]'
+                    ? 'bg-[hsl(var(--accent))] w-5'
+                    : 'bg-[hsl(var(--accent)/0.4)] w-1.5 hover:bg-[hsl(var(--accent)/0.7)]'
                     }`}
                   aria-label={`View image ${index + 1}`}
                 />
@@ -532,7 +478,6 @@ export default function ProjectDetail() {
           key={project.slug}
           images={project.images}
           title={project.title}
-          isMobile={project.slug === 'quickdrop'}
         />
 
         {/* Back Button */}
