@@ -252,7 +252,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
             {/* ── Laptop Frame ── */}
             <div className="relative w-full">
               <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-                <div className="relative bg-[#1a1a1a] rounded-lg overflow-hidden aspect-[16/10] p-8 sm:p-12">
+                <div className="relative bg-[#1a1a1a] rounded-lg overflow-hidden aspect-[16/10]">
                   <div className="relative w-full h-full">
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img
