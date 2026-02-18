@@ -252,14 +252,14 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
             {/* ── Laptop Frame ── */}
             <div className="relative w-full">
               <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-                <div className="relative bg-black rounded-lg overflow-hidden aspect-[16/10] p-1">
+                <div className="relative bg-transparent rounded-lg overflow-hidden aspect-[16/10] p-4 sm:p-6">
                   <div className="relative w-full h-full">
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img
                         key={currentIndex}
                         src={images[currentIndex]}
                         alt={`${title} screenshot ${currentIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-contain rounded-md"
+                        className="absolute inset-0 w-full h-full object-contain rounded-md shadow-lg"
                         custom={direction}
                         variants={{
                           enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
