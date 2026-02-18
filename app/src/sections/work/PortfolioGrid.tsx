@@ -19,6 +19,7 @@ const projects = [
   { id: 13, name: 'Lestari Osean', image: '/images/portfolio/lestari-osean.jpg', category: 'Web Design' },
   { id: 14, name: 'Spectra Consultant', image: '/images/portfolio/spectra-consultant.jpg', category: 'Web Design' },
   { id: 15, name: 'Sumber Anugerah', image: '/images/portfolio/sumber-anugerah.jpg', category: 'Branding' },
+  { id: 16, name: 'QuickDrop', image: '/images/mobile/mobile.png', category: 'Mobile Development' },
 ];
 
 type GridLayout = 2 | 3 | 4;

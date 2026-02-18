@@ -65,7 +65,16 @@ const projects = [
     height: 'tall',
     description: 'A dynamic portfolio website showcasing projects and skills.',
     tech: 'React, TypeScript, Tailwind CSS'
-
+  },
+  {
+    id: 7,
+    slug: 'quickdrop',
+    name: 'QuickDrop',
+    image: '/images/mobile/mobile.png',
+    category: 'Mobile Development',
+    height: 'medium',
+    description: 'A peer-to-peer package delivery app connecting travelers with shippers, featuring real-time tracking and secure payments.',
+    tech: 'Flutter, Firebase, Stripe, Dart'
   },
 ];
 

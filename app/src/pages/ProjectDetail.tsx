@@ -102,6 +102,20 @@ const projectsData = [
       '/images/portfolio5.jpeg',
     ]
   },
+  {
+    id: 7,
+    slug: 'quickdrop',
+    title: 'QuickDrop',
+    tags: ['Mobile Development', 'Flutter', 'Firebase', 'Stripe', 'Dart'],
+    link: 'https://github.com/oelbouha/quickdrop',
+    overview: 'A modern Flutter application that connects travelers with people who need to ship packages. It provides a platform for peer-to-peer package delivery services, featuring real-time tracking, secure Stripe payments, multi-language support, and in-app messaging.',
+    conclusion: 'Successfully delivered a full-featured mobile application with real-time notifications, secure payment processing, and a seamless user experience for both senders and couriers.',
+    images: [
+      '/images/mobile/mobile.png',
+      '/images/mobile/mobile1.png',
+      '/images/mobile/mobile2.png',
+    ]
+  },
 ];
 
 /* ─────────────── Scroll-Driven Image Showcase ─────────────── */
