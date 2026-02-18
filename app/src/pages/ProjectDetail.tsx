@@ -259,7 +259,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
                         key={currentIndex}
                         src={images[currentIndex]}
                         alt={`${title} screenshot ${currentIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-contain rounded-md shadow-lg"
+                        className="absolute inset-0 w-full h-full object-contain rounded-lg shadow-lg"
                         custom={direction}
                         variants={{
                           enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
