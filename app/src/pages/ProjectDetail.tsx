@@ -247,12 +247,12 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             style={{ width, borderRadius, overflow: 'hidden' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 flex items-center justify-center max-w-[100vw] mx-auto"
+            className="flex-1 flex items-center justify-center max-w-[100vw] mx-auto bg-[#1a1a1a]"
           >
             {/* ── Laptop Frame ── */}
             <div className="relative w-full">
               <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-                <div className="relative bg-[#1a1a1a] rounded-lg overflow-hidden aspect-[16/10]">
+                <div className="relative bg-[#1a1a1a] rounded-xl overflow-hidden aspect-[16/10]">
                   <div className="relative w-full h-full">
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img

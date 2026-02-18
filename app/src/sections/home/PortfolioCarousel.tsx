@@ -124,13 +124,13 @@ export function PortfolioCarousel() {
             <div className="flex items-center justify-between">
               <h2 className="text-3xl sm:text-4xl font-medium text-foreground">Selected Work</h2>
 
-              <a
+              {/* <a
                 href="/work"
                 className="inline-flex items-center gap-2 text-sm font-medium text-foreground-secondary hover:text-accent transition-colors group"
               >
                 See All Work
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </a> */}
             </div>
 
             {/* Grid Toggle below */}
