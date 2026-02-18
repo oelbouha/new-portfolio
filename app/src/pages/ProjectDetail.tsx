@@ -179,6 +179,10 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
     'calc(100vh - 80px)', '100vh', '100vh', 'calc(100vh - 80px)'
   ]);
   const zIndex = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [40, 60, 60, 40]);
+
+  // Restore original width/borderRadius animation for the inner container
+  const width = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], ["80%", "100%", "100%", "80%"]);
+  const borderRadius = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [24, 0, 0, 24]);
   const bgOpacity = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [0, 1, 1, 0]);
 
   // Scroll to the position for a given image index
@@ -234,14 +238,15 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
           style={{ opacity: bgOpacity }}
         />
 
-        {/* Content with padding */}
-        <div className="relative w-full h-full flex flex-col items-center justify-center p-6 sm:p-10">
+        {/* Content with width expansion */}
+        <div className="relative w-full h-full flex flex-col items-center justify-center">
           <motion.div
             ref={frameRef}
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            style={{ width, borderRadius, overflow: 'hidden' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 flex items-center justify-center w-full max-w-6xl max-h-[80vh]"
+            className="flex-1 flex items-center justify-center max-w-[100vw] mx-auto"
           >
             {/* ── Laptop Frame ── */}
             <div className="relative w-full">
@@ -280,7 +285,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
           </motion.div>
 
           {/* Arrow Navigation */}
-          <div className="relative z-50 flex items-center gap-4 mt-4 shrink-0">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
             <button
               onClick={() => switchImage('prev')}
               className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(var(--accent))] shadow-lg shadow-[hsl(var(--accent))/0.3] flex items-center justify-center transition-all duration-300 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100 hover:scale-110 hover:shadow-xl hover:shadow-[hsl(var(--accent))/0.4]'
