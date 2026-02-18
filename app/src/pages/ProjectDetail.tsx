@@ -182,7 +182,7 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
 
   // Restore original width/borderRadius animation for the inner container
   const width = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], ["80%", "100%", "100%", "80%"]);
-  const paddingBlock = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], ["5vh", "0vh", "0vh", "5vh"]); // "padding to height"
+  // const paddingBlock = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], ["5vh", "0vh", "0vh", "5vh"]); // Removed animation per request - keep padding internal
   const borderRadius = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [24, 0, 0, 24]);
   const bgOpacity = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [0, 1, 1, 0]);
 
@@ -245,14 +245,14 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
             ref={frameRef}
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            style={{ width, paddingBlock, borderRadius, overflow: 'hidden' }}
+            style={{ width, borderRadius, overflow: 'hidden' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex-1 flex items-center justify-center max-w-[100vw] mx-auto"
           >
             {/* ── Laptop Frame ── */}
             <div className="relative w-full">
               <div className="relative bg-[#1a1a1a] rounded-t-2xl p-3 sm:p-4 shadow-2xl">
-                <div className="relative bg-transparent rounded-lg overflow-hidden aspect-[16/10] p-4 sm:p-6">
+                <div className="relative bg-[#1a1a1a] rounded-lg overflow-hidden aspect-[16/10] p-8 sm:p-12">
                   <div className="relative w-full h-full">
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                       <motion.img
