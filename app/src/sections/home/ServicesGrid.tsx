@@ -87,24 +87,24 @@ export function ServicesGrid() {
             transition={{ duration: 0.6 }}
             className="lg:sticky lg:top-20 lg:self-start"
           >
-              <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden">
-                <div className="absolute inset-0 opacity-5">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
-                      backgroundSize: '20px 20px'
-                    }}
-                  />
-                </div>
-                <div className="relative z-10">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2">
-                How I Approach
-              </h2>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
-                Design & Development
-              </h2>
-                </div>
+            <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden">
+              <div className="absolute inset-0 opacity-5">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+                    backgroundSize: '20px 20px'
+                  }}
+                />
+              </div>
+              <div className="relative z-10">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2">
+                  How I Approach
+                </h3>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
+                  Design & Development
+                </h3>
+              </div>
             </div>
           </motion.div>
 
@@ -136,7 +136,7 @@ export function ServicesGrid() {
           <div className="relative">
             <div
               ref={scrollContainerRef}
-              className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide"
+              className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide"
               style={{
                 scrollSnapType: 'x mandatory',
                 WebkitOverflowScrolling: 'touch',
@@ -146,7 +146,7 @@ export function ServicesGrid() {
             >
               {/* "How I Approach" card in the row */}
               <div
-                className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-5 overflow-hidden flex-shrink-0 flex items-center"
+                className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-5 overflow-hidden flex-shrink-0 flex flex-col justify-between"
                 style={{
                   width: '80vw',
                   maxWidth: '340px',
@@ -164,13 +164,23 @@ export function ServicesGrid() {
                   />
                 </div>
                 <div className="relative z-10">
-                  <h2 className="text-2xl font-bold text-accent mb-1">
+                  <h3 className="text-2xl font-bold text-accent mb-1">
                     How I Approach
-                  </h2>
-                  <h2 className="text-2xl font-bold text-accent">
+                  </h3>
+                  <h3 className="text-2xl font-bold text-accent">
                     Design & Development
-                  </h2>
+                  </h3>
                 </div>
+                <motion.span
+                  initial={{ opacity: 1 }}
+                  animate={{
+                    opacity: scrollPosition === 'end' ? 0 : hasScrolled ? 0.5 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="relative z-10 text-xs font-medium tracking-wider text-accent/70 uppercase self-end"
+                >
+                  Swipe →
+                </motion.span>
               </div>
 
               {/* Service cards */}
@@ -197,30 +207,7 @@ export function ServicesGrid() {
               ))}
             </div>
 
-            {/* Swipe Indicators */}
-            <div className="flex items-center justify-center gap-2 mt-4">
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: scrollPosition !== 'start' ? 0.7 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-xs font-medium tracking-wider text-foreground-secondary uppercase"
-              >
-                ← Swipe back
-              </motion.span>
 
-              <span className="text-foreground-tertiary mx-2">·</span>
-
-              <motion.span
-                initial={{ opacity: 1 }}
-                animate={{
-                  opacity: scrollPosition === 'end' ? 0 : hasScrolled ? 0.5 : 1,
-                }}
-                transition={{ duration: 0.3 }}
-                className="text-xs font-medium tracking-wider text-foreground-secondary uppercase"
-              >
-                Swipe →
-              </motion.span>
-            </div>
           </div>
         </div>
       </div>

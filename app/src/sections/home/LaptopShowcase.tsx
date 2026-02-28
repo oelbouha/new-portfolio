@@ -26,20 +26,8 @@ export function LaptopShowcase() {
     offset: ["start end", "end start"]
   });
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // Transform scroll progress to width (from 80% to 100%)
-  const width = useTransform(scrollYProgress, [0, 0.5], ["80%", "100%"]);
-
-  // Transform scroll progress to padding (from normal to 0)
-  const padding = useTransform(scrollYProgress, [0, 0.5], isMobile ? [16, 0] : [32, 0]);
+  // Scroll-based width: scales from narrow to section-width (matches other sections padding)
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.88, 1]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,48 +37,48 @@ export function LaptopShowcase() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative py-20 overflow-hidden">
-      <motion.div
-        style={{ width, paddingLeft: padding, paddingRight: padding }}
-        className="mx-auto"
-      >
+    <section ref={containerRef} className="relative py-20 overflow-hidden hidden md:block">
+      <div className="px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ scale }}
+          className="origin-center"
         >
-          {/* Laptop Mockup */}
-          <div className="relative">
-            {/* Laptop Screen */}
-            <div className={cn("relative bg-[#1a1a1a] shadow-2xl", isMobile ? "rounded-xl p-1" : "rounded-t-2xl p-3 sm:p-4")}>
-              {/* Screen Bezel */}
-              <div className={cn("relative bg-black overflow-hidden rounded-lg", isMobile ? "h-[90vh]" : "aspect-[16/10]")}>
-                {/* Screen Content - Scrolling Images */}
-                <div className="relative w-full h-full overflow-hidden">
-                  {projects.map((project, index) => (
-                    <motion.img
-                      key={project.image}
-                      src={project.image}
-                      alt={project.name}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: index === currentIndex ? 1 : 0 }}
-                      transition={{ duration: 0.7 }}
-                    />
-                  ))}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Laptop Mockup */}
+            <div className="relative">
+              {/* Laptop Screen */}
+              <div className="relative bg-[#1a1a1a] shadow-2xl rounded-t-2xl p-3 sm:p-4">
+                {/* Screen Bezel — height smaller than viewport */}
+                <div className="relative bg-black overflow-hidden rounded-lg aspect-[16/10]">
+                  {/* Screen Content - Scrolling Images */}
+                  <div className="relative w-full h-full overflow-hidden">
+                    {projects.map((project, index) => (
+                      <motion.img
+                        key={project.image}
+                        src={project.image}
+                        alt={project.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: index === currentIndex ? 1 : 0 }}
+                        transition={{ duration: 0.7 }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Screen Reflection */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 </div>
 
-                {/* Screen Reflection */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                {/* Camera */}
+                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
               </div>
 
-              {/* Camera */}
-              {!isMobile && <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />}
-            </div>
-
-            {/* Laptop Base — hidden on mobile */}
-            {!isMobile && (
+              {/* Laptop Base */}
               <div className="relative">
                 {/* Keyboard Area */}
                 <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
@@ -98,13 +86,13 @@ export function LaptopShowcase() {
                 {/* Trackpad */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
               </div>
-            )}
 
-            {/* Shadow */}
-            {!isMobile && <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />}
-          </div>
+              {/* Shadow */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

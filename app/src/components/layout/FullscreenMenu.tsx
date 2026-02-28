@@ -10,6 +10,7 @@ interface FullscreenMenuProps {
 const menuItems = [
     { label: 'HOME', href: '#hero' },
     { label: 'WORK', href: '#work' },
+    { label: 'ABOUT', href: '/about' },
     { label: 'SERVICES', href: '#services' },
     { label: 'CONTACT', href: '#contact' },
 ];
@@ -126,6 +127,14 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
     const handleMenuClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
         onClose();
+
+        // Handle page navigation (e.g. /about)
+        if (href.startsWith('/')) {
+            setTimeout(() => {
+                navigate(href);
+            }, 600);
+            return;
+        }
 
         const targetId = href.replace('#', '');
 

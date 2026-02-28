@@ -122,6 +122,47 @@ const projectsData = [
       '/images/mobile/Whisk_dfdc40498fd356faa444ae925c369615dr.png',
     ]
   },
+  {
+    id: 8,
+    slug: 'habivio',
+    title: 'Habivio',
+    tags: ['Mobile Development', 'Flutter', 'Dart', 'Offline-First', 'Privacy'],
+    link: 'https://www.canva.com/design/DAHChgwNkE8/iYFGW1nJEAS-L7KWAa50Og/watch?utm_content=DAHChgwNkE8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h41b7d717d9',
+    linkLabel: 'Preview App',
+    overview: 'Habivio is a focused execution system built for individuals who value discipline, deep work, and privacy. Designed for those who want control over their routines without noise or distraction, Habivio delivers a clean, offline-first experience that respects both your time and your data. No accounts. No cloud sync. No ads. Just a structured system for building habits, managing tasks, tracking essentials, and executing daily.',
+    conclusion: 'Habivio features habit & task tracking, a meal planner, money tracker, daily & weekly views, local notifications, and a minimalist UI — all operating 100% offline with zero data collection. Built for individuals committed to daily discipline and deep work.',
+    images: [
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu.png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (1).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (2).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (3).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (4).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (5).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (6).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (7).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (8).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (9).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (10).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (11).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (12).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (13).png',
+      '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (14).png',
+    ]
+  },
+  {
+    id: 9,
+    slug: 'automation-workflows',
+    title: 'Automation Workflows',
+    tags: ['n8n', 'Make.com', 'Automation', 'Integration', 'Workflow', 'APIs'],
+    link: '',
+    overview: 'Custom workflow automations built with n8n and Make.com to streamline business processes, connect tools, and eliminate repetitive tasks. From CRM synchronization and lead processing to e-commerce fulfillment and notification systems — delivering end-to-end automation solutions that save time and reduce errors.',
+    conclusion: 'Successfully delivered multiple automation workflows for clients, connecting diverse tools and APIs into seamless, reliable pipelines that run 24/7 without manual intervention.',
+    images: [
+      '/images/n8n/n8n_workflow_1.png',
+      '/images/n8n/n8n_workflow_2.png',
+      '/images/n8n/n8n_workflow_3.png',
+    ]
+  },
 ];
 
 /* ─────────────── Scroll-Driven Image Showcase ─────────────── */
@@ -136,6 +177,14 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(frameRef, { once: true, margin: "-80px" });
   const isArrowNavRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const totalScreens = images.length;
 
@@ -182,7 +231,6 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
 
   // Restore original width/borderRadius animation for the inner container
   const width = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], ["80%", "100%", "100%", "80%"]);
-  // const paddingBlock = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], ["5vh", "0vh", "0vh", "5vh"]); // Removed animation per request - keep padding internal
   const borderRadius = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [24, 0, 0, 24]);
   const bgOpacity = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [0, 1, 1, 0]);
 
@@ -222,6 +270,29 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
     [currentIndex, images.length, scrollToImage]
   );
 
+  // Mobile: simple column of images
+  if (isMobile) {
+    return (
+      <section className="w-full px-4">
+        <div className="flex flex-col gap-4">
+          {images.map((image, index) => (
+            <motion.img
+              key={index}
+              src={image}
+              alt={`${title} screenshot ${index + 1}`}
+              className="w-full h-auto rounded-xl object-cover"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop: scroll-driven carousel
   return (
     <section
       ref={containerRef}
@@ -430,7 +501,7 @@ export default function ProjectDetail() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-background font-semibold hover:bg-accent/90 transition-colors"
             >
-              Visit Repository
+              {(project as any).linkLabel || 'Visit Repository'}
               <ArrowRight className="w-5 h-5" />
             </a>
           )}

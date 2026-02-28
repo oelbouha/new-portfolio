@@ -46,3 +46,4 @@ export function Home({ preloaderDone = true }: { preloaderDone?: boolean }) {
     </div>
   );
 }
+

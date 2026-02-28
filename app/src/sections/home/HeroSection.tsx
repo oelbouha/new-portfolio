@@ -80,7 +80,7 @@ export function HeroSection({ preloaderDone = true }: { preloaderDone?: boolean 
               animate={animate}
               custom={0}
             >
-              BEAUTIFUL
+              FULL STACK WEB
             </motion.span>
             <motion.span
               className="hero-line"
@@ -89,7 +89,7 @@ export function HeroSection({ preloaderDone = true }: { preloaderDone?: boolean 
               animate={animate}
               custom={0.15}
             >
-              EXPERIENCES
+              & MOBILE APP
             </motion.span>
             <motion.span
               className="hero-line"
@@ -98,7 +98,7 @@ export function HeroSection({ preloaderDone = true }: { preloaderDone?: boolean 
               animate={animate}
               custom={0.3}
             >
-              BUILT TO PERFORM
+              DEVELOPER
             </motion.span>
           </h1>
           <motion.p
@@ -108,9 +108,9 @@ export function HeroSection({ preloaderDone = true }: { preloaderDone?: boolean 
             animate={animate}
             custom={0.55}
           >
-            FROM CONCEPT TO CODE, BUILDING ROBUST APPLICATIONS
+            FULL STACK WEB AND MOBILE APP DEVELOPMENT
             <br />
-            FLAWLESS MIX OF CODE AND DESIGN
+            FOR STARTUPS, SAAS, AND GLOBAL CLIENTS
           </motion.p>
         </div>
 

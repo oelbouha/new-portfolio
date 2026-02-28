@@ -45,8 +45,8 @@ const projects = [
     description: 'Custom WordPress website built with a focus on performance and responsive design.',
     tech: 'WordPress, Custom Theme, NGINX, Oracle Cloud'
   },
- 
-   {
+
+  {
     id: 5,
     slug: 'pong-arena',
     name: 'Pong Arena',
@@ -75,6 +75,26 @@ const projects = [
     height: 'medium',
     description: 'A peer-to-peer package delivery app connecting travelers with shippers, featuring real-time tracking and secure payments.',
     tech: 'Flutter, Firebase, Stripe, Dart'
+  },
+  {
+    id: 8,
+    slug: 'habivio',
+    name: 'Habivio',
+    image: '/images/habivio mockups/Create_a_premium_mobile_app_mockup_presentationuse_delpmaspu (1).png',
+    category: 'Mobile Development',
+    height: 'tall',
+    description: 'A minimalist execution system for serious productivity — fully offline, privacy-first habit tracking and task management.',
+    tech: 'Flutter, Dart, SQLite'
+  },
+  {
+    id: 9,
+    slug: 'automation-workflows',
+    name: 'Automation Workflows',
+    image: '/images/n8n/n8n_workflow_1.png',
+    category: 'Automation & Integration',
+    height: 'medium',
+    description: 'Custom workflow automations using n8n and Make.com to streamline business processes and connect tools.',
+    tech: 'n8n, Make.com, APIs, Webhooks'
   },
 ];
 
