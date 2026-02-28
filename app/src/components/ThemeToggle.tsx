@@ -7,7 +7,7 @@ export function ThemeToggle() {
     return (
         <button
             onClick={toggleTheme}
-            className="relative w-14 h-7 bg-card border border-border rounded-full transition-colors hover:border-accent/50"
+            className="relative w-14 h-7 bg-transparent border border-accent/60 rounded-full transition-colors hover:border-accent/90"
             aria-label="Toggle theme"
         >
             <div

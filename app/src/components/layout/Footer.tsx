@@ -1,68 +1,55 @@
-import { CTAButton } from '@/components/shared/CTAButton';
 import { Github, Linkedin, Mail } from 'lucide-react';
 
 export function Footer() {
+  const socialLinks = [
+    {
+      href: 'https://github.com/oelbouha',
+      icon: Github,
+      label: 'GitHub',
+    },
+    {
+      href: 'https://www.linkedin.com/in/outman-elbouhali-55bb56270/',
+      icon: Linkedin,
+      label: 'LinkedIn',
+    },
+    {
+      href: 'mailto:outmanelbouhali5@gmail.com',
+      icon: Mail,
+      label: 'Email',
+    },
+  ];
+
   return (
-    <footer>
-      {/* CTA Section */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-foreground mb-4">
-            Let's Build Something Amazing
-          </h2>
-          <p className="text-xl sm:text-2xl text-foreground-secondary mb-8">
-            Ready to bring your ideas to life?
-          </p>
-          <p className="text-3xl sm:text-4xl font-medium text-accent mb-10">
-            Get In Touch
-          </p>
-          <CTAButton variant="primary" size="lg" showArrow>
-            Contact Me
-          </CTAButton>
+    <footer className="w-full px-8 md:px-10 py-8 md:py-10 text-sm">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4">
+        {/* Social Icons */}
+        <div className="flex items-center gap-2">
+          {socialLinks.map(({ href, icon: Icon, label }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith('mailto') ? undefined : '_blank'}
+              rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+              className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center shadow-md text-foreground hover:bg-accent hover:text-background transition-all duration-300"
+              aria-label={label}
+            >
+              <Icon className="w-[18px] h-[18px]" />
+            </a>
+          ))}
         </div>
 
-        {/* Social Links */}
-        <div className="flex justify-center gap-4 mb-12">
-          <a
-            href="https://github.com/oelbouha"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/50 text-foreground hover:bg-accent hover:text-background transition-all duration-300"
-            aria-label="GitHub"
-          >
-            <Github className="w-5 h-5" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/outman-elbouhali-55bb56270/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/50 text-foreground hover:bg-accent hover:text-background transition-all duration-300"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="w-5 h-5" />
-          </a>
-          <a
-            href="mailto:outmanelbouhali5@gmail.com"
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/50 text-foreground hover:bg-accent hover:text-background transition-all duration-300"
-            aria-label="Email"
-          >
-            <Mail className="w-5 h-5" />
-          </a>
-        </div>
-
-        {/* Contact Info */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h3 className="text-lg font-medium text-foreground mb-2">Tétouan, Morocco</h3>
-          <p className="text-foreground-secondary text-sm mb-1">outmanelbouhali5@gmail.com</p>
-          <p className="text-foreground-secondary text-sm">Full Stack Developer</p>
-        </div>
+        {/* Email Link */}
+        <a
+          href="mailto:outmanelbouhali5@gmail.com"
+          className="text-foreground-secondary hover:text-foreground transition-colors duration-300 hover:underline"
+        >
+          outmanelbouhali5@gmail.com
+        </a>
 
         {/* Copyright */}
-        <div className="text-center pt-8  border-border/50">
-          <p className="text-sm text-foreground-tertiary">
-            © {new Date().getFullYear()} Outman Elbouhali. All Rights Reserved.
-          </p>
-        </div>
+        <span className="text-foreground-tertiary">
+          Outman Elbouhali {new Date().getFullYear()}© All rights reserved
+        </span>
       </div>
     </footer>
   );

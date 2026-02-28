@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion, type Easing } from 'framer-motion';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
-import { CTAButton } from '@/components/shared/CTAButton';
+import { Footer } from '@/components/layout/Footer';
+import { BsArrowRight } from 'react-icons/bs';
 
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -26,48 +27,56 @@ const services = [
     title: 'WEB DEVELOPMENT',
     level: 'PRO',
     description:
-      'Custom Web and Mobile Application Development that delivers stunning, high-performance websites. From landing pages to complex SaaS platforms, I build responsive experiences that engage users and drive results.',
+      'High-performance web applications built with modern technologies. Fast, responsive, and structured for scalability from day one.',
   },
   {
     title: 'MOBILE APP DEVELOPMENT',
     level: 'PRO',
     description:
-      'Cross-platform mobile apps built with Flutter that feel native on both iOS and Android. Full Stack Web and Mobile App Development from architecture to deployment, with clean code and smooth animations.',
+      'Cross-platform mobile applications built with Flutter, delivering smooth performance and clean architecture for both iOS and Android.',
   },
   {
     title: 'MVP DEVELOPMENT',
     level: 'PRO',
     description:
-      'MVP Development Services designed for startups ready to validate fast. I turn your idea into a working product in weeks, not months — with the quality and scalability to grow with your business.',
+      'Launch-ready MVPs focused on validation and scalability. Built cleanly so your product can grow without being rebuilt.',
   },
   {
     title: 'AUTOMATION & WORKFLOWS',
     level: 'PRO',
     description:
-      'Powerful automation workflows using n8n, Make.com, and custom API integrations. Streamline your operations, reduce manual work, and let your tools work together seamlessly.',
+      'Smart automation systems using APIs and workflow tools to eliminate repetitive tasks and connect your stack efficiently.',
   },
   {
     title: 'WORDPRESS & CMS',
     level: 'NOOB',
     description:
-      'Custom WordPress sites and headless CMS solutions. Beautiful, easy-to-manage websites that your team can update without touching code.',
+      'Custom WordPress and CMS solutions that are clean, manageable, and built with performance in mind.',
   },
 ];
 
 const experience = [
+  // {
+  //   company: 'FREELANCE',
+  //   location: 'REMOTE, WORLDWIDE',
+  //   role: 'FULL STACK DEVELOPER',
+  //   period: '2023 — PRESENT',
+  //   description:
+  //     'Designing and developing full-stack applications for clients and personal products.\n\nResponsible for:\n• Application architecture\n• Frontend development (React)\n• Backend APIs and business logic\n• Cross-platform mobile apps (Flutter)\n• Deployment and production setup',
+  // },
   {
-    company: 'FREELANCE',
-    location: 'REMOTE, WORLDWIDE',
-    role: 'FULL STACK DEVELOPER',
-    period: '2023 — PRESENT',
+    company: 'REVO ADVERTISING AGENCY',
+    location: 'MOROCCO',
+    role: 'WEB DEVELOPER INTERN',
+    period: '2025',
     description:
-      'Providing Web and Mobile App Development Services to startups, SaaS companies, and global clients. Specializing in React, Flutter, WordPress, and automation workflows. Built and shipped multiple production applications across diverse domains.',
+      'Assisted in building and maintaining client websites. Worked on frontend implementation and UI improvements. Collaborated with design and marketing teams to deliver real-world agency projects.',
   },
   {
     company: 'ZEROTOCODER',
     location: 'REMOTE',
     role: 'FULL STACK DEVELOPER',
-    period: '2023 — 2024',
+    period: '2025 — 2026',
     description:
       'Developed full-stack web applications using modern technologies. Built responsive UIs, REST APIs, and integrated third-party services. Worked closely with product teams to deliver features that improved user engagement.',
   },
@@ -75,7 +84,7 @@ const experience = [
     company: '1337 (42 NETWORK)',
     location: 'MOROCCO',
     role: 'SOFTWARE ENGINEERING STUDENT',
-    period: '2021 — PRESENT',
+    period: '2022 — PRESENT',
     description:
       'Intensive peer-to-peer learning program covering systems programming, algorithms, networking, and full-stack development in C, C++, and modern web technologies. Built projects like Webserv (HTTP server), Inception (Docker), and multiplayer Pong.',
   },
@@ -134,8 +143,7 @@ export default function About() {
 
           {/* Oval Profile Photo — like bdsn.club reference */}
           <motion.div
-            className="mt-8 w-52 h-64 sm:w-64 sm:h-80 md:w-72 md:h-[22rem] overflow-hidden"
-            style={{ borderRadius: '40% 40% 40% 40% / 50% 50% 50% 50%' }}
+            className="mt-8 w-52 h-80 sm:w-64 sm:h-96 md:w-72 md:h-[28rem] overflow-hidden rounded-[8rem]"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -158,10 +166,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              BASED IN MOROCCO, I'M A FULL STACK DEVELOPER WITH A SERIOUS OBSESSION FOR
-              BUILDING PREMIUM DIGITAL PRODUCTS. I SPECIALIZE IN WEB DESIGN, MOBILE APP DEVELOPMENT,
-              AND AUTOMATION — BASICALLY, TURNING YOUR IDEAS INTO SOMETHING YOUR USERS WILL
-              ACTUALLY LOVE WITHOUT NEEDING A MANUAL THE SIZE OF A DICTIONARY.
+              BASED IN MOROCCO, I'M A FULL STACK DEVELOPER BUILDING CLEAN, SCALABLE WEB AND MOBILE APPLICATIONS. I WORK ACROSS THE FULL STACK — FROM UI DESIGN TO BACKEND ARCHITECTURE AND DEPLOYMENT.
             </motion.p>
 
             <motion.p
@@ -171,9 +176,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              I'm on a mission to help startups and businesses launch faster with Full Stack Web
-              and Mobile App Development — building products that are not just functional, but
-              memorable enough that your users will keep coming back.
+              With a strong foundation from 1337 (42 Network), I approach development with a systems mindset: clean architecture, performance awareness, and maintainable code. Whether it's a web platform, a mobile app, or an automation workflow, I build solutions that are ready for production.
             </motion.p>
 
             <motion.a
@@ -220,22 +223,14 @@ export default function About() {
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ duration: 0.5, delay: index * 0.08 }}
                   >
-                    {/* Title + badge + line divider in one row */}
+                    {/* Title + line divider in one row */}
                     <div className="flex items-center gap-4 mb-4">
                       <h3 className="text-lg sm:text-xl font-bold tracking-wider text-foreground uppercase whitespace-nowrap">
                         {service.title}
                       </h3>
-                      <span
-                        className={`px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full border whitespace-nowrap ${service.level === 'PRO'
-                          ? 'bg-foreground text-background border-foreground'
-                          : 'bg-transparent text-foreground-secondary border-border'
-                          }`}
-                      >
-                        {service.level}
-                      </span>
                       <div className="flex-1 h-px bg-border"></div>
                     </div>
-                    <p className="text-sm sm:text-base text-foreground-secondary leading-relaxed max-w-xl">
+                    <p className="text-sm sm:text-base text-foreground-secondary leading-relaxed">
                       {service.description}
                     </p>
                   </motion.div>
@@ -244,6 +239,7 @@ export default function About() {
             </div>
           </div>
         </section>
+
 
         {/* ====== EXPERIENCE & EDUCATION SECTION ====== */}
         <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
@@ -286,7 +282,7 @@ export default function About() {
                     <p className="text-xs text-foreground-secondary uppercase tracking-wider mb-4">
                       {exp.period}
                     </p>
-                    <p className="text-sm sm:text-base text-foreground-secondary leading-relaxed max-w-xl">
+                    <p className="text-sm sm:text-base text-foreground-secondary leading-relaxed whitespace-pre-line">
                       {exp.description}
                     </p>
                   </motion.div>
@@ -306,8 +302,8 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              WELL, ASIDE FROM WRITING CODE, I'VE ALSO PLAYED A VITAL ROLE IN HELPING
-              STARTUPS LAUNCH AND SCALE THEIR PRODUCTS.
+              BEYOND WRITING CODE, I FOCUS ON BUILDING PRODUCTS
+              THAT ARE STRUCTURED, RELIABLE, AND READY FOR REAL USERS.
             </motion.p>
 
             <motion.p
@@ -336,19 +332,20 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <CTAButton variant="primary" size="lg" showArrow>
-                Contact Me
-              </CTAButton>
+              <a
+                href="mailto:outmanelbouhali5@gmail.com"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary-foreground font-semibold rounded-full transition-all duration-300 hover:brightness-110 group"
+              >
+                <span className="inline-flex items-center gap-3">
+                  Contact Me
+                  <BsArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
             </motion.div>
           </div>
         </section>
 
-        {/* Copyright only — no border, no full footer */}
-        <div className="text-center py-8 px-4">
-          <p className="text-sm text-foreground-tertiary">
-            © {new Date().getFullYear()} Outman Elbouhali. All Rights Reserved.
-          </p>
-        </div>
+        <Footer />
       </div>
 
       <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />

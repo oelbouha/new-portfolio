@@ -558,7 +558,7 @@ export default function ProjectDetail() {
         />
 
         {/* Back Button */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -570,8 +570,8 @@ export default function ProjectDetail() {
           >
             <ArrowRight className="w-5 h-5 rotate-180" />
             Back to Projects
-          </button>
-        </motion.div>
+          </button> */}
+        {/* </motion.div> */}
       </main>
 
       {/* Footer */}

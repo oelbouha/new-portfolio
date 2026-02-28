@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight } from 'lucide-react';
+import { BsArrowRight } from 'react-icons/bs';
 
 interface CTAButtonProps {
   children: React.ReactNode;
@@ -12,9 +12,9 @@ interface CTAButtonProps {
   href?: string;
 }
 
-export function CTAButton({ 
-  children, 
-  variant = 'primary', 
+export function CTAButton({
+  children,
+  variant = 'primary',
   size = 'md',
   showArrow = false,
   className,
@@ -22,13 +22,13 @@ export function CTAButton({
   href
 }: CTAButtonProps) {
   const baseStyles = "inline-flex items-center justify-center gap-2 font-medium rounded-full transition-all duration-300";
-  
+
   const variants = {
-    primary: "bg-[#fbbf24] text-black hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]",
-    secondary: "bg-secondary/50 text-foreground border border-border hover:bg-secondary/70 hover:scale-[1.02] active:scale-[0.98]",
+    primary: "cta-fill-hover bg-[#fbbf24] text-black active:scale-[0.98]",
+    secondary: "cta-fill-hover bg-secondary/50 text-foreground border border-border active:scale-[0.98]",
     ghost: "bg-transparent text-foreground hover:text-[#4ade80] transition-colors"
   };
-  
+
   const sizes = {
     sm: "px-4 py-2 text-sm",
     md: "px-6 py-3 text-sm",
@@ -48,8 +48,10 @@ export function CTAButton({
         className
       )}
     >
-      {children}
-      {showArrow && <ArrowUpRight className="w-4 h-4" />}
+      <span className="relative z-[1] inline-flex items-center gap-2">
+        {children}
+        {showArrow && <BsArrowRight className="w-4 h-4" />}
+      </span>
     </Component>
   );
 }

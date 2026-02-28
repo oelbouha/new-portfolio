@@ -64,7 +64,7 @@ export function ServicesGrid() {
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="w-full">
         {/* Label with line */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -75,7 +75,7 @@ export function ServicesGrid() {
             <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">Services</span>
             <div className="flex-1 h-px bg-border"></div>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* 3-Column Grid Layout — Desktop */}
         <div className="hidden md:grid lg:grid-cols-3 gap-8">
@@ -101,9 +101,9 @@ export function ServicesGrid() {
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2">
                   How I Approach
                 </h3>
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
+                {/* <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
                   Design & Development
-                </h3>
+                </h3> */}
               </div>
             </div>
           </motion.div>
@@ -113,17 +113,17 @@ export function ServicesGrid() {
             {services.map((service) => (
               <section
                 key={service.category}
-                className="flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 bg-[#454545] border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full"
+                className="flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 service-card-bg border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full"
               >
                 <div>
-                  <p className="tag-font text-[#e8e8e8] uppercase text-[12px] tracking-wider">
+                  <p className="tag-font service-card-category uppercase text-[12px] tracking-wider">
                     {service.category}
                   </p>
                   <h4 className="subheading-regular pb-2 hidden !text-[24px] !leading-[32px] !font-normal">
                     {service.title}
                   </h4>
                 </div>
-                <h4 className="w-[390px] max-xl:w-[80%] subheading-regular pb-2 text-[#ffffff] !text-[24px] !leading-[32px] !font-normal">
+                <h4 className="w-[390px] max-xl:w-[80%] subheading-regular pb-2 service-card-title !text-[24px] !leading-[32px] !font-normal">
                   {service.title}
                 </h4>
               </section>
@@ -187,7 +187,7 @@ export function ServicesGrid() {
               {services.map((service) => (
                 <section
                   key={service.category}
-                  className="flex flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 bg-[#454545] border border-border hover:border-accent/50 service-card skill-item flex-shrink-0"
+                  className="flex flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 service-card-bg border border-border hover:border-accent/50 service-card skill-item flex-shrink-0"
                   style={{
                     width: '80vw',
                     maxWidth: '340px',
@@ -196,11 +196,11 @@ export function ServicesGrid() {
                   }}
                 >
                   <div>
-                    <p className="tag-font text-[#e8e8e8] uppercase text-[12px] tracking-wider">
+                    <p className="tag-font service-card-category uppercase text-[12px] tracking-wider">
                       {service.category}
                     </p>
                   </div>
-                  <h4 className="subheading-regular pb-2 text-[#ffffff] !text-[24px] !leading-[32px] !font-normal">
+                  <h4 className="subheading-regular pb-2 service-card-title !text-[24px] !leading-[32px] !font-normal">
                     {service.title}
                   </h4>
                 </section>
