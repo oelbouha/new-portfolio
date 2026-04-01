@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 const projects = [
   {
@@ -16,23 +16,42 @@ const projects = [
   },
 ];
 
+const INTERVAL = 3000;
+
 export function LaptopShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const startTimeRef = useRef<number>(Date.now());
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Scroll-based width: scales from narrow to section-width (matches other sections padding)
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.88, 1]);
 
   useEffect(() => {
+    startTimeRef.current = Date.now();
+    setProgress(0);
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % projects.length);
-    }, 3000);
-    return () => clearInterval(interval);
+      startTimeRef.current = Date.now();
+      setProgress(0);
+    }, INTERVAL);
+
+    const raf = () => {
+      const elapsed = Date.now() - startTimeRef.current;
+      setProgress(Math.min(elapsed / INTERVAL, 1));
+      rafId = requestAnimationFrame(raf);
+    };
+    let rafId = requestAnimationFrame(raf);
+
+    return () => {
+      clearInterval(interval);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -52,7 +71,7 @@ export function LaptopShowcase() {
             <div className="relative">
               {/* Laptop Screen */}
               <div className="relative bg-[#1a1a1a] shadow-2xl rounded-t-2xl p-3 sm:p-4">
-                {/* Screen Bezel — height smaller than viewport */}
+                {/* Screen Bezel */}
                 <div className="relative bg-black overflow-hidden rounded-lg aspect-[16/10]">
                   {/* Screen Content - Scrolling Images */}
                   <div className="relative w-full h-full overflow-hidden">
@@ -71,6 +90,31 @@ export function LaptopShowcase() {
 
                   {/* Screen Reflection */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+
+                  {/* Project Title & Progress Bar — inside screen, bottom overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 pt-6 bg-gradient-to-t from-black/70 to-transparent">
+                    {/* Project Title */}
+                    <AnimatePresence mode="wait">
+                      <motion.p
+                        key={currentIndex}
+                        className="text-white text-lg font-semibold mb-2.5 tracking-wide"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {projects[currentIndex].name}
+                      </motion.p>
+                    </AnimatePresence>
+
+                    {/* Progress Bar */}
+                    <div className="w-full h-[3px] bg-white/20 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full bg-white rounded-full"
+                        style={{ width: `${progress * 100}%` }}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Camera */}
