@@ -83,7 +83,7 @@ export function LaptopShowcase() {
                         className="absolute inset-0 w-full h-full object-cover"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: index === currentIndex ? 1 : 0 }}
-                        transition={{ duration: 0.7 }}
+                        transition={{ duration: 0.9, ease: 'easeInOut' }}
                       />
                     ))}
                   </div>
@@ -97,20 +97,20 @@ export function LaptopShowcase() {
                     <AnimatePresence mode="wait">
                       <motion.p
                         key={currentIndex}
-                        className="text-white text-lg font-semibold mb-2.5 tracking-wide"
-                        initial={{ opacity: 0, y: 6 }}
+                        className="text-white text-xl font-semibold mb-3 tracking-wide"
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.4 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       >
                         {projects[currentIndex].name}
                       </motion.p>
                     </AnimatePresence>
 
                     {/* Progress Bar */}
-                    <div className="w-full h-[3px] bg-white/20 rounded-full overflow-hidden">
+                    <div className="w-full h-[2px] bg-white/20 overflow-hidden">
                       <motion.div
-                        className="h-full bg-white rounded-full"
+                        className="h-full bg-white"
                         style={{ width: `${progress * 100}%` }}
                       />
                     </div>

@@ -200,21 +200,39 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
     offset: ["start start", "end end"],
   });
 
-  // Map swap progress directly to image index
-  const currentIndexMV = useTransform(
-    swapProgress,
-    [0, 1],
-    [0, totalScreens - 1]
-  );
+  // Record where swapProgress is when expansion fully completes
+  const swapStartRef = useRef<number | null>(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const prevIndexRef = useRef(0);
+  const isExpandedRef = useRef(false);
 
-  useMotionValueEvent(currentIndexMV, "change", (latest) => {
+  // Track expansion: open gate and record swapProgress at the moment of full expansion
+  useMotionValueEvent(expandProgress, "change", (latest) => {
+    if (latest >= 0.25 && !isExpandedRef.current) {
+      isExpandedRef.current = true;
+      swapStartRef.current = swapProgress.get();
+    } else if (latest < 0.1) {
+      isExpandedRef.current = false;
+      swapStartRef.current = null;
+      // Reset to first image when collapsing
+      prevIndexRef.current = 0;
+      setCurrentIndex(0);
+      setDirection(0);
+    }
+  });
+
+  // Drive image index from swapProgress, remapped from swapStart→1 to 0→totalScreens-1
+  useMotionValueEvent(swapProgress, "change", (latest) => {
     if (isArrowNavRef.current) return;
-    const clamped = Math.min(Math.max(latest, 0), totalScreens - 1);
-    const rounded = Math.round(clamped);
+    if (!isExpandedRef.current || swapStartRef.current === null) return;
+    const start = swapStartRef.current;
+    const remaining = 1 - start;
+    if (remaining <= 0) return;
+    const normalized = Math.min(Math.max((latest - start) / remaining, 0), 1);
+    const mapped = normalized * (totalScreens - 1);
+    const rounded = Math.round(mapped);
     if (rounded !== prevIndexRef.current) {
       setDirection(rounded > prevIndexRef.current ? 1 : -1);
       prevIndexRef.current = rounded;
@@ -234,7 +252,6 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
   const borderRadius = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [24, 0, 0, 24]);
   const bgOpacity = useTransform(expandProgress, [0.1, 0.25, 0.75, 0.9], [0, 1, 1, 0]);
 
-  // Scroll to the position for a given image index
   const scrollToImage = useCallback(
     (index: number) => {
       if (!containerRef.current) return;
@@ -242,7 +259,9 @@ function ScrollImageShowcase({ images, title }: ScrollImageShowcaseProps) {
       const containerTop = window.scrollY + rect.top;
       const containerHeight = containerRef.current.offsetHeight;
       const scrollRange = containerHeight - window.innerHeight;
-      const targetProgress = index / (totalScreens - 1);
+      // Account for the swap-start offset so arrow nav maps to correct positions
+      const start = swapStartRef.current ?? 0;
+      const targetProgress = start + (index / (totalScreens - 1)) * (1 - start);
       const targetScroll = containerTop + targetProgress * scrollRange;
 
       isArrowNavRef.current = true;

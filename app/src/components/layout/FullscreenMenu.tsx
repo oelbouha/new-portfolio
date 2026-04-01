@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface FullscreenMenuProps {
     isOpen: boolean;
@@ -200,9 +201,7 @@ export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
                             animate="visible"
                             exit="exit"
                         >
-                            <a href="mailto:contact@outman.dev" className="hero-cta-btn">
-                                LET'S TALK <span className="hero-cta-arrow">→</span>
-                            </a>
+                            <ThemeToggle />
                         </motion.div>
                     </div>
 
