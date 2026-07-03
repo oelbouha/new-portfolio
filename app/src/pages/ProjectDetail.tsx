@@ -9,6 +9,22 @@ import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
 // Project data (will be expanded with real data)
 const projectsData = [
   {
+    id: 0,
+    slug: 'skatys',
+    title: 'Skatys',
+    tags: ['Freelance', 'Next.js', 'Django', 'PostgreSQL', 'Docker', 'NGINX', 'VPS'],
+    link: 'https://skatys.com/',
+    overview: 'A freelance full-stack web app built with Next.js and Django, powered by PostgreSQL and deployed on a VPS with Docker and NGINX.',
+    conclusion: 'Delivered a production-ready freelance project with a modern frontend, a robust backend, and a containerized deployment pipeline.',
+    images: [
+      '/images/skatys/Screen Shot 2026-07-02 at 6.19.09 PM.png',
+      '/images/skatys/Screen Shot 2026-07-02 at 6.19.30 PM.png',
+      '/images/skatys/Screen Shot 2026-07-02 at 6.19.53 PM.png',
+      '/images/skatys/Screen Shot 2026-07-02 at 6.20.05 PM.png',
+      '/images/skatys/Screen Shot 2026-07-02 at 6.20.19 PM.png',
+    ]
+  },
+  {
     id: 1,
     slug: 'pong-arena',
     title: 'Pong Arena',

@@ -6,6 +6,16 @@ import { cn } from '@/lib/utils';
 
 const projects = [
   {
+    id: 0,
+    slug: 'skatys',
+    name: 'Skatys',
+    image: '/images/skatys/Screen Shot 2026-07-01 at 6.12.17 PM.png',
+    category: 'Freelance',
+    height: 'tall',
+    description: 'A freelance full-stack web app built with Next.js and Django, deployed on a VPS with Docker and NGINX.',
+    tech: 'Next.js, Django, PostgreSQL, Docker, NGINX'
+  },
+  {
     id: 1,
     slug: 'Revo Website',
     name: 'Revo Website',

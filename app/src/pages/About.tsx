@@ -56,14 +56,14 @@ const services = [
 ];
 
 const experience = [
-  // {
-  //   company: 'FREELANCE',
-  //   location: 'REMOTE, WORLDWIDE',
-  //   role: 'FULL STACK DEVELOPER',
-  //   period: '2023 — PRESENT',
-  //   description:
-  //     'Designing and developing full-stack applications for clients and personal products.\n\nResponsible for:\n• Application architecture\n• Frontend development (React)\n• Backend APIs and business logic\n• Cross-platform mobile apps (Flutter)\n• Deployment and production setup',
-  // },
+  {
+    company: 'FREELANCE',
+    location: 'REMOTE',
+    role: 'FULL STACK DEVELOPER',
+    period: '2026',
+    description:
+      'Skatys — a freelance full-stack web app built with Next.js and Django, backed by PostgreSQL and deployed on a VPS with Docker and NGINX.',
+  },
   {
     company: 'REVO ADVERTISING AGENCY',
     location: 'MOROCCO',
@@ -71,14 +71,6 @@ const experience = [
     period: '2025',
     description:
       'Assisted in building and maintaining client websites. Worked on frontend implementation and UI improvements. Collaborated with design and marketing teams to deliver real-world agency projects.',
-  },
-  {
-    company: 'ZEROTOCODER',
-    location: 'REMOTE',
-    role: 'FULL STACK DEVELOPER',
-    period: '2025 — 2026',
-    description:
-      'Developed full-stack web applications using modern technologies. Built responsive UIs, REST APIs, and integrated third-party services. Worked closely with product teams to deliver features that improved user engagement.',
   },
   {
     company: '1337 (42 NETWORK)',
@@ -166,7 +158,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              BASED IN MOROCCO, I'M A FULL STACK DEVELOPER BUILDING CLEAN, SCALABLE WEB AND MOBILE APPLICATIONS. I WORK ACROSS THE FULL STACK — FROM UI DESIGN TO BACKEND ARCHITECTURE AND DEPLOYMENT.
+              BASED IN MOROCCO, I'M A FULL STACK DEVELOPER BUILDING CLEAN, SCALABLE WEB AND MOBILE APPLICATIONS. I WORK ACROSS THE FULL STACK — FROM UI DESIGN TO BACKEND ARCHITECTURE AND DEPLOYMENT — WITH REACT, NEXT.JS, DJANGO, AND MORE.
             </motion.p>
 
             <motion.p

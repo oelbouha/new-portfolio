@@ -11,8 +11,8 @@ const projects = [
     image: '/images/revo/revoo.jpeg',
   },
   {
-    name: 'WordPress Website',
-    image: '/images/zerotocoder/3.jpeg',
+    name: 'Skatys',
+    image: '/images/skatys/Screen Shot 2026-07-02 at 6.19.30 PM.png',
   },
 ];
 

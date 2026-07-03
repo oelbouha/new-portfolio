@@ -5,7 +5,7 @@ const services = [
   {
     category: 'WEB DEVELOPMENT',
     title: 'Building Modern Web Applications with React',
-    description: 'Full-stack web development using React.js, JavaScript, and modern frameworks to create responsive, high-performance applications.'
+    description: 'Full-stack web development using React.js, Next.js, JavaScript, and modern frameworks to create responsive, high-performance applications.'
   },
   {
     category: 'WORDPRESS DEVELOPMENT',
@@ -25,7 +25,7 @@ const services = [
   {
     category: 'BACKEND & INFRASTRUCTURE',
     title: 'Scalable Backend Systems and DevOps',
-    description: 'Building robust backend systems with Docker, NGINX, MariaDB, MongoDB, and WebSocket for real-time applications.'
+    description: 'Building robust backend systems with Django, Docker, NGINX, MariaDB, MongoDB, and WebSocket for real-time applications.'
   },
   {
     category: 'SYSTEM PROGRAMMING',

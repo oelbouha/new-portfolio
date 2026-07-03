@@ -30,7 +30,7 @@ export function AboutSection() {
                 >
                     <p className="text-lg leading-relaxed text-foreground-secondary mb-6">
                         I'm Outman Elbouhali, a developer specializing in Full Stack Web and Mobile App Development.
-                        With experience spanning React, Flutter, WordPress, and backend infrastructure, I help startups
+                        With experience spanning React, Next.js, Django, Flutter, WordPress, and backend infrastructure, I help startups
                         and businesses transform ideas into polished, production-ready products.
                     </p>
                     <p className="text-lg leading-relaxed text-foreground-secondary">
