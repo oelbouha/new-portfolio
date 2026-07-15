@@ -1,113 +1,122 @@
-import { useState } from 'react';
-import { Logo } from '@/components/shared/Logo';
-import { NavLink } from '@/components/shared/NavLink';
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
-import { CTAButton } from '@/components/shared/CTAButton';
-import { useScrollPosition } from '@/hooks/useScrollPosition';
-import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useTheme } from '@/context/ThemeContext';
+import { CITY_CLOCKS } from '@/lib/constants';
 
 interface NavbarProps {
-  currentPage?: 'home' | 'work' | 'about';
+  onContactOpen: () => void;
+  onMenuOpen: () => void;
 }
 
-export function Navbar({ currentPage = 'home' }: NavbarProps) {
-  const { isScrolled } = useScrollPosition();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+function useLiveClock(tz: string) {
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const update = () => {
+      setTime(new Date().toLocaleTimeString('en-US', {
+        timeZone: tz,
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }));
+    };
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, [tz]);
+
+  return time;
+}
+
+function CityTime({ city, tz }: { city: string; tz: string }) {
+  const time = useLiveClock(tz);
+  return (
+    <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+      <span className="text-mono" style={{ opacity: 0.55 }}>{city}</span>
+      <span className="text-mono">{time}</span>
+    </div>
+  );
+}
+
+export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
+  const { theme, toggleTheme } = useTheme();
+  const topRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Animate in after a tiny delay (will be called after preloader)
+    gsap.to(topRef.current, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.1 });
+    gsap.to(bottomRef.current, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.1 });
+  }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled 
-          ? "bg-background/80 backdrop-blur-lg border-b border-border/50" 
-          : "bg-transparent"
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between h-[72px]">
-          {/* Logo */}
-          <a href="/">
-            <Logo />
+    <>
+      {/* TOP NAV BAR */}
+      <nav ref={topRef} className="nav-top">
+        <div className="nav-top_component">
+          {/* Left: Logo */}
+          <a href="/" className="link" style={{ textDecoration: 'none' }} data-cursor-hover="Home">
+            <div className="link_first"><span className="text-mono difference">Portfolio</span></div>
+            <div className="link_second"><span className="text-mono difference">Portfolio</span></div>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
-            <NavLink href="/" isActive={currentPage === 'home'}>
-              Home
-            </NavLink>
-            <NavLink href="/work" isActive={currentPage === 'work'}>
-              Work
-            </NavLink>
-            <NavLink href="/about" isActive={currentPage === 'about'}>
-              About
-            </NavLink>
-          </div>
+          {/* Center: Menu button */}
+          <button
+            id="menuToggle"
+            onClick={onMenuOpen}
+            className="link"
+            aria-label="Open menu"
+            style={{ cursor: 'pointer' }}
+          >
+            <div className="link_first"><span className="text-mono difference">Menu</span></div>
+            <div className="link_second"><span className="text-mono difference">Open</span></div>
+          </button>
 
-          {/* Right Side Actions */}
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <div className={cn("hidden sm:block", mobileMenuOpen && "!hidden")}>
-              <CTAButton variant="primary" size="sm" showArrow>
-                Book a Call
-              </CTAButton>
-            </div>
-            
-            {/* Mobile Menu Button */}
+          {/* Right: Dark mode + Let's talk */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
-              aria-label="Toggle menu"
+              onClick={toggleTheme}
+              className="link"
+              aria-label="Toggle theme"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <div className="link_first">
+                <span className="text-mono difference">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+              </div>
+              <div className="link_second">
+                <span className="text-mono difference">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+              </div>
+            </button>
+
+            <button
+              onClick={onContactOpen}
+              className="link"
+              data-cursor-hover="Let's talk"
+              aria-label="Open contact"
+            >
+              <div className="link_first"><span className="text-mono difference">Let's talk!</span></div>
+              <div className="link_second"><span className="text-mono difference">Contact us</span></div>
             </button>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        {/* Mobile Menu */}
-        <div
-          className={cn(
-            "md:hidden overflow-hidden transition-all duration-300",
-            mobileMenuOpen ? "max-h-64 pb-4" : "max-h-0"
-          )}
-        >
-          <div className="flex flex-col gap-2 pt-2">
-            <a
-              href="/"
-              className={cn(
-                "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
-                currentPage === 'home'
-                  ? "bg-secondary text-foreground"
-                  : "text-foreground-secondary hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              Home
-            </a>
-            <a
-              href="/work"
-              className={cn(
-                "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
-                currentPage === 'work'
-                  ? "bg-secondary text-foreground"
-                  : "text-foreground-secondary hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              Work
-            </a>
-            <a
-              href="/about"
-              className={cn(
-                "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
-                currentPage === 'about'
-                  ? "bg-secondary text-foreground"
-                  : "text-foreground-secondary hover:text-foreground hover:bg-secondary/50"
-              )}
-            >
-              About
-            </a>
+      {/* BOTTOM NAV BAR */}
+      <nav ref={bottomRef} className="nav-bottom">
+        <div className="nav-bottom_component">
+          {/* Left: tagline */}
+          <span className="text-mono difference" style={{ opacity: 0.6 }}>
+            We craft bold design &amp; clean code.
+          </span>
+
+          {/* Right: City clocks */}
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+            {CITY_CLOCKS.map((c) => (
+              <CityTime key={c.tz} city={c.city} tz={c.tz} />
+            ))}
           </div>
         </div>
-      </div>
-    </header>
+      </nav>
+    </>
   );
 }

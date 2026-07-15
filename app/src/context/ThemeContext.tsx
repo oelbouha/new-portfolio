@@ -1,29 +1,40 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+  theme: 'light',
+  toggleTheme: () => {},
+});
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      const stored = localStorage.getItem('darkMode');
+      return stored === 'enabled' ? 'dark' : 'light';
+    } catch {
+      return 'light';
+    }
+  });
 
   useEffect(() => {
-    // Always default to light; clear any stale stored preference
-    localStorage.removeItem('theme');
-    setTheme('light');
-    document.documentElement.setAttribute('data-theme', 'light');
-  }, []);
+    const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    root.classList.toggle('is-dark', theme === 'dark');
+    try {
+      localStorage.setItem('darkMode', theme === 'dark' ? 'enabled' : 'disabled');
+    } catch {}
+  }, [theme]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
+    document.documentElement.classList.add('theme-toggling');
+    setTimeout(() => document.documentElement.classList.remove('theme-toggling'), 500);
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   return (
@@ -34,9 +45,5 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+  return useContext(ThemeContext);
 }

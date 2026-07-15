@@ -1,62 +1,105 @@
-import { motion } from 'framer-motion';
-import { BsArrowRight } from 'react-icons/bs';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CLIENT_NAMES } from '@/lib/constants';
 
-export function CTASection() {
-    return (
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-            <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full"
+gsap.registerPlugin(ScrollTrigger);
+
+interface CTASectionProps {
+  onContactOpen?: () => void;
+}
+
+export function CTASection({ onContactOpen }: CTASectionProps) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const visualRef = useRef<HTMLSpanElement>(null);
+  const descRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Heading line reveal
+    if (headingRef.current) {
+      gsap.fromTo(headingRef.current,
+        { y: '3rem', opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1.2, ease: 'power4.out',
+          scrollTrigger: { trigger: headingRef.current, start: 'top 85%', once: true },
+        }
+      );
+    }
+
+    // Inline visual expand
+    if (visualRef.current) {
+      const targetWidth = window.innerWidth <= 767 ? '4rem' : window.innerWidth <= 1024 ? '7rem' : '10rem';
+      gsap.fromTo(visualRef.current,
+        { width: '0rem' },
+        {
+          width: targetWidth, duration: 1.2, ease: 'power4.out', delay: 0.4,
+          scrollTrigger: { trigger: visualRef.current, start: 'top 90%', once: true },
+        }
+      );
+    }
+
+    // Desc
+    if (descRef.current) {
+      gsap.fromTo(descRef.current,
+        { opacity: 0, y: '1.5rem' },
+        {
+          opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
+          scrollTrigger: { trigger: descRef.current, start: 'top 90%', once: true },
+        }
+      );
+    }
+  }, []);
+
+  return (
+    <>
+      {/* Client Logos Marquee */}
+      <section
+        className="section-clients"
+        style={{ overflow: 'hidden', borderTop: '1px solid rgba(128,128,128,0.15)', borderBottom: '1px solid rgba(128,128,128,0.15)', padding: 'clamp(1.5rem, 3vw, 2.5rem) 0' }}
+      >
+        <div className="clients-marquee">
+          {CLIENT_NAMES.map((name, i) => (
+            <span key={`${name}-${i}`} className="client-name">{name}</span>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section-cta" id="contact">
+        <div className="container-large">
+          <h2 ref={headingRef} className="cta-heading" style={{ opacity: 0 }}>
+            Let's work
+            <br />
+            <span ref={visualRef} className="cta-inline-visual" aria-hidden="true" />
+            together
+          </h2>
+
+          <div ref={descRef} className="cta-body" style={{ opacity: 0 }}>
+            <p className="cta-desc">
+              Work with us if average isn't your thing.<br />
+              Drop it, we'll build it!
+            </p>
+
+            <button
+              onClick={onContactOpen}
+              className="small-link"
+              data-cursor-hover="Let's talk"
+              aria-label="Open contact form"
             >
-                <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden">
-                    {/* Content */}
-                    <div className="relative z-10 max-w-2xl">
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground leading-tight">
-                            
-                                                        Bring Your Ideas to Life.
-
-                        </h2>
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium leading-tight" style={{ color: '#737373' }}>
-                            
-                                                        Let's Build Something
-
-                        </h2>
-                        <p className="text-3xl sm:text-4xl lg:text-5xl font-medium mb-8 leading-tight" style={{ color: '#737373' }}>
-                            Amazing Together
-                        </p>
-
-                        <a
-                            href="mailto:outmanelbouhali5@gmail.com"
-                            className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-primary-foreground font-semibold rounded-full transition-all duration-300 hover:brightness-110 group"
-                        >
-                            <span className="inline-flex items-center gap-3">
-                                Get In Touch
-                                <BsArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                            </span>
-                        </a>
-                    </div>
-
-                    {/* Pixel Art Graphic */}
-                    <div className="absolute right-4 bottom-[-12px] sm:right-6 lg:right-10 pointer-events-none">
-                        <img
-                            src="/images/BlinkingFrog.gif"
-                            alt="Blinking Frog"
-                            className="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 object-contain origin-bottom"
-                        />
-                    </div>
-
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-5">
-                        <div className="absolute inset-0" style={{
-                            backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
-                            backgroundSize: '20px 20px'
-                        }} />
-                    </div>
-                </div>
-            </motion.div>
-        </section>
-    );
+              <div className="text-mono_wrapper">
+                <span className="text-mono">say hello</span>
+              </div>
+              <svg
+                className="small-link-arrow"
+                width="14" height="8" viewBox="0 0 14 8" fill="none"
+                style={{ opacity: 0 }}
+              >
+                <path d="M11 1.5V2.5H12V1.5H11ZM10 0.5V1.5H11V0.5H10ZM11 6.5H12V5.5H11V6.5ZM10 7.5H11V6.5H10V7.5ZM13 3.5V2.5H12V3.5H0V4.5H12V5.5H13V4.5H14V3.5H13Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

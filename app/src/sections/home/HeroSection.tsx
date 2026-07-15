@@ -1,140 +1,122 @@
-import { useState, useEffect } from 'react';
-import { motion, type Easing } from 'framer-motion';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { HERO_WORDS } from '@/lib/constants';
 
-const fadeSlideUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as Easing, delay },
-  }),
-};
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    transition: { duration: 0.6, ease: 'easeOut' as Easing, delay },
-  }),
-};
-
-export function HeroSection({ preloaderDone = true }: { preloaderDone?: boolean }) {
-  const [currentTime, setCurrentTime] = useState('');
-  const [menuOpen, setMenuOpen] = useState(false);
+export function HeroSection() {
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const slotRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLDivElement>(null);
+  const scrollHintRef = useRef<HTMLDivElement>(null);
+  const wordIndex = useRef(0);
 
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      setCurrentTime(`${hours}:${minutes}`);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
+    // Staggered reveal after preloader
+    const tl = gsap.timeline({ delay: 0.3 });
+    if (headlineRef.current) {
+      tl.fromTo(headlineRef.current,
+        { y: '3rem', opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out' }
+      );
+    }
+    if (descRef.current) {
+      tl.fromTo(descRef.current,
+        { y: '2rem', opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.0, ease: 'power3.out' },
+        '-=0.7'
+      );
+    }
+    if (scrollHintRef.current) {
+      tl.fromTo(scrollHintRef.current,
+        { opacity: 0 },
+        { opacity: 0.35, duration: 1.0, ease: 'power2.out' },
+        '-=0.5'
+      );
+    }
+
+    // Word rotation
+    const interval = setInterval(() => {
+      if (!slotRef.current) return;
+      wordIndex.current = (wordIndex.current + 1) % HERO_WORDS.length;
+      gsap.to(slotRef.current, {
+        y: `-${wordIndex.current * 100}%`,
+        duration: 0.9,
+        ease: 'power4.inOut',
+      });
+    }, 2800);
+
+    return () => { clearInterval(interval); tl.kill(); };
   }, []);
 
-  const animate = preloaderDone ? 'visible' : 'hidden';
-
   return (
-    <>
-      <section className="hero-section">
-        {/* Top Bar */}
-        <motion.div
-          className="hero-topbar"
-          variants={fadeIn}
-          initial="hidden"
-          animate={animate}
-          custom={0.3}
-        >
-          <div className="hero-topbar-left">
-            <span className="hero-local-label">TÉTOUAN, MOROCCO</span>
-            <span className="hero-time">{currentTime}</span>
-          </div>
+    <section className="section-hero" id="hero">
+      {/* Animated gradient background */}
+      <div
+        className="hero-bg"
+        style={{
+          background: 'radial-gradient(ellipse at 70% 40%, rgba(128,128,128,0.08) 0%, transparent 70%)',
+        }}
+      />
 
-          <button
-            className="hero-menu-dots"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
+      <div className="hero-content">
+        {/* Main headline */}
+        <h1 ref={headlineRef} className="hero-headline" style={{ opacity: 0 }}>
+          <span style={{ display: 'block' }}>We build</span>
+          <span style={{ display: 'block', position: 'relative' }}>
+            {/* Word switcher */}
+            <span
+              className="hero-word-wrapper"
+              style={{ height: '1em', verticalAlign: 'bottom', lineHeight: 1 }}
+            >
+              <div ref={slotRef} className="hero-word-slot" style={{ y: 0 }}>
+                {HERO_WORDS.map((w) => (
+                  <span
+                    key={w}
+                    style={{
+                      display: 'block',
+                      height: '1em',
+                      lineHeight: 1,
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    {w}
+                  </span>
+                ))}
+              </div>
+            </span>
+          </span>
+          <span style={{ display: 'block' }}>Websites.</span>
+        </h1>
+
+        {/* Bottom row */}
+        <div ref={descRef} className="hero-bottom" style={{ opacity: 0 }}>
+          <p className="hero-desc">
+            Designer &amp; developer crafting bold digital<br />
+            experiences for ambitious brands.<br />
+            Based in Paris, available worldwide.
+          </p>
+
+          <div
+            ref={scrollHintRef}
+            className="hero-scroll-hint"
+            style={{ opacity: 0 }}
           >
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </button>
-
-          <div className="hero-topbar-right">
-            <ThemeToggle />
+            Scroll to explore
           </div>
-        </motion.div>
-
-        {/* Center Content */}
-        <div className="hero-center">
-          <h1 className="hero-headline">
-            <motion.span
-              className="hero-line"
-              variants={fadeSlideUp}
-              initial="hidden"
-              animate={animate}
-              custom={0}
-            >
-              FULL STACK WEB
-            </motion.span>
-            <motion.span
-              className="hero-line"
-              variants={fadeSlideUp}
-              initial="hidden"
-              animate={animate}
-              custom={0.15}
-            >
-              & MOBILE APP
-            </motion.span>
-            <motion.span
-              className="hero-line"
-              variants={fadeSlideUp}
-              initial="hidden"
-              animate={animate}
-              custom={0.3}
-            >
-              DEVELOPER
-            </motion.span>
-          </h1>
-          <motion.p
-            className="hero-subtitle"
-            variants={fadeSlideUp}
-            initial="hidden"
-            animate={animate}
-            custom={0.55}
-          >
-            FULL STACK WEB AND MOBILE APP DEVELOPMENT
-            <br />
-            FOR STARTUPS, SAAS, AND GLOBAL CLIENTS
-          </motion.p>
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <motion.div
-          className="hero-bottombar"
-          variants={fadeIn}
-          initial="hidden"
-          animate={animate}
-          custom={0.6}
-        >
-          <div className="hero-bottombar-left">
-            <span className="hero-based-label">BASED IN</span>{' '}
-            <span className="hero-based-location">TÉTOUAN, MOROCCO</span>
-          </div>
-          <div className="hero-bottombar-right">
-            <span className="hero-name">OUTMAN</span>
-            <span className="hero-separator">|</span>
-            <span className="hero-role">FULL STACK DEVELOPER</span>
-          </div>
-        </motion.div>
-      </section>
-
-      <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
-    </>
+      {/* Subtle noise/grain texture */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+          opacity: 0.4,
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
+      />
+    </section>
   );
 }

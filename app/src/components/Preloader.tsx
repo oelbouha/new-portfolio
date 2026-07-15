@@ -1,94 +1,74 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface PreloaderProps {
-    onComplete: () => void;
+  onComplete: () => void;
 }
 
 export function Preloader({ onComplete }: PreloaderProps) {
-    const [count, setCount] = useState(0);
-    const [phase, setPhase] = useState<'counting' | 'done' | 'exit'>('counting');
+  const countRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const preloaderRef = useRef<HTMLDivElement>(null);
 
-    // Count from 0 to 100
-    useEffect(() => {
-        if (phase !== 'counting') return;
+  useEffect(() => {
+    const tl = gsap.timeline({
+      onComplete: () => {
+        if (!preloaderRef.current) { onComplete(); return; }
+        gsap.to(preloaderRef.current, {
+          yPercent: -100,
+          duration: 1.0,
+          ease: 'power4.inOut',
+          onComplete,
+        });
+      },
+    });
 
-        const duration = 3500; // 3.5 seconds total
-        const startTime = Date.now();
+    // Animate the count 0 → 100
+    const countObj = { val: 0 };
+    tl.to(countObj, {
+      val: 100,
+      duration: 1.8,
+      ease: 'power2.inOut',
+      onUpdate() {
+        if (countRef.current) countRef.current.textContent = String(Math.round(countObj.val));
+      },
+    }, 0);
 
-        const timer = setInterval(() => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease-in-out curve for smooth counting
-            const eased = progress < 0.5
-                ? 2 * progress * progress
-                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-            const value = Math.round(eased * 100);
-            setCount(value);
+    // Animate the bar
+    if (barRef.current) {
+      tl.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'power2.inOut' }, 0);
+    }
 
-            if (value >= 100) {
-                clearInterval(timer);
-                setPhase('done');
-                setTimeout(() => setPhase('exit'), 400);
-            }
-        }, 50);
+    // Small hold before exit
+    tl.to({}, { duration: 0.3 });
 
-        return () => clearInterval(timer);
-    }, [phase]);
+    return () => { tl.kill(); };
+  }, [onComplete]);
 
-    return (
-        <AnimatePresence onExitComplete={onComplete}>
-            {phase !== 'exit' && (
-                <motion.div
-                    className="preloader"
-                    initial={{ y: 0 }}
-                    exit={{ y: '-100%' }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                >
-                    {/* Top left - Name */}
-                    <motion.div
-                        className="preloader-top"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        <span className="preloader-name">OUTMAN EL BOUHALI</span>
-                        <span className="preloader-title">FULL STACK DEVELOPER</span>
-                    </motion.div>
+  return (
+    <div ref={preloaderRef} className="preloader" aria-hidden="true">
+      <div className="preloader-top">
+        <span className="preloader-name" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.55 }}>
+          Portfolio
+        </span>
+        <span className="preloader-name" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.4 }}>
+          Loading
+        </span>
+      </div>
 
-                    {/* Center - Counter */}
-                    <div className="preloader-center">
-                        <motion.span
-                            className="preloader-counter"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            {count}
-                        </motion.span>
-                    </div>
+      <div className="preloader-center">
+        <div ref={countRef} className="preloader-count">0</div>
+      </div>
 
-                    {/* Bottom - Loading bar */}
-                    <div className="preloader-bottom">
-                        <div className="preloader-bar-track">
-                            <motion.div
-                                className="preloader-bar-fill"
-                                initial={{ scaleX: 0 }}
-                                animate={{ scaleX: count / 100 }}
-                                transition={{ duration: 0.1, ease: 'linear' }}
-                            />
-                        </div>
-                        <motion.span
-                            className="preloader-label"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.3, duration: 0.5 }}
-                        >
-                            LOADING
-                        </motion.span>
-                    </div>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
+      <div className="preloader-bottom">
+        <div className="preloader-bar-track">
+          <div ref={barRef} className="preloader-bar-fill" />
+        </div>
+        <div className="preloader-status">Crafting your experience</div>
+      </div>
+    </div>
+  );
 }

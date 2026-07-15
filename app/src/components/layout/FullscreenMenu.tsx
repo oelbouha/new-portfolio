@@ -1,255 +1,178 @@
-import { useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { openMenu, closeMenu } from '@/lib/animations';
+import { NAV_MENU_ITEMS } from '@/lib/constants';
 
 interface FullscreenMenuProps {
-    isOpen: boolean;
-    onClose: () => void;
+  isOpen: boolean;
+  onClose: () => void;
+  onNavigate?: (href: string) => void;
 }
 
-const menuItems = [
-    { label: 'HOME', href: '#hero' },
-    { label: 'WORK', href: '#work' },
-    { label: 'ABOUT', href: '/about' },
-    { label: 'SERVICES', href: '#services' },
-    { label: 'CONTACT', href: '#contact' },
-];
+export function FullscreenMenu({ isOpen, onClose, onNavigate }: FullscreenMenuProps) {
+  const menuRef = useRef<HTMLElement>(null);
+  const menuContentRef = useRef<HTMLDivElement>(null);
+  const isAnimating = useRef(false);
+  const wasOpen = useRef(false);
 
-const overlayVariants = {
-    hidden: { y: '100%' },
-    visible: {
-        y: 0,
-        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-    },
-    exit: {
-        opacity: 0,
-        transition: { delay: 0.4, duration: 0.3, ease: 'easeOut' as const },
-    },
-};
+  useEffect(() => {
+    const page = document.querySelector<HTMLElement>('.page-main');
+    const menu = menuRef.current;
+    const content = menuContentRef.current;
 
-const itemVariants = {
-    hidden: { opacity: 0, y: 80 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            delay: 0.4 + i * 0.1,
-            duration: 0.7,
-            ease: [0.16, 1, 0.3, 1] as const,
-        },
-    }),
-    exit: (i: number) => ({
-        opacity: 0,
-        y: -40,
-        transition: {
-            delay: i * 0.05,
-            duration: 0.3,
-            ease: 'easeOut' as const,
-        },
-    }),
-};
+    if (!page || !menu || !content) return;
 
-const textRevealVariants = (enterDelay: number) => ({
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { delay: enterDelay, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
-    },
-    exit: {
-        opacity: 0,
-        y: -10,
-        transition: { duration: 0.25, ease: 'easeOut' as const },
-    },
-});
+    if (isOpen && !wasOpen.current) {
+      wasOpen.current = true;
+      if (isAnimating.current) return;
+      isAnimating.current = true;
+      const tl = openMenu(page, menu, content);
+      tl?.eventCallback('onComplete', () => { isAnimating.current = false; });
+    } else if (!isOpen && wasOpen.current) {
+      wasOpen.current = false;
+      if (isAnimating.current) return;
+      isAnimating.current = true;
+      closeMenu(page, menu, content, () => { isAnimating.current = false; });
+    }
+  }, [isOpen]);
 
-const closeBtnVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: { delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.8,
-        transition: { duration: 0.25, ease: 'easeOut' as const },
-    },
-};
+  // ESC key
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => { if (e.key === 'Escape' && isOpen) onClose(); };
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, [isOpen, onClose]);
 
-const topbarLeftVariants = textRevealVariants(0.4);
-const topbarRightVariants = textRevealVariants(0.7);
-const bottomBarVariants = textRevealVariants(0.8);
+  const allItems = [
+    { label: 'Home', href: '/', col: 1 },
+    { label: 'Work', href: '/work', col: 1 },
+    { label: 'Services', href: '/#services', col: 1 },
+    { label: 'About', href: '/about', col: 1 },
+    { label: 'Studio', href: '/about', col: 2 },
+    { label: 'Contact', href: '#contact', col: 2 },
+  ];
 
-export function FullscreenMenu({ isOpen, onClose }: FullscreenMenuProps) {
-    // Prevent scrolling while keeping scrollbar visible
-    useEffect(() => {
-        if (isOpen) {
-            const scrollY = window.scrollY;
-            const prevHtmlOverflowY = document.documentElement.style.overflowY;
-            const prevBodyPosition = document.body.style.position;
-            const prevBodyTop = document.body.style.top;
-            const prevBodyWidth = document.body.style.width;
-            const prevScrollBehavior = document.documentElement.style.scrollBehavior;
+  const col1 = allItems.filter(i => i.col === 1);
+  const col2 = allItems.filter(i => i.col === 2);
 
-            document.documentElement.style.overflowY = 'scroll';
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100%';
-            document.documentElement.style.scrollBehavior = 'auto';
+  return (
+    <section
+      ref={menuRef}
+      className="nav-menu"
+      aria-hidden={!isOpen}
+      aria-modal={isOpen}
+      role="dialog"
+    >
+      <div
+        ref={menuContentRef}
+        className="nav-menu_component"
+        style={{
+          opacity: 0.25,
+          transform: 'translateX(-100px) translateY(-100px) scale(1.5) rotate(-15deg)',
+        }}
+      >
+        {/* Menu header */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: 'clamp(1rem, 2.5vw, 2.5rem)',
+          paddingTop: '1.1rem',
+          paddingBottom: '1.1rem',
+        }}>
+          <span className="text-mono" style={{ opacity: 0.5 }}>Portfolio — Navigation</span>
+          <button
+            onClick={onClose}
+            className="link"
+            aria-label="Close menu"
+            style={{ cursor: 'pointer' }}
+          >
+            <div className="link_first"><span className="text-mono">Close</span></div>
+            <div className="link_second"><span className="text-mono">Close</span></div>
+          </button>
+        </div>
 
-            return () => {
-                const y = Math.abs(parseInt(document.body.style.top || '0', 10)) || 0;
-                document.documentElement.style.overflowY = prevHtmlOverflowY;
-                document.body.style.position = prevBodyPosition;
-                document.body.style.top = prevBodyTop;
-                document.body.style.width = prevBodyWidth;
-                document.documentElement.style.scrollBehavior = prevScrollBehavior;
-                window.scrollTo(0, y);
-            };
-        }
-    }, [isOpen]);
+        {/* Column 1 */}
+        <div className="nav-menu_col">
+          {col1.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="nav-menu_link_wrapper"
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+                setTimeout(() => onNavigate?.(item.href), 900);
+              }}
+            >
+              <div style={{ overflow: 'hidden' }}>
+                <div className="nav-menu_link">{item.label}</div>
+              </div>
+            </a>
+          ))}
+        </div>
 
-    // Handle ESC key
-    useEffect(() => {
-        const handleKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-        };
-        if (isOpen) {
-            window.addEventListener('keydown', handleKey);
-        }
-        return () => window.removeEventListener('keydown', handleKey);
-    }, [isOpen, onClose]);
+        {/* Column 2 */}
+        <div className="nav-menu_col">
+          {col2.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="nav-menu_link_wrapper"
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+                setTimeout(() => onNavigate?.(item.href), 900);
+              }}
+            >
+              <div style={{ overflow: 'hidden' }}>
+                <div className="nav-menu_link">{item.label}</div>
+              </div>
+            </a>
+          ))}
+        </div>
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const handleMenuClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        e.preventDefault();
-        onClose();
-
-        // Handle page navigation (e.g. /about)
-        if (href.startsWith('/')) {
-            setTimeout(() => {
-                navigate(href);
-            }, 600);
-            return;
-        }
-
-        const targetId = href.replace('#', '');
-
-        if (location.pathname !== '/') {
-            // Navigate to home page first, then scroll after mount
-            setTimeout(() => {
-                navigate('/?section=' + targetId);
-            }, 600);
-        } else {
-            setTimeout(() => {
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 800);
-        }
-    }, [onClose, navigate, location.pathname]);
-
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <motion.div
-                    className="fullscreen-menu"
-                    variants={overlayVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    aria-hidden={!isOpen}
-                >
-                    {/* Top Bar */}
-                    <div className="hero-topbar">
-                        <motion.div
-                            className="hero-topbar-left"
-                            variants={topbarLeftVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                        >
-                            <span className="hero-local-label">LOCAL/</span>
-                            <span className="hero-time" style={{ fontWeight: 400 }}>35° 46' N</span>
-                        </motion.div>
-
-                        <motion.button
-                            className="menu-close-btn"
-                            onClick={onClose}
-                            aria-label="Close menu"
-                            variants={closeBtnVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                            whileHover={{ rotate: 90, scale: 1.1 }}
-                        >
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                <line x1="1" y1="1" x2="17" y2="17" />
-                                <line x1="17" y1="1" x2="1" y2="17" />
-                            </svg>
-                        </motion.button>
-
-                        <motion.div
-                            className="hero-topbar-right hidden md:block"
-                            variants={topbarRightVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                        >
-                            <ThemeToggle />
-                        </motion.div>
-                    </div>
-
-                    {/* Menu Items */}
-                    <nav className="fullscreen-menu-nav">
-                        {menuItems.map((item, index) => (
-                            <motion.a
-                                key={item.label}
-                                href={item.href}
-                                className="fullscreen-menu-item"
-                                custom={index}
-                                variants={itemVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                                onClick={(e) => handleMenuClick(e, item.href)}
-                            >
-                                {index === 0 && <span className="menu-item-number">(1)</span>}
-                                {item.label}
-                            </motion.a>
-                        ))}
-                    </nav>
-
-                    {/* Bottom Bar */}
-                    <motion.div
-                        className="fullscreen-menu-bottom"
-                        variants={bottomBarVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                    >
-                        <div className="fullscreen-menu-bottom-left">
-                            ©2025 ALL RIGHTS RESERVED
-                        </div>
-                        <div className="fullscreen-menu-bottom-right">
-                            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                                INSTAGRAM<span className="external-arrow">↗</span>
-                            </a>
-                            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                                LINKEDIN<span className="external-arrow">↗</span>
-                            </a>
-                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
-                                GITHUB<span className="external-arrow">↗</span>
-                            </a>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
+        {/* Footer row */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: 'clamp(1rem, 2.5vw, 2.5rem)',
+          paddingTop: '1.1rem',
+          paddingBottom: '1.1rem',
+          borderTop: '1px solid rgba(128,128,128,0.15)',
+        }}>
+          <span className="text-mono" style={{ opacity: 0.5 }}>©2025 All rights reserved</span>
+          <div style={{ display: 'flex', gap: '2rem' }}>
+            {[
+              { label: 'GitHub', href: 'https://github.com/oelbouha' },
+              { label: 'LinkedIn', href: '#' },
+              { label: 'Dribbble', href: '#' },
+            ].map(s => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-mono"
+                style={{ opacity: 0.55, transition: 'opacity 0.25s ease' }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '0.55')}
+              >
+                {s.label} ↗
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
