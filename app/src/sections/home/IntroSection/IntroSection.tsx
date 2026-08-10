@@ -8,9 +8,11 @@ export function IntroSection() {
 
   return (
     <section className={styles.section} id="intro">
-      <div ref={tagRef} className={styles.tag}>[ ABOUT OUTMAN ]</div>
-      <div ref={headlineRef}>
-        <IntroHeadline />
+      <div className={styles.inner}>
+        <div ref={tagRef} className={styles.tag}>[ ABOUT OUTMAN ]</div>
+        <div ref={headlineRef}>
+          <IntroHeadline />
+        </div>
       </div>
     </section>
   );

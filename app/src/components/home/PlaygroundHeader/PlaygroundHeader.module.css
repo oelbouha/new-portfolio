@@ -11,6 +11,6 @@
   text-transform: uppercase;
   color: var(--border-color);
   user-select: none;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
   text-align: center;
 }

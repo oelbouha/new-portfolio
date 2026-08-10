@@ -1,7 +1,7 @@
 /* ============================================
-   FONTS - Space Grotesk + IBM Plex Mono
+   FONTS - Bebas Neue + Space Grotesk + IBM Plex Mono
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -18,6 +18,10 @@
   --nav-menu-bg: #FAFAFA;
   --transition-overlay-bg: #FAFAFA;
   --transition-overlay-end: #E4E4E4;
+  /* Fixed nav text — white in light mode, dark in dark mode */
+  --nav-fixed-text: #ffffff;
+  /* Display font (Bebas Neue) */
+  --font-display: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
 }
 
 [data-theme="dark"], html.is-dark {
@@ -26,6 +30,8 @@
   --nav-menu-bg: #1C1C1C;
   --transition-overlay-bg: #1C1C1C;
   --transition-overlay-end: #111111;
+  /* In dark mode nav text stays light (page bg is dark) */
+  --nav-fixed-text: #ffffff;
 }
 
 /* Prevent transitions on initial load */
@@ -217,7 +223,7 @@ button {
 }
 .container-large {
   width: 100%;
-  max-width: 1400px;
+  max-width: 80rem; /* ~1280px — 7xl */
   margin: 0 auto;
 }
 .container-nav {
@@ -236,6 +242,10 @@ button {
   z-index: 1000;
   padding: 0;
   will-change: transform;
+  /* Frosted glass: always readable regardless of page content */
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .nav-bottom {
   position: fixed;
@@ -245,6 +255,17 @@ button {
   z-index: 1000;
   padding: 0;
   will-change: transform;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* In dark mode slightly less dark overlay */
+[data-theme="dark"] .nav-top,
+html.is-dark .nav-top,
+[data-theme="dark"] .nav-bottom,
+html.is-dark .nav-bottom {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .nav-top_component,
@@ -283,6 +304,11 @@ button {
 .difference {
   mix-blend-mode: difference;
   color: #fff;
+}
+
+/* Fixed nav text — adapts to light/dark theme */
+.nav-text {
+  color: var(--nav-fixed-text);
 }
 
 /* Nav visual badge */
@@ -408,11 +434,11 @@ button {
 }
 
 .hero-headline {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(4rem, 11vw, 11rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
   color: var(--text);
   margin: 0;
 }
@@ -479,11 +505,11 @@ button {
 }
 
 .intro-tagline {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
   color: var(--text);
   max-width: 900px;
 }
@@ -530,10 +556,10 @@ button {
 }
 
 .projects-title {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(5rem, 14vw, 14rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   line-height: 0.88;
   color: var(--text);
   text-align: right;
@@ -637,12 +663,12 @@ button {
 .service-item:last-child { border-bottom: 1px solid rgba(128,128,128,0.15); }
 
 .service-name {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(1.6rem, 4vw, 3.5rem);
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   line-height: 1;
-  text-transform: lowercase;
+  text-transform: uppercase;
   color: var(--text);
   transition: opacity 0.3s ease;
 }
@@ -730,11 +756,11 @@ button {
 }
 
 .cta-heading {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(3rem, 8vw, 8rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
   color: var(--text);
 }
 
@@ -785,12 +811,22 @@ button {
   padding-top: 2rem;
 }
 
+/* Inner container for footer content */
+.footer-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .footer-videos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
   padding: 0 clamp(1rem, 2.5vw, 2.5rem);
   margin-bottom: 3rem;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer-video-item {
@@ -820,6 +856,9 @@ button {
   gap: 1rem;
   padding: 2rem clamp(1rem, 2.5vw, 2.5rem);
   border-top: 1px solid rgba(128,128,128,0.15);
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer-col {

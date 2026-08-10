@@ -5,6 +5,12 @@
   border-top: 1px solid var(--border-color);
 }
 
+.inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .header {
   margin-bottom: 3rem;
   text-align: center;

@@ -9,13 +9,15 @@ export function ServicesSection() {
 
   return (
     <section className={styles.section} id="services">
-      <div ref={headerRef} className={styles.header}>
-        <div className={styles.tag}>[ OUR CAPABILITIES & SERVICES ]</div>
-      </div>
-      <div ref={listRef} className={styles.list}>
-        {servicesData.map((service, index) => (
-          <ServiceItem key={service.id} service={service} index={index} />
-        ))}
+      <div className={styles.inner}>
+        <div ref={headerRef} className={styles.header}>
+          <div className={styles.tag}>[ OUR CAPABILITIES & SERVICES ]</div>
+        </div>
+        <div ref={listRef} className={styles.list}>
+          {servicesData.map((service, index) => (
+            <ServiceItem key={service.id} service={service} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );

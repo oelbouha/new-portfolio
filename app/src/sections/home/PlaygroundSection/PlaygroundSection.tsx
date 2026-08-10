@@ -10,13 +10,15 @@ export function PlaygroundSection() {
 
   return (
     <section className={styles.section} id="playground">
-      <div ref={headerRef}>
-        <PlaygroundHeader />
-      </div>
-      <div ref={gridRef} className={styles.grid}>
-        {projectsData.map((project, index) => (
-          <ProjectCard key={project.slug} project={project} index={index} />
-        ))}
+      <div className={styles.inner}>
+        <div ref={headerRef}>
+          <PlaygroundHeader />
+        </div>
+        <div ref={gridRef} className={styles.grid}>
+          {projectsData.map((project, index) => (
+            <ProjectCard key={project.slug} project={project} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );

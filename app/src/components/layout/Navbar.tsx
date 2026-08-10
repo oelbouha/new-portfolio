@@ -33,8 +33,8 @@ function CityTime({ city, tz }: { city: string; tz: string }) {
   const time = useLiveClock(tz);
   return (
     <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
-      <span className="text-mono" style={{ opacity: 0.55 }}>{city}</span>
-      <span className="text-mono">{time}</span>
+      <span className="text-mono nav-text" style={{ opacity: 0.55 }}>{city}</span>
+      <span className="text-mono nav-text">{time}</span>
     </div>
   );
 }
@@ -57,8 +57,8 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
         <div className="nav-top_component">
           {/* Left: Logo */}
           <a href="/" className="link" style={{ textDecoration: 'none' }} data-cursor-hover="Home">
-            <div className="link_first"><span className="text-mono difference">Portfolio</span></div>
-            <div className="link_second"><span className="text-mono difference">Portfolio</span></div>
+            <div className="link_first"><span className="text-mono nav-text">Portfolio</span></div>
+            <div className="link_second"><span className="text-mono nav-text">Portfolio</span></div>
           </a>
 
           {/* Center: Menu button */}
@@ -69,8 +69,8 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
             aria-label="Open menu"
             style={{ cursor: 'pointer' }}
           >
-            <div className="link_first"><span className="text-mono difference">Menu</span></div>
-            <div className="link_second"><span className="text-mono difference">Open</span></div>
+            <div className="link_first"><span className="text-mono nav-text">Menu</span></div>
+            <div className="link_second"><span className="text-mono nav-text">Open</span></div>
           </button>
 
           {/* Right: Dark mode + Let's talk */}
@@ -81,10 +81,10 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
               aria-label="Toggle theme"
             >
               <div className="link_first">
-                <span className="text-mono difference">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+                <span className="text-mono nav-text">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
               </div>
               <div className="link_second">
-                <span className="text-mono difference">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+                <span className="text-mono nav-text">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
               </div>
             </button>
 
@@ -94,8 +94,8 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
               data-cursor-hover="Let's talk"
               aria-label="Open contact"
             >
-              <div className="link_first"><span className="text-mono difference">Let's talk!</span></div>
-              <div className="link_second"><span className="text-mono difference">Contact us</span></div>
+              <div className="link_first"><span className="text-mono nav-text">Let's talk!</span></div>
+              <div className="link_second"><span className="text-mono nav-text">Contact us</span></div>
             </button>
           </div>
         </div>
@@ -105,7 +105,7 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
       <nav ref={bottomRef} className="nav-bottom">
         <div className="nav-bottom_component">
           {/* Left: tagline */}
-          <span className="text-mono difference" style={{ opacity: 0.6 }}>
+          <span className="text-mono nav-text" style={{ opacity: 0.6 }}>
             We craft bold design &amp; clean code.
           </span>
 
