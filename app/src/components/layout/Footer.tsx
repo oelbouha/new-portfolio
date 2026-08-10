@@ -12,8 +12,9 @@ interface FooterProps {
 export function Footer({ onContactOpen }: FooterProps) {
   const logoRef = useRef<SVGSVGElement>(null);
 
+  
+
   useEffect(() => {
-    // Grow-appear for footer video items
     document.querySelectorAll<HTMLElement>('.footer-video-item').forEach((el, i) => {
       gsap.fromTo(el,
         { opacity: 0, scale: 0.9 },
@@ -23,14 +24,24 @@ export function Footer({ onContactOpen }: FooterProps) {
         }
       );
     });
-
-    // Footer logo stretch animation on scroll into view
+  
+    // Footer logo: starts as a flat line, unrolls upward on scroll
     if (logoRef.current) {
+      gsap.set(logoRef.current, {
+        transformOrigin: '50% 100%', // anchor at the bottom
+      });
+  
       gsap.fromTo(logoRef.current,
-        { opacity: 0, y: '2rem' },
+        { scaleY: 0.02, opacity: 1 },
         {
-          opacity: 1, y: 0, duration: 1.2, ease: 'power4.out',
-          scrollTrigger: { trigger: logoRef.current, start: 'top 95%', once: true },
+          scaleY: 1,
+          ease: 'none', // let scroll position drive it linearly
+          scrollTrigger: {
+            trigger: logoRef.current,
+            start: 'top 95%',   // when logo enters view
+            end: 'top 25%',     // fully revealed by here
+            scrub: 0.6,          // ties animation directly to scroll, with slight smoothing
+          },
         }
       );
     }
@@ -146,9 +157,8 @@ export function Footer({ onContactOpen }: FooterProps) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
-          style={{ opacity: 0 }}
+          style={{ transform: 'scaleY(0.02)', transformOrigin: '50% 100%' }}
         >
-          {/* "PORTFOLIO" rendered as block letters — simplified path representation */}
           {/* P */}
           <path d="M0 0H90V180C90 230 130 260 175 260H220V330H175C90 330 0 275 0 180V0Z" fill="currentColor" />
           <rect x="0" y="0" width="90" height="475" fill="currentColor" />
@@ -167,7 +177,7 @@ export function Footer({ onContactOpen }: FooterProps) {
             style={{ font: '700 430px Space Grotesk, sans-serif', letterSpacing: '-0.05em' }}
             fill="currentColor"
           >
-            PORTFOLIO
+            OUTMAN
           </text>
         </svg>
       </div>

@@ -1,0 +1,25 @@
+.section {
+  padding: 6rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid var(--border-color);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 2rem;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.25rem;
+  }
+}

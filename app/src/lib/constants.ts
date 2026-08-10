@@ -72,7 +72,7 @@ export const NAV_MENU_ITEMS = [
 ];
 
 export const NAV_MENU_ITEMS_RIGHT = [
-  { label: 'Studio', href: '/about' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '#contact' },
 ];
 

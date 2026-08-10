@@ -2,11 +2,15 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { HeroSection } from '@/sections/home/HeroSection';
+import { HeroSection } from '@/sections/home/HeroSection/HeroSection';
 import { SelectedProjects } from '@/sections/home/SelectedProjects';
+import { VideoSection } from '@/sections/home/VideoSection/VideoSection';
+
 import { ServicesSection } from '@/sections/home/ServicesSection';
 import { CTASection } from '@/sections/home/CTASection';
 import { Footer } from '@/components/layout/Footer';
+import { IntroSection } from '@/sections/home/IntroSection/IntroSection';
+import { PlaygroundSection } from '@/sections/home/PlaygroundSection/PlaygroundSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,8 +44,12 @@ export function Home({ preloaderDone = true, onContactOpen }: HomeProps) {
     <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
       <main>
         <HeroSection />
-        <SelectedProjects />
+        {/* <SelectedProjects /> */}
+        <VideoSection />
+        <IntroSection />
+        <PlaygroundSection />
         <ServicesSection />
+        {/* <ServicesSection /> */}
         <CTASection onContactOpen={onContactOpen} />
       </main>
       <Footer onContactOpen={onContactOpen} />
