@@ -18,8 +18,8 @@
   --nav-menu-bg: #FAFAFA;
   --transition-overlay-bg: #FAFAFA;
   --transition-overlay-end: #E4E4E4;
-  /* Fixed nav text — white in light mode, dark in dark mode */
-  --nav-fixed-text: #ffffff;
+  /* Fixed nav text — follows the active theme contrast */
+  --nav-fixed-text: var(--text);
   /* Display font (Bebas Neue) */
   --font-display: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
 }
@@ -30,8 +30,7 @@
   --nav-menu-bg: #1C1C1C;
   --transition-overlay-bg: #1C1C1C;
   --transition-overlay-end: #111111;
-  /* In dark mode nav text stays light (page bg is dark) */
-  --nav-fixed-text: #ffffff;
+  --nav-fixed-text: var(--text);
 }
 
 /* Prevent transitions on initial load */
@@ -242,10 +241,7 @@ button {
   z-index: 1000;
   padding: 0;
   will-change: transform;
-  /* Frosted glass: always readable regardless of page content */
-  background: rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
 }
 .nav-bottom {
   position: fixed;
@@ -255,17 +251,7 @@ button {
   z-index: 1000;
   padding: 0;
   will-change: transform;
-  background: rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* In dark mode slightly less dark overlay */
-[data-theme="dark"] .nav-top,
-html.is-dark .nav-top,
-[data-theme="dark"] .nav-bottom,
-html.is-dark .nav-bottom {
-  background: rgba(0, 0, 0, 0.3);
+  background: transparent;
 }
 
 .nav-top_component,
@@ -892,13 +878,40 @@ html.is-dark .nav-bottom {
   position: fixed;
   inset: 0;
   z-index: 4000;
-  background: var(--background);
-  display: none;
+  background: var(--nav-menu-bg);
   flex-direction: column;
   padding: clamp(1rem, 2.5vw, 2.5rem);
   overflow-y: auto;
+  display: flex;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  pointer-events: none;
+  will-change: clip-path;
 }
-.contact-overlay.is-open { display: flex; }
+.contact-overlay.is-open { pointer-events: auto; }
+
+.contact-overlay_panel {
+  width: min(100%, 72rem);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-spotlight {
+  width: min(100%, 20rem);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  background: #f4f4f4;
+}
+
+.contact-spotlight img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 .contact-close {
   align-self: flex-start;
@@ -910,9 +923,9 @@ html.is-dark .nav-bottom {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  opacity: 0.6;
+  opacity: 0.7;
   transition: opacity 0.25s ease;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
 }
 .contact-close:hover { opacity: 1; }
 
@@ -922,7 +935,7 @@ html.is-dark .nav-bottom {
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.92;
-  color: var(--text);
+  color: #111111;
   margin-bottom: 3rem;
 }
 
@@ -988,17 +1001,17 @@ html.is-dark .nav-bottom {
   transition: all 0.2s ease;
 }
 .contact-radio-label:has(input:checked) {
-  background: var(--text);
-  color: var(--background);
-  border-color: var(--text);
+  background: #111111;
+  color: #ffffff;
+  border-color: #111111;
 }
 .contact-radio-label input { display: none; }
 
 .contact-submit {
   margin-top: 1rem;
   padding: 1rem 2rem;
-  background: var(--text);
-  color: var(--background);
+  background: #111111;
+  color: #ffffff;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
@@ -1009,6 +1022,25 @@ html.is-dark .nav-bottom {
   transition: opacity 0.25s ease;
 }
 .contact-submit:hover { opacity: 0.7; }
+
+.cta-inline-visual {
+  display: inline-flex;
+  vertical-align: middle;
+  height: 0.85em;
+  border-radius: 0.2em;
+  overflow: hidden;
+  background: rgba(17, 17, 17, 0.08);
+  width: 0;
+  will-change: width;
+  margin: 0 0.15em;
+}
+
+.cta-inline-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* ============================================
    PRELOADER

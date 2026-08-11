@@ -1,4 +1,4 @@
-import styles from './PlaygroundHeader.module.css';
+import { playgroundHeaderStyles } from './PlaygroundHeader.styles';
 
 interface PlaygroundHeaderProps {
   className?: string;
@@ -6,8 +6,11 @@ interface PlaygroundHeaderProps {
 
 export function PlaygroundHeader({ className = '' }: PlaygroundHeaderProps) {
   return (
-    <header className={`${styles.header} ${className}`}>
-      <h2 className={styles.title}>PLAYGROUND</h2>
+    <header className={`${playgroundHeaderStyles.header} ${className}`}>
+      <div className={playgroundHeaderStyles.labelWrap}>
+        <span className={playgroundHeaderStyles.label}>Projects</span>
+      </div>
+      <h2 className={playgroundHeaderStyles.title}>PLAYGROUND</h2>
     </header>
   );
 }

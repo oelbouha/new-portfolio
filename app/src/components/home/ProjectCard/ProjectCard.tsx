@@ -1,35 +1,43 @@
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import styles from './ProjectCard.module.css';
+import type { MouseEvent } from 'react';
+import { cn } from '@/lib/utils';
+import { projectCardMotion, projectCardStyles } from './ProjectCard.styles';
+import type { ProjectCardProps } from './ProjectCard.types';
 
-interface Project {
-  slug: string;
-  title: string;
-  category: string;
-  year: string;
-  thumbnail: string;
-  tags?: string[];
-}
+const MotionCard = motion.div;
 
-interface ProjectCardProps {
-  project: Project;
-  index?: number;
-  className?: string;
-}
+export function ProjectCard({ project, index = 0, className = '', onNavigate }: ProjectCardProps) {
+  const motionVariant = index % 2 === 0 ? projectCardMotion.fromLeft : projectCardMotion.fromRight;
+  const href = `/work/${project.slug}`;
 
-export function ProjectCard({ project, className = '' }: ProjectCardProps) {
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!onNavigate) return;
+    event.preventDefault();
+    onNavigate(href);
+  };
+
   return (
-    <Link to={`/work/${project.slug}`} className={`${styles.card} ${className}`}>
-      <div className={styles.imageWrapper}>
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className={styles.image}
-          loading="lazy"
-        />
-        <div className={styles.hoverOverlay}>
-          <span className={styles.hoverTitle}>{project.title}</span>
+    <MotionCard
+      className={projectCardStyles.motionShell}
+      initial={motionVariant.initial}
+      whileInView={motionVariant.whileInView}
+      viewport={motionVariant.viewport}
+      transition={motionVariant.transition}
+    >
+      <Link to={href} onClick={handleClick} className={cn(projectCardStyles.card, className)}>
+        <div className={projectCardStyles.imageWrapper}>
+          <img
+            src={project.thumbnail}
+            alt={project.title}
+            className={projectCardStyles.image}
+            loading="lazy"
+          />
+          <div className={projectCardStyles.hoverOverlay}>
+            <span className={projectCardStyles.hoverTitle}>{project.title}</span>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </MotionCard>
   );
 }

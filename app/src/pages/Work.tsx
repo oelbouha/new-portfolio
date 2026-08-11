@@ -6,7 +6,7 @@ import { PortfolioGrid } from '@/sections/work/PortfolioGrid';
 export function Work() {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar currentPage="work" />
+      <Navbar />
       <main>
         <WorkHero />
         <PortfolioGrid />

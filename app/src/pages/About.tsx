@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, type Easing } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
 import { Footer } from '@/components/layout/Footer';
@@ -9,7 +9,7 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: (delay: number) => ({
     opacity: 1,
-    transition: { duration: 0.6, ease: 'easeOut' as Easing, delay },
+    transition: { duration: 0.6, ease: 'easeOut', delay },
   }),
 };
 
@@ -18,7 +18,7 @@ const fadeSlideUp = {
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as Easing, delay },
+    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay },
   }),
 };
 

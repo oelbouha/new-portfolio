@@ -1,5 +1,5 @@
 import type { Project } from '@/data/projects/projects.types';
-import styles from './ScrollImageShowcase.module.css';
+import { scrollImageShowcaseStyles } from './ScrollImageShowcase.styles';
 
 interface ScrollImageShowcaseProps {
   project: Project;
@@ -7,13 +7,13 @@ interface ScrollImageShowcaseProps {
 
 export function ScrollImageShowcase({ project }: ScrollImageShowcaseProps) {
   return (
-    <section className={styles.section}>
+    <section className={scrollImageShowcaseStyles.section}>
       {project.images.map((imgSrc, idx) => (
-        <div key={idx} className={styles.imageWrapper}>
+        <div key={idx} className={scrollImageShowcaseStyles.imageWrapper}>
           <img
             src={imgSrc}
             alt={`${project.title} screenshot ${idx + 1}`}
-            className={styles.image}
+            className={scrollImageShowcaseStyles.image}
             loading="lazy"
           />
         </div>

@@ -29,6 +29,16 @@ function AppInner() {
     setTimeout(() => ScrollTrigger.refresh(), 200);
   }, []);
 
+  const handleContactOpen = useCallback(() => {
+    if (contactOpen) return;
+    setContactOpen(true);
+  }, [contactOpen]);
+
+  const handleContactClose = useCallback(() => {
+    setContactOpen(false);
+  }, []);
+
+
   const handleNavigate = useCallback((href: string) => {
     if (href.startsWith('#')) {
       const id = href.slice(1);
@@ -94,7 +104,7 @@ function AppInner() {
       {!loading && (
         <Navbar
           onMenuOpen={() => setMenuOpen(true)}
-          onContactOpen={() => setContactOpen(true)}
+          onContactOpen={handleContactOpen}
         />
       )}
 
@@ -108,7 +118,7 @@ function AppInner() {
       {/* Contact overlay */}
       <ContactOverlay
         isOpen={contactOpen}
-        onClose={() => setContactOpen(false)}
+        onClose={handleContactClose}
       />
 
       {/* Page transition overlay */}
@@ -124,7 +134,8 @@ function AppInner() {
             element={
               <Home
                 preloaderDone={!loading}
-                onContactOpen={() => setContactOpen(true)}
+                onContactOpen={handleContactOpen}
+                onNavigate={handleNavigate}
               />
             }
           />

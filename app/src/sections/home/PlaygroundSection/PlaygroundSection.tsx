@@ -1,22 +1,25 @@
 import { PlaygroundHeader } from '@/components/home/PlaygroundHeader/PlaygroundHeader';
-import { ProjectCard } from '@/components/home/ProjectCard/ProjectCard';
+import { ProjectCard } from '@/components/home/ProjectCard';
 import { projectsData } from '@/data/projects/projects.data';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import styles from './PlaygroundSection.module.css';
+import { playgroundSectionStyles } from './PlaygroundSection.styles';
 
-export function PlaygroundSection() {
+interface PlaygroundSectionProps {
+  onNavigate?: (href: string) => void;
+}
+
+export function PlaygroundSection({ onNavigate }: PlaygroundSectionProps) {
   const headerRef = useScrollReveal<HTMLDivElement>({ y: 40, duration: 0.9, delay: 0 });
-  const gridRef = useScrollReveal<HTMLDivElement>({ y: 60, duration: 1.1, delay: 0.1, stagger: 0.1 });
 
   return (
-    <section className={styles.section} id="playground">
-      <div className={styles.inner}>
+    <section className={playgroundSectionStyles.section} id="playground">
+      <div className={playgroundSectionStyles.inner}>
         <div ref={headerRef}>
           <PlaygroundHeader />
         </div>
-        <div ref={gridRef} className={styles.grid}>
+        <div className={playgroundSectionStyles.grid}>
           {projectsData.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
+            <ProjectCard key={project.slug} project={project} index={index} onNavigate={onNavigate} />
           ))}
         </div>
       </div>

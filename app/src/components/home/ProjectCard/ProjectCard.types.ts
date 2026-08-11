@@ -4,4 +4,5 @@ export interface ProjectCardProps {
   project: Project;
   index?: number;
   className?: string;
+  onNavigate?: (href: string) => void;
 }

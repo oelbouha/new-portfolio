@@ -1,4 +1,4 @@
-import styles from './ServiceItem.module.css';
+import { serviceItemStyles } from './ServiceItem.styles';
 
 interface ServiceItemData {
   id: string;
@@ -17,15 +17,15 @@ export function ServiceItem({ service, index }: ServiceItemProps) {
   const formattedIndex = String(index + 1).padStart(2, '0');
 
   return (
-    <div className={styles.item}>
-      <div className={styles.leftGroup}>
-        <span className={styles.index}>/{formattedIndex}</span>
-        <div className={styles.titleGroup}>
-          <h3 className={styles.title}>{service.title}</h3>
-          <span className={styles.subtitle}>{service.subtitle}</span>
+    <div className={serviceItemStyles.item}>
+      <div className={serviceItemStyles.leftGroup}>
+        <span className={serviceItemStyles.index}>/{formattedIndex}</span>
+        <div className={serviceItemStyles.titleGroup}>
+          <h3 className={serviceItemStyles.title}>{service.title}</h3>
+          <span className={serviceItemStyles.subtitle}>{service.subtitle}</span>
         </div>
       </div>
-      <p className={styles.description}>{service.description}</p>
+      <p className={serviceItemStyles.description}>{service.description}</p>
     </div>
   );
 }

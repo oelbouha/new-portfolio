@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -253,7 +253,7 @@ export function initCtaVisual() {
 // ============================================
 // HERO HEADLINE WORD ROTATOR
 // ============================================
-export function useHeroWordRotation(words: string[], intervalMs = 2800) {
+export function useHeroWordRotation(words: string[]) {
   const indexRef = useRef(0);
   const slotRef = useRef<HTMLDivElement | null>(null);
 

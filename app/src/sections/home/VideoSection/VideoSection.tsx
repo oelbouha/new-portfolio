@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import styles from './VideoSection.module.css';
+import { videoSectionStyles } from './VideoSection.styles';
 
 export function VideoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -27,12 +27,12 @@ export function VideoSection() {
   };
 
   return (
-    <section className={styles.videoSection}>
-      <div className={styles.container}>
-        <div ref={sectionRef} className={styles.videoWrapper}>
+    <section className={videoSectionStyles.section}>
+      <div className={videoSectionStyles.container}>
+        <div ref={sectionRef} className={videoSectionStyles.videoWrapper}>
           <video
             ref={videoRef}
-            className={styles.video}
+            className={videoSectionStyles.video}
             autoPlay
             loop
             muted={isMuted}
@@ -45,11 +45,11 @@ export function VideoSection() {
             />
           </video>
 
-          <div className={styles.controls}>
+          <div className={videoSectionStyles.controls}>
             <button
               type="button"
               onClick={togglePlay}
-              className={styles.controlBtn}
+              className={videoSectionStyles.controlBtn}
               aria-label={isPlaying ? 'Pause video' : 'Play video'}
             >
               {isPlaying ? <Pause size={18} /> : <Play size={18} />}
@@ -57,14 +57,14 @@ export function VideoSection() {
             <button
               type="button"
               onClick={toggleMute}
-              className={styles.controlBtn}
+              className={videoSectionStyles.controlBtn}
               aria-label={isMuted ? 'Unmute video' : 'Mute video'}
             >
               {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
             </button>
           </div>
 
-          <div className={styles.badge}>
+          <div className={videoSectionStyles.badge}>
             <span className="text-mono">SHOWCASE REEL / 2026</span>
           </div>
         </div>

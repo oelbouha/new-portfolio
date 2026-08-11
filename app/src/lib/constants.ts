@@ -64,6 +64,8 @@ export const FOOTER_IMAGES = [
   'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
 ];
 
+export const CONTACT_SPOTLIGHT_IMAGE = '/images/studio-card.jpg';
+
 export const NAV_MENU_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'Work', href: '/work' },
@@ -77,9 +79,8 @@ export const NAV_MENU_ITEMS_RIGHT = [
 ];
 
 export const CITY_CLOCKS = [
-  { city: 'Paris, FR', tz: 'Europe/Paris' },
-  { city: 'NYC, US', tz: 'America/New_York' },
-  { city: 'London, UK', tz: 'Europe/London' },
+  { city: 'Morocco', tz: 'Africa/Casablanca' },
+  { city: 'Tétouan, Morocco', tz: 'Africa/Casablanca' },
 ];
 
 export const HERO_WORDS = ['Bold', 'Premium', 'Creative', 'Precise', 'Ambitious'];

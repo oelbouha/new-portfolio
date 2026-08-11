@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
 import { openMenu, closeMenu } from '@/lib/animations';
-import { NAV_MENU_ITEMS } from '@/lib/constants';
 
 interface FullscreenMenuProps {
   isOpen: boolean;

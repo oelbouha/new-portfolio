@@ -1,5 +1,5 @@
 import type { Project } from '@/data/projects/projects.types';
-import styles from './ProjectOverviewCards.module.css';
+import { projectOverviewCardsStyles } from './ProjectOverviewCards.styles';
 
 interface ProjectOverviewCardsProps {
   project: Project;
@@ -7,39 +7,39 @@ interface ProjectOverviewCardsProps {
 
 export function ProjectOverviewCards({ project }: ProjectOverviewCardsProps) {
   return (
-    <section className={styles.section}>
-      <div className={styles.card}>
-        <span className={styles.label}>CLIENT</span>
-        <span className={styles.value}>{project.client || 'Internal / Confidential'}</span>
+    <section className={projectOverviewCardsStyles.section}>
+      <div className={projectOverviewCardsStyles.card}>
+        <span className={projectOverviewCardsStyles.label}>CLIENT</span>
+        <span className={projectOverviewCardsStyles.value}>{project.client || 'Internal / Confidential'}</span>
       </div>
 
-      <div className={styles.card}>
-        <span className={styles.label}>SERVICES</span>
-        <div className={styles.list}>
+      <div className={projectOverviewCardsStyles.card}>
+        <span className={projectOverviewCardsStyles.label}>SERVICES</span>
+        <div className={projectOverviewCardsStyles.list}>
           {project.services.map((svc) => (
             <span key={svc}>{svc}</span>
           ))}
         </div>
       </div>
 
-      <div className={styles.card}>
-        <span className={styles.label}>YEAR</span>
-        <span className={styles.value}>{project.year}</span>
+      <div className={projectOverviewCardsStyles.card}>
+        <span className={projectOverviewCardsStyles.label}>YEAR</span>
+        <span className={projectOverviewCardsStyles.value}>{project.year}</span>
       </div>
 
-      <div className={styles.card}>
-        <span className={styles.label}>WEBSITE / CODE</span>
+      <div className={projectOverviewCardsStyles.card}>
+        <span className={projectOverviewCardsStyles.label}>WEBSITE / CODE</span>
         {project.website ? (
           <a
             href={project.website}
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.link}
+            className={projectOverviewCardsStyles.link}
           >
             {project.website.replace('https://', '')}
           </a>
         ) : (
-          <span className={styles.value}>N/A</span>
+          <span className={projectOverviewCardsStyles.value}>N/A</span>
         )}
       </div>
     </section>

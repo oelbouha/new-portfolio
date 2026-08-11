@@ -10,6 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "framer-motion": path.resolve(__dirname, "./node_modules/framer-motion/dist/cjs/index.js"),
+      "motion-dom": path.resolve(__dirname, "./node_modules/motion-dom/dist/cjs/index.js"),
     },
   },
 });

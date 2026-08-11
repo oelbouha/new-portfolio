@@ -2,24 +2,24 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { HeroSection } from '@/sections/home/HeroSection/HeroSection';
-import { SelectedProjects } from '@/sections/home/SelectedProjects';
+import { HeroSection } from '@/sections/home/HeroSection';
 import { VideoSection } from '@/sections/home/VideoSection/VideoSection';
 
 import { ServicesSection } from '@/sections/home/ServicesSection';
 import { CTASection } from '@/sections/home/CTASection';
 import { Footer } from '@/components/layout/Footer';
 import { IntroSection } from '@/sections/home/IntroSection/IntroSection';
-import { PlaygroundSection } from '@/sections/home/PlaygroundSection/PlaygroundSection';
+import { PlaygroundSection } from '@/sections/home/PlaygroundSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface HomeProps {
   preloaderDone?: boolean;
   onContactOpen?: () => void;
+  onNavigate?: (href: string) => void;
 }
 
-export function Home({ preloaderDone = true, onContactOpen }: HomeProps) {
+export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomeProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Handle scroll-to-section from menu navigation
@@ -47,7 +47,7 @@ export function Home({ preloaderDone = true, onContactOpen }: HomeProps) {
         {/* <SelectedProjects /> */}
         <VideoSection />
         <IntroSection />
-        <PlaygroundSection />
+        <PlaygroundSection onNavigate={onNavigate} />
         <ServicesSection />
         {/* <ServicesSection /> */}
         <CTASection onContactOpen={onContactOpen} />

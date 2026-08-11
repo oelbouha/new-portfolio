@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { projectsData } from '@/data/projects/projects.data';
-import styles from './ProjectNavigationTeaser.module.css';
+import { projectNavigationTeaserStyles } from './ProjectNavigationTeaser.styles';
 
 interface ProjectNavigationTeaserProps {
   currentSlug: string;
@@ -17,15 +17,15 @@ export function ProjectNavigationTeaser({ currentSlug }: ProjectNavigationTeaser
   const nextProject = projectsData[nextIndex];
 
   return (
-    <section className={styles.section}>
-      <Link to={`/work/${prevProject.slug}`} className={styles.teaserCard}>
-        <span className={styles.direction}>← PREVIOUS PROJECT</span>
-        <h3 className={styles.title}>{prevProject.title}</h3>
+    <section className={projectNavigationTeaserStyles.section}>
+      <Link to={`/work/${prevProject.slug}`} className={projectNavigationTeaserStyles.teaserCard}>
+        <span className={projectNavigationTeaserStyles.direction}>← PREVIOUS PROJECT</span>
+        <h3 className={projectNavigationTeaserStyles.title}>{prevProject.title}</h3>
       </Link>
 
-      <Link to={`/work/${nextProject.slug}`} className={styles.teaserCard} style={{ textAlign: 'right' }}>
-        <span className={styles.direction}>NEXT PROJECT →</span>
-        <h3 className={styles.title}>{nextProject.title}</h3>
+      <Link to={`/work/${nextProject.slug}`} className={projectNavigationTeaserStyles.teaserCard} style={{ textAlign: 'right' }}>
+        <span className={projectNavigationTeaserStyles.direction}>NEXT PROJECT →</span>
+        <h3 className={projectNavigationTeaserStyles.title}>{nextProject.title}</h3>
       </Link>
     </section>
   );

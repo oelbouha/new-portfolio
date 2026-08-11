@@ -1,5 +1,5 @@
 import type { Project } from '@/data/projects/projects.types';
-import styles from './ProjectHeroSection.module.css';
+import { projectHeroSectionStyles } from './ProjectHeroSection.styles';
 
 interface ProjectHeroSectionProps {
   project: Project;
@@ -7,26 +7,26 @@ interface ProjectHeroSectionProps {
 
 export function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
   return (
-    <section className={styles.hero}>
-      <h1 className={styles.title}>{project.title}</h1>
+    <section className={projectHeroSectionStyles.hero}>
+      <h1 className={projectHeroSectionStyles.title}>{project.title}</h1>
 
-      <div className={styles.metaRow}>
+      <div className={projectHeroSectionStyles.metaRow}>
         <span>{project.category}</span>
         <span>YEAR — {project.year}</span>
       </div>
 
       {project.tags && (
-        <div className={styles.tags}>
+        <div className={projectHeroSectionStyles.tags}>
           {project.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
+            <span key={tag} className={projectHeroSectionStyles.tag}>
               {tag}
             </span>
           ))}
         </div>
       )}
 
-      <div className={styles.heroImageWrapper}>
-        <img src={project.heroImage} alt={project.title} className={styles.heroImage} />
+      <div className={projectHeroSectionStyles.heroImageWrapper}>
+        <img src={project.heroImage} alt={project.title} className={projectHeroSectionStyles.heroImage} />
       </div>
     </section>
   );

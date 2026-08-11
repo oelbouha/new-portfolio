@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SERVICES } from '@/lib/constants';
+import { serviceItemStyles } from '@/components/home/ServiceItem';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,36 +50,40 @@ export function ServicesSection() {
   }, []);
 
   return (
-    <section className="section-services" id="services">
-      <div className="container-large">
-        <div className="text-mono_wrapper" style={{ marginBottom: '2rem' }}>
-          <span className="text-mono services-label">Services</span>
+    <section className="w-full border-t border-black/10 px-4 py-20 sm:px-6 lg:px-8 lg:py-28 dark:border-white/10" id="services">
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="mb-8 text-center font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.16em] text-black/35 dark:text-white/35">
+          SERVICES
         </div>
 
-        <div className="services-list">
+        <div className="flex flex-col">
           {SERVICES.map((service, i) => (
             <div
               key={service.name}
-              className="service-item"
+              className={serviceItemStyles.item}
               data-cursor-hover={service.name}
               onMouseEnter={() => setActiveService(i)}
               onMouseLeave={() => setActiveService(null)}
             >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5rem', flex: 1 }}>
-                <span className="service-name" style={{
-                  opacity: activeService !== null && activeService !== i ? 0.3 : 1,
-                  transition: 'opacity 0.3s ease',
-                }}>
+              <div className="flex flex-1 flex-col items-center gap-3 md:flex-row md:items-baseline md:gap-8">
+                <span
+                  className="font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3.8rem)] font-bold uppercase leading-none text-[var(--text)] transition-opacity duration-300"
+                  style={{
+                    opacity: activeService !== null && activeService !== i ? 0.32 : 1,
+                  }}
+                >
                   {service.name}
                 </span>
               </div>
-              <span className="service-sub">{service.sub}</span>
+              <span className="rounded-full bg-blue-500/0 px-3 py-1 font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.08em] text-black/45 transition-all duration-300 group-hover:bg-blue-500/15 group-hover:text-blue-700 dark:text-white/45 dark:group-hover:text-blue-300">
+                {service.sub}
+              </span>
             </div>
           ))}
         </div>
 
         {/* See all link */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
+        <div className="mt-12 flex justify-center">
           <a href="/work" className="small-link" style={{ textDecoration: 'none' }}>
             <div className="text-mono_wrapper">
               <span className="text-mono">See all services</span>

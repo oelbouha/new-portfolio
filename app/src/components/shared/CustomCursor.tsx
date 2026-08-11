@@ -1,18 +1,17 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const cursorPos = useRef({ x: 0, y: 0 });
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     // Only on desktop
     if (window.innerWidth <= 1024) return;
 
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    const cursorEl = cursorRef.current;
+    if (!cursorEl) return;
 
     const speed = 0.3;
     const offsetX = 8;
@@ -20,7 +19,7 @@ export function CustomCursor() {
 
     // First move — show cursor
     const handleFirstMove = (e: MouseEvent) => {
-      cursor.style.opacity = '1';
+      cursorEl.style.opacity = '1';
       mousePos.current = { x: e.clientX + offsetX, y: e.clientY + offsetY };
       cursorPos.current = { ...mousePos.current };
       document.removeEventListener('mousemove', handleFirstMove);
@@ -36,12 +35,12 @@ export function CustomCursor() {
     const handleMouseEnter = (e: Event) => {
       const el = e.currentTarget as HTMLElement;
       const label = el.dataset.cursorHover || '';
-      cursor.classList.add('is-hover');
-      cursor.textContent = label;
+      cursorEl.classList.add('is-hover');
+      cursorEl.textContent = label;
     };
     const handleMouseLeave = () => {
-      cursor.classList.remove('is-hover');
-      cursor.textContent = '';
+      cursorEl.classList.remove('is-hover');
+      cursorEl.textContent = '';
     };
 
     const hoverEls = document.querySelectorAll<HTMLElement>('[data-cursor-hover]');
@@ -52,11 +51,12 @@ export function CustomCursor() {
 
     // RAF loop — lerp cursor to mouse
     function animate() {
+      if (!cursorEl) return;
       cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * speed;
       cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * speed;
-      const isHover = cursor.classList.contains('is-hover');
+      const isHover = cursorEl.classList.contains('is-hover');
       const angle = isHover ? -7 : 0;
-      cursor.style.transform = `translate3d(${cursorPos.current.x}px, ${cursorPos.current.y}px, 0) rotate(${angle}deg)`;
+      cursorEl.style.transform = `translate3d(${cursorPos.current.x}px, ${cursorPos.current.y}px, 0) rotate(${angle}deg)`;
       rafRef.current = requestAnimationFrame(animate);
     }
     rafRef.current = requestAnimationFrame(animate);
@@ -67,7 +67,7 @@ export function CustomCursor() {
         el.removeEventListener('mouseenter', handleMouseEnter);
         el.removeEventListener('mouseleave', handleMouseLeave);
       });
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
