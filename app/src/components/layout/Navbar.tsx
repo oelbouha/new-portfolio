@@ -57,8 +57,8 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
         <div className="nav-top_component">
           {/* Left: Logo */}
           <a href="/" className="link" style={{ textDecoration: 'none' }} data-cursor-hover="Home">
-            <div className="link_first"><span className="text-mono nav-text">Portfolio</span></div>
-            <div className="link_second"><span className="text-mono nav-text">Portfolio</span></div>
+            <div className="link_first"><span className="text-mono nav-text">OUTMAN</span></div>
+            {/* <div className="link_second"><span className="text-mono nav-text">Portfolio</span></div> */}
           </a>
 
           {/* Center: Menu button */}
