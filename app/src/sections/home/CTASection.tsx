@@ -76,8 +76,8 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
       </section>
 
       {/* CTA */}
-      <section className="section-cta" id="contact">
-        <div className="container-large">
+      <section className="section-cta bg-red-500" id="contact">
+        <div className="container-large bg-white">
           {/* Single row: left = desc + button, right = heading */}
           <div style={{
             display: 'flex',
@@ -86,6 +86,17 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
             gap: 'clamp(2rem, 5vw, 5rem)',
             flexWrap: 'wrap',
           }}>
+
+              {/* RIGHT: heading */}
+              <h2 ref={headingRef} className="cta-heading" style={{ opacity: 0, fontWeight: 900, textAlign: 'right' }}>
+              Let's work
+              <br />
+              <span ref={visualRef} className="cta-inline-visual" aria-hidden="true">
+                <img src={CONTACT_SPOTLIGHT_IMAGE} alt="" />
+              </span>
+              together
+            </h2>
+
             {/* LEFT: desc text + say hello */}
             <div ref={descRef} style={{ opacity: 0, display: 'flex', flexDirection: 'column', gap: '1.5rem', flexShrink: 0 }}>
               <p className="cta-desc">
@@ -108,15 +119,7 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
               </button>
             </div>
 
-            {/* RIGHT: heading */}
-            <h2 ref={headingRef} className="cta-heading" style={{ opacity: 0, fontWeight: 700, textAlign: 'right' }}>
-              Let's work
-              <br />
-              <span ref={visualRef} className="cta-inline-visual" aria-hidden="true">
-                <img src={CONTACT_SPOTLIGHT_IMAGE} alt="" />
-              </span>
-              together
-            </h2>
+          
           </div>
         </div>
       </section>
