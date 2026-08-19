@@ -3,12 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HeroSection } from '@/sections/home/HeroSection';
-import { VideoSection } from '@/sections/home/VideoSection/VideoSection';
-
+import { VideoSection } from '@/sections/home/VideoSection';
 import { ServicesSection } from '@/sections/home/ServicesSection';
 import { CTASection } from '@/sections/home/CTASection';
 import { Footer } from '@/components/layout/Footer';
-import { IntroSection } from '@/sections/home/IntroSection/IntroSection';
+import { IntroSection } from '@/sections/home/IntroSection';
 import { PlaygroundSection } from '@/sections/home/PlaygroundSection';
 
 gsap.registerPlugin(ScrollTrigger);

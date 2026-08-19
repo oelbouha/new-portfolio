@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { laptopShowcaseStyles } from './LaptopShowcase.styles';
+import { LaptopShowcaseProps } from './LaptopShowcase.types';
 
 const projects = [
   {
@@ -18,7 +20,7 @@ const projects = [
 
 const INTERVAL = 3000;
 
-export function LaptopShowcase() {
+export function LaptopShowcase({}: LaptopShowcaseProps = {}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -55,11 +57,11 @@ export function LaptopShowcase() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative py-20 overflow-hidden hidden md:block">
-      <div className="px-4 sm:px-6 lg:px-8">
+    <section ref={containerRef} className={laptopShowcaseStyles.section}>
+      <div className={laptopShowcaseStyles.container}>
         <motion.div
           style={{ scale }}
-          className="origin-center"
+          className={laptopShowcaseStyles.scaleWrapper}
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -68,19 +70,19 @@ export function LaptopShowcase() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Laptop Mockup */}
-            <div className="relative">
+            <div className={laptopShowcaseStyles.laptopOuter}>
               {/* Laptop Screen */}
-              <div className="relative bg-[#1a1a1a] shadow-2xl rounded-t-2xl p-3 sm:p-4">
+              <div className={laptopShowcaseStyles.laptopScreen}>
                 {/* Screen Bezel */}
-                <div className="relative bg-black overflow-hidden rounded-lg aspect-[16/10]">
+                <div className={laptopShowcaseStyles.bezel}>
                   {/* Screen Content - Scrolling Images */}
-                  <div className="relative w-full h-full overflow-hidden">
+                  <div className={laptopShowcaseStyles.contentArea}>
                     {projects.map((project, index) => (
                       <motion.img
                         key={project.image}
                         src={project.image}
                         alt={project.name}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className={laptopShowcaseStyles.image}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: index === currentIndex ? 1 : 0 }}
                         transition={{ duration: 0.9, ease: 'easeInOut' }}
@@ -89,15 +91,14 @@ export function LaptopShowcase() {
                   </div>
 
                   {/* Screen Reflection */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+                  <div className={laptopShowcaseStyles.reflection} />
 
-                  {/* Project Title & Progress Bar — inside screen, bottom overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 pt-6 bg-gradient-to-t from-black/70 to-transparent">
-                    {/* Project Title */}
+                  {/* Project Title & Progress Bar */}
+                  <div className={laptopShowcaseStyles.overlay}>
                     <AnimatePresence mode="wait">
                       <motion.p
                         key={currentIndex}
-                        className="text-white text-xl font-semibold mb-3 tracking-wide"
+                        className={laptopShowcaseStyles.title}
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
@@ -107,10 +108,9 @@ export function LaptopShowcase() {
                       </motion.p>
                     </AnimatePresence>
 
-                    {/* Progress Bar */}
-                    <div className="w-full h-[2px] bg-white/20 overflow-hidden">
+                    <div className={laptopShowcaseStyles.progressBg}>
                       <motion.div
-                        className="h-full bg-white"
+                        className={laptopShowcaseStyles.progressBar}
                         style={{ width: `${progress * 100}%` }}
                       />
                     </div>
@@ -118,20 +118,17 @@ export function LaptopShowcase() {
                 </div>
 
                 {/* Camera */}
-                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#333] rounded-full" />
+                <div className={laptopShowcaseStyles.camera} />
               </div>
 
               {/* Laptop Base */}
-              <div className="relative">
-                {/* Keyboard Area */}
-                <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 sm:h-6 rounded-b-lg shadow-xl" />
-
-                {/* Trackpad */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 bg-[#333]/50 rounded-b-md" />
+              <div className={laptopShowcaseStyles.base}>
+                <div className={laptopShowcaseStyles.keyboard} />
+                <div className={laptopShowcaseStyles.trackpad} />
               </div>
 
               {/* Shadow */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 blur-xl rounded-full" />
+              <div className={laptopShowcaseStyles.shadow} />
             </div>
           </motion.div>
         </motion.div>

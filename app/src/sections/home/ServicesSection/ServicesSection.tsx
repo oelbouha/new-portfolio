@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SERVICES } from '@/lib/constants';
 import { serviceItemStyles } from '@/components/home/ServiceItem';
+import { servicesSectionStyles } from './ServicesSection.styles';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,7 +29,8 @@ export function ServicesSection() {
 
     // Line appear animations
     document.querySelectorAll<HTMLElement>('.service-item').forEach((el, i) => {
-      gsap.fromTo(el,
+      gsap.fromTo(
+        el,
         { opacity: 0, y: '1.5rem' },
         {
           opacity: 1,
@@ -50,13 +52,13 @@ export function ServicesSection() {
   }, []);
 
   return (
-    <section className="w-full border-t border-black/10 px-4 py-20 sm:px-6 lg:px-8 lg:py-28 dark:border-white/10" id="services">
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="mb-8 text-center font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.16em] text-black/35 dark:text-white/35">
+    <section className={servicesSectionStyles.section} id="services">
+      <div className={servicesSectionStyles.container}>
+        <div className={servicesSectionStyles.sectionTitle}>
           SERVICES
         </div>
 
-        <div className="flex flex-col">
+        <div className={servicesSectionStyles.listWrapper}>
           {SERVICES.map((service, i) => (
             <div
               key={service.name}
@@ -65,7 +67,7 @@ export function ServicesSection() {
               onMouseEnter={() => setActiveService(i)}
               onMouseLeave={() => setActiveService(null)}
             >
-              <div className="flex flex-1 flex-col items-center gap-3 md:flex-row md:items-baseline md:gap-8">
+              <div className="flex flex-1 flex-col items-center gap-3 md:gap-8">
                 <span
                   className="font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3.8rem)] font-bold uppercase leading-none text-[var(--text)] transition-opacity duration-300"
                   style={{
@@ -75,7 +77,8 @@ export function ServicesSection() {
                   {service.name}
                 </span>
               </div>
-              <span className="rounded-full bg-blue-500/0 px-3 py-1 font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.08em] text-black/45 transition-all duration-300 group-hover:bg-blue-500/15 group-hover:text-blue-700 dark:text-white/45 dark:group-hover:text-blue-300">
+              {/* HOVER TEXT BACKGROUND COLOR: Change 'serviceItemStyles.subtitle' or 'group-hover:bg-blue-600' in ServiceItem.styles.ts to change color */}
+              <span className={serviceItemStyles.subtitle}>
                 {service.sub}
               </span>
             </div>
@@ -83,18 +86,24 @@ export function ServicesSection() {
         </div>
 
         {/* See all link */}
-        <div className="mt-12 flex justify-center">
-          <a href="/work" className="small-link" style={{ textDecoration: 'none' }}>
+        <div className={servicesSectionStyles.seeAllWrapper}>
+          <a href="/work" className={servicesSectionStyles.seeAllLink} style={{ textDecoration: 'none' }}>
             <div className="text-mono_wrapper">
               <span className="text-mono">See all services</span>
             </div>
             <svg
               className="small-link-arrow"
-              width="14" height="8" viewBox="0 0 14 8" fill="none"
+              width="14"
+              height="8"
+              viewBox="0 0 14 8"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
               style={{ opacity: 0 }}
             >
-              <path d="M11 1.5V2.5H12V1.5H11ZM10 0.5V1.5H11V0.5H10ZM11 6.5H12V5.5H11V6.5ZM10 7.5H11V6.5H10V7.5ZM13 3.5V2.5H12V3.5H0V4.5H12V5.5H13V4.5H14V3.5H13Z" fill="currentColor"/>
+              <path
+                d="M11 1.5V2.5H12V1.5H11ZM10 0.5V1.5H11V0.5H10ZM11 6.5H12V5.5H11V6.5ZM10 7.5H11V6.5H10V7.5ZM13 3.5V2.5H12V3.5H0V4.5H12V5.5H13V4.5H14V3.5H13Z"
+                fill="currentColor"
+              />
             </svg>
           </a>
         </div>
@@ -104,11 +113,10 @@ export function ServicesSection() {
       {activeService !== null && (
         <div
           ref={previewRef}
-          className="service-video-preview is-visible"
+          className={servicesSectionStyles.previewBox}
           style={{
             left: mousePos.x,
             top: mousePos.y,
-            position: 'fixed',
           }}
         >
           <img

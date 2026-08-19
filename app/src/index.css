@@ -187,7 +187,7 @@ button {
   left: 0;
   width: 14px;
   height: 14px;
-  background: var(--text);
+  background: #3b82f6;
   pointer-events: none;
   transform-origin: center;
   transition: width 0.15s ease, height 0.15s ease, background 0.4s ease;
@@ -199,6 +199,7 @@ button {
   letter-spacing: 0.02em;
   opacity: 0;
   border-radius: 50%;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 .custom-cursor.is-hover {
   width: auto;
@@ -209,8 +210,26 @@ button {
   justify-content: center;
   text-align: center;
   padding: 0 0.7rem;
-  color: var(--background);
-  background: var(--text);
+  color: #ffffff;
+  background: #2563eb;
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.45);
+}
+
+/* Lenis Smooth Scroll CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 /* ============================================
@@ -284,29 +303,7 @@ button {
 }
 .link:hover .link_first { transform: translateY(-110%); }
 .link:hover .link_second { transform: translateY(-110%); }
-.link_second { position: absolute; top: 110%; left: 0; }
-
-/* difference blend mode for text (works over dark/light backgrounds) */
-.difference {
-  mix-blend-mode: difference;
-  color: #fff;
-}
-
-/* Fixed nav text — adapts to light/dark theme */
-.nav-text {
-  color: var(--nav-fixed-text);
-}
-
-/* Nav visual badge */
-.nav-menu_visual {
-  width: 0;
-  height: 3.5rem;
-  border-radius: 0.25rem;
-  overflow: hidden;
-  background: #ccc;
-  transition: width 0.4s ease;
-  flex-shrink: 0;
-}
+.link_second { position: absolute; top: 110%; left: 0; white-space: nowrap; }
 
 /* ============================================
    FULLSCREEN MENU
@@ -349,16 +346,15 @@ button {
 }
 
 .nav-menu_link {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.5vw, 7rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  text-transform: uppercase;
   color: var(--text);
   overflow: hidden;
 }
-
-.nav-menu_link_wrapper:hover .nav-menu_link { opacity: 0.6; }
 
 /* ============================================
    TRANSITION OVERLAY

@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { servicesGridStyles } from './ServicesGrid.styles';
+import { ServicesGridProps } from './ServicesGrid.types';
 
 const services = [
   {
@@ -34,7 +36,7 @@ const services = [
   }
 ];
 
-export function ServicesGrid() {
+export function ServicesGrid({}: ServicesGridProps = {}) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [scrollPosition, setScrollPosition] = useState<'start' | 'middle' | 'end'>('start');
@@ -61,34 +63,20 @@ export function ServicesGrid() {
   }, [hasScrolled]);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="w-full">
-        {/* Label with line */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">Services</span>
-            <div className="flex-1 h-px bg-border"></div>
-          </div>
-        </motion.div> */}
-
+    <section className={servicesGridStyles.section}>
+      <div className={servicesGridStyles.container}>
         {/* 3-Column Grid Layout — Desktop */}
-        <div className="hidden md:grid lg:grid-cols-3 gap-8">
+        <div className={servicesGridStyles.desktopGrid}>
           {/* Left Column - Sticky Title */}
           <motion.div
             initial={{ opacity: 0, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
-            className="lg:sticky lg:top-20 lg:self-start"
+            className={servicesGridStyles.stickyCol}
           >
-            <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden">
-              <div className="absolute inset-0 opacity-5">
+            <div className={servicesGridStyles.cardBox}>
+              <div className={servicesGridStyles.patternBg}>
                 <div
                   className="absolute inset-0"
                   style={{
@@ -98,32 +86,26 @@ export function ServicesGrid() {
                 />
               </div>
               <div className="relative z-10">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2">
+                <h3 className={servicesGridStyles.cardTitle}>
                   How I Approach
                 </h3>
-                {/* <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-accent">
-                  Design & Development
-                </h3> */}
               </div>
             </div>
           </motion.div>
 
           {/* Right Two Columns - Service Cards */}
-          <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+          <div className={servicesGridStyles.cardsCol}>
             {services.map((service) => (
               <section
                 key={service.category}
-                className="flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 service-card-bg border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full"
+                className={servicesGridStyles.serviceCard}
               >
                 <div>
-                  <p className="tag-font service-card-category uppercase text-[12px] tracking-wider">
+                  <p className={servicesGridStyles.categoryTag}>
                     {service.category}
                   </p>
-                  <h4 className="subheading-regular pb-2 hidden !text-[24px] !leading-[32px] !font-normal">
-                    {service.title}
-                  </h4>
                 </div>
-                <h4 className="w-[390px] max-xl:w-[80%] subheading-regular pb-2 service-card-title !text-[24px] !leading-[32px] !font-normal">
+                <h4 className={servicesGridStyles.cardHeading}>
                   {service.title}
                 </h4>
               </section>
@@ -131,12 +113,12 @@ export function ServicesGrid() {
           </div>
         </div>
 
-        {/* Mobile Layout — Swipeable Cards (including title card) */}
-        <div className="md:hidden">
+        {/* Mobile Layout — Swipeable Cards */}
+        <div className={servicesGridStyles.mobileWrapper}>
           <div className="relative">
             <div
               ref={scrollContainerRef}
-              className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide"
+              className={servicesGridStyles.mobileScroll}
               style={{
                 scrollSnapType: 'x mandatory',
                 WebkitOverflowScrolling: 'touch',
@@ -144,9 +126,9 @@ export function ServicesGrid() {
                 msOverflowStyle: 'none',
               }}
             >
-              {/* "How I Approach" card in the row */}
+              {/* "How I Approach" card */}
               <div
-                className="relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-5 overflow-hidden flex-shrink-0 flex flex-col justify-between"
+                className={servicesGridStyles.mobileCard}
                 style={{
                   width: '80vw',
                   maxWidth: '340px',
@@ -154,7 +136,7 @@ export function ServicesGrid() {
                   minHeight: '220px',
                 }}
               >
-                <div className="absolute inset-0 opacity-5">
+                <div className={servicesGridStyles.patternBg}>
                   <div
                     className="absolute inset-0"
                     style={{
@@ -177,7 +159,7 @@ export function ServicesGrid() {
                     opacity: scrollPosition === 'end' ? 0 : hasScrolled ? 0.5 : 1,
                   }}
                   transition={{ duration: 0.3 }}
-                  className="relative z-10 text-xs font-medium tracking-wider text-accent/70 uppercase self-end"
+                  className={servicesGridStyles.swipeText}
                 >
                   Swipe →
                 </motion.span>
@@ -187,7 +169,7 @@ export function ServicesGrid() {
               {services.map((service) => (
                 <section
                   key={service.category}
-                  className="flex flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 service-card-bg border border-border hover:border-accent/50 service-card skill-item flex-shrink-0"
+                  className={servicesGridStyles.mobileServiceCard}
                   style={{
                     width: '80vw',
                     maxWidth: '340px',
@@ -196,18 +178,16 @@ export function ServicesGrid() {
                   }}
                 >
                   <div>
-                    <p className="tag-font service-card-category uppercase text-[12px] tracking-wider">
+                    <p className={servicesGridStyles.categoryTag}>
                       {service.category}
                     </p>
                   </div>
-                  <h4 className="subheading-regular pb-2 service-card-title !text-[24px] !leading-[32px] !font-normal">
+                  <h4 className={servicesGridStyles.cardHeading}>
                     {service.title}
                   </h4>
                 </section>
               ))}
             </div>
-
-
           </div>
         </div>
       </div>

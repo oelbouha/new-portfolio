@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { CONTACT_SPOTLIGHT_IMAGE } from '@/lib/constants';
+import { SpotlightHeading } from '@/components/shared/SpotlightHeading';
 
 interface ContactOverlayProps {
   isOpen: boolean;
@@ -13,6 +15,7 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
   const wasOpen = useRef(false);
   const [interest, setInterest] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isFullyDisplayed, setIsFullyDisplayed] = useState(false);
 
   useEffect(() => {
     const overlay = overlayRef.current;
@@ -23,6 +26,7 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
 
     if (isOpen && !wasOpen.current) {
       wasOpen.current = true;
+      setIsFullyDisplayed(false);
       if (isAnimating.current) return;
       isAnimating.current = true;
 
@@ -40,7 +44,10 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
 
       const tl = gsap.timeline({
         defaults: { ease: 'power4.inOut', duration: 1.8 },
-        onComplete: () => { isAnimating.current = false; },
+        onComplete: () => {
+          isAnimating.current = false;
+          setIsFullyDisplayed(true);
+        },
       });
 
       if (page) tl.to(page, { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5 }, 0);
@@ -49,6 +56,7 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
 
     } else if (!isOpen && wasOpen.current) {
       wasOpen.current = false;
+      setIsFullyDisplayed(false);
       if (isAnimating.current) return;
       isAnimating.current = true;
 
@@ -63,6 +71,7 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
           gsap.set([content, overlay], { clearProps: 'all' });
           if (page2) gsap.set(page2, { clearProps: 'all' });
           isAnimating.current = false;
+          setIsFullyDisplayed(false);
         },
       });
 
@@ -98,12 +107,18 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
         <div>
           {!submitted ? (
             <form className="contact-form" onSubmit={handleSubmit}>
-              {/* Same heading style as home CTA — Bebas Neue */}
-              <h2 className="cta-heading" style={{ marginBottom: '1rem', color: 'var(--text)' }}>
-                Let&apos;s work
-                <br />
-                together
-              </h2>
+              {/* Reusable Spotlight Heading for Let's Talk Together */}
+              <SpotlightHeading
+                line1="LET'S TALK"
+                line2="TOGETHER"
+                imageSrc={CONTACT_SPOTLIGHT_IMAGE}
+                targetRectWidth={120}
+                fontSize={80}
+                triggerOnScroll={false}
+                play={isFullyDisplayed}
+                delay={0.1}
+                className="mb-4"
+              />
 
               <p className="text-mono" style={{ marginBottom: '1.5rem', opacity: 0.45, letterSpacing: '0.1em' }}>
                 WORK WITH US IF AVERAGE ISN&apos;T YOUR THING.

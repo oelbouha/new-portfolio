@@ -1,0 +1,18 @@
+export const servicesGridStyles = {
+  section: 'py-20 px-4 sm:px-6 lg:px-8',
+  container: 'w-full',
+  desktopGrid: 'hidden md:grid lg:grid-cols-3 gap-8',
+  stickyCol: 'lg:sticky lg:top-20 lg:self-start',
+  cardBox: 'relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-3xl p-6 sm:p-8 lg:p-10 overflow-hidden',
+  patternBg: 'absolute inset-0 opacity-5',
+  cardTitle: 'text-2xl sm:text-3xl lg:text-4xl font-medium text-accent mb-2',
+  cardsCol: 'lg:col-span-2 grid md:grid-cols-2 gap-6',
+  serviceCard: 'flex flex-1 flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 service-card-bg border border-border hover:border-accent/50 service-card skill-item min-h-[363px] w-full',
+  categoryTag: 'tag-font service-card-category uppercase text-[12px] tracking-wider',
+  cardHeading: 'w-[390px] max-xl:w-[80%] subheading-regular pb-2 service-card-title !text-[24px] !leading-[32px] !font-normal',
+  mobileWrapper: 'md:hidden',
+  mobileScroll: 'flex gap-4 overflow-x-auto pb-4 scrollbar-hide',
+  mobileCard: 'relative bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-5 overflow-hidden flex-shrink-0 flex flex-col justify-between',
+  swipeText: 'relative z-10 text-xs font-medium tracking-wider text-accent/70 uppercase self-end',
+  mobileServiceCard: 'flex flex-col justify-between gap-4 rounded-2xl p-5 backdrop-blur-[2px] transition-all duration-300 service-card-bg border border-border hover:border-accent/50 service-card skill-item flex-shrink-0',
+} as const;

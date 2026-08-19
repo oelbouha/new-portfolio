@@ -10,41 +10,30 @@ interface FooterProps {
 }
 
 export function Footer({ onContactOpen }: FooterProps) {
-  const logoRef = useRef<SVGSVGElement>(null);
-
-  
+  const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    document.querySelectorAll<HTMLElement>('.footer-video-item').forEach((el, i) => {
-      gsap.fromTo(el,
-        { opacity: 0, scale: 0.9 },
-        {
-          opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out', delay: i * 0.08,
-          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
-        }
-      );
-    });
-  
-    // Footer logo: starts as a flat line, unrolls upward on scroll
-    if (logoRef.current) {
-      gsap.set(logoRef.current, {
-        transformOrigin: '50% 100%', // anchor at the bottom
+    if (!footerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Footer Video/Image Grid reveal animation
+      document.querySelectorAll<HTMLElement>('.footer-video-item').forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            delay: i * 0.08,
+            scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+          }
+        );
       });
-  
-      gsap.fromTo(logoRef.current,
-        { scaleY: 0.02, opacity: 1 },
-        {
-          scaleY: 1,
-          ease: 'none', // let scroll position drive it linearly
-          scrollTrigger: {
-            trigger: logoRef.current,
-            start: 'top 95%',   // when logo enters view
-            end: 'top 25%',     // fully revealed by here
-            scrub: 0.6,          // ties animation directly to scroll, with slight smoothing
-          },
-        }
-      );
-    }
+    }, footerRef);
+
+    return () => ctx.revert();
   }, []);
 
   const NAV_COLS = [
@@ -69,13 +58,13 @@ export function Footer({ onContactOpen }: FooterProps) {
     {
       title: 'Studio',
       links: [
-        { label: 'Based in Paris', href: '#' },
+        { label: 'Based in morocco', href: '#' },
         { label: 'Available worldwide', href: '#' },
       ],
     },
     {
       title: 'Contact',
-      links: [{ label: 'hello@portfolio.com', href: 'mailto:hello@portfolio.com', external: true }],
+      links: [{ label: 'outmanelbouhali5@gmail.com', href: 'mailto:outmanelbouhali5@gmail.com', external: true }],
     },
     {
       title: '',
@@ -87,7 +76,7 @@ export function Footer({ onContactOpen }: FooterProps) {
   ];
 
   return (
-    <footer className="site-footer">
+    <footer ref={footerRef} className="site-footer overflow-hidden">
       {/* Project image grid */}
       <div className="footer-videos">
         {FOOTER_IMAGES.map((src, i) => (
@@ -123,64 +112,33 @@ export function Footer({ onContactOpen }: FooterProps) {
       </div>
 
       {/* CTA bar */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '2rem clamp(1rem, 2.5vw, 2.5rem)',
-        borderTop: '1px solid rgba(128,128,128,0.15)',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '2rem clamp(1rem, 2.5vw, 2.5rem)',
+          borderTop: '1px solid rgba(128,128,128,0.15)',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
         <p className="text-mono" style={{ opacity: 0.5 }}>
           Big project? Crazy thought? Or just feel like chatting?
         </p>
         <button
           onClick={onContactOpen}
-          className="text-mono"
+          className="text-mono inline-flex items-center gap-2 group cursor-pointer"
           data-cursor-hover="Send love"
-          style={{ cursor: 'pointer', transition: 'opacity 0.25s ease' }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
-          onMouseLeave={e => (e.currentTarget.style.opacity = '0.55')}
+          style={{ transition: 'opacity 0.25s ease' }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.55')}
         >
-          Let's talk! →
+          <span>Let's talk!</span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
         </button>
       </div>
 
-      {/* Stretched SVG logotype */}
-      <div className="footer-logo-wrap">
-        <svg
-          ref={logoRef}
-          className="footer-logo-svg"
-          viewBox="0 0 1472 475"
-          preserveAspectRatio="none"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          style={{ transform: 'scaleY(0.02)', transformOrigin: '50% 100%' }}
-        >
-          {/* P */}
-          <path d="M0 0H90V180C90 230 130 260 175 260H220V330H175C90 330 0 275 0 180V0Z" fill="currentColor" />
-          <rect x="0" y="0" width="90" height="475" fill="currentColor" />
-          <path d="M90 0H220C290 0 345 55 345 125C345 195 290 260 220 260H90V180H220C245 180 265 162 265 140C265 118 245 80 220 80H90V0Z" fill="currentColor" />
-          {/* O */}
-          <path d="M400 0C490 0 560 70 560 237C560 404 490 475 400 475C310 475 240 404 240 237C240 70 310 0 400 0ZM400 80C355 80 330 140 330 237C330 334 355 395 400 395C445 395 470 334 470 237C470 140 445 80 400 80Z" fill="currentColor" transform="translate(360, 0)" />
-          {/* R */}
-          <rect x="850" y="0" width="90" height="475" fill="currentColor" />
-          <path d="M850 0H980C1050 0 1105 50 1105 120C1105 175 1075 215 1025 235L1120 475H1020L935 250H940V170H980C1005 170 1025 155 1025 130C1025 105 1005 80 980 80H940V0Z" fill="currentColor" />
-          {/* T */}
-          <rect x="1150" y="80" width="90" height="395" fill="currentColor" />
-          <rect x="1100" y="0" width="350" height="80" fill="currentColor" />
-          {/* Full name as text path fallback */}
-          <text
-            x="0" y="400"
-            style={{ font: '700 430px Space Grotesk, sans-serif', letterSpacing: '-0.05em' }}
-            fill="currentColor"
-          >
-            OUTMAN
-          </text>
-        </svg>
-      </div>
     </footer>
   );
 }

@@ -57,40 +57,33 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
     <header className={navbarStyles.wrapper}>
       <nav ref={topRef} className={cn('nav-top', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
-          <a href="/" className={navbarStyles.link} style={{ textDecoration: 'none' }} data-cursor-hover="Home">
-            <span className={cn(navbarStyles.text, navbarStyles.linkLine)}>OUTMAN</span>
-            <span className={cn(navbarStyles.text, navbarStyles.linkLine, navbarStyles.linkSecond)}>OUTMAN</span>
-          </a>
+          {/* Left: OUTMAN + Dark mode */}
+          <div className="flex items-center gap-4 sm:gap-8">
+            <a href="/" className="link" style={{ textDecoration: 'none' }} data-cursor-hover="Home">
+              <div className="link_first"><span className={navbarStyles.text}>OUTMAN</span></div>
+              <div className="link_second"><span className={navbarStyles.text}>OUTMAN</span></div>
+            </a>
 
-          <button
-            id="menuToggle"
-            onClick={handleMenuOpen}
-            className={navbarStyles.link}
-            aria-label="Open menu"
-            style={{ cursor: 'pointer' }}
-          >
-            <span className={cn(navbarStyles.text, navbarStyles.linkLine)}>Menu</span>
-            <span className={cn(navbarStyles.text, navbarStyles.linkLine, navbarStyles.linkSecond)}>Open</span>
-          </button>
+            <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
+              <div className="link_first">
+                <span className={navbarStyles.text}>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+              </div>
+              <div className="link_second">
+                <span className={navbarStyles.text}>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+              </div>
+            </button>
+          </div>
 
+          {/* Right: Menu + Let's talk */}
           <div className={navbarStyles.rightGroup}>
-            <button onClick={toggleTheme} className={navbarStyles.link} aria-label="Toggle theme">
-              <span className={cn(navbarStyles.text, navbarStyles.linkLine)}>
-                {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-              </span>
-              <span className={cn(navbarStyles.text, navbarStyles.linkLine, navbarStyles.linkSecond)}>
-                {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-              </span>
+            <button id="menuToggle" onClick={handleMenuOpen} className="link" aria-label="Open menu">
+              <div className="link_first"><span className={navbarStyles.text}>Menu</span></div>
+              <div className="link_second"><span className={navbarStyles.text}>Open</span></div>
             </button>
 
-            <button
-              onClick={handleContactOpen}
-              className={navbarStyles.link}
-              data-cursor-hover="Let's talk"
-              aria-label="Open contact"
-            >
-              <span className={cn(navbarStyles.text, navbarStyles.linkLine)}>Let's talk!</span>
-              <span className={cn(navbarStyles.text, navbarStyles.linkLine, navbarStyles.linkSecond)}>Contact us</span>
+            <button onClick={handleContactOpen} className="link" data-cursor-hover="Let's talk" aria-label="Open contact">
+              <div className="link_first"><span className={navbarStyles.text}>Let's talk!</span></div>
+              <div className="link_second"><span className={navbarStyles.text}>Contact us</span></div>
             </button>
           </div>
         </div>
@@ -104,7 +97,7 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
 
           <div className={navbarStyles.rightGroup}>
             {CITY_CLOCKS.map((c) => (
-              <CityTime key={c.tz} city={c.city} tz={c.tz} />
+              <CityTime key={c.city} city={c.city} tz={c.tz} />
             ))}
           </div>
         </div>

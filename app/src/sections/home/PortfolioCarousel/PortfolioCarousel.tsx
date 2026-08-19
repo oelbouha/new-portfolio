@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { portfolioCarouselStyles } from './PortfolioCarousel.styles';
+import { PortfolioCarouselProps, ViewMode, ProjectItem } from './PortfolioCarousel.types';
 
-const projects = [
+const projects: ProjectItem[] = [
   {
     id: 0,
     slug: 'skatys',
@@ -55,7 +57,6 @@ const projects = [
     description: 'Custom WordPress website built with a focus on performance and responsive design.',
     tech: 'WordPress, Custom Theme, NGINX, Oracle Cloud'
   },
-
   {
     id: 5,
     slug: 'pong-arena',
@@ -108,13 +109,9 @@ const projects = [
   },
 ];
 
-type ViewMode = '4-col' | '3-col' | '2-col';
-
-export function PortfolioCarousel() {
+export function PortfolioCarousel({}: PortfolioCarouselProps = {}) {
   const [viewMode, setViewMode] = useState<ViewMode>('3-col');
   const [shuffledProjects] = useState(projects);
-
-
 
   const gridClasses = {
     '4-col': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4',
@@ -122,22 +119,20 @@ export function PortfolioCarousel() {
     '2-col': 'grid-cols-1 sm:grid-cols-2'
   };
 
-
-
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="w-full">
+    <section className={portfolioCarouselStyles.section}>
+      <div className={portfolioCarouselStyles.container}>
         {/* Label with line */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="mb-6"
+          className={portfolioCarouselStyles.labelWrapper}
         >
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-medium tracking-wider text-foreground-secondary uppercase">My Work</span>
-            <div className="flex-1 h-px bg-border"></div>
+          <div className={portfolioCarouselStyles.labelRow}>
+            <span className={portfolioCarouselStyles.label}>My Work</span>
+            <div className={portfolioCarouselStyles.line}></div>
           </div>
         </motion.div>
 
@@ -147,29 +142,19 @@ export function PortfolioCarousel() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="mb-10"
+          className={portfolioCarouselStyles.headerWrapper}
         >
-          <div className="flex flex-col gap-4">
-            {/* Title and See All in one row */}
-            <div className="flex items-center justify-between">
-              <h2 className="text-3xl sm:text-4xl font-medium text-foreground">Selected Work</h2>
-
-              {/* <a
-                href="/work"
-                className="inline-flex items-center gap-2 text-sm font-medium text-foreground-secondary hover:text-accent transition-colors group"
-              >
-                See All Work
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a> */}
+          <div className={portfolioCarouselStyles.headerInner}>
+            <div className={portfolioCarouselStyles.titleRow}>
+              <h2 className={portfolioCarouselStyles.title}>Selected Work</h2>
             </div>
 
-            {/* Grid Toggle below */}
-            <div className="flex items-center gap-1">
-              {/* 4-col: 3x3 grid */}
+            {/* Grid Toggle */}
+            <div className={portfolioCarouselStyles.toggleGroup}>
               <button
                 onClick={() => setViewMode('4-col')}
                 className={cn(
-                  "p- rounded transition-colors",
+                  portfolioCarouselStyles.toggleBtn,
                   viewMode === '4-col' ? "text-accent" : "text-foreground-secondary hover:text-foreground"
                 )}
                 aria-label="4 column grid"
@@ -187,11 +172,10 @@ export function PortfolioCarousel() {
                 </svg>
               </button>
 
-              {/* 3-col: 2x2 grid */}
               <button
                 onClick={() => setViewMode('3-col')}
                 className={cn(
-                  "p- rounded transition-colors",
+                  portfolioCarouselStyles.toggleBtn,
                   viewMode === '3-col' ? "text-accent" : "text-foreground-secondary hover:text-foreground"
                 )}
                 aria-label="3 column grid"
@@ -204,11 +188,10 @@ export function PortfolioCarousel() {
                 </svg>
               </button>
 
-              {/* 2-col: Two vertical bars */}
               <button
                 onClick={() => setViewMode('2-col')}
                 className={cn(
-                  "p- rounded transition-colors",
+                  portfolioCarouselStyles.toggleBtn,
                   viewMode === '2-col' ? "text-accent" : "text-foreground-secondary hover:text-foreground"
                 )}
                 aria-label="2 column grid"
@@ -223,7 +206,7 @@ export function PortfolioCarousel() {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className={cn("grid gap-4", gridClasses[viewMode])}>
+        <div className={cn(portfolioCarouselStyles.gridContainer, gridClasses[viewMode])}>
           <AnimatePresence>
             {shuffledProjects.map((project) => (
               <motion.div
@@ -233,10 +216,7 @@ export function PortfolioCarousel() {
                   layout: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
                 }}
               >
-                <ProjectCard
-                  project={project}
-                  viewMode={viewMode}
-                />
+                <ProjectCard project={project} />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -246,12 +226,7 @@ export function PortfolioCarousel() {
   );
 }
 
-interface ProjectCardProps {
-  project: typeof projects[0];
-  viewMode: ViewMode;
-}
-
-function ProjectCard({ project }: ProjectCardProps) {
+function ProjectCard({ project }: { project: ProjectItem }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [arrowPosition, setArrowPosition] = useState({ x: 50, y: 50 });
 
@@ -262,7 +237,6 @@ function ProjectCard({ project }: ProjectCardProps) {
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-    // Constrain to center area with subtle movement
     const constrainedX = 50 + (x - 50) * 0.3;
     const constrainedY = 50 + (y - 50) * 0.3;
 
@@ -274,39 +248,32 @@ function ProjectCard({ project }: ProjectCardProps) {
       to={`/work/${project.slug}`}
       ref={cardRef as any}
       onMouseMove={handleMouseMove}
-      className={cn(
-        "group block",
-      )}
+      className={portfolioCarouselStyles.cardLink}
     >
-      {/* Image Container */}
-      <div className={cn(
-        "relative overflow-hidden"
-      )}>
+      <div className={portfolioCarouselStyles.imageContainer}>
         <img
           src={project.image}
           alt={project.name}
-          className="w-full h-auto object-contain transition-all duration-500 group-hover:scale-105"
+          className={portfolioCarouselStyles.image}
         />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
+        <div className={portfolioCarouselStyles.overlay} />
 
-        {/* Circular Arrow on Hover - follows cursor */}
         <div
-          className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          className={portfolioCarouselStyles.arrowWrapper}
           style={{
             left: `${arrowPosition.x}%`,
             top: `${arrowPosition.y}%`,
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-300">
-            <ArrowRight className="w-6 h-6 text-background" />
+          <div className={portfolioCarouselStyles.arrowCircle}>
+            <ArrowRight className={portfolioCarouselStyles.arrowIcon} />
           </div>
         </div>
       </div>
 
-      {/* Title below image - always visible */}
-      <div className="mt-4">
-        <p className="text-foreground text-sm font-medium">{project.name}</p>
+      <div className={portfolioCarouselStyles.titleWrapper}>
+        <p className={portfolioCarouselStyles.cardTitle}>{project.name}</p>
       </div>
     </Link>
   );

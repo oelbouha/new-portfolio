@@ -9,6 +9,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
 import { ContactOverlay } from '@/components/shared/ContactOverlay';
 import { CustomCursor } from '@/components/shared/CustomCursor';
+import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -113,6 +114,7 @@ function AppInner() {
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
         onNavigate={handleNavigate}
+        onContactOpen={handleContactOpen}
       />
 
       {/* Contact overlay */}
@@ -147,12 +149,13 @@ function AppInner() {
     </>
   );
 }
-
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <AppInner />
+        <SmoothScroll>
+          <AppInner />
+        </SmoothScroll>
       </BrowserRouter>
     </ThemeProvider>
   );

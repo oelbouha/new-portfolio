@@ -2,10 +2,12 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PROJECTS } from '@/lib/constants';
+import { selectedProjectsStyles } from './SelectedProjects.styles';
+import { SelectedProjectsProps } from './SelectedProjects.types';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function SelectedProjects() {
+export function SelectedProjects({}: SelectedProjectsProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -56,19 +58,19 @@ export function SelectedProjects() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-projects" id="work">
+    <section ref={sectionRef} className={selectedProjectsStyles.section} id="work">
       {/* Section heading */}
-      <div className="projects-heading-wrap">
-        <div className="text-mono_wrapper">
-          <span className="text-mono projects-label">Selected projects</span>
+      <div className={selectedProjectsStyles.headingWrap}>
+        <div className={selectedProjectsStyles.monoWrapper}>
+          <span className={selectedProjectsStyles.projectsLabel}>Selected projects</span>
         </div>
         <a
           href="/work"
           data-cursor-hover="Portfolio"
-          className="heading-appear gsap-ready"
+          className={selectedProjectsStyles.headingLink}
           style={{ textDecoration: 'none' }}
         >
-          <div className="projects-title">Playground</div>
+          <div className={selectedProjectsStyles.projectsTitle}>Playground</div>
         </a>
       </div>
 
@@ -76,15 +78,15 @@ export function SelectedProjects() {
       {PROJECTS.map((project, i) => {
         const isOdd = i % 2 === 0;
         return (
-          <div key={project.id} className="project-item">
+          <div key={project.id} className={selectedProjectsStyles.projectItem}>
             {/* Visual */}
             <a
               href={`/work/${project.id}`}
               data-cursor-hover={project.title}
-              style={{ display: 'block', textDecoration: 'none' }}
+              className={selectedProjectsStyles.visualLink}
             >
               <div
-                className={`project-visual-wrap ${isOdd ? 'project-visual-odd' : 'project-visual-even'}`}
+                className={`${selectedProjectsStyles.visualWrap} ${isOdd ? 'project-visual-odd' : 'project-visual-even'}`}
                 style={{
                   transform: isOdd
                     ? 'translate(-100%, 30rem) rotateZ(-26deg)'
@@ -96,26 +98,25 @@ export function SelectedProjects() {
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+                  className={selectedProjectsStyles.image}
                 />
-                {/* Overlay that reveals */}
-                <div className="visual-overlay" />
+                <div className={selectedProjectsStyles.visualOverlay} />
               </div>
             </a>
 
             {/* Info row */}
-            <div className="project-info">
-              <div style={{ overflow: 'hidden' }}>
-                <div className="project-name">{project.title}</div>
+            <div className={selectedProjectsStyles.infoRow}>
+              <div className={selectedProjectsStyles.overflowHidden}>
+                <div className={selectedProjectsStyles.projectName}>{project.title}</div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <div className="project-tags">
+              <div className={selectedProjectsStyles.tagsGroup}>
+                <div className={selectedProjectsStyles.tagsList}>
                   {project.tags.map(tag => (
-                    <span key={tag} className="project-tag">{tag}</span>
+                    <span key={tag} className={selectedProjectsStyles.tag}>{tag}</span>
                   ))}
                 </div>
-                <span className="text-mono" style={{ opacity: 0.4, flexShrink: 0 }}>
+                <span className={selectedProjectsStyles.yearText}>
                   {project.year}
                 </span>
               </div>
@@ -125,25 +126,19 @@ export function SelectedProjects() {
       })}
 
       {/* See all link */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        padding: 'clamp(2rem, 4vw, 4rem) clamp(1rem, 2.5vw, 2.5rem)',
-      }}>
+      <div className={selectedProjectsStyles.seeAllWrapper}>
         <a
           href="/work"
-          className="small-link"
+          className={selectedProjectsStyles.seeAllLink}
           data-cursor-hover="Work"
-          style={{ textDecoration: 'none' }}
         >
-          <div className="text-mono_wrapper">
+          <div className={selectedProjectsStyles.monoWrapper}>
             <span className="text-mono">See all projects</span>
           </div>
           <svg
-            className="small-link-arrow"
+            className={selectedProjectsStyles.arrowSvg}
             width="14" height="8" viewBox="0 0 14 8" fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ opacity: 0 }}
           >
             <path d="M11 1.5V2.5H12V1.5H11ZM10 0.5V1.5H11V0.5H10ZM11 6.5H12V5.5H11V6.5ZM10 7.5H11V6.5H10V7.5ZM13 3.5V2.5H12V3.5H0V4.5H12V5.5H13V4.5H14V3.5H13Z" fill="currentColor"/>
           </svg>
