@@ -5,14 +5,8 @@ import { videoSectionStyles } from './VideoSection.styles';
 
 export function VideoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
   const sectionRef = useScrollReveal<HTMLDivElement>({ y: 60, duration: 1.2, ease: 'power4.out', start: 'top 90%' });
 
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
-  };
 
   return (
     <section className={videoSectionStyles.section}>
@@ -23,7 +17,7 @@ export function VideoSection() {
             className={videoSectionStyles.video}
             autoPlay
             loop
-            muted={isMuted}
+            muted={true}
             playsInline
             disablePictureInPicture
             controlsList="nodownload nofullscreen noremoteplayback"
@@ -37,18 +31,7 @@ export function VideoSection() {
           </video>
 
           <div className={videoSectionStyles.controls}>
-            <button
-              type="button"
-              onClick={toggleMute}
-              className={videoSectionStyles.controlBtn}
-              aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-            >
-              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-            </button>
-          </div>
-
-          <div className={videoSectionStyles.badge}>
-            <span className="text-mono">SHOWCASE REEL / 2026</span>
+            
           </div>
         </div>
       </div>

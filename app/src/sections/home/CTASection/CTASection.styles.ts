@@ -7,7 +7,7 @@ export const ctaSectionStyles = {
 
   // CTA Main Section
   ctaSection: 'w-full py-20 lg:py-32 px-4 sm:px-6 lg:px-10 overflow-hidden',
-  container: 'mx-auto max-w-7xl',
+  container: 'mx-auto max-w-[1980px]',
   layoutRow:
     'flex flex-col-reverse lg:flex-row-reverse items-start lg:items-end justify-between gap-8 lg:gap-12',
 

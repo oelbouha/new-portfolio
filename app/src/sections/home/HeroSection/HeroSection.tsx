@@ -156,7 +156,7 @@ export function HeroSection({}: HeroSectionProps = {}) {
     }
   }, []);
 
-  const WORDS = ['WE', 'CRAFT', 'WEBSITES'];
+  const WORDS = ['WE THINK', 'CRAFT AND', 'DESIGN'];
 
   return (
     <section className={heroSectionStyles.section} id="hero">

@@ -122,6 +122,7 @@ export function Footer({ onContactOpen }: FooterProps) {
           flexWrap: 'wrap',
           gap: '1rem',
         }}
+        className='mb-[5rem]'
       >
         <p className="text-mono" style={{ opacity: 0.5 }}>
           Big project? Crazy thought? Or just feel like chatting?
