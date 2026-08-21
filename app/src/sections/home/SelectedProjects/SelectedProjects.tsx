@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PROJECTS } from '@/lib/constants';
 import { selectedProjectsStyles } from './SelectedProjects.styles';
-import { SelectedProjectsProps } from './SelectedProjects.types';
+import type { SelectedProjectsProps } from './SelectedProjects.types';
 
 gsap.registerPlugin(ScrollTrigger);
 

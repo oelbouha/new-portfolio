@@ -1,16 +1,20 @@
 import { clientLogosStyles } from './ClientLogos.styles';
-import   type { ClientLogosProps } from './ClientLogos.types';
+import type { ClientLogosProps } from './ClientLogos.types';
 
-const clients = [
-  "arya Alam Medika",
-  "Fawkner",
-  "FORMINDO",
-  "PT ASSA PAPER",
-  "JBS Villa",
-  "LAVELY",
-  "HIS",
-  "Lestari Osean",
-  "Marlupi",
+const tools = [
+  "React JS",
+  "Next.js",
+  "Flutter",
+  "Django",
+  "Automation",
+  "n8n",
+  "WordPress",
+  "Python",
+  "TypeScript",
+  "Docker",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "GSAP",
 ];
 
 export function ClientLogos({}: ClientLogosProps = {}) {
@@ -22,23 +26,23 @@ export function ClientLogos({}: ClientLogosProps = {}) {
       
       {/* Marquee */}
       <div className={clientLogosStyles.marquee}>
-        {clients.map((client, index) => (
+        {tools.map((tool, index) => (
           <div
             key={`first-${index}`}
             className={clientLogosStyles.item}
           >
             <span className={clientLogosStyles.text}>
-              {client}
+              {tool}
             </span>
           </div>
         ))}
-        {clients.map((client, index) => (
+        {tools.map((tool, index) => (
           <div
             key={`second-${index}`}
             className={clientLogosStyles.item}
           >
             <span className={clientLogosStyles.text}>
-              {client}
+              {tool}
             </span>
           </div>
         ))}

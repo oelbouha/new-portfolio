@@ -25,7 +25,12 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
       viewport={motionVariant.viewport}
       transition={motionVariant.transition}
     >
-      <Link to={href} onClick={handleClick} className={cn(projectCardStyles.card, className)}>
+      <Link
+        to={href}
+        onClick={handleClick}
+        className={cn(projectCardStyles.card, className)}
+        data-cursor-hover={project.title}
+      >
         <div className={projectCardStyles.imageWrapper}>
           <img
             src={project.thumbnail}
@@ -34,7 +39,13 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
             loading="lazy"
           />
           <div className={projectCardStyles.hoverOverlay}>
-            <span className={projectCardStyles.hoverTitle}>{project.title}</span>
+            <span className={projectCardStyles.hoverBadge}>
+              {project.category || 'Case Study'}
+            </span>
+            <div className={projectCardStyles.hoverBottomRow}>
+              <span className={projectCardStyles.hoverTitle}>{project.title}</span>
+              <span className={projectCardStyles.hoverArrow}>↗</span>
+            </div>
           </div>
         </div>
       </Link>

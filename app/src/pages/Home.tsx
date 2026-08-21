@@ -41,17 +41,19 @@ export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomePr
 
   return (
     <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
-      <main>
-        <HeroSection />
-        {/* <SelectedProjects /> */}
-        <VideoSection />
-        <IntroSection />
-        <PlaygroundSection onNavigate={onNavigate} />
-        <ServicesSection />
-        {/* <ServicesSection /> */}
-        <CTASection onContactOpen={onContactOpen} />
-      </main>
-      <Footer onContactOpen={onContactOpen} />
+      <div className="mx-auto w-full max-w-[1980px]">
+        <main>
+          <HeroSection />
+          {/* <SelectedProjects /> */}
+          <VideoSection />
+          <IntroSection />
+          <PlaygroundSection onNavigate={onNavigate} />
+          <ServicesSection />
+          {/* <ServicesSection /> */}
+          <CTASection onContactOpen={onContactOpen} />
+        </main>
+        <Footer onContactOpen={onContactOpen} />
+      </div>
     </div>
   );
 }

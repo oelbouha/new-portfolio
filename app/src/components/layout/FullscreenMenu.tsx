@@ -96,7 +96,7 @@ function SVGMenuItem({
   const imgRef = useRef<SVGImageElement>(null);
   const clipId = useRef(`menu-clip-${label.toLowerCase()}`);
 
-  const targetRectWidth = 140;
+  const targetRectWidth = 160;
   const gap = 18;
 
   useEffect(() => {
@@ -107,7 +107,7 @@ function SVGMenuItem({
         return;
       }
 
-      const fontSize = 110;
+      const fontSize = 120;
       const fontSpec = `900 ${fontSize}px "Bebas Neue", "Space Grotesk", sans-serif`;
 
       const canvas = document.createElement('canvas');
@@ -229,7 +229,7 @@ function SVGMenuItem({
   return (
     <a
       href={href}
-      className={`block select-none py-0.5 w-full text-left ${isInteractive ? 'cursor-pointer' : 'cursor-default'}`}
+      className={`block select-none py-1 sm:py-2 w-full text-left ${isInteractive ? 'cursor-pointer' : 'cursor-default'}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => {
@@ -245,13 +245,13 @@ function SVGMenuItem({
     >
       <svg
         ref={svgRef}
-        viewBox="0 0 600 110"
+        viewBox="0 0 600 120"
         preserveAspectRatio="xMinYMid meet"
-        className="w-full h-auto max-h-[62px] sm:max-h-[88px] overflow-visible block text-left"
+        className="w-full h-auto max-h-[110px] sm:max-h-[155px] lg:max-h-[190px] overflow-visible block text-left"
       >
         <defs>
           <clipPath id={clipId.current}>
-            <rect ref={rectClipRef} x="0" y="4" width="0" height="90" rx="10" />
+            <rect ref={rectClipRef} x="0" y="4" width="0" height="100" rx="10" />
           </clipPath>
         </defs>
 
@@ -262,7 +262,7 @@ function SVGMenuItem({
             x="0"
             y="4"
             width={targetRectWidth}
-            height="90"
+            height="100"
             preserveAspectRatio="xMidYMid slice"
           />
         </g>
@@ -270,11 +270,11 @@ function SVGMenuItem({
         <text
           ref={textRef}
           x="0"
-          y="85"
+          y="96"
           className="fill-current font-black uppercase"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '110px',
+            fontSize: '120px',
             fontWeight: 900,
             letterSpacing: '-0.012em',
           }}
@@ -389,7 +389,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
         {/* 2. Middle Menu Items Grid — Padded between top & bottom bars */}
         <div className="absolute inset-0 pt-20 pb-20 px-6 sm:px-12 flex items-center justify-center z-10 overflow-y-auto">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-28 gap-y-0 w-full max-w-7xl mx-auto items-start ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-28 gap-y-2 sm:gap-y-4 w-full max-w-[1980px] mx-auto items-center ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
             <div className="flex flex-col items-start w-full">
               {COL_1_ITEMS.map((item) => (
                 <SVGMenuItem

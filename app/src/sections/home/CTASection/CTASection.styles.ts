@@ -7,9 +7,9 @@ export const ctaSectionStyles = {
 
   // CTA Main Section
   ctaSection: 'w-full py-20 lg:py-32 px-4 sm:px-6 lg:px-10 overflow-hidden',
-  container: 'mx-auto max-w-[1980px]',
+  container: 'mx-auto w-full',
   layoutRow:
-    'flex flex-col-reverse lg:flex-row-reverse items-start lg:items-end justify-between gap-8 lg:gap-12',
+    'flex flex-col lg:flex-row-reverse items-start justify-between gap-8 lg:gap-12',
 
   // Left column: Description & Say Hello Button
   descWrapper:

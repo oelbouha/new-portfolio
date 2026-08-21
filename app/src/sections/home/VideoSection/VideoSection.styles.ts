@@ -1,6 +1,6 @@
 export const videoSectionStyles = {
   section: 'w-full px-0 py-8',
-  container: 'mx-auto w-full max-w-[1980px] px-4 sm:px-6 lg:px-8',
+  container: 'mx-auto w-full px-4 sm:px-6 lg:px-8',
   videoWrapper: 'relative aspect-video overflow-hidden rounded-2xl bg-[#0d0d0d] shadow-[0_20px_40px_rgba(0,0,0,0.2)]',
   video: 'block h-full w-full object-cover',
   controls: 'absolute bottom-6 right-6 z-10 flex gap-3',

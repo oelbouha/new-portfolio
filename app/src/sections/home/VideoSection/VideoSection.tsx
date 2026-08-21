@@ -1,5 +1,4 @@
-import { useRef, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useRef } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { videoSectionStyles } from './VideoSection.styles';
 

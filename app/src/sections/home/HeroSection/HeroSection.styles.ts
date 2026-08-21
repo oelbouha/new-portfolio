@@ -1,7 +1,7 @@
 export const heroSectionStyles = {
   section:
     'relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-20 text-center sm:px-6 lg:px-10',
-  inner: 'relative z-10 mx-auto flex w-full max-w-[1980px]  flex-col items-center justify-center text-center',
+  inner: 'relative z-10 mx-auto flex w-full flex-col items-center justify-center text-center',
   title:
     'flex flex-col items-center justify-center  text-center font-[family-name:var(--font-display)] text-[clamp(4.5rem,12vw,13.5rem)] font-bold uppercase leading-[0.85] tracking-[0.01em] text-[var(--text)] w-full',
   // h-[0.9em] gives full height to prevent clipping bottom of letters

@@ -165,7 +165,7 @@ export function HeroSection({}: HeroSectionProps = {}) {
           {WORDS.map((word, i) => (
             <span
               key={word}
-              ref={(el) => (wordsRef.current[i] = el)}
+              ref={(el) => { wordsRef.current[i] = el; }}
               className={heroSectionStyles.hoverWord}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}

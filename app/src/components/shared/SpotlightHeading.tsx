@@ -129,15 +129,7 @@ export function SpotlightHeading({
             : { delay }
         );
 
-        // 1. Reveal heading line 1 & line 2 only for scroll trigger
-        if (triggerOnScroll) {
-          tl.fromTo(
-            [line1Ref.current, line2Ref.current],
-            { y: 35, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.04 },
-            0
-          );
-        }
+
 
         // 2. Black rectangle grows left-to-right from x = 0, pushing line 2 to the right
         tl.to(

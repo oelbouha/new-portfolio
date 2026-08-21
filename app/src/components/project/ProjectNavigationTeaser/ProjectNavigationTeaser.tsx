@@ -23,7 +23,7 @@ export function ProjectNavigationTeaser({ currentSlug }: ProjectNavigationTeaser
         <h3 className={projectNavigationTeaserStyles.title}>{prevProject.title}</h3>
       </Link>
 
-      <Link to={`/work/${nextProject.slug}`} className={projectNavigationTeaserStyles.teaserCard} style={{ textAlign: 'right' }}>
+      <Link to={`/work/${nextProject.slug}`} className={projectNavigationTeaserStyles.teaserCard}>
         <span className={projectNavigationTeaserStyles.direction}>NEXT PROJECT →</span>
         <h3 className={projectNavigationTeaserStyles.title}>{nextProject.title}</h3>
       </Link>

@@ -1,0 +1,15 @@
+export const projectDetailInfosStyles = {
+  section: 'proj-infos padding-global',
+  grid: 'container-large proj-infos__grid',
+  col: 'proj-infos__col',
+  colMeta: 'proj-infos__col proj-infos__col--meta',
+  monoWrapper: 'text-mono_wrapper proj-info-row',
+  monoText: 'text-mono',
+  rows: 'proj-infos__rows',
+  roles: 'proj-infos__roles proj-info-row',
+  names: 'proj-infos__names proj-info-row',
+  scopeList: 'proj-infos__scope proj-info-row',
+  metaValue: 'proj-info-row proj-infos__meta-val',
+  tagsWrapper: 'proj-info-row proj-infos__tags',
+  tag: 'proj-infos__tag',
+} as const;

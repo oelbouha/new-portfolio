@@ -31,23 +31,20 @@ export function CustomCursor() {
     };
     document.addEventListener('mousemove', handleMouseMove);
 
-    // Hover state: elements with data-cursor-hover
-    const handleMouseEnter = (e: Event) => {
-      const el = e.currentTarget as HTMLElement;
-      const label = el.dataset.cursorHover || '';
-      cursorEl.classList.add('is-hover');
-      cursorEl.textContent = label;
-    };
-    const handleMouseLeave = () => {
-      cursorEl.classList.remove('is-hover');
-      cursorEl.textContent = '';
+    // Dynamic Hover state via event delegation on document
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor-hover]');
+      if (target) {
+        const label = target.dataset.cursorHover || '';
+        cursorEl.classList.add('is-hover');
+        cursorEl.textContent = label;
+      } else {
+        cursorEl.classList.remove('is-hover');
+        cursorEl.textContent = '';
+      }
     };
 
-    const hoverEls = document.querySelectorAll<HTMLElement>('[data-cursor-hover]');
-    hoverEls.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
+    document.addEventListener('mouseover', handleMouseOver);
 
     // RAF loop — lerp cursor to mouse
     function animate() {
@@ -63,10 +60,7 @@ export function CustomCursor() {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      hoverEls.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
+      document.removeEventListener('mouseover', handleMouseOver);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, []);

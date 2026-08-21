@@ -48,11 +48,11 @@ export const SERVICES = [
 ];
 
 export const CLIENT_NAMES = [
-  'Qonto', 'Matera', 'Chance', 'Silvr', 'Alan', 'Intramuros',
-  'Zefir', 'SuperComics', 'Osol', 'Kymco', 'Dribbble', 'Behance',
+  'React JS', 'Next.js', 'Flutter', 'Django', 'Automation', 'n8n', 'WordPress',
+  'Python', 'TypeScript', 'Docker', 'PostgreSQL', 'Tailwind CSS', 'GSAP',
   // duplicated for seamless marquee
-  'Qonto', 'Matera', 'Chance', 'Silvr', 'Alan', 'Intramuros',
-  'Zefir', 'SuperComics', 'Osol', 'Kymco', 'Dribbble', 'Behance',
+  'React JS', 'Next.js', 'Flutter', 'Django', 'Automation', 'n8n', 'WordPress',
+  'Python', 'TypeScript', 'Docker', 'PostgreSQL', 'Tailwind CSS', 'GSAP',
 ];
 
 export const FOOTER_IMAGES = [

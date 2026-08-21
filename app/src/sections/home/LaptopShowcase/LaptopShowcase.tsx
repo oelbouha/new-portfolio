@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { laptopShowcaseStyles } from './LaptopShowcase.styles';
-import { LaptopShowcaseProps } from './LaptopShowcase.types';
+import type { LaptopShowcaseProps } from './LaptopShowcase.types';
 
 const projects = [
   {

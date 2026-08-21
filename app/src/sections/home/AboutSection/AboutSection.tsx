@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { aboutSectionStyles } from './AboutSection.styles';
-import { AboutSectionProps } from './AboutSection.types';
+import type { AboutSectionProps } from './AboutSection.types';
 
 export function AboutSection({}: AboutSectionProps = {}) {
   return (

@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { portfolioCarouselStyles } from './PortfolioCarousel.styles';
-import { PortfolioCarouselProps, ViewMode, ProjectItem } from './PortfolioCarousel.types';
+import type { PortfolioCarouselProps, ViewMode, ProjectItem } from './PortfolioCarousel.types';
 
 const projects: ProjectItem[] = [
   {

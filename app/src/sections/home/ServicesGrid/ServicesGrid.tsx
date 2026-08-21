@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { servicesGridStyles } from './ServicesGrid.styles';
-import { ServicesGridProps } from './ServicesGrid.types';
+import type { ServicesGridProps } from './ServicesGrid.types';
 
 const services = [
   {
