@@ -235,12 +235,15 @@ function SVGMenuItem({
       onClick={(e) => {
         e.preventDefault();
         if (!isInteractive) return;
-        // Reset immediately on click
+        // Reset image/clip state immediately on click
         if (rectClipRef.current) gsap.set(rectClipRef.current, { attr: { width: 0 } });
         if (textRef.current) gsap.set(textRef.current, { attr: { x: 0 } });
         if (imgRef.current) gsap.set(imgRef.current, { opacity: 0 });
         onClose();
-        setTimeout(() => onNavigate?.(href), 900);
+        // Navigate after ~1000ms — partway through the 1.8s close animation so
+        // the page transition overlay begins before the close fully ends, giving
+        // a seamless wipe rather than a flash at the boundary.
+        setTimeout(() => onNavigate?.(href), 1000);
       }}
     >
       <svg

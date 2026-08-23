@@ -68,7 +68,9 @@ export function closeMenu(
     onComplete: () => {
       menuEl.classList.remove('is-open');
       document.body.style.overflow = '';
-      gsap.set([menuContent, menuEl, pageEl], { clearProps: 'all' });
+      // Only clear menuContent and menuEl — NOT pageEl.
+      // The page transition animation owns pageEl and will reset it itself.
+      gsap.set([menuContent, menuEl], { clearProps: 'all' });
       onComplete?.();
     },
   });

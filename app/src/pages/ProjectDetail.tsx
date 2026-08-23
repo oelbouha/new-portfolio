@@ -15,6 +15,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Delay for entrance animations — wait for the page-transition overlay to clear
+const ENTRANCE_DELAY = 1.45;
+
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const pageRef = useRef<HTMLElement>(null);
@@ -30,27 +33,31 @@ export default function ProjectDetail() {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // GSAP entrance animations
+  // GSAP entrance animations — delayed so they start after the transition overlay clears
   useEffect(() => {
     if (!pageRef.current || !project) return;
+
+    // Kill any lingering ScrollTriggers from the previous page before adding new ones
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
     const ctx = gsap.context(() => {
-      // Hero title
+      // Hero title — fires after overlay clears
       gsap.from(titleRef.current, {
         y: 80,
         opacity: 0,
         duration: 1.4,
         ease: 'power4.out',
-        delay: 0.15,
+        delay: ENTRANCE_DELAY,
       });
 
-      // Cover image reveal
+      // Cover image reveal — scroll-triggered (delay ensures ST refreshes correctly)
       if (coverRef.current) {
         gsap.from(coverRef.current, {
           y: 60,
           opacity: 0,
           duration: 1.2,
           ease: 'power4.out',
-          delay: 0.4,
+          delay: ENTRANCE_DELAY + 0.1,
           scrollTrigger: {
             trigger: coverRef.current,
             start: 'top 90%',
@@ -72,7 +79,7 @@ export default function ProjectDetail() {
         });
       }
 
-      // Gallery section image reveals
+      // Gallery image reveals
       gsap.utils.toArray<HTMLElement>('.proj-img-reveal').forEach((el) => {
         gsap.from(el, {
           y: 60,
@@ -115,6 +122,9 @@ export default function ProjectDetail() {
           gsap.set('.proj-next-title', { clearProps: 'transform,opacity' });
         },
       });
+
+      // Refresh ST after a short wait (transition overlay is gone by this point)
+      setTimeout(() => ScrollTrigger.refresh(), (ENTRANCE_DELAY + 0.2) * 1000);
     }, pageRef);
 
     return () => ctx.revert();
@@ -129,62 +139,68 @@ export default function ProjectDetail() {
   const bottomImages = galleryImages.slice(midIndex);
 
   return (
-    <main ref={pageRef} className="proj-page" aria-label={`${project.title} case study`}>
-      {/* 1. Hero */}
-      <ProjectDetailHero title={project.title} titleRef={titleRef} />
+    <main
+      ref={pageRef}
+      className="proj-page bg-[var(--background)] text-[var(--text)] overflow-x-hidden"
+      aria-label={`${project.title} case study`}
+    >
+      <div className="mx-auto w-full max-w-[1980px]">
+        {/* 1. Hero */}
+        <ProjectDetailHero title={project.title} titleRef={titleRef} />
 
-      {/* 2. Cover Image */}
-      <ProjectDetailCover
-        coverImage={project.coverImage || project.heroImage}
-        title={project.title}
-        coverRef={coverRef}
-      />
+        {/* 2. Cover Image */}
+        <ProjectDetailCover
+          coverImage={project.coverImage || project.heroImage}
+          title={project.title}
+          coverRef={coverRef}
+        />
 
-      {/* 3. Tagline Row */}
-      {project.tagline && (
-        <ProjectDetailTagline
-          tagline={project.tagline}
+        {/* 3. Tagline Row */}
+        {project.tagline && (
+          <ProjectDetailTagline
+            tagline={project.tagline}
+            year={project.year}
+            taglineRef={taglineRef}
+          />
+        )}
+
+        {/* 4. Intro & Overview */}
+        <ProjectDetailIntro
+          overview={project.overview}
+          description={project.description}
+          website={project.website}
+        />
+
+        {/* 5. Top Gallery */}
+        <ProjectDetailGallery images={topImages} title={project.title} />
+
+        {/* 6. Quote / Testimonial */}
+        {project.quote && (
+          <ProjectDetailQuote
+            quote={project.quote}
+            quoteAuthor={project.quoteAuthor}
+            quoteRole={project.quoteRole}
+          />
+        )}
+
+        {/* 7. Bottom Gallery */}
+        <ProjectDetailGallery images={bottomImages} title={project.title} />
+
+        {/* 8. Credits & Scope Info */}
+        <ProjectDetailInfos
+          credits={project.credits}
+          services={project.services}
+          client={project.client}
           year={project.year}
-          taglineRef={taglineRef}
+          tags={project.tags}
         />
-      )}
 
-      {/* 4. Intro & Overview */}
-      <ProjectDetailIntro
-        overview={project.overview}
-        description={project.description}
-        website={project.website}
-      />
+        {/* 9. Next Project Teaser */}
+        <ProjectDetailNext nextProject={nextProject} />
 
-      {/* 5. Top Gallery */}
-      <ProjectDetailGallery images={topImages} title={project.title} />
-
-      {/* 6. Quote / Testimonial */}
-      {project.quote && (
-        <ProjectDetailQuote
-          quote={project.quote}
-          quoteAuthor={project.quoteAuthor}
-          quoteRole={project.quoteRole}
-        />
-      )}
-
-      {/* 7. Bottom Gallery */}
-      <ProjectDetailGallery images={bottomImages} title={project.title} />
-
-      {/* 8. Credits & Scope Info */}
-      <ProjectDetailInfos
-        credits={project.credits}
-        services={project.services}
-        client={project.client}
-        year={project.year}
-        tags={project.tags}
-      />
-
-      {/* 9. Next Project Teaser */}
-      <ProjectDetailNext nextProject={nextProject} />
-
-      {/* 10. Footer */}
-      <Footer />
+        {/* 10. Footer */}
+        <Footer />
+      </div>
     </main>
   );
 }
