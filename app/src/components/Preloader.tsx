@@ -14,12 +14,16 @@ export function Preloader({ onComplete }: PreloaderProps) {
   const preloaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (preloaderRef.current) {
+      gsap.set(preloaderRef.current, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)' });
+    }
+
     const tl = gsap.timeline({
       onComplete: () => {
         if (!preloaderRef.current) { onComplete(); return; }
         gsap.to(preloaderRef.current, {
-          yPercent: -100,
-          duration: 1.0,
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+          duration: 1.8,
           ease: 'power4.inOut',
           onComplete,
         });
@@ -42,8 +46,8 @@ export function Preloader({ onComplete }: PreloaderProps) {
       tl.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'power2.inOut' }, 0);
     }
 
-    // Small hold before exit
-    tl.to({}, { duration: 0.3 });
+    // Small hold before exit slide
+    tl.to({}, { duration: 0.2 });
 
     return () => { tl.kill(); };
   }, [onComplete]);

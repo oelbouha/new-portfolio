@@ -79,14 +79,13 @@ function SVGMenuItem({
   href,
   img,
   isInteractive,
-  onClose,
   onNavigate,
 }: {
   label: string;
   href: string;
   img: string;
   isInteractive: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   onNavigate?: (href: string) => void;
 }) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -235,15 +234,11 @@ function SVGMenuItem({
       onClick={(e) => {
         e.preventDefault();
         if (!isInteractive) return;
-        // Reset image/clip state immediately on click
         if (rectClipRef.current) gsap.set(rectClipRef.current, { attr: { width: 0 } });
         if (textRef.current) gsap.set(textRef.current, { attr: { x: 0 } });
         if (imgRef.current) gsap.set(imgRef.current, { opacity: 0 });
-        onClose();
-        // Navigate after ~1000ms — partway through the 1.8s close animation so
-        // the page transition overlay begins before the close fully ends, giving
-        // a seamless wipe rather than a flash at the boundary.
-        setTimeout(() => onNavigate?.(href), 1000);
+        // Navigate directly — handleNavigate will close the menu behind the overlay
+        onNavigate?.(href);
       }}
     >
       <svg
@@ -294,9 +289,16 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
   const menuContentRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
   const wasOpen = useRef(false);
+  const isNavigatingRef = useRef(false);
   const [isInteractive, setIsInteractive] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const moroccoTime = useLiveClock('Africa/Casablanca');
+
+  // Called by SVGMenuItem when user clicks a nav link
+  const handleMenuItemNavigate = (href: string) => {
+    isNavigatingRef.current = true;
+    onNavigate?.(href);
+  };
 
   useEffect(() => {
     const page = document.querySelector<HTMLElement>('.page-main');
@@ -318,6 +320,18 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
     } else if (!isOpen && wasOpen.current) {
       wasOpen.current = false;
       setIsInteractive(false);
+
+      // If navigating, skip closeMenu's page-restore animation —
+      // the page transition overlay is opaque and handles everything.
+      if (isNavigatingRef.current) {
+        isNavigatingRef.current = false;
+        isAnimating.current = false;
+        menu.classList.remove('is-open');
+        document.body.style.overflow = '';
+        gsap.set([menu, content], { clearProps: 'all' });
+        return;
+      }
+
       if (isAnimating.current) return;
       isAnimating.current = true;
       closeMenu(page, menu, content, () => { 
@@ -400,7 +414,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
                   {...item}
                   isInteractive={isInteractive}
                   onClose={onClose}
-                  onNavigate={onNavigate}
+                  onNavigate={handleMenuItemNavigate}
                 />
               ))}
             </div>
@@ -411,7 +425,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
                   {...item}
                   isInteractive={isInteractive}
                   onClose={onClose}
-                  onNavigate={onNavigate}
+                  onNavigate={handleMenuItemNavigate}
                 />
               ))}
             </div>

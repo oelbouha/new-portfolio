@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 interface NavbarProps {
   onContactOpen?: () => void;
   onMenuOpen?: () => void;
+  onNavigate?: (href: string) => void;
 }
 
 function useLiveClock(tz: string) {
@@ -41,7 +42,7 @@ function CityTime({ city, tz }: { city: string; tz: string }) {
   );
 }
 
-export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
+export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
   const handleContactOpen = onContactOpen ?? (() => {});
   const handleMenuOpen = onMenuOpen ?? (() => {});
   const { theme, toggleTheme } = useTheme();
@@ -59,7 +60,18 @@ export function Navbar({ onContactOpen, onMenuOpen }: NavbarProps) {
         <div className={navbarStyles.inner}>
           {/* Left: OUTMAN + Dark mode */}
           <div className="flex items-center gap-4 sm:gap-8">
-            <a href="/" className="link" style={{ textDecoration: 'none' }} data-cursor-hover="Home">
+            <a
+              href="/"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('/');
+                }
+              }}
+              className="link"
+              style={{ textDecoration: 'none' }}
+              data-cursor-hover="Home"
+            >
               <div className="link_first"><span className={navbarStyles.text}>OUTMAN</span></div>
               <div className="link_second"><span className={navbarStyles.text}>OUTMAN</span></div>
             </a>

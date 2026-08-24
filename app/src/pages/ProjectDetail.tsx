@@ -15,10 +15,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Delay for entrance animations — wait for the page-transition overlay to clear
-const ENTRANCE_DELAY = 1.45;
+// Delay for entrance animations — wait for Phase 2 (overlay uncover) to begin
+const ENTRANCE_DELAY = 0.15;
 
-export default function ProjectDetail() {
+interface ProjectDetailProps {
+  onNavigate?: (href: string) => void;
+}
+
+export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
   const { slug } = useParams<{ slug: string }>();
   const pageRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -33,7 +37,7 @@ export default function ProjectDetail() {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // GSAP entrance animations — delayed so they start after the transition overlay clears
+  // GSAP entrance animations — timed with the slide-out (uncover) phase
   useEffect(() => {
     if (!pageRef.current || !project) return;
 
@@ -41,42 +45,31 @@ export default function ProjectDetail() {
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
     const ctx = gsap.context(() => {
-      // Hero title — fires after overlay clears
-      gsap.from(titleRef.current, {
-        y: 80,
-        opacity: 0,
-        duration: 1.4,
-        ease: 'power4.out',
-        delay: ENTRANCE_DELAY,
-      });
+      // Hero title — reveals as the overlay slides away
+      if (titleRef.current) {
+        gsap.fromTo(titleRef.current,
+          { y: 80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.4, ease: 'power4.out', delay: ENTRANCE_DELAY }
+        );
+      }
 
-      // Cover image reveal — scroll-triggered (delay ensures ST refreshes correctly)
+      // Cover image reveal
       if (coverRef.current) {
-        gsap.from(coverRef.current, {
-          y: 60,
-          opacity: 0,
-          duration: 1.2,
-          ease: 'power4.out',
-          delay: ENTRANCE_DELAY + 0.1,
-          scrollTrigger: {
-            trigger: coverRef.current,
-            start: 'top 90%',
-          },
-        });
+        gsap.fromTo(coverRef.current,
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', delay: ENTRANCE_DELAY + 0.15 }
+        );
       }
 
       // Tagline
       if (taglineRef.current) {
-        gsap.from(taglineRef.current, {
-          y: 40,
-          opacity: 0,
-          duration: 1.2,
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: taglineRef.current,
-            start: 'top 88%',
-          },
-        });
+        gsap.fromTo(taglineRef.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0, opacity: 1, duration: 1.2, ease: 'power4.out',
+            scrollTrigger: { trigger: taglineRef.current, start: 'top 88%' },
+          }
+        );
       }
 
       // Gallery image reveals
@@ -123,8 +116,8 @@ export default function ProjectDetail() {
         },
       });
 
-      // Refresh ST after a short wait (transition overlay is gone by this point)
-      setTimeout(() => ScrollTrigger.refresh(), (ENTRANCE_DELAY + 0.2) * 1000);
+      // Refresh ST after entrance animations settle
+      setTimeout(() => ScrollTrigger.refresh(), 1200);
     }, pageRef);
 
     return () => ctx.revert();
@@ -196,7 +189,7 @@ export default function ProjectDetail() {
         />
 
         {/* 9. Next Project Teaser */}
-        <ProjectDetailNext nextProject={nextProject} />
+        <ProjectDetailNext nextProject={nextProject} onNavigate={onNavigate} />
 
         {/* 10. Footer */}
         <Footer />

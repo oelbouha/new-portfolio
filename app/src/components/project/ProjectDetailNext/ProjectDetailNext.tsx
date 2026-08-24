@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { projectDetailNextStyles } from './ProjectDetailNext.styles';
 import type { ProjectDetailNextProps } from './ProjectDetailNext.types';
 
-export function ProjectDetailNext({ nextProject }: ProjectDetailNextProps) {
+export function ProjectDetailNext({ nextProject, onNavigate }: ProjectDetailNextProps) {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
 
@@ -29,6 +29,12 @@ export function ProjectDetailNext({ nextProject }: ProjectDetailNextProps) {
         <Link
           ref={linkRef}
           to={`/work/${nextProject.slug}`}
+          onClick={(e) => {
+            if (onNavigate) {
+              e.preventDefault();
+              onNavigate(`/work/${nextProject.slug}`);
+            }
+          }}
           className={projectDetailNextStyles.link}
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}

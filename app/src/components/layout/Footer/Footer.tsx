@@ -1,38 +1,11 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { FOOTER_IMAGES } from '@/lib/constants';
 import { footerStyles } from './Footer.styles';
 import type { FooterProps } from './Footer.types';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export function Footer({ onContactOpen }: FooterProps) {
   const footerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!footerRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Footer Video/Image Grid reveal animation
-      document.querySelectorAll<HTMLElement>('.footer-video-item').forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, scale: 0.9 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            ease: 'power3.out',
-            delay: i * 0.08,
-            scrollTrigger: { trigger: el, start: 'top 92%', once: true },
-          }
-        );
-      });
-    }, footerRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const NAV_COLS = [
     {
@@ -78,9 +51,16 @@ export function Footer({ onContactOpen }: FooterProps) {
       {/* Project image grid */}
       <div className={footerStyles.videosGrid}>
         {FOOTER_IMAGES.map((src, i) => (
-          <div key={i} className={footerStyles.videoItem} style={{ opacity: 0 }}>
+          <motion.div
+            key={i}
+            className={footerStyles.videoItem}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
+          >
             <img src={src} alt="" loading="lazy" className={footerStyles.videoImg} />
-          </div>
+          </motion.div>
         ))}
       </div>
 

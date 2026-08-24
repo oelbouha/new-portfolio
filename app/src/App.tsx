@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { ThemeProvider } from '@/context/ThemeContext';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Home } from '@/pages/Home';
 import ProjectDetail from '@/pages/ProjectDetail';
 import About from '@/pages/About';
@@ -20,13 +20,14 @@ function AppInner() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const transitionRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
+  const isTransitioningRef = useRef(false);
 
   const handlePreloaderComplete = useCallback(() => {
     setLoading(false);
-    // Refresh ScrollTrigger after DOM settles
     setTimeout(() => ScrollTrigger.refresh(), 200);
   }, []);
 
@@ -39,8 +40,35 @@ function AppInner() {
     setContactOpen(false);
   }, []);
 
+  // Sync Phase 2 (Uncover) with route component mount
+  useEffect(() => {
+    if (!isTransitioningRef.current) return;
+    const transition = transitionRef.current;
+    const overlay = overlayRef.current;
+    const page = pageRef.current;
+
+    if (!transition || !overlay || !page) return;
+
+    window.scrollTo(0, 0);
+    gsap.set(page, { clearProps: 'transform,opacity' });
+
+    // Phase 2: Slide OUT to reveal new page
+    gsap.to(overlay, {
+      clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
+      duration: 1.8,
+      ease: 'power4.inOut',
+      onComplete: () => {
+        transition.style.display = 'none';
+        gsap.set([overlay, page], { clearProps: 'all' });
+        isTransitioningRef.current = false;
+        ScrollTrigger.refresh();
+      },
+    });
+  }, [location.pathname]);
 
   const handleNavigate = useCallback((href: string) => {
+    setMenuOpen(false);
+
     if (href.startsWith('#')) {
       const id = href.slice(1);
       const el = document.getElementById(id);
@@ -49,7 +77,9 @@ function AppInner() {
     }
     if (href.startsWith('/#')) {
       const id = href.slice(2);
-      navigate('/');
+      if (location.pathname !== '/') {
+        navigate('/');
+      }
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -57,41 +87,62 @@ function AppInner() {
       return;
     }
 
-    // Page transition animation
+    if (isTransitioningRef.current) return;
+
     const transition = transitionRef.current;
     const overlay = overlayRef.current;
     const page = pageRef.current;
 
-    if (!transition || !overlay || !page) { navigate(href); return; }
+    if (!transition || !overlay || !page) {
+      navigate(href);
+      return;
+    }
 
     const isDark = document.documentElement.classList.contains('is-dark');
     const startColor = isDark ? '#1C1C1C' : '#FAFAFA';
     const endColor = isDark ? '#111111' : '#E4E4E4';
 
+    isTransitioningRef.current = true;
     transition.style.display = 'block';
     gsap.set(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' });
 
     const tl = gsap.timeline({
-      defaults: { ease: 'power4.inOut', duration: 1.6 },
-      onComplete: () => {
-        navigate(href);
-        requestAnimationFrame(() => {
-          transition.style.display = 'none';
-          gsap.set([overlay, page], { clearProps: 'all' });
-          window.scrollTo(0, 0);
-          ScrollTrigger.refresh();
-        });
-      },
+      defaults: { ease: 'power4.inOut' },
     });
 
-    tl.to(page, { rotation: 10, x: 300, y: -450, opacity: 0, scale: 1.5 }, 0);
-    tl.to(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)' }, 0);
+    // Phase 1: Slide IN to cover screen (exact match to menu open timing and transform)
+    tl.to(page, { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5, duration: 1.8 }, 0);
+    tl.to(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)', duration: 1.8 }, 0);
     tl.fromTo(overlay,
       { backgroundColor: startColor },
       { backgroundColor: endColor, duration: 1.2, ease: 'power4.inOut' },
-      0.7
+      0.4
     );
-  }, [navigate]);
+
+    // Midpoint: when covered, navigate route
+    tl.add(() => {
+      // Keep page hidden until location effect fires after route change
+      gsap.set(page, { opacity: 0 });
+      if (location.pathname === href) {
+        // Same route navigation re-trigger
+        window.scrollTo(0, 0);
+        gsap.set(page, { clearProps: 'transform,opacity' });
+        gsap.to(overlay, {
+          clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
+          duration: 1.8,
+          ease: 'power4.inOut',
+          onComplete: () => {
+            transition.style.display = 'none';
+            gsap.set([overlay, page], { clearProps: 'all' });
+            isTransitioningRef.current = false;
+            ScrollTrigger.refresh();
+          },
+        });
+      } else {
+        navigate(href);
+      }
+    });
+  }, [navigate, location.pathname]);
 
   return (
     <>
@@ -106,6 +157,7 @@ function AppInner() {
         <Navbar
           onMenuOpen={() => setMenuOpen(true)}
           onContactOpen={handleContactOpen}
+          onNavigate={handleNavigate}
         />
       )}
 
@@ -141,9 +193,9 @@ function AppInner() {
               />
             }
           />
-          <Route path="/work/:slug" element={<ProjectDetail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/work" element={<About />} />
+          <Route path="/work/:slug" element={<ProjectDetail onNavigate={handleNavigate} />} />
+          <Route path="/about" element={<About onNavigate={handleNavigate} />} />
+          <Route path="/work" element={<About onNavigate={handleNavigate} />} />
         </Routes>
       </div>
     </>

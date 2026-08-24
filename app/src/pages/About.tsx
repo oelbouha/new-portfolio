@@ -82,7 +82,7 @@ const experience = [
   },
 ];
 
-export default function About() {
+export default function About({ onNavigate }: { onNavigate?: (href: string) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -98,7 +98,17 @@ export default function About() {
             custom={0.3}
           >
             <div className="hero-topbar-left">
-              <a href="/" className="hero-local-label" style={{ textDecoration: 'none' }}>
+              <a
+                href="/"
+                onClick={(e) => {
+                  if (onNavigate) {
+                    e.preventDefault();
+                    onNavigate('/');
+                  }
+                }}
+                className="hero-local-label"
+                style={{ textDecoration: 'none' }}
+              >
                 TÉTOUAN, MOROCCO
               </a>
             </div>
@@ -340,7 +350,7 @@ export default function About() {
         <Footer />
       </div>
 
-      <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} onNavigate={onNavigate} />
     </>
   );
 }
