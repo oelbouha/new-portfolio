@@ -15,9 +15,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Delay for entrance animations — wait for Phase 2 (overlay uncover) to begin
-const ENTRANCE_DELAY = 0.15;
-
 interface ProjectDetailProps {
   onNavigate?: (href: string) => void;
 }
@@ -37,7 +34,7 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // GSAP entrance animations — timed with the slide-out (uncover) phase
+  // GSAP entrance animations — immediate presentation upon route change
   useEffect(() => {
     if (!pageRef.current || !project) return;
 
@@ -45,19 +42,19 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
     const ctx = gsap.context(() => {
-      // Hero title — reveals as the overlay slides away
+      // Hero title reveal
       if (titleRef.current) {
         gsap.fromTo(titleRef.current,
-          { y: 80, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.4, ease: 'power4.out', delay: ENTRANCE_DELAY }
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0 }
         );
       }
 
       // Cover image reveal
       if (coverRef.current) {
         gsap.fromTo(coverRef.current,
-          { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', delay: ENTRANCE_DELAY + 0.15 }
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.05 }
         );
       }
 
@@ -134,7 +131,7 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
   return (
     <main
       ref={pageRef}
-      className="proj-page bg-[var(--background)] text-[var(--text)] overflow-x-hidden"
+      className="proj-page bg-[var(--project-bg)] text-[var(--text)] overflow-x-hidden"
       aria-label={`${project.title} case study`}
     >
       <div className="mx-auto w-full max-w-[1980px]">

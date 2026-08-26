@@ -14,6 +14,7 @@
   --light: #e4e4e4;
   --dark: #111111;
   --background: var(--light);
+  --project-bg: #FAF9F6;
   --text: var(--dark);
   --nav-menu-bg: #FAFAFA;
   --transition-overlay-bg: #FAFAFA;
@@ -26,6 +27,7 @@
 
 [data-theme="dark"], html.is-dark {
   --background: var(--dark);
+  --project-bg: #1A1A1A;
   --text: var(--light);
   --nav-menu-bg: #1C1C1C;
   --transition-overlay-bg: #1C1C1C;
@@ -984,7 +986,8 @@ html.lenis, html.lenis body {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--background);
+  background: #ffffff;
+  color: #111111;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1003,6 +1006,7 @@ html.lenis, html.lenis body {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: #111111;
   opacity: 0.6;
 }
 
@@ -1020,7 +1024,7 @@ html.lenis, html.lenis body {
   font-weight: 700;
   letter-spacing: -0.05em;
   line-height: 1;
-  color: var(--text);
+  color: #111111;
 }
 
 .preloader-bottom {
@@ -1032,14 +1036,14 @@ html.lenis, html.lenis body {
 .preloader-bar-track {
   width: 100%;
   height: 1px;
-  background: rgba(128,128,128,0.2);
+  background: rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
 .preloader-bar-fill {
   height: 100%;
   width: 100%;
-  background: var(--text);
+  background: #111111;
   transform-origin: left;
   transform: scaleX(0);
   will-change: transform;
@@ -1050,7 +1054,8 @@ html.lenis, html.lenis body {
   font-size: 0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.4;
+  color: #111111;
+  opacity: 0.5;
 }
 
 /* ============================================

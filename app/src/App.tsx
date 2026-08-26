@@ -40,7 +40,7 @@ function AppInner() {
     setContactOpen(false);
   }, []);
 
-  // Sync Phase 2 (Uncover) with route component mount
+  // Handle route change during navigation — open new page immediately after slide
   useEffect(() => {
     if (!isTransitioningRef.current) return;
     const transition = transitionRef.current;
@@ -50,20 +50,10 @@ function AppInner() {
     if (!transition || !overlay || !page) return;
 
     window.scrollTo(0, 0);
-    gsap.set(page, { clearProps: 'transform,opacity' });
-
-    // Phase 2: Slide OUT to reveal new page
-    gsap.to(overlay, {
-      clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-      duration: 1.8,
-      ease: 'power4.inOut',
-      onComplete: () => {
-        transition.style.display = 'none';
-        gsap.set([overlay, page], { clearProps: 'all' });
-        isTransitioningRef.current = false;
-        ScrollTrigger.refresh();
-      },
-    });
+    transition.style.display = 'none';
+    gsap.set([overlay, page], { clearProps: 'all' });
+    isTransitioningRef.current = false;
+    ScrollTrigger.refresh();
   }, [location.pathname]);
 
   const handleNavigate = useCallback((href: string) => {
@@ -99,8 +89,14 @@ function AppInner() {
     }
 
     const isDark = document.documentElement.classList.contains('is-dark');
-    const startColor = isDark ? '#1C1C1C' : '#FAFAFA';
-    const endColor = isDark ? '#111111' : '#E4E4E4';
+    const isTargetProject = href.startsWith('/work/');
+    const isCurrentProject = location.pathname.startsWith('/work/');
+
+    const homeBg = isDark ? '#111111' : '#E4E4E4';
+    const projectBg = isDark ? '#1A1A1A' : '#FAF9F6';
+
+    const startColor = isCurrentProject ? projectBg : homeBg;
+    const endColor = isTargetProject ? projectBg : homeBg;
 
     isTransitioningRef.current = true;
     transition.style.display = 'block';
@@ -110,7 +106,7 @@ function AppInner() {
       defaults: { ease: 'power4.inOut' },
     });
 
-    // Phase 1: Slide IN to cover screen (exact match to menu open timing and transform)
+    // Single Slide animation: Match exact menu open timing and transform (1.8s, rotation 10, x 300, y 450, scale 1.5)
     tl.to(page, { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5, duration: 1.8 }, 0);
     tl.to(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)', duration: 1.8 }, 0);
     tl.fromTo(overlay,
@@ -119,25 +115,15 @@ function AppInner() {
       0.4
     );
 
-    // Midpoint: when covered, navigate route
+    // Midpoint: when slide completes and screen is covered, navigate route and open page immediately
     tl.add(() => {
-      // Keep page hidden until location effect fires after route change
       gsap.set(page, { opacity: 0 });
       if (location.pathname === href) {
-        // Same route navigation re-trigger
         window.scrollTo(0, 0);
-        gsap.set(page, { clearProps: 'transform,opacity' });
-        gsap.to(overlay, {
-          clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-          duration: 1.8,
-          ease: 'power4.inOut',
-          onComplete: () => {
-            transition.style.display = 'none';
-            gsap.set([overlay, page], { clearProps: 'all' });
-            isTransitioningRef.current = false;
-            ScrollTrigger.refresh();
-          },
-        });
+        transition.style.display = 'none';
+        gsap.set([overlay, page], { clearProps: 'all' });
+        isTransitioningRef.current = false;
+        ScrollTrigger.refresh();
       } else {
         navigate(href);
       }
