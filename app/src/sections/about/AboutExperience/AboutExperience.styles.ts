@@ -1,0 +1,15 @@
+export const aboutExperienceStyles = {
+  section: 'py-20 sm:py-28 px-4 sm:px-6 lg:px-8',
+  container: 'max-w-7xl mx-auto',
+  layoutRow: 'flex flex-col lg:flex-row gap-12 lg:gap-20',
+  stickyCol: 'lg:sticky lg:top-28 lg:self-start lg:w-64 flex-shrink-0',
+  tag: "font-['IBM_Plex_Mono'] text-xs uppercase tracking-widest text-foreground-secondary block mb-2",
+  title: 'font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-black text-foreground uppercase tracking-tight leading-none',
+  listWrapper: 'flex-1 space-y-12',
+  itemCard: 'group py-2',
+  itemHeader: 'flex flex-wrap items-center gap-3 mb-2',
+  itemCompany: 'font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold tracking-wider text-foreground uppercase group-hover:text-accent transition-colors',
+  itemRole: "font-['Space_Grotesk'] text-xs font-semibold tracking-widest text-foreground-secondary uppercase",
+  itemPeriod: "font-['IBM_Plex_Mono'] text-xs text-foreground-secondary uppercase tracking-widest mb-3",
+  itemDesc: "font-['Space_Grotesk'] text-sm sm:text-base text-foreground-secondary leading-relaxed max-w-3xl whitespace-pre-line",
+} as const;

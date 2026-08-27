@@ -109,7 +109,7 @@ const projects: ProjectItem[] = [
   },
 ];
 
-export function PortfolioCarousel({}: PortfolioCarouselProps = {}) {
+export function PortfolioCarousel({ onNavigate }: PortfolioCarouselProps = {}) {
   const [viewMode, setViewMode] = useState<ViewMode>('3-col');
   const [shuffledProjects] = useState(projects);
 
@@ -216,7 +216,7 @@ export function PortfolioCarousel({}: PortfolioCarouselProps = {}) {
                   layout: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
                 }}
               >
-                <ProjectCard project={project} />
+                <ProjectCard project={project} onNavigate={onNavigate} />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -226,7 +226,7 @@ export function PortfolioCarousel({}: PortfolioCarouselProps = {}) {
   );
 }
 
-function ProjectCard({ project }: { project: ProjectItem }) {
+function ProjectCard({ project, onNavigate }: { project: ProjectItem; onNavigate?: (href: string) => void }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [arrowPosition, setArrowPosition] = useState({ x: 50, y: 50 });
 
@@ -243,9 +243,17 @@ function ProjectCard({ project }: { project: ProjectItem }) {
     setArrowPosition({ x: constrainedX, y: constrainedY });
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(`/work/${project.slug}`);
+    }
+  };
+
   return (
     <Link
       to={`/work/${project.slug}`}
+      onClick={handleClick}
       ref={cardRef as any}
       onMouseMove={handleMouseMove}
       className={portfolioCarouselStyles.cardLink}

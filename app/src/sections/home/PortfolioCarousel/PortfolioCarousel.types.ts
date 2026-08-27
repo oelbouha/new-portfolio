@@ -11,4 +11,6 @@ export interface ProjectItem {
   tech: string;
 }
 
-export interface PortfolioCarouselProps {}
+export interface PortfolioCarouselProps {
+  onNavigate?: (href: string) => void;
+}

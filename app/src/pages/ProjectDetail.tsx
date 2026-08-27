@@ -42,19 +42,19 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
     const ctx = gsap.context(() => {
-      // Hero title reveal
+      // Hero title reveal — smooth fade & slide up synchronized with overlay fade
       if (titleRef.current) {
         gsap.fromTo(titleRef.current,
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0 }
+          { y: 25, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
         );
       }
 
       // Cover image reveal
       if (coverRef.current) {
         gsap.fromTo(coverRef.current,
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.05 }
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.15 }
         );
       }
 
