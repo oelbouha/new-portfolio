@@ -52,7 +52,7 @@ export function SpotlightHeading({
         return;
       }
 
-      const line2BaselineY = fontSize * 1.9;
+      const line2BaselineY = fontSize * 1.68;
       const fontSpec = `900 ${fontSize}px "Bebas Neue", "Space Grotesk", sans-serif`;
 
       const canvas = document.createElement('canvas');
@@ -80,7 +80,7 @@ export function SpotlightHeading({
       const rectX = 0;
       const totalLine2W = rectX + targetRectWidth + gap + line2W;
       const maxSVGWidth = Math.max(line1W, totalLine2W) + 30;
-      const totalSVGHeight = line2BaselineY + descent + 10;
+      const totalSVGHeight = line2BaselineY + descent + 5;
 
       svgRef.current.setAttribute('viewBox', `0 0 ${maxSVGWidth} ${totalSVGHeight}`);
 
@@ -193,7 +193,7 @@ export function SpotlightHeading({
       <text
         ref={line1Ref}
         x="0"
-        y={fontSize * 0.86}
+        y={fontSize * 0.72}
         className="fill-current font-black uppercase"
         style={{
           fontFamily: 'var(--font-display)',
@@ -233,7 +233,7 @@ export function SpotlightHeading({
       <text
         ref={line2Ref}
         x="0"
-        y={fontSize * 1.9}
+        y={fontSize * 1.68}
         className="fill-current font-black uppercase"
         style={{
           fontFamily: 'var(--font-display)',

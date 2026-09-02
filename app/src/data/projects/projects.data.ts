@@ -29,9 +29,9 @@ export const projectsData: Project[] = [
     quoteAuthor: 'Skatys Inc.',
     quoteRole: 'Product Owner',
     credits: [
-      { role: 'Full Stack Development', name: 'Outman El Bouha' },
-      { role: 'Architecture & DevOps', name: 'Outman El Bouha' },
-      { role: 'UI/UX Design', name: 'Outman El Bouha' },
+      { role: 'Full Stack Development', name: 'Outman El Bouhali' },
+      { role: 'Architecture & DevOps', name: 'Outman El Bouhali' },
+      { role: 'UI/UX Design', name: 'Outman El Bouhali' },
     ],
   },
   {
@@ -91,9 +91,9 @@ export const projectsData: Project[] = [
     tags: ['Docker', 'DevOps', 'System Administration', 'NGINX'],
     link: 'https://github.com/oelbouha/Inception',
     credits: [
-      { role: 'System Architecture', name: 'Outman El Bouha' },
-      { role: 'Container Orchestration', name: 'Outman El Bouha' },
-      { role: 'Security & TLS Setup', name: 'Outman El Bouha' },
+      { role: 'System Architecture', name: 'Outman El Bouhali' },
+      { role: 'Container Orchestration', name: 'Outman El Bouhali' },
+      { role: 'Security & TLS Setup', name: 'Outman El Bouhali' },
     ],
   },
   {
@@ -119,9 +119,9 @@ export const projectsData: Project[] = [
     tags: ['C++98', 'Sockets', 'Non-blocking I/O', 'CGI'],
     link: 'https://github.com/oelbouha/webserv',
     credits: [
-      { role: 'Systems Programming', name: 'Outman El Bouha' },
-      { role: 'Protocol Engineering', name: 'Outman El Bouha' },
-      { role: 'Network Architecture', name: 'Outman El Bouha' },
+      { role: 'Systems Programming', name: 'Outman El Bouhali' },
+      { role: 'Protocol Engineering', name: 'Outman El Bouhali' },
+      { role: 'Network Architecture', name: 'Outman El Bouhali' },
     ],
   },
 ];

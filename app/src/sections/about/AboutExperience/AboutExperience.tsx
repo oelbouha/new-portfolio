@@ -1,33 +1,7 @@
 import { motion } from 'framer-motion';
+import { aboutData } from '@/data/about.data';
 import { aboutExperienceStyles } from './AboutExperience.styles';
 import type { AboutExperienceProps } from './AboutExperience.types';
-
-const experience = [
-  {
-    company: 'FREELANCE',
-    location: 'REMOTE',
-    role: 'FULL STACK DEVELOPER',
-    period: '2026',
-    description:
-      'Skatys — a freelance full-stack web app built with Next.js and Django, backed by PostgreSQL and deployed on a VPS with Docker and NGINX.',
-  },
-  {
-    company: 'REVO ADVERTISING AGENCY',
-    location: 'MOROCCO',
-    role: 'WEB DEVELOPER INTERN',
-    period: '2025',
-    description:
-      'Assisted in building and maintaining client websites. Worked on frontend implementation and UI improvements. Collaborated with design and marketing teams to deliver real-world agency projects.',
-  },
-  {
-    company: '1337 (42 NETWORK)',
-    location: 'MOROCCO',
-    role: 'SOFTWARE ENGINEERING STUDENT',
-    period: '2022 — PRESENT',
-    description:
-      'Intensive peer-to-peer learning program covering systems programming, algorithms, networking, and full-stack development in C, C++, and modern web technologies. Built projects like Webserv (HTTP server), Inception (Docker), and multiplayer Pong.',
-  },
-];
 
 export function AboutExperience({ className = '' }: AboutExperienceProps) {
   return (
@@ -42,15 +16,15 @@ export function AboutExperience({ className = '' }: AboutExperienceProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className={aboutExperienceStyles.tag}>[ CAREER ]</span>
+            <span className={aboutExperienceStyles.tag}>{aboutData.experience.tag}</span>
             <h2 className={aboutExperienceStyles.title}>
               EXPERIENCE &<br />EDUCATION
             </h2>
           </motion.div>
 
-          {/* Experience Items — NO full-width divider lines */}
+          {/* Experience Items */}
           <div className={aboutExperienceStyles.listWrapper}>
-            {experience.map((exp, index) => (
+            {aboutData.experience.items.map((exp, index) => (
               <motion.div
                 key={exp.company}
                 className={aboutExperienceStyles.itemCard}

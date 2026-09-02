@@ -75,6 +75,8 @@ function spawnImage(cx: number, cy: number, container: HTMLDivElement) {
     });
 }
 
+import { homeData } from '@/data/home.data';
+
 export function HeroSection({}: HeroSectionProps = {}) {
   const intervalRef  = useRef<ReturnType<typeof setInterval> | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -154,15 +156,13 @@ export function HeroSection({}: HeroSectionProps = {}) {
     killHoverImages();
   }, [killHoverImages]);
 
-  const WORDS = ['WE THINK', 'CRAFT AND', 'DESIGN'];
-
   return (
     <section ref={heroRef} className={heroSectionStyles.section} id="hero">
       <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[8999]" />
 
       <div className={heroSectionStyles.inner}>
         <h1 className={heroSectionStyles.title}>
-          {WORDS.map((word, i) => (
+          {homeData.hero.words.map((word, i) => (
             <span
               key={word}
               ref={(el) => { wordsRef.current[i] = el; }}

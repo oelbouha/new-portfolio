@@ -1,50 +1,12 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FOOTER_IMAGES } from '@/lib/constants';
+import { layoutData } from '@/data/layout.data';
 import { footerStyles } from './Footer.styles';
 import type { FooterProps } from './Footer.types';
 
-export function Footer({ onContactOpen }: FooterProps) {
+export function Footer({}: FooterProps = {}) {
   const footerRef = useRef<HTMLElement>(null);
-
-  const NAV_COLS = [
-    {
-      title: 'Pages',
-      links: [
-        { label: 'Home', href: '/' },
-        { label: 'Work', href: '/work' },
-        { label: 'Services', href: '/#services' },
-        { label: 'About', href: '/about' },
-      ],
-    },
-    {
-      title: 'Social',
-      links: [
-        { label: 'GitHub ↗', href: 'https://github.com/oelbouha', external: true },
-        { label: 'LinkedIn ↗', href: '#', external: true },
-        { label: 'Dribbble ↗', href: '#', external: true },
-        { label: 'Instagram ↗', href: '#', external: true },
-      ],
-    },
-    {
-      title: 'Studio',
-      links: [
-        { label: 'Based in morocco', href: '#' },
-        { label: 'Available worldwide', href: '#' },
-      ],
-    },
-    {
-      title: 'Contact',
-      links: [{ label: 'outmanelbouhali5@gmail.com', href: 'mailto:outmanelbouhali5@gmail.com', external: true }],
-    },
-    {
-      title: '',
-      links: [
-        { label: 'Legal', href: '#' },
-        { label: '©2025 All rights reserved', href: '#' },
-      ],
-    },
-  ];
 
   return (
     <footer ref={footerRef} className={footerStyles.footer}>
@@ -66,7 +28,7 @@ export function Footer({ onContactOpen }: FooterProps) {
 
       {/* Nav grid */}
       <div className={footerStyles.navGrid}>
-        {NAV_COLS.map((col, ci) => (
+        {layoutData.nav.columns.map((col, ci) => (
           <div key={ci} className={footerStyles.navCol}>
             {col.title && <span className={footerStyles.colTitle}>{col.title}</span>}
             {col.links.map((link, li) => (
@@ -82,21 +44,6 @@ export function Footer({ onContactOpen }: FooterProps) {
             ))}
           </div>
         ))}
-      </div>
-
-      {/* CTA bar */}
-      <div className={footerStyles.ctaBar}>
-        <p className={footerStyles.ctaText}>
-          Big project? Crazy thought? Or just feel like chatting?
-        </p>
-        <button
-          onClick={onContactOpen}
-          className={footerStyles.ctaButton}
-          data-cursor-hover="Send love"
-        >
-          <span>Let's talk!</span>
-          <span className={footerStyles.ctaArrow}>→</span>
-        </button>
       </div>
     </footer>
   );

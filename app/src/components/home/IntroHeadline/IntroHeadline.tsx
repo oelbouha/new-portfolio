@@ -39,12 +39,12 @@ export function IntroHeadline({ className = '' }: IntroHeadlineProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className={`flex w-full flex-col items-center gap-2 text-center ${className}`}>
+    <div ref={containerRef} className={`flex w-full flex-col items-center gap-3 text-center ${className}`}>
       {introHeadlineData.lines.map((line, idx) => (
         <h2
           key={idx}
           data-line={idx}
-          className="max-w-5xl font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,5.5rem)] uppercase leading-[0.92] tracking-[0.01em] text-[var(--text)]"
+          className="max-w-4xl lg:max-w-5xl font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.2vw,5.2rem)] font-bold uppercase leading-[0.95] tracking-[0.01em] text-[var(--text)] [text-wrap:balance]"
           style={{ willChange: 'opacity' }}
         >
           {line}

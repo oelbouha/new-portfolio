@@ -1,4 +1,5 @@
 import { CLIENT_NAMES, CONTACT_SPOTLIGHT_IMAGE } from '@/lib/constants';
+import { homeData } from '@/data/home.data';
 import { ctaSectionStyles } from './CTASection.styles';
 import { SpotlightHeading } from '@/components/shared/SpotlightHeading';
 import type { CTASectionProps } from './CTASection.types';
@@ -24,9 +25,9 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
             {/* LEFT: desc text + say hello button */}
             <div className={ctaSectionStyles.descWrapper}>
               <p className={ctaSectionStyles.descText}>
-                Work with us if average isn't your thing.
+                {homeData.cta.desc.split('\n')[0]}
                 <br />
-                Drop it, we'll build it!
+                {homeData.cta.desc.split('\n')[1]}
               </p>
 
               <button
@@ -36,7 +37,7 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
                 aria-label="Open contact form"
               >
                 <div className={ctaSectionStyles.monoWrapper}>
-                  <span className={ctaSectionStyles.monoText}>say hello</span>
+                  <span className={ctaSectionStyles.monoText}>{homeData.cta.buttonText}</span>
                 </div>
                 <svg
                   className={ctaSectionStyles.svgArrow}
@@ -60,11 +61,11 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
             {/* RIGHT: Reusable Spotlight Heading */}
             <div className={ctaSectionStyles.headingWrapper}>
               <SpotlightHeading
-                line1="LET'S WORK"
-                line2="TOGETHER"
+                line1={homeData.cta.line1}
+                line2={homeData.cta.line2}
                 imageSrc={CONTACT_SPOTLIGHT_IMAGE}
-                targetRectWidth={120}
-                fontSize={110}
+                targetRectWidth={95}
+                fontSize={80}
                 triggerOnScroll={true}
               />
             </div>

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { aboutData } from '@/data/about.data';
 import { aboutCTAStyles } from './AboutCTA.styles';
 import type { AboutCTAProps } from './AboutCTA.types';
 
@@ -34,7 +35,7 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
       <div className={aboutCTAStyles.container}>
         {/* Scroll Scrub Animated Bold Statement */}
         <p ref={statementRef} className={aboutCTAStyles.statement} style={{ willChange: 'opacity' }}>
-          BEYOND WRITING CODE, I FOCUS ON BUILDING PRODUCTS THAT ARE STRUCTURED, RELIABLE, AND READY FOR REAL USERS.
+          {aboutData.cta.statement}
         </p>
 
         <motion.p
@@ -44,10 +45,10 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Ready to bring your ideas to life?
+          {aboutData.cta.subtitle}
         </motion.p>
 
-        {/* Let's Talk CTA Button — Matching Home Page CTA Button Style */}
+        {/* Let's Talk CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +63,7 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
             aria-label="Open contact form"
           >
             <div className={aboutCTAStyles.monoWrapper}>
-              <span className={aboutCTAStyles.monoText}>let's talk</span>
+              <span className={aboutCTAStyles.monoText}>{aboutData.cta.buttonText}</span>
             </div>
             <svg
               className={aboutCTAStyles.svgArrow}
