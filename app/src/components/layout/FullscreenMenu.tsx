@@ -178,21 +178,21 @@ function SVGMenuItem({
 
     gsap.to(rectClipRef.current, {
       attr: { width: targetRectWidth },
-      duration: 0.58,
+      duration: 0.82,
       ease: 'power3.out',
       overwrite: 'auto',
     });
 
     gsap.to(textRef.current, {
       attr: { x: targetRectWidth + gap },
-      duration: 0.58,
+      duration: 0.82,
       ease: 'power3.out',
       overwrite: 'auto',
     });
 
     gsap.to(imgRef.current, {
       opacity: 1,
-      duration: 0.45,
+      duration: 0.6,
       ease: 'power2.out',
       overwrite: 'auto',
     });
@@ -205,21 +205,21 @@ function SVGMenuItem({
 
     gsap.to(rectClipRef.current, {
       attr: { width: 0 },
-      duration: 0.42,
+      duration: 0.62,
       ease: 'power3.inOut',
       overwrite: 'auto',
     });
 
     gsap.to(textRef.current, {
       attr: { x: 0 },
-      duration: 0.42,
+      duration: 0.62,
       ease: 'power3.inOut',
       overwrite: 'auto',
     });
 
     gsap.to(imgRef.current, {
       opacity: 0,
-      duration: 0.3,
+      duration: 0.45,
       ease: 'power2.in',
       overwrite: 'auto',
     });
@@ -245,7 +245,7 @@ function SVGMenuItem({
         ref={svgRef}
         viewBox="0 0 600 120"
         preserveAspectRatio="xMinYMid meet"
-        className="w-full h-auto max-h-[110px] sm:max-h-[155px] lg:max-h-[190px] overflow-visible block text-left"
+        className="w-full h-auto max-h-[130px] sm:max-h-[175px] lg:max-h-[215px] overflow-visible block text-left"
       >
         <defs>
           <clipPath id={clipId.current}>
@@ -405,8 +405,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
         </div>
 
         {/* 2. Middle Menu Items Grid — Padded between top & bottom bars */}
-        <div className="absolute inset-0 pt-20 pb-20 px-6 sm:px-12 flex items-center justify-center z-10 overflow-y-auto">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-28 gap-y-2 sm:gap-y-4 w-full max-w-[1980px] mx-auto items-center ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+        <div className="absolute inset-0 pt-20 pb-20 px-6 sm:px-12 flex items-center justify-center z-10">
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-28 gap-y-0 sm:gap-y-1 w-full max-w-[1980px] mx-auto items-center ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
             <div className="flex flex-col items-start w-full">
               {COL_1_ITEMS.map((item) => (
                 <SVGMenuItem

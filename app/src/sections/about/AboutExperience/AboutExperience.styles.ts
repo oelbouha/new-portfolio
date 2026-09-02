@@ -1,5 +1,5 @@
 export const aboutExperienceStyles = {
-  section: 'py-20 sm:py-28 px-4 sm:px-6 lg:px-8',
+  section: 'py-24 sm:py-36 px-4 sm:px-6 lg:px-8',
   container: 'max-w-7xl mx-auto',
   layoutRow: 'flex flex-col lg:flex-row gap-12 lg:gap-20',
   stickyCol: 'lg:sticky lg:top-28 lg:self-start lg:w-64 flex-shrink-0',

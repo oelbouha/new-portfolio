@@ -1,5 +1,5 @@
 export const aboutSectionStyles = {
-  section: 'py-20 px-4 sm:px-6 lg:px-8',
+  section: 'py-24 px-4 sm:px-6 lg:px-8 lg:py-36',
   container: 'w-full',
   headerWrapper: 'mb-12',
   labelRow: 'flex items-center gap-4 mb-4',

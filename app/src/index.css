@@ -819,12 +819,13 @@ html.lenis, html.lenis body {
   inset: 0;
   z-index: 4000;
   background: var(--nav-menu-bg);
+  display: flex;
   flex-direction: column;
   padding: clamp(1rem, 2.5vw, 2.5rem);
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
-  display: flex;
   clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
   pointer-events: none;
   will-change: clip-path;
@@ -833,10 +834,12 @@ html.lenis, html.lenis body {
 
 .contact-overlay_panel {
   width: min(100%, 72rem);
-  margin: 1.5rem auto 4rem;
+  margin: 1.5rem auto;
+  padding-bottom: 4rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  flex-shrink: 0;
 }
 
 .contact-spotlight {

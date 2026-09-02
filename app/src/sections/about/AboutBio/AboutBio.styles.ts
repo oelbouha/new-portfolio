@@ -1,5 +1,5 @@
 export const aboutBioStyles = {
-  section: 'py-20 sm:py-28 px-4 sm:px-6 lg:px-8',
+  section: 'py-24 sm:py-36 px-4 sm:px-6 lg:px-8',
   container: 'max-w-6xl mx-auto flex flex-col items-center',
   badge: "font-['IBM_Plex_Mono'] text-xs font-semibold uppercase tracking-widest text-foreground-secondary mb-8 sm:mb-12",
   linesWrapper: 'flex flex-col items-center gap-3 text-center w-full',
