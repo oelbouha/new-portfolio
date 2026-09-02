@@ -8,7 +8,7 @@ export function IntroSection() {
       <div className={introSectionStyles.inner}>
         <ScrollHeadline
           tag={homeData.intro.tag}
-          lines={homeData.intro.lines}
+          statement={homeData.intro.statement}
         />
       </div>
     </section>

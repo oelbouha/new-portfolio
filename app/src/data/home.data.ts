@@ -4,13 +4,8 @@ export const homeData = {
   },
   intro: {
     tag: '[ ABOUT OUTMAN ]',
-    lines: [
-      `IT'S NEVER "JUST A WEBSITE."`,
-      `EVERY SINGLE DETAIL MATTERS.`,
-      `WE CRAFT DIGITAL EXPERIENCES.`,
-      `YOUR DESIGN, OUR OBSESSION.`,
-      `YOUR BRAND, OUR PLAYGROUND.`,
-    ],
+    statement:
+      'IT\'S NEVER "JUST A WEBSITE." EVERY SINGLE DETAIL MATTERS. WE CRAFT DIGITAL EXPERIENCES. YOUR DESIGN, OUR OBSESSION. YOUR BRAND, OUR PLAYGROUND.',
   },
   about: {
     label: 'About',

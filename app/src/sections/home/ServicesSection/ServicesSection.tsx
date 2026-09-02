@@ -63,49 +63,22 @@ export function ServicesSection() {
             <div
               key={service.name}
               className={serviceItemStyles.item}
-              data-cursor-hover={service.name}
               onMouseEnter={() => setActiveService(i)}
               onMouseLeave={() => setActiveService(null)}
             >
-              <div className="flex flex-1 flex-col items-center gap-3 md:gap-8">
-                <span
-                  className="font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3.8rem)] font-bold uppercase leading-none text-[var(--text)] transition-opacity duration-300"
-                  style={{
-                    opacity: activeService !== null && activeService !== i ? 0.32 : 1,
-                  }}
-                >
-                  {service.name}
-                </span>
-              </div>
-              {/* HOVER TEXT BACKGROUND COLOR: Change 'serviceItemStyles.subtitle' or 'group-hover:bg-blue-600' in ServiceItem.styles.ts to change color */}
+              <span
+                className={serviceItemStyles.title}
+                style={{
+                  opacity: activeService !== null && activeService !== i ? 0.32 : 1,
+                }}
+              >
+                {service.name}
+              </span>
               <span className={serviceItemStyles.subtitle}>
                 {service.sub}
               </span>
             </div>
           ))}
-        </div>
-
-        {/* See all link */}
-        <div className={servicesSectionStyles.seeAllWrapper}>
-          <a href="/work" className={servicesSectionStyles.seeAllLink} style={{ textDecoration: 'none' }}>
-            <div className="text-mono_wrapper">
-              <span className="text-mono">See all services</span>
-            </div>
-            <svg
-              className="small-link-arrow"
-              width="14"
-              height="8"
-              viewBox="0 0 14 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ opacity: 0 }}
-            >
-              <path
-                d="M11 1.5V2.5H12V1.5H11ZM10 0.5V1.5H11V0.5H10ZM11 6.5H12V5.5H11V6.5ZM10 7.5H11V6.5H10V7.5ZM13 3.5V2.5H12V3.5H0V4.5H12V5.5H13V4.5H14V3.5H13Z"
-                fill="currentColor"
-              />
-            </svg>
-          </a>
         </div>
       </div>
 

@@ -8,12 +8,8 @@ export const aboutData = {
   },
   bio: {
     tag: '[ ABOUT OUTMAN ]',
-    lines: [
-      `BASED IN MOROCCO, I'M A FULL STACK DEVELOPER`,
-      `BUILDING CLEAN, SCALABLE WEB & MOBILE APPS.`,
-      `WORKING FROM UI DESIGN TO BACKEND ARCHITECTURE`,
-      `WITH REACT, NEXT.JS, DJANGO, AND MODERN TOOLS.`,
-    ],
+    statement:
+      "BASED IN MOROCCO, I'M A FULL STACK DEVELOPER BUILDING CLEAN, SCALABLE WEB & MOBILE APPS. WORKING FROM UI DESIGN TO BACKEND ARCHITECTURE WITH REACT, NEXT.JS, DJANGO, AND MODERN TOOLS.",
     paragraph: `With a strong foundation from 1337 (42 Network), I approach development with a systems mindset: clean architecture, performance awareness, and maintainable code. Whether it's a web platform, a mobile app, or an automation workflow, I build solutions that are ready for production.`,
   },
   services: {
@@ -46,7 +42,7 @@ export const aboutData = {
       },
       {
         title: 'WORDPRESS & CMS',
-        level: 'NOOB',
+        level: 'PRO',
         description:
           'Custom WordPress and CMS solutions that are clean, manageable, and built with performance in mind.',
       },

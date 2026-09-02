@@ -10,7 +10,7 @@ export function AboutBio({ className = '' }: AboutBioProps) {
       <div className={aboutBioStyles.container}>
         <ScrollHeadline
           tag={aboutData.bio.tag}
-          lines={aboutData.bio.lines}
+          statement={aboutData.bio.statement}
         />
 
         <motion.p

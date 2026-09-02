@@ -6,18 +6,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 export interface ScrollHeadlineProps {
   tag?: string;
-  lines: string[];
+  statement?: string;
+  lines?: string[];
   className?: string;
   lineClassName?: string;
 }
 
 export function ScrollHeadline({
   tag,
+  statement,
   lines,
   className = '',
   lineClassName = '',
 }: ScrollHeadlineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const items = statement ? [statement] : (lines || []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -42,7 +46,7 @@ export function ScrollHeadline({
     });
 
     return () => triggers.forEach((t) => t.kill());
-  }, [lines]);
+  }, [statement, lines]);
 
   return (
     <div ref={containerRef} className={`flex w-full flex-col items-center gap-3 text-center ${className}`}>
@@ -52,14 +56,14 @@ export function ScrollHeadline({
         </div>
       )}
 
-      {lines.map((line, idx) => (
+      {items.map((item, idx) => (
         <h2
           key={idx}
           data-scroll-line={idx}
-          className={`max-w-4xl lg:max-w-5xl font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.2vw,5.2rem)] font-bold uppercase leading-[0.95] tracking-[0.01em] text-[var(--text)] [text-wrap:balance] ${lineClassName}`}
+          className={`max-w-5xl lg:max-w-6xl font-[family-name:var(--font-display)] text-[clamp(2.8rem,6.5vw,6.5rem)] font-bold uppercase leading-[0.92] tracking-[0.01em] text-[var(--text)] [text-wrap:balance] ${lineClassName}`}
           style={{ willChange: 'opacity' }}
         >
-          {line}
+          {item}
         </h2>
       ))}
     </div>

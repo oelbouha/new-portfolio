@@ -197,7 +197,7 @@ button {
   font-size: 0.75rem;
   font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.02em;
   opacity: 0;
   border-radius: 50%;
@@ -291,21 +291,26 @@ html.lenis, html.lenis body {
 
 /* Hover link flip effect */
 .link {
-  display: flex;
-  flex-direction: column;
+  display: inline-grid;
+  grid-template-areas: "stack";
   overflow: hidden;
-  height: 1em;
+  height: 1.15em;
   cursor: pointer;
   position: relative;
+  vertical-align: top;
 }
 .link_first,
 .link_second {
+  grid-area: stack;
   transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
   line-height: 1.1;
+  white-space: nowrap;
 }
-.link:hover .link_first { transform: translateY(-110%); }
-.link:hover .link_second { transform: translateY(-110%); }
-.link_second { position: absolute; top: 110%; left: 0; white-space: nowrap; }
+.link_second {
+  transform: translateY(115%);
+}
+.link:hover .link_first { transform: translateY(-115%); }
+.link:hover .link_second { transform: translateY(0%); }
 
 /* ============================================
    FULLSCREEN MENU
