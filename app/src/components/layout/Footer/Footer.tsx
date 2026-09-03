@@ -45,6 +45,7 @@ export function Footer({}: FooterProps = {}) {
           </div>
         ))}
       </div>
+      {/* <div className='mb-20'></div> */}
     </footer>
   );
 }

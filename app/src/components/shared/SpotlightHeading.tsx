@@ -21,7 +21,7 @@ export function SpotlightHeading({
   line1,
   line2,
   imageSrc,
-  targetRectWidth = 120,
+  targetRectWidth = 20,
   fontSize = 110,
   gap = 16,
   triggerOnScroll = true,

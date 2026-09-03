@@ -1,5 +1,5 @@
 export const projectDetailNextStyles = {
-  section: 'proj-next w-full py-20 md:py-32 border-t border-black/15 dark:border-white/15 px-4 sm:px-6 lg:px-8',
+  section: 'proj- w-full py-20 md:py-32   px-4 sm:px-6 lg:px-8 ',
   container: 'proj-next__container mx-auto w-full max-w-7xl flex flex-col items-center justify-center text-center',
   link: 'proj-next__link relative group flex flex-col items-center justify-center gap-10 w-full py-12 overflow-visible text-center text-[var(--text)] no-underline cursor-pointer',
   label: 'proj-next__label font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.22em] text-black/50 dark:text-white/50',

@@ -1,7 +1,7 @@
 export const ctaSectionStyles = {
   // Client Logos Marquee Section
   marqueeSection:
-    'w-full overflow-hidden border-t border-b border-black/15 py-[clamp(1.5rem,3vw,2.5rem)] dark:border-white/15',
+    'w-full overflow-hidden border- py-[clamp(1.5rem,3vw,2.5rem)] dark:border-white/15',
   marqueeWrapper: 'clients-marquee',
   clientName: 'client-name',
 
@@ -9,13 +9,13 @@ export const ctaSectionStyles = {
   ctaSection: 'w-full py-20 lg:py-32 px-4 sm:px-6 lg:px-10 overflow-hidden',
   container: 'mx-auto w-full',
   layoutRow:
-    'flex flex-col lg:flex-row-reverse items-start justify-between gap-8 lg:gap-12',
+    'flex flex-col lg:flex-row-reverse items-start justify-between gap-8 lg:gap-12 ',
 
   // Left column: Description & Say Hello Button
   descWrapper:
     'flex flex-col gap-6 shrink-0 max-w-md w-full lg:pb-[2px]',
   descText:
-    'cta-desc font-[family-name:var(--font-mono)] text-xs sm:text-sm uppercase tracking-widest leading-relaxed text-black/60 dark:text-white/60',
+    'cta-desc font-[family-name:var(--font-mono)] text-xs sm:text-sm uppercase  tracking-widest leading-relaxed text-black dark:text-white/60',
   button: 'small-link group inline-flex items-center gap-3 self-start mb-0 cursor-pointer',
   monoWrapper: 'text-mono_wrapper',
   monoText: 'text-mono',

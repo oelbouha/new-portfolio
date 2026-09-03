@@ -64,8 +64,8 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
                 line1={homeData.cta.line1}
                 line2={homeData.cta.line2}
                 imageSrc={CONTACT_SPOTLIGHT_IMAGE}
-                targetRectWidth={95}
-                fontSize={80}
+                targetRectWidth={15}
+                fontSize={15}
                 triggerOnScroll={true}
               />
             </div>

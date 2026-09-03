@@ -12,7 +12,7 @@ const fadeIn = {
 
 export function ProjectDetailInfos({ credits, services, client, year, tags }: ProjectDetailInfosProps) {
   return (
-    <section className="relative w-full py-[clamp(4rem,8vw,10rem)] px-[clamp(1rem,2.5vw,2.5rem)] border-t border-black/15 dark:border-white/15">
+    <section className="relative w-full py-[clamp(4rem,8vw,10rem)] px-[clamp(1rem,2.5vw,2.5rem)]">
       <div className="mx-auto w-full max-w-[1980px] grid grid-cols-1 lg:grid-cols-3 gap-[clamp(2.5rem,5vw,6rem)] items-start">
         {/* 1. Credits Column */}
         {credits && credits.length > 0 && (
@@ -33,7 +33,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
 
             <div className="space-y-4">
               {credits.map((c) => (
-                <div key={c.role + c.name} className="flex items-center justify-between gap-4 py-1.5 border-b border-black/10 dark:border-white/10">
+                <div key={c.role + c.name} className="flex items-center justify-between gap-4 py-1.5 ">
                   <span className="font-['IBM_Plex_Mono',monospace] text-xs uppercase opacity-70">
                     {c.role}
                   </span>
@@ -64,7 +64,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
 
           <div className="flex flex-col gap-3">
             {services.map((svc) => (
-              <div key={svc} className="flex items-center gap-3 py-1 border-b border-black/10 dark:border-white/10">
+              <div key={svc} className="flex items-center gap-3 py-1 ">
                 <span className="text-xs opacity-40">✦</span>
                 <span className="font-bold text-sm sm:text-base uppercase tracking-tight">
                   {svc}
