@@ -53,7 +53,7 @@ export function SpotlightHeading({
       }
 
       const line2BaselineY = fontSize * 1.68;
-      const fontSpec = `900 ${fontSize}px "Bebas Neue", "Space Grotesk", sans-serif`;
+      const fontSpec = `400 ${fontSize}px "Bebas Neue", sans-serif`;
 
       const canvas = document.createElement('canvas');
       const canvasCtx = canvas.getContext('2d');
@@ -70,7 +70,7 @@ export function SpotlightHeading({
         }
       }
 
-      const rectHeight = ascent + descent;
+      const rectHeight = ascent; // uppercase only — no descenders, match visual cap height
       const rectY = line2BaselineY - ascent;
       const rectRx = Math.min(rectHeight * 0.1, 8);
 

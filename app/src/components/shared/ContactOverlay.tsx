@@ -109,10 +109,11 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
             <form className="contact-form" onSubmit={handleSubmit}>
               {/* Reusable Spotlight Heading for Let's Talk Together */}
               <SpotlightHeading
-                line1="LET'S TALK"
+                line1="LET'S WORK"
                 line2="TOGETHER"
                 imageSrc={CONTACT_SPOTLIGHT_IMAGE}
-                targetRectWidth={120}
+                targetRectWidth={80}
+                gap={6}
                 fontSize={80}
                 triggerOnScroll={false}
                 play={isFullyDisplayed}

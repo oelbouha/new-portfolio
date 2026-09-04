@@ -79,7 +79,6 @@ export const NAV_MENU_ITEMS_RIGHT = [
 ];
 
 export const CITY_CLOCKS = [
-  { city: 'Morocco', tz: 'Africa/Casablanca' },
   { city: 'Tétouan, Morocco', tz: 'Africa/Casablanca' },
 ];
 

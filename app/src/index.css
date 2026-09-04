@@ -189,7 +189,7 @@ button {
   left: 0;
   width: 14px;
   height: 14px;
-  background: #3b82f6;
+  background: #52D766;
   pointer-events: none;
   transform-origin: center;
   transition: width 0.15s ease, height 0.15s ease, background 0.4s ease;
@@ -201,7 +201,7 @@ button {
   letter-spacing: 0.02em;
   opacity: 0;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 10px rgba(82, 215, 102, 0.5);
 }
 .custom-cursor.is-hover {
   width: auto;
@@ -213,8 +213,8 @@ button {
   text-align: center;
   padding: 0 0.7rem;
   color: #ffffff;
-  background: #2563eb;
-  box-shadow: 0 0 16px rgba(37, 99, 235, 0.45);
+  background: #52D766;
+  box-shadow: 0 0 16px rgba(82, 215, 102, 0.45);
 }
 
 /* Lenis Smooth Scroll CSS */
@@ -1465,8 +1465,8 @@ html.lenis, html.lenis body {
   transform: translate3d(0, 0, 0) translate(-50%, -50%) rotate(-6deg) scale(0.6);
   opacity: 0;
   pointer-events: none;
-  background-color: #0047ff;
-  color: #ffffff;
+  background-color: #52D766;
+  color: #000000;
   padding: 0.65rem 1.65rem;
   border-radius: 9999px;
   font-family: 'Space Grotesk', system-ui, sans-serif;
@@ -1475,7 +1475,7 @@ html.lenis, html.lenis body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
-  box-shadow: 0 12px 30px -4px rgba(0, 71, 255, 0.45);
+  box-shadow: 0 12px 30px -4px rgba(82, 215, 102, 0.45);
   transition: opacity 0.25s ease, transform 0.08s ease-out;
   will-change: transform, opacity;
   z-index: 10;
