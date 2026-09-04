@@ -77,7 +77,7 @@ function spawnImage(cx: number, cy: number, container: HTMLDivElement) {
 
 import { homeData } from '@/data/home.data';
 
-export function HeroSection({}: HeroSectionProps = {}) {
+export function HeroSection({ preloaderDone = true }: HeroSectionProps = {}) {
   const intervalRef  = useRef<ReturnType<typeof setInterval> | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const wordsRef     = useRef<(HTMLSpanElement | null)[]>([]);
@@ -85,21 +85,35 @@ export function HeroSection({}: HeroSectionProps = {}) {
   const heroRef      = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (!preloaderDone) {
+      // Hide words while preloader is active so they don't animate hidden behind curtain
+      wordsRef.current.forEach((wordEl) => {
+        if (wordEl) {
+          gsap.set(wordEl, { y: '100%', opacity: 0 });
+        }
+      });
+      return;
+    }
+
     const ctx = gsap.context(() => {
       wordsRef.current.forEach((wordEl, i) => {
         if (!wordEl) return;
-        gsap.from(wordEl, {
-          y: '100%',
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: 0.3 + i * 0.12,
-        });
+        gsap.fromTo(
+          wordEl,
+          { y: '100%', opacity: 0 },
+          {
+            y: '0%',
+            opacity: 1,
+            duration: 0.85,
+            ease: 'power3.out',
+            delay: 0.15 + i * 0.12,
+          }
+        );
       });
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [preloaderDone]);
 
   const killHoverImages = useCallback(() => {
     if (intervalRef.current) {

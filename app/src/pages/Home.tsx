@@ -43,7 +43,7 @@ export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomePr
     <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
       <div className="mx-auto w-full max-w-[1980px]">
         <main>
-          <HeroSection />
+          <HeroSection preloaderDone={preloaderDone} />
           {/* <SelectedProjects /> */}
           <VideoSection />
           <IntroSection />

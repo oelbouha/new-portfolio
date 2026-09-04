@@ -32,7 +32,6 @@ export function SpotlightHeading({
   const svgRef = useRef<SVGSVGElement>(null);
   const line1Ref = useRef<SVGTextElement>(null);
   const line2Ref = useRef<SVGTextElement>(null);
-  const blackRectRef = useRef<SVGRectElement>(null);
   const rectClipRef = useRef<SVGRectElement>(null);
   const imgRef = useRef<SVGImageElement>(null);
   const clipIdRef = useRef(`spotlight-clip-${Math.random().toString(36).substring(2, 9)}`);
@@ -45,7 +44,6 @@ export function SpotlightHeading({
         !svgRef.current ||
         !line1Ref.current ||
         !line2Ref.current ||
-        !blackRectRef.current ||
         !rectClipRef.current ||
         !imgRef.current
       ) {
@@ -70,7 +68,7 @@ export function SpotlightHeading({
         }
       }
 
-      const rectHeight = ascent; // uppercase only — no descenders, match visual cap height
+      const rectHeight = ascent; // uppercase only — match visual cap height
       const rectY = line2BaselineY - ascent;
       const rectRx = Math.min(rectHeight * 0.1, 8);
 
@@ -84,8 +82,8 @@ export function SpotlightHeading({
 
       svgRef.current.setAttribute('viewBox', `0 0 ${maxSVGWidth} ${totalSVGHeight}`);
 
-      // Initial positions (width = 0)
-      gsap.set([blackRectRef.current, rectClipRef.current], {
+      // Initial clipPath positions (width = 0)
+      gsap.set(rectClipRef.current, {
         attr: {
           x: rectX,
           y: rectY,
@@ -95,6 +93,7 @@ export function SpotlightHeading({
         },
       });
 
+      // Set image to target rect dimensions with opacity 1 from start
       gsap.set(imgRef.current, {
         attr: {
           x: rectX,
@@ -102,7 +101,7 @@ export function SpotlightHeading({
           width: targetRectWidth,
           height: rectHeight,
         },
-        opacity: 0,
+        opacity: 1,
       });
 
       // Initial text positions (visible and stationary)
@@ -129,9 +128,7 @@ export function SpotlightHeading({
             : { delay }
         );
 
-
-
-        // 2. Black rectangle grows left-to-right from x = 0, pushing line 2 to the right
+        // Image expands left-to-right by expanding rectClipRef width, pushing line 2
         tl.to(
           obj,
           {
@@ -140,22 +137,12 @@ export function SpotlightHeading({
             ease: 'power3.inOut',
             onUpdate: () => {
               const w = obj.width;
-              if (blackRectRef.current) blackRectRef.current.setAttribute('width', `${w}`);
               if (rectClipRef.current) rectClipRef.current.setAttribute('width', `${w}`);
               if (line2Ref.current) line2Ref.current.setAttribute('x', `${rectX + w + gap}`);
             },
           },
           triggerOnScroll ? 0.15 : 0
         );
-
-        // 3. Image fades in smoothly inside clipPath
-        if (imgRef.current) {
-          tl.to(
-            imgRef.current,
-            { opacity: 1, duration: 0.65, ease: 'power2.out' },
-            triggerOnScroll ? 0.85 : 0.4
-          );
-        }
       });
     };
 
@@ -205,18 +192,7 @@ export function SpotlightHeading({
         {line1}
       </text>
 
-      {/* Line 2 - Part 1: Solid black/white growing rectangle */}
-      <rect
-        ref={blackRectRef}
-        x="0"
-        y="0"
-        width="0"
-        height="0"
-        rx="0"
-        className="fill-black dark:fill-white"
-      />
-
-      {/* Line 2 - Part 1 Image */}
+      {/* Line 2 - Expanding Image (Directly clipped without black rect background) */}
       <g clipPath={`url(#${clipIdRef.current})`}>
         <image
           ref={imgRef}
@@ -229,7 +205,7 @@ export function SpotlightHeading({
         />
       </g>
 
-      {/* Line 2 - Part 2 */}
+      {/* Line 2 - Text */}
       <text
         ref={line2Ref}
         x="0"

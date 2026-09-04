@@ -94,8 +94,8 @@ export function playPageTransition(
   if (!transitionEl || !overlayEl || !pageEl) return;
 
   const isDark = document.documentElement.classList.contains('is-dark');
-  const startColor = isDark ? '#1C1C1C' : '#FAFAFA';
-  const endColor = isDark ? '#111111' : '#E4E4E4';
+  const startColor = isDark ? '#121215' : '#FAFAFA';
+  const endColor = isDark ? '#0a0a0c' : '#E4E4E4';
 
   transitionEl.style.display = 'block';
   gsap.set(overlayEl, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' });

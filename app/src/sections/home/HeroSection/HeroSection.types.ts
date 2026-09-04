@@ -1,1 +1,4 @@
-export interface HeroSectionProps {}
+export interface HeroSectionProps {
+  preloaderDone?: boolean;
+}
+
