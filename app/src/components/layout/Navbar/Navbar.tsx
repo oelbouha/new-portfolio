@@ -104,7 +104,7 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
       <nav ref={bottomRef} className={cn('nav-bottom', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
           <span className={navbarStyles.text} style={{ opacity: 0.6 }}>
-            We craft bold design &amp; clean code.
+            I turn ideas into production-ready products.
           </span>
 
           <div className={navbarStyles.rightGroup}>

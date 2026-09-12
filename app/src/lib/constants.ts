@@ -38,14 +38,16 @@ export const PROJECTS = [
   },
 ];
 
+
 export const SERVICES = [
-  { name: 'Art Direction', sub: 'Storytelling' },
-  { name: 'Branding', sub: 'Identity' },
   { name: 'Web Development', sub: 'React / Next.js' },
-  { name: 'UI/UX Design', sub: 'Wireframes' },
-  { name: 'GSAP Animations', sub: 'Transitions' },
-  { name: 'Motion & 3D', sub: 'Immersive' },
+  { name: 'WordPress & CMS', sub: 'Custom Websites' },
+  { name: 'Backend Development', sub: 'Django / APIs' },
+  { name: 'Mobile Development', sub: 'Flutter / Dart' },
+  { name: 'MVP Development', sub: 'Build & Launch' },
+  { name: 'Automation', sub: 'n8n / Make / Zapier' },
 ];
+
 
 export const CLIENT_NAMES = [
   'React JS', 'Next.js', 'Flutter', 'Django', 'Automation', 'n8n', 'WordPress',

@@ -2,86 +2,92 @@ export const aboutData = {
   hero: {
     line1: 'WAIT.',
     line2: 'WHO IS',
-    line3: 'THIS GUY?',
+    line3: 'OUTMAN?',
     imageSrc: '/profile.png',
     imageAlt: 'Outman Elbouhali',
   },
+
   bio: {
     tag: '[ ABOUT OUTMAN ]',
     statement:
-      "BASED IN MOROCCO, I'M A FULL STACK DEVELOPER BUILDING CLEAN, SCALABLE WEB & MOBILE APPS. WORKING FROM UI DESIGN TO BACKEND ARCHITECTURE WITH REACT, NEXT.JS, DJANGO, AND MODERN TOOLS.",
-    paragraph: `With a strong foundation from 1337 (42 Network), I approach development with a systems mindset: clean architecture, performance awareness, and maintainable code. Whether it's a web platform, a mobile app, or an automation workflow, I build solutions that are ready for production.`,
+      "I'M A FULL-STACK DEVELOPER BUILDING WEB, MOBILE, AND AUTOMATION PRODUCTS FROM IDEA TO PRODUCTION.",
+    paragraph: `Based in Morocco, I work across the full product stack — from frontend interfaces and backend architecture to databases, integrations, deployment, and automation. I build with React, Next.js, Django, PostgreSQL, Flutter, WordPress, and modern automation tools such as n8n, Make, and Zapier.`,
   },
+
   services: {
-    tag: '[ SERVICES ]',
-    title: 'STUFF I DO',
+    tag: '[ WHAT I DO ]',
+    title: 'STUFF I BUILD',
+
     items: [
       {
-        title: 'WEB DEVELOPMENT',
+        title: 'FULL-STACK WEB DEVELOPMENT',
         level: 'PRO',
         description:
-          'High-performance web applications built with modern technologies. Fast, responsive, and structured for scalability from day one.',
+          'Production-ready web applications built with React, Next.js, Django, and PostgreSQL. From responsive interfaces to APIs, databases, authentication, and deployment.',
       },
       {
         title: 'MOBILE APP DEVELOPMENT',
         level: 'PRO',
         description:
-          'Cross-platform mobile applications built with Flutter, delivering smooth performance and clean architecture for both iOS and Android.',
+          'Cross-platform mobile applications with Flutter and Dart for iOS and Android, with clean architecture, state management, authentication, APIs, and real-time features.',
       },
       {
         title: 'MVP DEVELOPMENT',
         level: 'PRO',
         description:
-          'Launch-ready MVPs focused on validation and scalability. Built cleanly so your product can grow without being rebuilt.',
+          'Turn an idea into a working product quickly without sacrificing the foundations. I focus on clean architecture, real user flows, and a codebase that can evolve with the product.',
       },
       {
-        title: 'AUTOMATION & WORKFLOWS',
+        title: 'AUTOMATION & INTEGRATIONS',
         level: 'PRO',
         description:
-          'Smart automation systems using APIs and workflow tools to eliminate repetitive tasks and connect your stack efficiently.',
+          'Automated workflows with n8n, Make, and Zapier. Connect APIs, forms, databases, emails, CRMs, and business tools to remove repetitive work and keep systems moving.',
       },
       {
         title: 'WORDPRESS & CMS',
         level: 'PRO',
         description:
-          'Custom WordPress and CMS solutions that are clean, manageable, and built with performance in mind.',
+          'Custom WordPress websites, content-driven platforms, integrations, and performance-focused implementations that remain easy to manage.',
       },
     ],
   },
+
   experience: {
     tag: '[ CAREER ]',
     title: 'EXPERIENCE &\nEDUCATION',
+
     items: [
       {
         company: 'FREELANCE',
         location: 'REMOTE',
-        role: 'FULL STACK DEVELOPER',
-        period: '2026',
+        role: 'FULL-STACK DEVELOPER',
+        period: '2026 — PRESENT',
         description:
-          'Skatys — a freelance full-stack web app built with Next.js and Django, backed by PostgreSQL and deployed on a VPS with Docker and NGINX.',
+          'Building and delivering production web applications and digital products across frontend, backend, databases, integrations, deployment, and automation.',
       },
       {
-        company: 'REVO ADVERTISING AGENCY',
+        company: 'REVO ADVERTISING',
         location: 'MOROCCO',
         role: 'WEB DEVELOPER INTERN',
-        period: '2025',
+        period: 'APR 2025 — AUG 2025',
         description:
-          'Assisted in building and maintaining client websites. Worked on frontend implementation and UI improvements. Collaborated with design and marketing teams to deliver real-world agency projects.',
+          'Built responsive client websites with React.js, TypeScript, and modern CSS. Translated design mockups into reusable UI components, optimized frontend performance, and collaborated with designers and developers on client-facing projects.',
       },
       {
-        company: '1337 (42 NETWORK)',
+        company: '1337 — 42 NETWORK',
         location: 'MOROCCO',
         role: 'SOFTWARE ENGINEERING STUDENT',
-        period: '2022 — PRESENT',
+        period: 'SEP 2022 — PRESENT',
         description:
-          'Intensive peer-to-peer learning program covering systems programming, algorithms, networking, and full-stack development in C, C++, and modern web technologies. Built projects like Webserv (HTTP server), Inception (Docker), and multiplayer Pong.',
+          'Project-based software engineering curriculum focused on algorithms, data structures, system design, problem solving, and building real applications through peer-to-peer learning.',
       },
     ],
   },
+
   cta: {
     statement:
-      'BEYOND WRITING CODE, I FOCUS ON BUILDING PRODUCTS THAT ARE STRUCTURED, RELIABLE, AND READY FOR REAL USERS.',
-    subtitle: 'Ready to bring your ideas to life?',
+      'I BUILD PRODUCTS THAT ARE CLEAN UNDER THE HOOD, SIMPLE TO USE, AND READY FOR REAL USERS.',
+    subtitle: 'Have an idea worth building?',
     buttonText: "let's talk",
   },
 };

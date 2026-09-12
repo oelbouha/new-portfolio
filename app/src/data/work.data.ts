@@ -1,13 +1,14 @@
 export const workData = {
   hero: {
-    tag: 'WORK',
-    titleMain: 'The ',
-    titleHighlight: 'Magic',
-    titleEnd: " We've Made",
-    subtitle: 'Let our portfolio inspire you',
+    tag: 'SELECTED WORK',
+    titleMain: 'Things ',
+    titleHighlight: "I've",
+    titleEnd: ' Built',
+    subtitle: 'Web, mobile, and full-stack products',
     description:
-      'A look at the captivating designs, seamless functionality, and brand stories brought to life through our digital magic.',
-    buttonText: "Let's Collaborate",
+      'A selection of applications, platforms, and digital products built across frontend, backend, mobile, and real-time systems.',
+    buttonText: "Let's Work Together",
   },
-  filters: ['All', 'Web', 'Mobile', 'Full Stack'],
+
+  filters: ['All', 'Web', 'Mobile', 'Full Stack', 'Automation'],
 };
