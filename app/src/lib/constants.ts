@@ -58,12 +58,12 @@ export const CLIENT_NAMES = [
 ];
 
 export const FOOTER_IMAGES = [
-  'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+  '/images/call-to-action/n8n Automation Workflow .png',
+  '/images/call-to-action/full-stack developer.png',
+  '/images/habivio/habivio.png',
+  '/images/revo/revo.jpeg',
   'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80',
   'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&q=80',
-  'https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80',
-  'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
 ];
 
 export const CONTACT_SPOTLIGHT_IMAGE = '/images/studio-card.jpg';
