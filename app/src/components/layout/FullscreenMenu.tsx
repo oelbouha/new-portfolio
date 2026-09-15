@@ -37,22 +37,22 @@ const COL_1_ITEMS = [
   {
     label: 'HOME',
     href: '/',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    img: '/images/call-to-action/home.jpeg',
   },
   {
     label: 'WORK',
     href: '/work',
-    img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+    img: '/images/call-to-action/work.jpeg',
   },
   {
     label: 'SERVICES',
     href: '/#services',
-    img: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&q=80',
+    img: '/images/call-to-action/services.jpeg',
   },
   {
-    label: 'APPROACH',
+    label: 'ABOUT',
     href: '/about',
-    img: 'https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80',
+    img: '/images/call-to-action/about.jpeg',
   },
 ];
 
