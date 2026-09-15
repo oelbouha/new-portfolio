@@ -249,3 +249,9 @@ npm install clsx tailwind-merge
 3. **Fonts**: Preload Inter font
 4. **Code Splitting**: Route-based splitting
 5. **Will-change**: Add to frequently animated elements
+
+
+
+We started Daily Salad Recipes because we wanted salads that actually feel like a real meal, not an afterthought. Too many salad recipes online are either boring bowls of plain lettuce or complicated recipes with a dozen hard-to-find ingredients.
+
+Here, you'll find easy salad recipes built for real life: fresh vegetable salads, high-protein salads for lunch and dinner, quick side dishes, and homemade dressings that make everything taste better. Whether you're meal-prepping for the week or need a simple side dish for dinner, our goal is to make salads something you actually look forward to eating.
