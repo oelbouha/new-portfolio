@@ -23,9 +23,9 @@ let zBase = 9000;
 const SPREAD = 35;
 
 const IMAGE_SIZES = [
-  { W: 130,  H: 100 },
-  { W: 200,  H: 160 },
-  { W: 170,  H: 230 },
+  { W: 180,  H: 138 },
+  { W: 270,  H: 215 },
+  { W: 230,  H: 310 },
 ];
 
 function spawnImage(cx: number, cy: number, container: HTMLDivElement) {
@@ -49,7 +49,7 @@ function spawnImage(cx: number, cy: number, container: HTMLDivElement) {
     width: ${W}px;
     height: ${H}px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 4px;
     pointer-events: none;
     z-index: ${zBase};
     will-change: transform, opacity;

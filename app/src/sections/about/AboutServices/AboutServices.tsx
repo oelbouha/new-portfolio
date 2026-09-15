@@ -33,7 +33,6 @@ export function AboutServices({ className = '' }: AboutServicesProps) {
               >
                 <div className={aboutServicesStyles.itemHeader}>
                   <h3 className={aboutServicesStyles.itemTitle}>{service.title}</h3>
-                  <span className={aboutServicesStyles.itemBadge}>{service.level}</span>
                 </div>
                 <p className={aboutServicesStyles.itemDesc}>{service.description}</p>
               </motion.div>

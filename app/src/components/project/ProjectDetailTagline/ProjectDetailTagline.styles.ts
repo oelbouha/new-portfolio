@@ -2,7 +2,7 @@ export const projectDetailTaglineStyles = {
   section:
     'relative w-full pt-[clamp(3rem,6vw,7rem)] pb-[clamp(1rem,3vw,4rem)] px-[clamp(1rem,2.5vw,2.5rem)]',
   container:
-    'mx-auto w-full max-w-[1980px] flex items-start justify-between gap-8 flex-wrap',
+    'mx-auto w-full max-w-7xl flex items-start justify-between gap-8 flex-wrap',
   tagline:
     'font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,5.5rem)] font-normal leading-[0.95] tracking-[0.01em] text-[var(--text)] max-w-[820px] uppercase',
   year:

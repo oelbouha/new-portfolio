@@ -21,7 +21,7 @@ export const layoutData = {
           },
           {
             label: 'LinkedIn ↗',
-            href: 'https://linkedin.com/in/outman',
+            href: 'https://www.linkedin.com/in/outman-elbouhali/',
             external: true,
           },
         ],

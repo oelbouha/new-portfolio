@@ -13,7 +13,7 @@ const fadeIn = {
 export function ProjectDetailInfos({ credits, services, client, year, tags }: ProjectDetailInfosProps) {
   return (
     <section className="relative w-full py-[clamp(4rem,8vw,10rem)] px-[clamp(1rem,2.5vw,2.5rem)]">
-      <div className="mx-auto w-full max-w-[1980px] grid grid-cols-1 lg:grid-cols-3 gap-[clamp(2.5rem,5vw,6rem)] items-start">
+      <div className="mx-auto w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-[clamp(2.5rem,5vw,6rem)] items-start">
         {/* 1. Credits Column */}
         {credits && credits.length > 0 && (
           <motion.div

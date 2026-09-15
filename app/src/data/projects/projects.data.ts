@@ -119,6 +119,10 @@ export const projectsData: Project[] = [
     website: 'https://revo.com',
     tags: ['React.js', 'JavaScript', 'Frontend', 'Responsive Design'],
     link: 'https://github.com/oelbouha/Revo',
+    quote:
+      'Engineered with a modular component architecture focused on smooth UI state transitions, clean rendering patterns, and high-performance cross-device layout flexibility.',
+    quoteAuthor: 'Architecture Note',
+    quoteRole: 'Frontend Design & Technical Highlights',
     credits: [
       { role: 'Frontend Development', name: 'Outman El Bouhali' },
       { role: 'React Architecture', name: 'Outman El Bouhali' },
@@ -157,6 +161,10 @@ export const projectsData: Project[] = [
     website: '',
     tags: ['Flutter', 'Dart', 'Android', 'Android TV', 'Responsive UI'],
     link: '',
+    quote:
+      'Designed to seamlessly bridge mobile touch interaction and Android TV directional navigation using a single unified Flutter codebase.',
+    quoteAuthor: 'Product Concept',
+    quoteRole: 'Cross-Platform Strategy & UX Architecture',
     credits: [
       { role: 'Flutter Development', name: 'Outman El Bouhali' },
       { role: 'Cross-Platform Architecture', name: 'Outman El Bouhali' },

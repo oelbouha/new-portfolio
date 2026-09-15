@@ -134,7 +134,7 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
       className="proj-page bg-[var(--project-bg)] text-[var(--text)] overflow-x-hidden"
       aria-label={`${project.title} case study`}
     >
-      <div className="mx-auto w-full max-w-[1980px]">
+      <div className="mx-auto w-full max-w-7xl">
         {/* 1. Hero */}
         <ProjectDetailHero title={project.title} titleRef={titleRef} />
 
@@ -161,20 +161,20 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
           website={project.website}
         />
 
-        {/* 5. Top Gallery */}
-        <ProjectDetailGallery images={topImages} title={project.title} />
-
-        {/* 6. Quote / Testimonial */}
-        {project.quote && (
-          <ProjectDetailQuote
-            quote={project.quote}
-            quoteAuthor={project.quoteAuthor}
-            quoteRole={project.quoteRole}
-          />
+        {/* 5. Gallery & Quote */}
+        {project.quote ? (
+          <>
+            <ProjectDetailGallery images={topImages} title={project.title} />
+            <ProjectDetailQuote
+              quote={project.quote}
+              quoteAuthor={project.quoteAuthor}
+              quoteRole={project.quoteRole}
+            />
+            <ProjectDetailGallery images={bottomImages} title={project.title} />
+          </>
+        ) : (
+          <ProjectDetailGallery images={galleryImages} title={project.title} />
         )}
-
-        {/* 7. Bottom Gallery */}
-        <ProjectDetailGallery images={bottomImages} title={project.title} />
 
         {/* 8. Credits & Scope Info */}
         <ProjectDetailInfos

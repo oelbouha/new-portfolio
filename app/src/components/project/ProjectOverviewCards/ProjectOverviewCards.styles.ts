@@ -4,5 +4,5 @@ export const projectOverviewCardsStyles = {
   label: 'font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-black/35 dark:text-white/35',
   value: 'mt-4 font-[family-name:var(--font-display)] text-2xl uppercase leading-[0.95] tracking-[-0.03em] text-[var(--text)]',
   list: 'mt-4 flex flex-wrap gap-2 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.08em] text-black/55 dark:text-white/55',
-  link: 'mt-4 break-all font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.08em] text-[#52D766] transition-colors duration-300 hover:text-[#3ec254]',
+  link: 'mt-4 break-all font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.08em] text-[#1d4ed8] transition-colors duration-300 hover:text-[#2563eb]',
 } as const;

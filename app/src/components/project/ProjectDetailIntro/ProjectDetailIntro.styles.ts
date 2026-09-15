@@ -2,7 +2,7 @@ export const projectDetailIntroStyles = {
   section:
     'relative w-full pt-[clamp(3rem,6vw,7rem)] pb-[clamp(3rem,6vw,7rem)] px-[clamp(1rem,2.5vw,2.5rem)]',
   container:
-    'mx-auto w-full max-w-[1980px] grid grid-cols-[1fr_2fr] gap-[clamp(2rem,5vw,6rem)] items-start max-md:grid-cols-1 max-md:gap-6',
+    'mx-auto w-full max-w-7xl grid grid-cols-[1fr_2fr] gap-[clamp(2rem,5vw,6rem)] items-start max-md:grid-cols-1 max-md:gap-6',
   labelCol: 'pt-1',
   monoWrapper: 'overflow-hidden',
   monoText:

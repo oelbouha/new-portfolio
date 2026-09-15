@@ -10,7 +10,6 @@ export function ProjectDetailCover({ coverImage, title, coverRef }: ProjectDetai
             src={coverImage}
             alt={`${title} cover`}
             className={projectDetailCoverStyles.img}
-            style={projectDetailCoverStyles.style}
             loading="eager"
           />
         </div>
