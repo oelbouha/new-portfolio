@@ -1542,3 +1542,318 @@ html.lenis, html.lenis body {
     display: none;
   }
 }
+
+/* ============================================
+   WORK PAGE STYLING (Inspired by Studio Namma)
+   ============================================ */
+
+/* Work Hero */
+.work-hero__section {
+  padding-top: clamp(6rem, 12vw, 10rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.work-hero__title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.work-hero__title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(4.5rem, 14vw, 13rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.work-hero__subtitle {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  color: rgba(var(--text-rgb, 17, 17, 17), 0.7);
+  max-width: 36rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Featured / Latest Showcase Grid */
+.work-latest__section {
+  padding-top: 2rem;
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+.work-latest__grid {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 8vw, 9rem);
+}
+
+.work-latest__item {
+  width: 100%;
+}
+
+.work-latest__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: var(--project-bg);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 767px) {
+  .work-latest__card {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.work-latest__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-latest__card:hover .work-latest__img {
+  transform: scale(1.05);
+}
+
+.work-latest__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.15) 50%, transparent 100%);
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.work-latest__card:hover .work-latest__overlay {
+  opacity: 0.85;
+}
+
+.work-latest__meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.work-latest__tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.work-latest__tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+}
+
+.work-latest__title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.work-latest__tagline {
+  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 32rem;
+}
+
+/* Recent Projects Section */
+.work-recent__section {
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.work-recent__header {
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+}
+
+.work-recent__desktop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 1023px) {
+  .work-recent__desktop-grid {
+    display: none;
+  }
+}
+
+.work-recent__mobile-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .work-recent__mobile-grid {
+    display: none;
+  }
+}
+
+.work-recent__list-item {
+  position: relative;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
+  transition: padding-left 0.3s ease;
+}
+
+.work-recent__list-item:hover {
+  padding-left: 1rem;
+}
+
+.work-recent__item-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.work-recent__list-item:hover .work-recent__item-title {
+  color: #1d4ed8;
+}
+
+.work-recent__item-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.work-recent__preview-container {
+  position: sticky;
+  top: 140px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: var(--project-bg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.work-recent__preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+/* Archives Gallery Section */
+.work-archives__section {
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(5rem, 10vw, 10rem);
+  border-top: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+.work-archives__header {
+  margin-bottom: clamp(2.5rem, 5vw, 5rem);
+}
+
+.work-archives__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 8vw, 8rem);
+}
+
+.work-archives__row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .work-archives__row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.work-archives__row.is-reversed {
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 767px) {
+  .work-archives__row.is-reversed {
+    grid-template-columns: 1fr;
+  }
+}
+
+.work-archives__stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.work-archives__img-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--project-bg);
+}
+
+.work-archives__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.work-archives__img-wrap:hover .work-archives__img {
+  transform: scale(1.08);
+}
+
+.work-archives__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.work-archives__details-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.work-archives__details-sub {
+  font-size: 1rem;
+  color: rgba(var(--text-rgb, 17, 17, 17), 0.75);
+}

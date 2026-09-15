@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-ro
 import { Home } from '@/pages/Home';
 import ProjectDetail from '@/pages/ProjectDetail';
 import About from '@/pages/About';
+import { Work } from '@/pages/Work';
 import { Preloader } from '@/components/Preloader';
 import { Navbar } from '@/components/layout/Navbar';
 import { FullscreenMenu } from '@/components/layout/FullscreenMenu';
@@ -200,7 +201,7 @@ function AppInner() {
           />
           <Route path="/work/:slug" element={<ProjectDetail onNavigate={handleNavigate} />} />
           <Route path="/about" element={<About onNavigate={handleNavigate} onContactOpen={handleContactOpen} />} />
-          <Route path="/work" element={<About onNavigate={handleNavigate} onContactOpen={handleContactOpen} />} />
+          <Route path="/work" element={<Work onNavigate={handleNavigate} onContactOpen={handleContactOpen} />} />
         </Routes>
       </div>
     </>

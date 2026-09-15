@@ -1,34 +1,25 @@
-import { SectionLabel } from '@/components/shared/SectionLabel';
-import { CTAButton } from '@/components/shared/CTAButton';
-import { workData } from '@/data/work.data';
+import { motion } from 'framer-motion';
 
 export function WorkHero() {
   return (
-    <section className="pt-[120px] pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <SectionLabel className="mb-6">{workData.hero.tag}</SectionLabel>
-
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-foreground mb-4">
-              {workData.hero.titleMain}
-              <span className="text-[#4ade80]">{workData.hero.titleHighlight}</span>
-              {workData.hero.titleEnd}
-            </h1>
-            <p className="text-xl sm:text-2xl text-foreground-secondary mb-6">
-              {workData.hero.subtitle}
-            </p>
-          </div>
-
-          <div className="lg:pt-4">
-            <p className="text-foreground-secondary mb-8 max-w-md">
-              {workData.hero.description}
-            </p>
-            <CTAButton variant="primary" size="md" showArrow>
-              {workData.hero.buttonText}
-            </CTAButton>
-          </div>
-        </div>
+    <section className="relative flex flex-col items-center justify-center w-full pt-28 sm:pt-36 lg:pt-40 pb-12 px-4 overflow-hidden">
+      <div className="flex flex-col items-center justify-center text-center gap-2 sm:gap-4 select-none">
+        <motion.h1
+          className="font-[family-name:var(--font-display)] text-[clamp(4.8rem,13vw,14.5rem)] font-bold uppercase leading-[0.85] tracking-[0.01em] text-[var(--text)] select-none text-center"
+          initial={{ opacity: 0, y: 35 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          SELECTED
+        </motion.h1>
+        <motion.h1
+          className="font-[family-name:var(--font-display)] text-[clamp(4.8rem,13vw,14.5rem)] font-bold uppercase leading-[0.85] tracking-[0.01em] text-[var(--text)] select-none text-center"
+          initial={{ opacity: 0, y: 35 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        >
+          WORKS
+        </motion.h1>
       </div>
     </section>
   );

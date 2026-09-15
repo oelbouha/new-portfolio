@@ -1,17 +1,40 @@
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { WorkHero } from '@/sections/work/WorkHero';
-import { PortfolioGrid } from '@/sections/work/PortfolioGrid';
+import { WorkFeatured } from '@/sections/work/WorkFeatured';
+import { WorkRecentProjects } from '@/sections/work/WorkRecentProjects';
+import { WorkArchives } from '@/sections/work/WorkArchives';
+import { Footer } from '@/components/layout/Footer';
 
-export function Work() {
+gsap.registerPlugin(ScrollTrigger);
+
+interface WorkProps {
+  onNavigate?: (href: string) => void;
+  onContactOpen?: () => void;
+}
+
+export function Work({ onNavigate, onContactOpen }: WorkProps) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <main>
-        <WorkHero />
-        <PortfolioGrid />
-      </main>
-      <Footer />
+    <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
+      <div className="mx-auto w-full max-w-[1980px]">
+        <main>
+          <WorkHero />
+          <WorkFeatured onNavigate={onNavigate} />
+          <WorkRecentProjects onNavigate={onNavigate} />
+          <WorkArchives />
+        </main>
+        <Footer onContactOpen={onContactOpen} />
+      </div>
     </div>
   );
 }
+
+export default Work;
