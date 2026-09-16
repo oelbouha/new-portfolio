@@ -18,7 +18,7 @@ export function PlaygroundSection({ onNavigate }: PlaygroundSectionProps) {
           <PlaygroundHeader />
         </div>
         <div className={playgroundSectionStyles.grid}>
-          {projectsData.map((project, index) => (
+          {projectsData.slice(0, 4).map((project, index) => (
             <ProjectCard key={project.slug} project={project} index={index} onNavigate={onNavigate} />
           ))}
         </div>

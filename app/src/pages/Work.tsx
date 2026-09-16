@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { WorkHero } from '@/sections/work/WorkHero';
 import { WorkFeatured } from '@/sections/work/WorkFeatured';
 import { WorkRecentProjects } from '@/sections/work/WorkRecentProjects';
-import { WorkArchives } from '@/sections/work/WorkArchives';
 import { Footer } from '@/components/layout/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,10 +28,9 @@ export function Work({ onNavigate, onContactOpen }: WorkProps) {
           <WorkHero />
           <WorkFeatured onNavigate={onNavigate} />
           <WorkRecentProjects onNavigate={onNavigate} />
-          <WorkArchives />
         </main>
-        <Footer onContactOpen={onContactOpen} />
       </div>
+      <Footer onContactOpen={onContactOpen} />
     </div>
   );
 }

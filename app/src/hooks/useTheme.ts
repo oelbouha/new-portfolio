@@ -19,8 +19,10 @@ export function useTheme() {
     root.setAttribute('data-theme', theme);
     if (theme === 'dark') {
       root.classList.add('is-dark');
+      root.classList.add('dark');
     } else {
       root.classList.remove('is-dark');
+      root.classList.remove('dark');
     }
     localStorage.setItem('studio-theme', theme);
   }, [theme]);

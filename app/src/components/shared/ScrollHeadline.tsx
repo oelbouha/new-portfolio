@@ -51,7 +51,7 @@ export function ScrollHeadline({
   return (
     <div ref={containerRef} className={`flex w-full flex-col items-center gap-3 text-center ${className}`}>
       {tag && (
-        <div className="font-[family-name:var(--font-mono)] text-xs sm:text-sm font-semibold uppercase tracking-[0.08em] text-black/40 dark:text-white/40 text-center mb-4 sm:mb-6">
+        <div className="font-[family-name:var(--font-mono)] text-xs sm:text-sm font-semibold uppercase tracking-[0.08em] text-[var(--text)] opacity-50 text-center mb-4 sm:mb-6">
           {tag}
         </div>
       )}

@@ -26,8 +26,8 @@ export default function About({ onNavigate, onContactOpen }: AboutProps) {
             <AboutExperience />
             <AboutCTA onContactOpen={onContactOpen} />
           </main>
-          <Footer onContactOpen={onContactOpen} />
         </div>
+        <Footer onContactOpen={onContactOpen} />
       </div>
 
       <FullscreenMenu

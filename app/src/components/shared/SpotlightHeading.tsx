@@ -115,13 +115,15 @@ export function SpotlightHeading({
       }
 
       const obj = { width: 0 };
+      const scrollDelay = delay > 0 ? delay : 0.45;
+
       ctx = gsap.context(() => {
         const tl = gsap.timeline(
           triggerOnScroll
             ? {
                 scrollTrigger: {
                   trigger: svgRef.current,
-                  start: 'top 85%',
+                  start: 'bottom 90%', // Triggers when element is 100% fully in view
                   toggleActions: 'restart none none reset',
                 },
               }
@@ -141,7 +143,7 @@ export function SpotlightHeading({
               if (line2Ref.current) line2Ref.current.setAttribute('x', `${rectX + w + gap}`);
             },
           },
-          triggerOnScroll ? 0.15 : 0
+          triggerOnScroll ? scrollDelay : 0
         );
       });
     };

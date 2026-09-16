@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://outmanelbouhali.com/sitemap.xml
+
+Sitemap: https://outman.vercel.app/sitemap.xml

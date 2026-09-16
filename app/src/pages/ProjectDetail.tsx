@@ -17,9 +17,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectDetailProps {
   onNavigate?: (href: string) => void;
+  onContactOpen?: () => void;
 }
 
-export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
+export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDetailProps) {
   const { slug } = useParams<{ slug: string }>();
   const pageRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -187,10 +188,10 @@ export default function ProjectDetail({ onNavigate }: ProjectDetailProps) {
 
         {/* 9. Next Project Teaser */}
         <ProjectDetailNext nextProject={nextProject} onNavigate={onNavigate} />
-
-        {/* 10. Footer */}
-        <Footer />
       </div>
+
+      {/* 10. Footer (Full Width) */}
+      <Footer onContactOpen={onContactOpen} />
     </main>
   );
 }

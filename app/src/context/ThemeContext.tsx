@@ -26,6 +26,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
     root.classList.toggle('is-dark', theme === 'dark');
+    root.classList.toggle('dark', theme === 'dark');
     try {
       localStorage.setItem('darkMode', theme === 'dark' ? 'enabled' : 'disabled');
     } catch {}

@@ -14,20 +14,22 @@ export function CustomCursor() {
     if (!cursorEl) return;
 
     const speed = 0.3;
-    const offsetX = 8;
-    const offsetY = 8;
+    const defaultOffset = 10;
+    const hoverOffset = 22;
 
     // First move — show cursor
     const handleFirstMove = (e: MouseEvent) => {
       cursorEl.style.opacity = '1';
-      mousePos.current = { x: e.clientX + offsetX, y: e.clientY + offsetY };
+      mousePos.current = { x: e.clientX + defaultOffset, y: e.clientY + defaultOffset };
       cursorPos.current = { ...mousePos.current };
       document.removeEventListener('mousemove', handleFirstMove);
     };
     document.addEventListener('mousemove', handleFirstMove, { once: true });
 
     const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX + offsetX, y: e.clientY + offsetY };
+      const isHover = cursorEl.classList.contains('is-hover');
+      const offset = isHover ? hoverOffset : defaultOffset;
+      mousePos.current = { x: e.clientX + offset, y: e.clientY + offset };
     };
     document.addEventListener('mousemove', handleMouseMove);
 

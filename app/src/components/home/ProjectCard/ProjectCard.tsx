@@ -29,7 +29,7 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
         to={href}
         onClick={handleClick}
         className={cn(projectCardStyles.card, className)}
-        data-cursor-hover={project.title}
+        data-cursor-hover="Open project"
       >
         <div className={projectCardStyles.imageWrapper}>
           <img

@@ -2,14 +2,18 @@ import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FOOTER_IMAGES } from '@/lib/constants';
 import { layoutData } from '@/data/layout.data';
+import { CTASection } from '@/sections/home/CTASection';
 import { footerStyles } from './Footer.styles';
 import type { FooterProps } from './Footer.types';
 
-export function Footer({}: FooterProps = {}) {
+export function Footer({ onContactOpen }: FooterProps = {}) {
   const footerRef = useRef<HTMLElement>(null);
 
   return (
     <footer ref={footerRef} className={footerStyles.footer}>
+      {/* "Let's work together" CTA Section */}
+      <CTASection onContactOpen={onContactOpen} />
+
       {/* Project image grid */}
       <div className={footerStyles.videosGrid}>
         {FOOTER_IMAGES.map((src, i) => (

@@ -15,7 +15,7 @@ export const ctaSectionStyles = {
   descWrapper:
     'flex flex-col gap-6 shrink-0 max-w-md w-full lg:pb-[2px]',
   descText:
-    'cta-desc font-[family-name:var(--font-mono)] text-xs sm:text-sm uppercase  tracking-widest leading-relaxed text-black dark:text-white/60',
+    'cta-desc font-[family-name:var(--font-mono)] text-xs sm:text-sm uppercase tracking-widest leading-relaxed text-[var(--text)] opacity-70',
   button: 'small-link group inline-flex items-center gap-3 self-start mb-0 cursor-pointer',
   monoWrapper: 'text-mono_wrapper',
   monoText: 'text-mono',

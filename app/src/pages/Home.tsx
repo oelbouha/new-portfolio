@@ -5,7 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HeroSection } from '@/sections/home/HeroSection';
 import { VideoSection } from '@/sections/home/VideoSection';
 import { ServicesSection } from '@/sections/home/ServicesSection';
-import { CTASection } from '@/sections/home/CTASection';
 import { Footer } from '@/components/layout/Footer';
 import { IntroSection } from '@/sections/home/IntroSection';
 import { PlaygroundSection } from '@/sections/home/PlaygroundSection';
@@ -49,11 +48,9 @@ export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomePr
           <IntroSection />
           <PlaygroundSection onNavigate={onNavigate} />
           <ServicesSection />
-          {/* <ServicesSection /> */}
-          <CTASection onContactOpen={onContactOpen} />
         </main>
-        <Footer onContactOpen={onContactOpen} />
       </div>
+      <Footer onContactOpen={onContactOpen} />
     </div>
   );
 }

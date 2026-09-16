@@ -199,7 +199,7 @@ function AppInner() {
               />
             }
           />
-          <Route path="/work/:slug" element={<ProjectDetail onNavigate={handleNavigate} />} />
+          <Route path="/work/:slug" element={<ProjectDetail onNavigate={handleNavigate} onContactOpen={handleContactOpen} />} />
           <Route path="/about" element={<About onNavigate={handleNavigate} onContactOpen={handleContactOpen} />} />
           <Route path="/work" element={<Work onNavigate={handleNavigate} onContactOpen={handleContactOpen} />} />
         </Routes>

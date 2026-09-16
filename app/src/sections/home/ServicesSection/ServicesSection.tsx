@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SERVICES } from '@/lib/constants';
@@ -17,68 +17,129 @@ const SERVICE_IMAGES = [
 ];
 
 export function ServicesSection() {
-  const [activeService, setActiveService] = useState<number | null>(null);
+  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const [scrollService, setScrollService] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hasMouseMoved, setHasMouseMoved] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const previewRef = useRef<HTMLDivElement>(null);
+
+  // Hover takes priority over scroll-based active service
+  const activeService = hoveredService !== null ? hoveredService : scrollService;
+
+  // Detect which service item is centered in viewport on scroll
+  const updateActiveOnScroll = useCallback(() => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    // Only activate while section is within comfortable reading viewport
+    if (rect.bottom < window.innerHeight * 0.25 || rect.top > window.innerHeight * 0.75) {
+      setScrollService(null);
+      return;
+    }
+
+    const probeY = window.innerHeight * 0.5;
+    let closestIndex = -1;
+    let minDistance = Infinity;
+
+    itemRefs.current.forEach((el, index) => {
+      if (!el) return;
+      const itemRect = el.getBoundingClientRect();
+      const centerY = itemRect.top + itemRect.height / 2;
+      const distance = Math.abs(centerY - probeY);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    if (closestIndex !== -1) {
+      setScrollService(closestIndex);
+    }
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      setHasMouseMoved(true);
       setMousePos({ x: e.clientX + 24, y: e.clientY + 24 });
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Line appear animations
-    document.querySelectorAll<HTMLElement>('.service-item').forEach((el, i) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: '1.5rem' },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: i * 0.06,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-            once: true,
-          },
-        }
-      );
-    });
+    const onScroll = () => {
+      requestAnimationFrame(updateActiveOnScroll);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    let trigger: ScrollTrigger | null = null;
+    if (sectionRef.current) {
+      trigger = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        end: 'bottom 20%',
+        onUpdate: () => {
+          updateActiveOnScroll();
+        },
+        onLeave: () => setScrollService(null),
+        onLeaveBack: () => setScrollService(null),
+      });
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', onScroll);
+      if (trigger) trigger.kill();
+    };
+  }, [updateActiveOnScroll]);
+
+  // Determine preview box position: follows mouse if moved, or floats beside active item
+  let previewLeft = mousePos.x;
+  let previewTop = mousePos.y;
+  if (!hasMouseMoved && activeService !== null && itemRefs.current[activeService]) {
+    const itemRect = itemRefs.current[activeService]!.getBoundingClientRect();
+    previewLeft = Math.min(window.innerWidth - 260, itemRect.right + 24);
+    previewTop = itemRect.top + itemRect.height / 2 - 80;
+  }
 
   return (
-    <section className={servicesSectionStyles.section} id="services">
+    <section ref={sectionRef} className={servicesSectionStyles.section} id="services">
       <div className={servicesSectionStyles.container}>
         <div className={servicesSectionStyles.sectionTitle}>
           SERVICES
         </div>
 
         <div className={servicesSectionStyles.listWrapper}>
-          {SERVICES.map((service, i) => (
-            <div
-              key={service.name}
-              className={serviceItemStyles.item}
-              onMouseEnter={() => setActiveService(i)}
-              onMouseLeave={() => setActiveService(null)}
-            >
-              <span
-                className={serviceItemStyles.title}
-                style={{
-                  opacity: activeService !== null && activeService !== i ? 0.32 : 1,
+          {SERVICES.map((service, i) => {
+            const isActive = activeService === i;
+
+            return (
+              <div
+                key={service.name}
+                ref={(el) => {
+                  itemRefs.current[i] = el;
                 }}
+                className={`${serviceItemStyles.item} relative select-none`}
+                onMouseEnter={() => setHoveredService(i)}
+                onMouseLeave={() => setHoveredService(null)}
               >
-                {service.name}
-              </span>
-              <span className={serviceItemStyles.subtitle}>
-                {service.sub}
-              </span>
-            </div>
-          ))}
+                <span
+                  className={serviceItemStyles.title}
+                  style={{
+                    opacity: activeService !== null && !isActive ? 0.3 : 1,
+                  }}
+                >
+                  {service.name}
+                </span>
+                <span
+                  className={`${serviceItemStyles.subtitle} transition-all duration-300 ${
+                    isActive ? '!opacity-100 !translate-x-0' : 'opacity-0 -translate-x-2'
+                  }`}
+                >
+                  {service.sub}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -88,14 +149,16 @@ export function ServicesSection() {
           ref={previewRef}
           className={servicesSectionStyles.previewBox}
           style={{
-            left: mousePos.x,
-            top: mousePos.y,
+            left: previewLeft,
+            top: previewTop,
           }}
         >
           <img
+            key={activeService}
             src={SERVICE_IMAGES[activeService] || SERVICE_IMAGES[0]}
             alt=""
             aria-hidden
+            className="w-full h-full object-cover transition-opacity duration-200"
           />
         </div>
       )}

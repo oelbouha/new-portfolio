@@ -205,16 +205,20 @@ button {
 }
 .custom-cursor.is-hover {
   width: auto;
-  height: 2.4rem;
-  border-radius: 0.4rem;
+  height: 2.5rem;
+  border-radius: 0.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 0.7rem;
+  padding: 0 0.9rem;
   color: #ffffff;
   background: #1d4ed8;
-  box-shadow: 0 0 18px rgba(29, 78, 216, 0.5);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 0 20px rgba(29, 78, 216, 0.55);
 }
 
 /* Lenis Smooth Scroll CSS */
