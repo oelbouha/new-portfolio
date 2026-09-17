@@ -1,7 +1,31 @@
 /* ============================================
-   FONTS - Bebas Neue + Space Grotesk + IBM Plex Mono
+   FONTS - PP Neue Corp + PP Neue Corp Tight Ultrabold + Space Grotesk + IBM Plex Mono
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'PP Neue Corp Tight Ultrabold';
+  src: url('/font/PPNeueCorp-TightUltrabold-BF6732c5c8bf1f0.otf') format('opentype');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Corp Tight Medium';
+  src: url('/font/PPNeueCorp-TightMedium-BF6732c5c80fe3e.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal Medium';
+  src: url('https://framerusercontent.com/assets/pHqdIssKCkNqLTgOZyE3GS4X8I.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -12,26 +36,26 @@
    ============================================ */
 :root {
   --light: #e4e4e4;
-  --dark: #0a0a0c;
+  --dark: #111111;
   --background: var(--light);
-  --project-bg: #FAF9F6;
+  --project-bg: #e4e4e4;
   --text: #111111;
-  --nav-menu-bg: #FAFAFA;
-  --transition-overlay-bg: #FAFAFA;
-  --transition-overlay-end: #E4E4E4;
+  --nav-menu-bg: #e4e4e4;
+  --transition-overlay-bg: #e4e4e4;
+  --transition-overlay-end: #e4e4e4;
   /* Fixed nav text — follows the active theme contrast */
   --nav-fixed-text: var(--text);
-  /* Display font (Bebas Neue) */
-  --font-display: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  /* Display font (PP Neue Corp Tight Ultrabold) */
+  --font-display: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
 }
 
 [data-theme="dark"], html.is-dark {
   --background: var(--dark);
-  --project-bg: #121215;
+  --project-bg: #111111;
   --text: #f1f5f9;
-  --nav-menu-bg: #121215;
-  --transition-overlay-bg: #121215;
-  --transition-overlay-end: #0a0a0c;
+  --nav-menu-bg: #111111;
+  --transition-overlay-bg: #111111;
+  --transition-overlay-end: #111111;
   --nav-fixed-text: var(--text);
 }
 
@@ -427,7 +451,7 @@ html.lenis, html.lenis body {
 }
 
 .hero-headline {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(4rem, 11vw, 11rem);
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -498,7 +522,7 @@ html.lenis, html.lenis body {
 }
 
 .intro-tagline {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(2.5rem, 6vw, 6rem);
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -549,7 +573,7 @@ html.lenis, html.lenis body {
 }
 
 .projects-title {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(5rem, 14vw, 14rem);
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -656,7 +680,7 @@ html.lenis, html.lenis body {
 .service-item:last-child { border-bottom: 1px solid rgba(128,128,128,0.15); }
 
 .service-name {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(1.6rem, 4vw, 3.5rem);
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -749,7 +773,7 @@ html.lenis, html.lenis body {
 }
 
 .cta-heading {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(3rem, 8vw, 8rem);
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -1119,7 +1143,7 @@ html.lenis, html.lenis body {
 }
 
 .proj-hero__title {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(5rem, 18vw, 18rem);
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -1164,7 +1188,7 @@ html.lenis, html.lenis body {
 }
 
 .proj-tagline {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(2.2rem, 5.5vw, 5.5rem);
   font-weight: 400;
   line-height: 0.95;
@@ -1440,7 +1464,7 @@ html.lenis, html.lenis body {
 }
 
 .proj-next-title {
-  font-family: 'Bebas Neue', 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
   font-size: clamp(3rem, 7.5vw, 6.5rem);
   font-weight: 400;
   letter-spacing: 0.02em;

@@ -5,7 +5,7 @@ export const navbarStyles = {
   leftGroup: 'flex items-center gap-3',
   centerGroup: 'flex items-center gap-3 sm:gap-4',
   rightGroup: 'flex items-center gap-4 sm:gap-8',
-  text: 'font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.08em] text-[var(--nav-fixed-text)]',
+  text: "font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] text-[var(--nav-fixed-text)] font-medium",
   // Use the global .link CSS class for the slide-up flip hover
   link: 'link',
   clock: 'flex items-center gap-2',

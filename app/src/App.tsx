@@ -106,8 +106,8 @@ function AppInner() {
     const isTargetProject = href.startsWith('/work/');
     const isCurrentProject = location.pathname.startsWith('/work/');
 
-    const homeBg = isDark ? '#0a0a0c' : '#E4E4E4';
-    const projectBg = isDark ? '#121215' : '#FAF9F6';
+    const homeBg = isDark ? '#111111' : '#E4E4E4';
+    const projectBg = isDark ? '#111111' : '#E4E4E4';
 
     const startColor = isCurrentProject ? projectBg : homeBg;
     const endColor = isTargetProject ? projectBg : homeBg;

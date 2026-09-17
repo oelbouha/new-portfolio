@@ -107,7 +107,7 @@ function SVGMenuItem({
       }
 
       const fontSize = 120;
-      const fontSpec = `900 ${fontSize}px "Bebas Neue", "Space Grotesk", sans-serif`;
+      const fontSpec = `900 ${fontSize}px "PP Neue Corp Tight Ultrabold", "Space Grotesk", sans-serif`;
 
       const canvas = document.createElement('canvas');
       const canvasCtx = canvas.getContext('2d');
@@ -364,30 +364,27 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
           transform: 'translateX(-100px) translateY(-100px) scale(1.5) rotate(-15deg)',
         }}
       >
-        {/* 1. Top Header Bar — Absolutely Pinned to Top */}
-        <div className="absolute top-0 inset-x-0 flex items-center justify-between px-6 py-5 sm:px-10 sm:py-6 z-30 pointer-events-auto">
-          {/* Left: OUTMAN + DARK MODE */}
-          <div className="flex items-center gap-6 sm:gap-10">
+        {/* 1. Top Header Bar — Absolutely Pinned to Top, matching Navbar alignment */}
+        <div className="absolute top-0 inset-x-0 w-full px-4 py-4 sm:px-6 lg:px-10 z-30 pointer-events-auto">
+          {/* Mobile Layout (< md) */}
+          <div className="flex md:hidden items-center justify-between w-full">
             <a href="/" className="link" style={{ textDecoration: 'none' }}>
-              <div className="link_first"><span className="text-mono">OUTMAN</span></div>
-              <div className="link_second"><span className="text-mono">OUTMAN</span></div>
+              <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+              <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
             </a>
 
             <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
               <div className="link_first">
-                <span className="text-mono">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
               </div>
               <div className="link_second">
-                <span className="text-mono">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
               </div>
             </button>
-          </div>
 
-          {/* Right: CLOSE + LET'S TALK! */}
-          <div className="flex items-center gap-6 sm:gap-10">
             <button onClick={onClose} aria-label="Close menu" className="link">
-              <div className="link_first"><span className="text-mono">CLOSE</span></div>
-              <div className="link_second"><span className="text-mono">CLOSE</span></div>
+              <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
+              <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
             </button>
 
             <button
@@ -398,15 +395,57 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
               className="link"
               aria-label="Open contact"
             >
-              <div className="link_first"><span className="text-mono">LET'S TALK!</span></div>
-              <div className="link_second"><span className="text-mono">LET'S TALK!</span></div>
+              <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">LET'S TALK!</span></div>
+              <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CONTACT</span></div>
             </button>
+          </div>
+
+          {/* Desktop Layout (md and up): Exact 12-Column Grid matching Navbar */}
+          <div className="hidden md:grid md:grid-cols-12 items-center w-full">
+            <div className="col-span-2 flex items-center justify-start">
+              <a href="/" className="link" style={{ textDecoration: 'none' }}>
+                <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+                <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+              </a>
+            </div>
+
+            <div className="col-start-3 col-span-3 flex items-center justify-start">
+              <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
+                <div className="link_first">
+                  <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                </div>
+                <div className="link_second">
+                  <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                </div>
+              </button>
+            </div>
+
+            <div className="col-start-9 col-span-2 flex items-center justify-start">
+              <button onClick={onClose} aria-label="Close menu" className="link">
+                <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
+                <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
+              </button>
+            </div>
+
+            <div className="col-start-11 col-span-2 flex items-center justify-end text-right">
+              <button
+                onClick={() => {
+                  onClose();
+                  onContactOpen?.();
+                }}
+                className="link"
+                aria-label="Open contact"
+              >
+                <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">LET'S TALK!</span></div>
+                <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CONTACT</span></div>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* 2. Middle Menu Items Grid — Padded between top & bottom bars */}
-        <div className="absolute inset-0 pt-20 pb-20 px-6 sm:px-12 flex items-center justify-center z-10">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-28 gap-y-0 sm:gap-y-1 w-full max-w-[1980px] mx-auto items-center ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+        {/* 2. Middle Menu Items Grid — Left aligned 100% with OUTMAN */}
+        <div className="absolute inset-0 pt-24 pb-20 px-4 sm:px-6 lg:px-10 flex items-center justify-start z-10 w-full">
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-0 sm:gap-y-1 w-full items-center ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
             <div className="flex flex-col items-start w-full">
               {COL_1_ITEMS.map((item) => (
                 <SVGMenuItem
@@ -432,12 +471,12 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
           </div>
         </div>
 
-        {/* 3. Bottom Footer Bar — Absolutely Pinned to Bottom */}
-        <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-6 py-4 sm:px-10 sm:py-5 border-t border-black/10 dark:border-white/10 z-30 pointer-events-auto bg-[var(--nav-menu-bg)]">
-          <span className="text-mono opacity-60">WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
+        {/* 3. Bottom Footer Bar — Exactly Pinned to Bottom with matching px-4 sm:px-6 lg:px-10 */}
+        <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-4 py-4 sm:px-6 lg:px-10 border-t border-black/10 dark:border-white/10 z-30 pointer-events-auto bg-[var(--nav-menu-bg)]">
+          <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[12px] sm:text-[13px] uppercase tracking-[0.04em] opacity-60">WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
           <div className="flex items-center gap-3">
-            <span className="text-mono opacity-60">MOROCCO</span>
-            <span className="text-mono font-medium">{moroccoTime}</span>
+            <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[12px] sm:text-[13px] uppercase tracking-[0.04em] opacity-60">MOROCCO</span>
+            <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[12px] sm:text-[13px] uppercase tracking-[0.04em] font-medium">{moroccoTime}</span>
           </div>
         </div>
       </div>

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { WorkHero } from '@/sections/work/WorkHero';
-import { WorkFeatured } from '@/sections/work/WorkFeatured';
-import { WorkRecentProjects } from '@/sections/work/WorkRecentProjects';
+import { WorkProjectsList } from '@/sections/work/WorkProjectsList';
 import { Footer } from '@/components/layout/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -22,14 +20,10 @@ export function Work({ onNavigate, onContactOpen }: WorkProps) {
   }, []);
 
   return (
-    <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
-      <div className="mx-auto w-full max-w-[1980px]">
-        <main>
-          <WorkHero />
-          <WorkFeatured onNavigate={onNavigate} />
-          <WorkRecentProjects onNavigate={onNavigate} />
-        </main>
-      </div>
+    <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }} className="w-full">
+      <main className="w-full">
+        <WorkProjectsList onNavigate={onNavigate} />
+      </main>
       <Footer onContactOpen={onContactOpen} />
     </div>
   );

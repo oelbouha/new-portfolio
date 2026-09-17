@@ -39,17 +39,15 @@ export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomePr
   }, [preloaderDone]);
 
   return (
-    <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
-      <div className="mx-auto w-full max-w-[1980px]">
-        <main>
-          <HeroSection preloaderDone={preloaderDone} />
-          {/* <SelectedProjects /> */}
-          <VideoSection />
-          <IntroSection />
-          <PlaygroundSection onNavigate={onNavigate} />
-          <ServicesSection />
-        </main>
-      </div>
+    <div style={{ background: 'var(--background)', minHeight: '100vh' }} className="w-full">
+      <main className="w-full">
+        <HeroSection preloaderDone={preloaderDone} />
+        {/* <SelectedProjects /> */}
+        <VideoSection />
+        <IntroSection />
+        <PlaygroundSection onNavigate={onNavigate} />
+        <ServicesSection />
+      </main>
       <Footer onContactOpen={onContactOpen} />
     </div>
   );

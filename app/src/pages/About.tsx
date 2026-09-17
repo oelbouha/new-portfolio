@@ -17,16 +17,14 @@ export default function About({ onNavigate, onContactOpen }: AboutProps) {
 
   return (
     <>
-      <div className="min-h-screen bg-background text-[var(--text)]">
-        <div className="mx-auto w-full max-w-[1980px]">
-          <main>
-            <AboutHero />
-            <AboutBio />
-            <AboutServices />
-            <AboutExperience />
-            <AboutCTA onContactOpen={onContactOpen} />
-          </main>
-        </div>
+      <div className="min-h-screen bg-background text-[var(--text)] w-full">
+        <main className="w-full">
+          <AboutHero />
+          <AboutBio />
+          <AboutServices />
+          <AboutExperience />
+          <AboutCTA onContactOpen={onContactOpen} />
+        </main>
         <Footer onContactOpen={onContactOpen} />
       </div>
 

@@ -1,6 +1,6 @@
 export const servicesSectionStyles = {
   section:
-    'w-full px-4 py-24 sm:px-6 lg:px-8 lg:py-36',
+    'w-full px-4 py-24 sm:px-6 lg:px-10 lg:py-36',
   container: 'mx-auto w-full',
   sectionTitle:
     'mb-8 sm:mb-12 text-left font-[family-name:var(--font-mono)] text-xs sm:text-sm uppercase tracking-[0.16em] text-[var(--text)] opacity-50',
