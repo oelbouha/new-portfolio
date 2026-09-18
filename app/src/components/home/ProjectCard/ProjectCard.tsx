@@ -30,6 +30,7 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
         onClick={handleClick}
         className={cn(projectCardStyles.card, className)}
         data-cursor-hover="Open project"
+        data-cursor-icon="↗"
       >
         <div className={projectCardStyles.imageWrapper}>
           <img

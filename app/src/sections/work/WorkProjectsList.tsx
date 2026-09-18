@@ -64,21 +64,21 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
   return (
     <section className="relative w-full pt-28 sm:pt-36 lg:pt-40 pb-24 sm:pb-32 px-4 sm:px-6 lg:px-10">
       <div className="w-full">
-        {/* Top Header Section — Top aligned (items-start), subtitle aligned with PROJECTS text on TOP */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-start w-full gap-6 lg:gap-8 pb-12 sm:pb-16 lg:pb-20">
-          {/* Left (Cols 1-8): PROJECTS Title - flush with container left edge */}
-          <div className="col-span-1 lg:col-span-8 flex items-start">
-            <h1 className="font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(4.5rem,12vw,12.5rem)] uppercase leading-[0.82] tracking-[-0.01em] text-[var(--text)] select-none">
+        {/* Top Header Section — Perfectly aligned with the column layout below */}
+        <div className="flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-8 pb-14 sm:pb-20 lg:pb-24">
+          {/* Left: PROJECTS Title */}
+          <div className="w-full lg:w-[35%] shrink-0 flex items-start">
+            <h1 className="font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(4.5rem,11.5vw,11.5rem)] uppercase leading-[0.82] tracking-[-0.015em] text-[var(--text)] select-none">
               PROJECTS
             </h1>
           </div>
 
-          {/* Right (Col-start-9): Aligned directly at the TOP with PROJECTS text and under MENU item */}
-          <div className="col-span-1 lg:col-start-9 lg:col-span-4 flex items-start gap-3 sm:gap-4 pt-1 sm:pt-2 lg:pt-3">
-            <span className="shrink-0 px-2.5 py-1 rounded-[4px] bg-black/10 dark:bg-white/15 text-[11px] font-mono uppercase tracking-wider text-neutral-800 dark:text-neutral-200 font-semibold select-none">
+          {/* Right: Aligned exactly with where project titles start below */}
+          <div className="flex-1 flex items-start gap-3 sm:gap-4 pt-1 sm:pt-3 lg:pt-5 max-w-xl">
+            <span className="shrink-0 px-2.5 py-0.5 sm:py-1 rounded-[3px] bg-neutral-300 dark:bg-neutral-800 text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-800 dark:text-neutral-200 font-semibold select-none">
               PORTFOLIO
             </span>
-            <p className="font-['Space_Grotesk'] text-xs sm:text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-snug">
+            <p className="font-['PP_Neue_Montreal_Medium',sans-serif] text-xs sm:text-sm lg:text-[15px] text-neutral-600 dark:text-neutral-400 leading-snug font-normal">
               I’ve already helped clients from various industries move their businesses forward.
             </p>
           </div>
@@ -106,7 +106,8 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
                   onClick={(e) => handleClick(e, projectUrl)}
                   onMouseEnter={() => setHoveredIndex(index)}
                   data-cursor-hover="Open project"
-                  className="relative flex items-center justify-between w-full py-5 sm:py-7 lg:py-8 px-0 select-none text-decoration-none"
+                  data-cursor-icon="↗"
+                  className="relative flex items-center justify-between w-full py-3.5 sm:py-4 lg:py-5 px-0 select-none text-decoration-none"
                 >
                   {/*
                     Hover / Active Background Pill:
@@ -125,9 +126,9 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
                   />
 
                   {/* Left Column: Year & Category (flush at left boundary with OUTMAN and PROJECTS) */}
-                  <div className="relative z-10 w-[140px] sm:w-[220px] lg:w-[320px] shrink-0 text-left flex items-center pl-0">
+                  <div className="relative z-10 w-[140px] sm:w-[220px] lg:w-[35%] shrink-0 text-left flex items-center pl-0">
                     <span
-                      className={`font-mono text-[11px] sm:text-xs lg:text-sm tracking-wider uppercase font-medium transition-colors duration-200 ${
+                      className={`font-mono text-[11px] sm:text-xs lg:text-[13px] tracking-wider uppercase font-medium transition-colors duration-200 ${
                         isActive
                           ? 'text-neutral-300 dark:text-neutral-100'
                           : 'text-neutral-500 dark:text-neutral-400'
@@ -138,19 +139,19 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
                   </div>
 
                   {/* Center Column: Thumbnail expands on hover/scroll, title in PP Neue Corp Tight Ultrabold */}
-                  <div className="relative z-10 flex-1 flex items-center justify-start gap-3 sm:gap-6 lg:gap-8 overflow-hidden pr-2">
+                  <div className="relative z-10 flex-1 flex items-center justify-start gap-3 sm:gap-5 lg:gap-6 overflow-hidden pr-2">
                     <motion.div
                       initial={false}
                       animate={{
-                        width: isActive ? (typeof window !== 'undefined' && window.innerWidth < 640 ? 110 : 190) : 0,
+                        width: isActive ? (typeof window !== 'undefined' && window.innerWidth < 640 ? 90 : 145) : 0,
                         opacity: isActive ? 1 : 0,
                         scale: isActive ? 1 : 0.92,
                       }}
                       transition={{
-                        duration: 0.35,
+                        duration: 0.32,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      className="overflow-hidden rounded-[4px] shrink-0 aspect-[1.5/1] shadow-2xl pointer-events-none bg-neutral-900 border border-white/10"
+                      className="overflow-hidden rounded-[3px] shrink-0 aspect-[1.5/1] shadow-2xl pointer-events-none bg-neutral-900 border border-white/10"
                     >
                       <img
                         src={project.thumbnail || project.heroImage || project.coverImage}
@@ -161,7 +162,7 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
                     </motion.div>
 
                     <h2
-                      className={`font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(2.2rem,4.8vw,5.5rem)] uppercase leading-[0.85] tracking-[-0.01em] transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${
+                      className={`font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(1.85rem,3.4vw,3.75rem)] uppercase leading-[0.88] tracking-[-0.01em] transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${
                         isActive
                           ? 'text-white'
                           : 'text-[var(--text)]'

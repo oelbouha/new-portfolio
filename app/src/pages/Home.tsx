@@ -48,7 +48,7 @@ export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomePr
         <PlaygroundSection onNavigate={onNavigate} />
         <ServicesSection />
       </main>
-      <Footer onContactOpen={onContactOpen} />
+      <Footer onContactOpen={onContactOpen} onNavigate={onNavigate} />
     </div>
   );
 }

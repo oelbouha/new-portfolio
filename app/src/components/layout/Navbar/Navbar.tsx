@@ -150,7 +150,7 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
     <header className={navbarStyles.wrapper}>
       <nav ref={topRef} className={cn('nav-top', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
-          {/* Mobile Layout (< md): 4 items with directional animation classes */}
+          {/* Mobile Layout (< md): OUTMAN on left, Dark Mode + MENU on right */}
           <div className="flex md:hidden items-center justify-between w-full">
             <div className="nav-item-left flex items-center">
               <a
@@ -170,8 +170,8 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
               </a>
             </div>
 
-            <div className="nav-item-middle flex items-center">
-              <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
+            <div className="nav-item-right flex items-center gap-4 sm:gap-6">
+              <button onClick={toggleTheme} className="link flex items-center" aria-label="Toggle theme">
                 <div className="link_first">
                   <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
                 </div>
@@ -179,19 +179,10 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
                   <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
                 </div>
               </button>
-            </div>
 
-            <div className="nav-item-middle flex items-center">
-              <button id="menuToggle" onClick={handleMenuOpen} className="link" aria-label="Open menu">
+              <button id="menuToggle" onClick={handleMenuOpen} className="link flex items-center" aria-label="Open menu">
                 <div className="link_first"><span className={navbarStyles.text}>MENU</span></div>
                 <div className="link_second"><span className={navbarStyles.text}>OPEN</span></div>
-              </button>
-            </div>
-
-            <div className="nav-item-right flex items-center">
-              <button onClick={handleContactOpen} className="link" data-cursor-hover="Let's talk" aria-label="Open contact">
-                <div className="link_first"><span className={navbarStyles.text}>LET'S TALK!</span></div>
-                <div className="link_second"><span className={navbarStyles.text}>CONTACT</span></div>
               </button>
             </div>
           </div>
@@ -248,7 +239,7 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
         </div>
       </nav>
 
-      <nav ref={bottomRef} className={cn('nav-bottom', navbarStyles.bar)}>
+      <nav ref={bottomRef} className={cn('nav-bottom hidden md:flex', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
           <div className="grid grid-cols-12 items-center w-full">
             <div className="col-span-12 md:col-span-7 flex items-center justify-start">

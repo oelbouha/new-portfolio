@@ -15,7 +15,7 @@ export function PlaygroundSection({ onNavigate }: PlaygroundSectionProps) {
     <section className={playgroundSectionStyles.section} id="playground">
       <div className={playgroundSectionStyles.inner}>
         <div ref={headerRef}>
-          <PlaygroundHeader />
+          <PlaygroundHeader onNavigate={onNavigate} />
         </div>
         <div className={playgroundSectionStyles.grid}>
           {projectsData.slice(0, 4).map((project, index) => (

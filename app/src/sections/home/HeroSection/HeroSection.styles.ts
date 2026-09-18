@@ -1,6 +1,6 @@
 export const heroSectionStyles = {
   section:
-    'relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-20 text-center sm:px-6 lg:px-10',
+    'relative flex min-h-[60vh] sm:min-h-screen w-full items-center justify-center overflow-hidden px-4 pt-28 pb-16 sm:py-20 text-center sm:px-6 lg:px-10',
   inner: 'relative z-10 mx-auto flex w-full flex-col items-center justify-center text-center',
   title:
     'flex flex-col items-center justify-center  text-center font-[family-name:var(--font-display)] text-[clamp(5.2rem,14.5vw,15.5rem)] font-bold uppercase leading-[0.85] tracking-[0.01em] text-[var(--text)] w-full',

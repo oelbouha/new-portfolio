@@ -118,25 +118,27 @@ export function ServicesSection() {
                 ref={(el) => {
                   itemRefs.current[i] = el;
                 }}
-                className={`${serviceItemStyles.item} relative select-none`}
+                className="relative flex items-center justify-center w-full py-1 sm:py-2 text-center cursor-pointer select-none group"
                 onMouseEnter={() => setHoveredService(i)}
                 onMouseLeave={() => setHoveredService(null)}
               >
-                <span
-                  className={serviceItemStyles.title}
-                  style={{
-                    opacity: activeService !== null && !isActive ? 0.3 : 1,
-                  }}
-                >
-                  {service.name}
-                </span>
-                <span
-                  className={`${serviceItemStyles.subtitle} transition-all duration-300 ${
-                    isActive ? '!opacity-100 !translate-x-0' : 'opacity-0 -translate-x-2'
-                  }`}
-                >
-                  {service.sub}
-                </span>
+                <div className="relative inline-flex items-center justify-center">
+                  <span
+                    className={serviceItemStyles.title}
+                    style={{
+                      opacity: activeService !== null && !isActive ? 0.3 : 1,
+                    }}
+                  >
+                    {service.name}
+                  </span>
+                  <span
+                    className={`hidden md:inline-block absolute left-full ml-4 sm:ml-6 top-1/2 -translate-y-1/2 whitespace-nowrap font-[family-name:var(--font-mono)] text-xs sm:text-sm uppercase tracking-[0.08em] text-[var(--text)] pointer-events-none transition-all duration-300 ${
+                      isActive ? '!opacity-100 !translate-x-0' : 'opacity-0 -translate-x-2'
+                    }`}
+                  >
+                    {service.sub}
+                  </span>
+                </div>
               </div>
             );
           })}

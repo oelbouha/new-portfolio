@@ -47,6 +47,8 @@
   --nav-fixed-text: var(--text);
   /* Display font (PP Neue Corp Tight Ultrabold) */
   --font-display: 'PP Neue Corp Tight Ultrabold', 'Space Grotesk', system-ui, sans-serif;
+  --_responsive---font-size--mono: 0.8125rem;
+  --_responsive---line-height--mono: 1.2;
 }
 
 [data-theme="dark"], html.is-dark {
@@ -216,33 +218,48 @@ button {
   background: #1d4ed8;
   pointer-events: none;
   transform-origin: center;
-  transition: width 0.15s ease, height 0.15s ease, background 0.4s ease;
+  transition: width 0.15s ease, height 0.15s ease, background-color 0.25s ease, color 0.25s ease, border-radius 0.15s ease, opacity 0.2s ease;
   z-index: 13000;
   font-size: 0.75rem;
   font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   opacity: 0;
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(29, 78, 216, 0.5);
-}
-.custom-cursor.is-hover {
-  width: auto;
-  height: 2.5rem;
-  border-radius: 0.45rem;
+  border-radius: 2px;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 0 0.9rem;
+  overflow: hidden;
+}
+.custom-cursor.is-hover {
+  width: auto;
+  height: 2.25rem;
+  border-radius: 0.35rem;
+  padding: 0 0.85rem;
   color: #ffffff;
   background: #1d4ed8;
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
   white-space: nowrap;
-  box-shadow: 0 0 20px rgba(29, 78, 216, 0.55);
+  gap: 0.4rem;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
+}
+.custom-cursor.is-hidden,
+body:has(.nav-menu.is-open) .custom-cursor,
+.nav-menu.is-open ~ .custom-cursor {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+.custom-cursor .cursor-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
 }
 
 /* Lenis Smooth Scroll CSS */

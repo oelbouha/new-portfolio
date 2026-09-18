@@ -24,7 +24,7 @@ export function Work({ onNavigate, onContactOpen }: WorkProps) {
       <main className="w-full">
         <WorkProjectsList onNavigate={onNavigate} />
       </main>
-      <Footer onContactOpen={onContactOpen} />
+      <Footer onContactOpen={onContactOpen} onNavigate={onNavigate} />
     </div>
   );
 }

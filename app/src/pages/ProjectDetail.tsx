@@ -191,7 +191,7 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
       </div>
 
       {/* 10. Footer (Full Width) */}
-      <Footer onContactOpen={onContactOpen} />
+      <Footer onContactOpen={onContactOpen} onNavigate={onNavigate} />
     </main>
   );
 }

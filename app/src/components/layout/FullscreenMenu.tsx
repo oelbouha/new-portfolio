@@ -95,8 +95,8 @@ function SVGMenuItem({
   const imgRef = useRef<SVGImageElement>(null);
   const clipId = useRef(`menu-clip-${label.toLowerCase()}`);
 
-  const targetRectWidth = 160;
-  const gap = 18;
+  const targetRectWidth = 120;
+  const gap = 14;
 
   useEffect(() => {
     let isCancelled = false;
@@ -106,7 +106,7 @@ function SVGMenuItem({
         return;
       }
 
-      const fontSize = 120;
+      const fontSize = 86;
       const fontSpec = `900 ${fontSize}px "PP Neue Corp Tight Ultrabold", "Space Grotesk", sans-serif`;
 
       const canvas = document.createElement('canvas');
@@ -243,13 +243,13 @@ function SVGMenuItem({
     >
       <svg
         ref={svgRef}
-        viewBox="0 0 600 120"
+        viewBox="0 0 500 90"
         preserveAspectRatio="xMinYMid meet"
-        className="w-full h-auto max-h-[130px] sm:max-h-[175px] lg:max-h-[215px] overflow-visible block text-left"
+        className="w-full h-auto max-h-[85px] sm:max-h-[110px] lg:max-h-[135px] overflow-visible block text-left"
       >
         <defs>
           <clipPath id={clipId.current}>
-            <rect ref={rectClipRef} x="0" y="4" width="0" height="100" rx="10" />
+            <rect ref={rectClipRef} x="0" y="4" width="0" height="80" rx="8" />
           </clipPath>
         </defs>
 
@@ -260,7 +260,7 @@ function SVGMenuItem({
             x="0"
             y="4"
             width={targetRectWidth}
-            height="100"
+            height="80"
             preserveAspectRatio="xMidYMid slice"
           />
         </g>
@@ -268,11 +268,11 @@ function SVGMenuItem({
         <text
           ref={textRef}
           x="0"
-          y="96"
+          y="72"
           className="fill-current font-black uppercase"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '120px',
+            fontSize: '86px',
             fontWeight: 900,
             letterSpacing: '-0.012em',
           }}
@@ -366,64 +366,54 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
       >
         {/* 1. Top Header Bar — Absolutely Pinned to Top, matching Navbar alignment */}
         <div className="absolute top-0 inset-x-0 w-full px-4 py-4 sm:px-6 lg:px-10 z-30 pointer-events-auto">
-          {/* Mobile Layout (< md) */}
+          {/* Mobile Layout (< md): OUTMAN on left, Dark Mode + CLOSE on right */}
           <div className="flex md:hidden items-center justify-between w-full">
             <a href="/" className="link" style={{ textDecoration: 'none' }}>
-              <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
-              <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+              <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+              <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
             </a>
 
-            <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
-              <div className="link_first">
-                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
-              </div>
-              <div className="link_second">
-                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
-              </div>
-            </button>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <button onClick={toggleTheme} className="link flex items-center" aria-label="Toggle theme">
+                <div className="link_first">
+                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+                </div>
+                <div className="link_second">
+                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+                </div>
+              </button>
 
-            <button onClick={onClose} aria-label="Close menu" className="link">
-              <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
-              <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
-            </button>
-
-            <button
-              onClick={() => {
-                onClose();
-                onContactOpen?.();
-              }}
-              className="link"
-              aria-label="Open contact"
-            >
-              <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">LET'S TALK!</span></div>
-              <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CONTACT</span></div>
-            </button>
+              <button onClick={onClose} aria-label="Close menu" className="link flex items-center">
+                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
+                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
+              </button>
+            </div>
           </div>
 
           {/* Desktop Layout (md and up): Exact 12-Column Grid matching Navbar */}
           <div className="hidden md:grid md:grid-cols-12 items-center w-full">
             <div className="col-span-2 flex items-center justify-start">
               <a href="/" className="link" style={{ textDecoration: 'none' }}>
-                <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
-                <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
               </a>
             </div>
 
             <div className="col-start-3 col-span-3 flex items-center justify-start">
               <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
                 <div className="link_first">
-                  <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
                 </div>
                 <div className="link_second">
-                  <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
                 </div>
               </button>
             </div>
 
             <div className="col-start-9 col-span-2 flex items-center justify-start">
               <button onClick={onClose} aria-label="Close menu" className="link">
-                <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
-                <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CLOSE</span></div>
+                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
+                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
               </button>
             </div>
 
@@ -436,8 +426,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
                 className="link"
                 aria-label="Open contact"
               >
-                <div className="link_first"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">LET'S TALK!</span></div>
-                <div className="link_second"><span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] uppercase tracking-[0.04em] font-medium text-[var(--nav-fixed-text)]">CONTACT</span></div>
+                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">LET'S TALK!</span></div>
+                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CONTACT</span></div>
               </button>
             </div>
           </div>
@@ -473,10 +463,10 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
         {/* 3. Bottom Footer Bar — Exactly Pinned to Bottom with matching px-4 sm:px-6 lg:px-10 */}
         <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-4 py-4 sm:px-6 lg:px-10 border-t border-black/10 dark:border-white/10 z-30 pointer-events-auto bg-[var(--nav-menu-bg)]">
-          <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[12px] sm:text-[13px] uppercase tracking-[0.04em] opacity-60">WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
+          <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] opacity-60">WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
           <div className="flex items-center gap-3">
-            <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[12px] sm:text-[13px] uppercase tracking-[0.04em] opacity-60">MOROCCO</span>
-            <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[12px] sm:text-[13px] uppercase tracking-[0.04em] font-medium">{moroccoTime}</span>
+            <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] opacity-60">MOROCCO</span>
+            <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300]">{moroccoTime}</span>
           </div>
         </div>
       </div>
