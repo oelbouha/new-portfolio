@@ -14,7 +14,7 @@ export const projectsData: Project[] = [
       'Skatys is a custom-engineered web application combining a hyper-fast Next.js frontend with a robust Django REST backend. Deployed on a Linux VPS using Docker containers and NGINX reverse proxy for high security and performance.',
     conclusion:
       'Delivered a production-ready freelance platform with high-speed rendering, seamless API integration, and custom UI components.',
-    thumbnail: '/images/skatys/skatys.jpeg',
+    thumbnail: '/images/skatys/skatys lab.png',
     heroImage: '/images/skatys/skatys.jpeg',
     coverImage: '/images/skatys/skatys.jpeg',
     images: [
@@ -98,7 +98,7 @@ export const projectsData: Project[] = [
       'Revo is a modern web application developed with React.js. The project focuses on building a responsive and scalable frontend architecture using reusable components, clean UI patterns, and optimized rendering for a smooth experience across different screen sizes.',
     conclusion:
       'Delivered a responsive React.js web application with a reusable component architecture, polished interface, and strong focus on performance and user experience.',
-    thumbnail: '/images/revo/revo thumbnail.jpeg',
+    thumbnail: '/images/revo/revo lab.png',
     heroImage: '/images/revo/revo thumbnail.jpeg',
     coverImage: '/images/revo/revo4.jpeg',
     images: [
@@ -144,7 +144,7 @@ export const projectsData: Project[] = [
       'Atlas is a cross-platform application developed with Flutter and Dart, designed to provide a consistent experience across Android smartphones and TV devices. The project focuses on responsive layouts, adaptive interfaces, and reusable Flutter components that scale across different screen sizes and interaction models.',
     conclusion:
       'Built a flexible Flutter application capable of adapting its interface across Android phones and TV platforms while maintaining a consistent and responsive user experience.',
-    thumbnail: '/images/atlas/atlass.jpeg',
+    thumbnail: '/images/atlas/atlas book.png',
     heroImage: '/images/atlas/atlass.jpeg',
     coverImage: '/images/atlas/atlass.jpeg',
     images: [
