@@ -11,6 +11,7 @@ interface ContactOverlayProps {
 export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const isAnimating = useRef(false);
   const wasOpen = useRef(false);
   const [interest, setInterest] = useState('');
@@ -24,10 +25,12 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
 
     if (!overlay || !content) return;
 
+    timelineRef.current?.kill();
+    timelineRef.current = null;
+
     if (isOpen && !wasOpen.current) {
       wasOpen.current = true;
       setIsFullyDisplayed(false);
-      if (isAnimating.current) return;
       isAnimating.current = true;
 
       // Same as openMenu: page flies off, overlay clips in from polygon
@@ -45,10 +48,12 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
       const tl = gsap.timeline({
         defaults: { ease: 'power4.inOut', duration: 1.8 },
         onComplete: () => {
+          timelineRef.current = null;
           isAnimating.current = false;
           setIsFullyDisplayed(true);
         },
       });
+      timelineRef.current = tl;
 
       if (page) tl.to(page, { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5 }, 0);
       tl.to(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)' }, 0);
@@ -57,7 +62,6 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
     } else if (!isOpen && wasOpen.current) {
       wasOpen.current = false;
       setIsFullyDisplayed(false);
-      if (isAnimating.current) return;
       isAnimating.current = true;
 
       // Same as closeMenu: page comes back, overlay clips out
@@ -66,6 +70,7 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
       const tl = gsap.timeline({
         defaults: { ease: 'power4.inOut', duration: 1.8 },
         onComplete: () => {
+          timelineRef.current = null;
           overlay.classList.remove('is-open');
           document.body.style.overflow = '';
           gsap.set([content, overlay], { clearProps: 'all' });
@@ -74,12 +79,18 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
           setIsFullyDisplayed(false);
         },
       });
+      timelineRef.current = tl;
 
       if (page2) tl.to(page2, { rotation: 0, x: 0, y: 0, scale: 1, opacity: 1 }, 0);
       tl.to(content, { rotation: -15, x: -100, y: -100, scale: 1.5, opacity: 0.25 }, 0);
       tl.to(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' }, 0);
     }
   }, [isOpen]);
+
+  useEffect(() => () => {
+    timelineRef.current?.kill();
+    document.body.style.overflow = '';
+  }, []);
 
   // ESC key
   useEffect(() => {
@@ -94,14 +105,21 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
   };
 
   return (
-    <div ref={overlayRef} className="contact-overlay" role="dialog" aria-modal="true" aria-hidden={!isOpen}>
+    <div
+      ref={overlayRef}
+      className="contact-overlay"
+      data-lenis-prevent
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!isOpen}
+    >
       <div ref={contentRef} className="contact-overlay_panel">
-        <button className="contact-close" onClick={onClose} aria-label="Close contact">
+        <button type="button" className="contact-close" onClick={onClose} aria-label="Close contact">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
             <line x1="1" y1="1" x2="11" y2="11" />
             <line x1="11" y1="1" x2="1" y2="11" />
           </svg>
-          <span>Close</span>
+          <span className="contact-close-label">Close</span>
         </button>
 
         <div>

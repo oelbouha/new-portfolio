@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { openMenu, closeMenu } from '@/lib/animations';
 import { useTheme } from '@/context/ThemeContext';
+import { navbarStyles } from './Navbar/Navbar.styles';
 
 interface FullscreenMenuProps {
   isOpen: boolean;
@@ -369,23 +370,23 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
           {/* Mobile Layout (< md): OUTMAN on left, Dark Mode + CLOSE on right */}
           <div className="flex md:hidden items-center justify-between w-full">
             <a href="/" className="link" style={{ textDecoration: 'none' }}>
-              <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
-              <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+              <div className="link_first"><span className={navbarStyles.text}>OUTMAN</span></div>
+              <div className="link_second"><span className={navbarStyles.text}>OUTMAN</span></div>
             </a>
 
             <div className="flex items-center gap-4 sm:gap-6">
               <button onClick={toggleTheme} className="link flex items-center" aria-label="Toggle theme">
                 <div className="link_first">
-                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+                  <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
                 </div>
                 <div className="link_second">
-                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+                  <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
                 </div>
               </button>
 
               <button onClick={onClose} aria-label="Close menu" className="link flex items-center">
-                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
-                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>CLOSE</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>CLOSE</span></div>
               </button>
             </div>
           </div>
@@ -394,26 +395,26 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
           <div className="hidden md:grid md:grid-cols-12 items-center w-full">
             <div className="col-span-2 flex items-center justify-start">
               <a href="/" className="link" style={{ textDecoration: 'none' }}>
-                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
-                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">OUTMAN</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>OUTMAN</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>OUTMAN</span></div>
               </a>
             </div>
 
             <div className="col-start-3 col-span-3 flex items-center justify-start">
               <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
                 <div className="link_first">
-                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                  <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
                 </div>
                 <div className="link_second">
-                  <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                  <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
                 </div>
               </button>
             </div>
 
             <div className="col-start-9 col-span-2 flex items-center justify-start">
               <button onClick={onClose} aria-label="Close menu" className="link">
-                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
-                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CLOSE</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>CLOSE</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>CLOSE</span></div>
               </button>
             </div>
 
@@ -426,8 +427,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
                 className="link"
                 aria-label="Open contact"
               >
-                <div className="link_first"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">LET'S TALK!</span></div>
-                <div className="link_second"><span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]">CONTACT</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>LET'S TALK!</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>CONTACT</span></div>
               </button>
             </div>
           </div>
@@ -463,10 +464,10 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
         {/* 3. Bottom Footer Bar — Exactly Pinned to Bottom with matching px-4 sm:px-6 lg:px-10 */}
         <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-4 py-4 sm:px-6 lg:px-10 border-t border-black/10 dark:border-white/10 z-30 pointer-events-auto bg-[var(--nav-menu-bg)]">
-          <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] opacity-60">WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
+          <span className={`${navbarStyles.text} opacity-60`}>WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
           <div className="flex items-center gap-3">
-            <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] opacity-60">MOROCCO</span>
-            <span className="font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300]">{moroccoTime}</span>
+            <span className={`${navbarStyles.text} opacity-60`}>MOROCCO</span>
+            <span className={navbarStyles.text}>{moroccoTime}</span>
           </div>
         </div>
       </div>
