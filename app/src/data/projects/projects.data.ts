@@ -103,7 +103,7 @@ export const projectsData: Project[] = [
       'Atlas is a cross-platform application developed with Flutter and Dart, designed to provide a consistent experience across Android smartphones and TV devices. The project focuses on responsive layouts, adaptive interfaces, and reusable Flutter components that scale across different screen sizes and interaction models.',
     conclusion:
       'Built a flexible Flutter application capable of adapting its interface across Android phones and TV platforms while maintaining a consistent and responsive user experience.',
-    thumbnail: '/images/atlas/atlas book.jpeg',
+    thumbnail: '/images/atlas/atlas book thumbanil.jpeg',
     heroImage: '/images/atlas/atlass.jpeg',
     coverImage: '/images/atlas/atlass.jpeg',
     images: [
@@ -173,7 +173,7 @@ export const projectsData: Project[] = [
       { role: 'Game Development', name: 'Outman El Bouha' },
     ],
   },
-  
+
   {
     slug: 'habivio',
     title: 'Habivio',
