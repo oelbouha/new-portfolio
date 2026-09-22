@@ -241,18 +241,14 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
 
       <nav ref={bottomRef} className={cn('nav-bottom hidden md:flex', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
-          <div className="grid grid-cols-12 items-center w-full">
-            <div className="col-span-12 md:col-span-7 flex items-center justify-start">
-              <span className={navbarStyles.text} style={{ opacity: 0.6 }}>
-                I turn ideas into production-ready products.
-              </span>
-            </div>
+          <span className={navbarStyles.text} style={{ opacity: 0.6 }}>
+            I turn ideas into production-ready products.
+          </span>
 
-            <div className="hidden md:flex md:col-span-5 md:col-start-8 items-center justify-end gap-6">
-              {CITY_CLOCKS.map((c) => (
-                <CityTime key={c.city} city={c.city} tz={c.tz} />
-              ))}
-            </div>
+          <div className={navbarStyles.rightGroup}>
+            {CITY_CLOCKS.map((c) => (
+              <CityTime key={c.city} city={c.city} tz={c.tz} />
+            ))}
           </div>
         </div>
       </nav>

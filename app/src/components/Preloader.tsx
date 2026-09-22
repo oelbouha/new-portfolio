@@ -14,21 +14,32 @@ export function Preloader({ onComplete }: PreloaderProps) {
   const preloaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (preloaderRef.current) {
-      gsap.set(preloaderRef.current, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)' });
-    }
+    const topEl = preloaderRef.current?.querySelector('.preloader-top');
+    const centerEl = preloaderRef.current?.querySelector('.preloader-center');
+    const bottomEl = preloaderRef.current?.querySelector('.preloader-bottom');
+
+    // Set initial states: elements start below and invisible (slide-up animation like hero)
+    if (topEl) gsap.set(topEl, { y: 40, opacity: 0 });
+    if (centerEl) gsap.set(centerEl, { y: 60, opacity: 0 });
+    if (bottomEl) gsap.set(bottomEl, { y: 40, opacity: 0 });
 
     const tl = gsap.timeline({
       onComplete: () => {
         if (!preloaderRef.current) { onComplete(); return; }
+        // Exit: slide the entire preloader up using translateY (same slide feel as page transitions)
         gsap.to(preloaderRef.current, {
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-          duration: 1.8,
+          yPercent: -100,
+          duration: 1.2,
           ease: 'power4.inOut',
           onComplete,
         });
       },
     });
+
+    // Slide-up entrance animations (same pattern as home page hero)
+    tl.to(topEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0);
+    tl.to(centerEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.1);
+    tl.to(bottomEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.2);
 
     // Animate the count 0 → 100
     const countObj = { val: 0 };
@@ -39,11 +50,11 @@ export function Preloader({ onComplete }: PreloaderProps) {
       onUpdate() {
         if (countRef.current) countRef.current.textContent = String(Math.round(countObj.val));
       },
-    }, 0);
+    }, 0.3);
 
     // Animate the bar
     if (barRef.current) {
-      tl.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'power2.inOut' }, 0);
+      tl.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1.8, ease: 'power2.inOut' }, 0.3);
     }
 
     // Small hold before exit slide

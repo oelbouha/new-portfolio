@@ -4,7 +4,8 @@ export const navbarStyles = {
   inner: 'flex items-center justify-between px-4 py-4 sm:px-6 lg:px-10',
   leftGroup: 'flex items-center gap-3',
   centerGroup: 'flex items-center gap-3 sm:gap-4',
-  text: "font-['Gt_Pressura_Mono',Georgia,sans-serif] text-[var(--_responsive---font-size--mono)] leading-[var(--_responsive---line-height--mono)] tracking-[0.121875rem] uppercase mb-0 font-[300] text-[var(--nav-fixed-text)]",
+  rightGroup: 'flex items-center gap-4 sm:gap-8',
+  text: 'font-[family-name:var(--font-mono)] text-[0.72rem] uppercase tracking-[0.08em] text-[var(--nav-fixed-text)]',
   link: 'link',
   clock: 'flex items-center gap-2',
 } as const;

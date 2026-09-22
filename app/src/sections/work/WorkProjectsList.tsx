@@ -64,22 +64,22 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
   return (
     <section className="relative w-full pt-28 sm:pt-36 lg:pt-40 pb-24 sm:pb-32 px-4 sm:px-6 lg:px-10">
       <div className="w-full">
-        {/* Top Header Section — Perfectly aligned with the column layout below */}
-        <div className="flex flex-col lg:flex-row items-start w-full gap-6 lg:gap-8 pb-14 sm:pb-20 lg:pb-24">
-          {/* Left: PROJECTS Title */}
-          <div className="w-full lg:w-[35%] shrink-0 flex items-start">
-            <h1 className="font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(4.5rem,11.5vw,11.5rem)] uppercase leading-[0.82] tracking-[-0.015em] text-[var(--text)] select-none">
+        {/* Top Header Section — Top aligned (items-start), subtitle aligned with PROJECTS text on TOP */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-start w-full gap-6 lg:gap-8 pb-12 sm:pb-16 lg:pb-20">
+          {/* Left (Cols 1-8): PROJECTS Title - flush with container left edge */}
+          <div className="col-span-1 lg:col-span-8 flex items-start">
+            <h1 className="font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(4.5rem,12vw,12.5rem)] uppercase leading-[0.82] tracking-[-0.01em] text-[var(--text)] select-none">
               PROJECTS
             </h1>
           </div>
 
-          {/* Right: Aligned exactly with where project titles start below */}
-          <div className="flex-1 flex items-start gap-3 sm:gap-4 pt-1 sm:pt-3 lg:pt-5 max-w-xl">
-            <span className="shrink-0 px-2.5 py-0.5 sm:py-1 rounded-[3px] bg-neutral-300 dark:bg-neutral-800 text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-800 dark:text-neutral-200 font-semibold select-none">
+          {/* Right (Col-start-9): Aligned directly at the TOP with PROJECTS text and under MENU item */}
+          <div className="col-span-1 lg:col-start-9 lg:col-span-4 flex items-start gap-3 sm:gap-4 pt-1 sm:pt-2 lg:pt-3">
+            <span className="shrink-0 px-2.5 py-1 rounded-[4px] bg-black/10 dark:bg-white/15 text-[11px] font-mono uppercase tracking-wider text-neutral-800 dark:text-neutral-200 font-semibold select-none">
               PORTFOLIO
             </span>
-            <p className="font-['PP_Neue_Montreal_Medium',sans-serif] text-xs sm:text-sm lg:text-[15px] text-neutral-600 dark:text-neutral-400 leading-snug font-normal">
-              I’ve already helped clients from various industries move their businesses forward.
+            <p className="font-['Space_Grotesk'] text-xs sm:text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-snug">
+              I've already helped clients from various industries move their businesses forward.
             </p>
           </div>
         </div>

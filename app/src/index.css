@@ -1039,7 +1039,7 @@ html.lenis, html.lenis body {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--background);
+  background: #ffffff;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -1109,6 +1109,11 @@ html.lenis, html.lenis body {
   text-transform: uppercase;
   color: var(--text);
   opacity: 0.5;
+}
+
+[data-theme="dark"] .preloader,
+html.is-dark .preloader {
+  background: #111111;
 }
 
 /* ============================================
