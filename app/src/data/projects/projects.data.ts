@@ -46,47 +46,6 @@ export const projectsData: Project[] = [
   },
 
   {
-    slug: 'pong-arena',
-    title: 'Pong Arena',
-    category: 'Full Stack Web App',
-    year: '2024',
-    tagline: 'Real-time multiplayer gaming built for the web.',
-    description:
-      'A full-stack multiplayer gaming platform built with Django and JavaScript, featuring real-time gameplay, WebSockets, and tournament management.',
-    overview:
-      'Pong Arena is a full-stack multiplayer web application built with Django and JavaScript. The platform combines a Django backend with a dynamic JavaScript frontend, using WebSockets to enable real-time multiplayer communication and gameplay. It also includes player management, matchmaking, and tournament functionality.',
-    conclusion:
-      'Built and delivered a complete real-time multiplayer platform, combining backend architecture, WebSocket communication, interactive game logic, and responsive frontend experiences.',
-    thumbnail: '/images/pong/pong thumbnail.jpeg',
-    heroImage: '/images/pong/pong thumbnail.jpeg',
-    coverImage: '/images/pong/Create_a_mockup_2k_202602141753.jpeg',
-    images: [
-      '/images/pong/pongarena1.jpeg',
-      '/images/pong/pongarena1.jpeg',
-      '/images/pong/Create_a_mockup_2k_202602141751.jpeg',
-    ],
-    services: [
-      'Full Stack Development',
-      'Django Backend',
-      'JavaScript Frontend',
-      'WebSocket Architecture',
-    ],
-    client: '42 Network / Open Source',
-    website: 'https://github.com/oelbouha/ft_transcendence',
-    tags: ['Django', 'JavaScript', 'WebSockets', 'Full Stack'],
-    link: 'https://github.com/oelbouha/ft_transcendence',
-    quote:
-      'A complete real-time multiplayer experience combining solid backend architecture with responsive gameplay.',
-    quoteAuthor: '42 Network',
-    quoteRole: 'Open Source Community',
-    credits: [
-      { role: 'Full Stack Development', name: 'Outman El Bouha' },
-      { role: 'Real-Time Architecture', name: 'Outman El Bouha' },
-      { role: 'Game Development', name: 'Outman El Bouha' },
-    ],
-  },
-
-  {
     slug: 'revo',
     title: 'Revo',
     category: 'React Web Application',
@@ -144,7 +103,7 @@ export const projectsData: Project[] = [
       'Atlas is a cross-platform application developed with Flutter and Dart, designed to provide a consistent experience across Android smartphones and TV devices. The project focuses on responsive layouts, adaptive interfaces, and reusable Flutter components that scale across different screen sizes and interaction models.',
     conclusion:
       'Built a flexible Flutter application capable of adapting its interface across Android phones and TV platforms while maintaining a consistent and responsive user experience.',
-    thumbnail: '/images/atlas/atlas book.png',
+    thumbnail: '/images/atlas/atlas book.jpeg',
     heroImage: '/images/atlas/atlass.jpeg',
     coverImage: '/images/atlas/atlass.jpeg',
     images: [
@@ -174,6 +133,47 @@ export const projectsData: Project[] = [
     ],
   },
 
+   {
+    slug: 'pong-arena',
+    title: 'Pong Arena',
+    category: 'Full Stack Web App',
+    year: '2024',
+    tagline: 'Real-time multiplayer gaming built for the web.',
+    description:
+      'A full-stack multiplayer gaming platform built with Django and JavaScript, featuring real-time gameplay, WebSockets, and tournament management.',
+    overview:
+      'Pong Arena is a full-stack multiplayer web application built with Django and JavaScript. The platform combines a Django backend with a dynamic JavaScript frontend, using WebSockets to enable real-time multiplayer communication and gameplay. It also includes player management, matchmaking, and tournament functionality.',
+    conclusion:
+      'Built and delivered a complete real-time multiplayer platform, combining backend architecture, WebSocket communication, interactive game logic, and responsive frontend experiences.',
+    thumbnail: '/images/pong/pong thumbnail.jpeg',
+    heroImage: '/images/pong/pong thumbnail.jpeg',
+    coverImage: '/images/pong/Create_a_mockup_2k_202602141753.jpeg',
+    images: [
+      '/images/pong/pongarena1.jpeg',
+      '/images/pong/pongarena1.jpeg',
+      '/images/pong/Create_a_mockup_2k_202602141751.jpeg',
+    ],
+    services: [
+      'Full Stack Development',
+      'Django Backend',
+      'JavaScript Frontend',
+      'WebSocket Architecture',
+    ],
+    client: '42 Network / Open Source',
+    website: 'https://github.com/oelbouha/ft_transcendence',
+    tags: ['Django', 'JavaScript', 'WebSockets', 'Full Stack'],
+    link: 'https://github.com/oelbouha/ft_transcendence',
+    quote:
+      'A complete real-time multiplayer experience combining solid backend architecture with responsive gameplay.',
+    quoteAuthor: '42 Network',
+    quoteRole: 'Open Source Community',
+    credits: [
+      { role: 'Full Stack Development', name: 'Outman El Bouha' },
+      { role: 'Real-Time Architecture', name: 'Outman El Bouha' },
+      { role: 'Game Development', name: 'Outman El Bouha' },
+    ],
+  },
+  
   {
     slug: 'habivio',
     title: 'Habivio',

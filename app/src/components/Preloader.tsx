@@ -37,9 +37,9 @@ export function Preloader({ onComplete }: PreloaderProps) {
     });
 
     // Slide-up entrance animations (same pattern as home page hero)
-    tl.to(topEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0);
-    tl.to(centerEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.1);
-    tl.to(bottomEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.2);
+    if (topEl) tl.to(topEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0);
+    if (centerEl) tl.to(centerEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.1);
+    if (bottomEl) tl.to(bottomEl, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.2);
 
     // Animate the count 0 → 100
     const countObj = { val: 0 };
