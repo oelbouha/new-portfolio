@@ -215,6 +215,78 @@ export const projectsData: Project[] = [
     ],
   },
 
+   {
+  slug: 'saladly',
+  title: 'Saladly',
+  category: 'WordPress & Automation',
+  year: '2026',
+
+  tagline:
+    'A custom WordPress recipe platform built for SEO, content publishing, and automation.',
+
+  description:
+    'A freelance WordPress project involving custom website development, SEO infrastructure, search engine integrations, social media automation, and automated indexing workflows.',
+
+  overview:
+    'Saladly is a custom WordPress website developed as a freelance project for a recipe and food content platform. I built and customized the WordPress website, developed the content structure for recipes and blog posts, organized the recipe categories, and implemented the website architecture around SEO and content discoverability. The project also included Google Search Console and Bing Webmaster Tools integration, automated social media publishing for new content, and automated workflows for requesting search engine indexing when new recipes and blog posts are published.',
+
+  conclusion:
+    'Delivered a complete WordPress content platform combining custom development, SEO infrastructure, search engine integrations, social media automation, and automated indexing workflows.',
+
+
+  thumbnail: '/images/salad/daily salad recipes.png',
+  heroImage: '/images/salad/salad recipes.png',
+  coverImage: '/images/salad/salad recipes.png',
+
+  images: [
+    '/images/salad/salad recipes.png',
+    '/images/salad/salad recipes 1.png',
+   '/images/salad/salad recipes 2.png',
+  ],
+
+  services: [
+    'WordPress Development',
+    'Custom Theme Development',
+    'SEO Implementation',
+    'Google Search Console Integration',
+    'Bing Webmaster Tools Integration',
+    'Social Media Automation',
+    'Search Indexing Automation',
+  ],
+
+  client: 'Daily Salad Recipes',
+
+  website: 'https://dailysaladrecipes.com/',
+
+  tags: [
+    'WordPress',
+    'PHP',
+    'SEO',
+    'Google Search Console',
+    'Bing Webmaster Tools',
+    'Make.com',
+    'Automation',
+    'Social Media',
+  ],
+
+  link: 'https://dailysaladrecipes.com/',
+
+  quote:
+    'A custom WordPress platform combining structured content, SEO infrastructure, automated social publishing, and search indexing workflows.',
+
+  quoteAuthor: 'Daily Salad Recipes',
+
+  quoteRole: 'Freelance Web Development',
+
+  credits: [
+    { role: 'WordPress Development', name: 'Outman El Bouhali' },
+    { role: 'Custom Theme Development', name: 'Outman El Bouhali' },
+    { role: 'SEO & Search Integration', name: 'Outman El Bouhali' },
+    { role: 'Automation & Integrations', name: 'Outman El Bouhali' },
+  ],
+},
+
+
   {
     slug: 'docker-vps',
     title: 'Docker VPS',
@@ -312,8 +384,8 @@ export const projectsData: Project[] = [
     coverImage: '/images/call-to-action/n8n Automation Workflow .png',
     images: [
       '/images/call-to-action/n8n Automation Workflow .png',
-      '/images/portfolio.jpeg',
-      '/images/portfolio1.jpeg',
+      '/images/n8n/automation.png',
+      '/images/n8n/automation .png',
     ],
     services: [
       'n8n Architecture',
@@ -333,6 +405,8 @@ export const projectsData: Project[] = [
       { role: 'Automation Architect', name: 'Outman El Bouhali' },
     ],
   },
+
+ 
 ];
 
 
