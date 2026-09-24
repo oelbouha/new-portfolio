@@ -15,14 +15,13 @@ export const projectsData: Project[] = [
     conclusion:
       'Delivered a production-ready freelance platform with high-speed rendering, seamless API integration, and custom UI components.',
     thumbnail: '/images/skatys/skatys lab.png',
-    heroImage: '/images/skatys/skatys.jpeg',
-    coverImage: '/images/skatys/skatys.jpeg',
+    heroImage: '/images/skatys/Skatys Website .png',
+    coverImage: '/images/skatys/Skatys Website .png',
     images: [
-      '/images/skatys/Screen Shot 2026-07-02 at 6.19.09 PM.png',
-      '/images/skatys/mobile 1.jpeg',
-      '/images/skatys/mobile.jpeg',
-      '/images/skatys/skatys 2.jpeg',
-      '/images/skatys/mobile 1.jpeg',
+      '/images/skatys/skatys website .png',
+      '/images/skatys/skatys website.png',
+      '/images/skatys/skatys website mobile 3.png',
+      '/images/skatys/skatys website mobile 1.png',
     ],
     services: [
       'Web Architecture',
