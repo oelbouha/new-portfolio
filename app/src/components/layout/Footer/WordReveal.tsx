@@ -1,124 +1,135 @@
 import { useEffect, useRef, useCallback } from 'react';
 
 /* ── Tunables ─────────────────────────────── */
-const WORD   = 'OUTMAN';
-const ASPECT = 0.34;   // word height = ASPECT × viewport width
-const EASE   = 0.10;   // lerp factor per rAF frame
-const START  = 0.35;   // scroll progress where growth begins
+const WORD     = 'OUTMAN';
+const ASPECT   = 0.34;   // final height = ASPECT * viewportWidth
+const EASE     = 0.10;   // lerp factor per rAF frame
+const DELAY_VH = 0.10;   // delay = DELAY_VH * viewportHeight
 
-/**
- * Scroll-driven "giant word reveal" that grows from the bottom edge.
- * Uses requestAnimationFrame + lerp for buttery smooth motion.
- * Reads scroll position via getBoundingClientRect (Lenis-compatible).
- */
+function getScrollY(): number {
+  const lenis = (window as any).__lenis;
+  if (lenis && typeof lenis.scroll === 'number') {
+    return lenis.scroll;
+  }
+  return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+}
+
 export function WordReveal() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const wordRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLElement | null>(null);
-  const rafRef = useRef<number>(0);
+  const fullHRef = useRef(1);
+  const kRef = useRef(1);
+  const growStartRef = useRef(0);
+  const delayRef = useRef(0);
   const shownRef = useRef(0);
+  const rafRef = useRef<number>(0);
 
-  /* ── Fit word to viewport width & compute scaleY ratio ── */
+  /* ── Fit word to full viewport width & compute scaleY ratio ── */
   const fit = useCallback(() => {
     const wrap = wrapRef.current;
     const word = wordRef.current;
     if (!wrap || !word) return;
 
-    // Reset for measurement
+    // Reset styles for measurement
     word.style.fontSize = '100px';
     word.style.transform = 'none';
     word.textContent = WORD;
 
-    const r = word.getBoundingClientRect();
-    const fs = 100 * window.innerWidth / r.width;
+    // Fit to full viewport width
+    const fs = (100 * window.innerWidth) / (word.getBoundingClientRect().width || 100);
     word.style.fontSize = `${fs}px`;
 
-    // Measure cap-height via canvas
+    // Cap height above baseline via canvas
     const cs = getComputedStyle(word);
-    const ctx = document.createElement('canvas').getContext('2d')!;
-    ctx.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
-    const ink = ctx.measureText(WORD).actualBoundingBoxAscent;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    let ink = 0;
+    if (ctx) {
+      ctx.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
+      ink = ctx.measureText(WORD).actualBoundingBoxAscent;
+    }
+    if (!ink) ink = fs * 0.76;
 
-    // Baseline marker
-    const marker = document.createElement('span');
-    marker.style.cssText = 'display:inline-block;width:0;height:0';
+    // Zero-size marker = baseline
+    const m = document.createElement('span');
+    m.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline;';
     word.textContent = '';
-    word.append(WORD, marker);
+    word.append(WORD, m);
 
-    const base = marker.getBoundingClientRect().bottom - word.getBoundingClientRect().top;
-
+    const base = m.getBoundingClientRect().bottom - word.getBoundingClientRect().top;
     const fullH = ASPECT * window.innerWidth;
+    const k = fullH / (ink || fullH);
+
     wrap.style.height = `${fullH}px`;
     word.style.top = `${fullH - base}px`;
     word.style.transformOrigin = `50% ${base}px`;
-    word.dataset.k = String(fullH / ink);
+
+    const delay = DELAY_VH * window.innerHeight;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const growStart = maxScroll - fullH - delay;
+
+    fullHRef.current = fullH;
+    kRef.current = k;
+    delayRef.current = delay;
+    growStartRef.current = growStart;
   }, []);
 
-  /* ── Scroll progress: 0 → 1 as footer enters ── */
-  const progress = useCallback(() => {
-    const footer = footerRef.current;
-    if (!footer) return 0;
-    const r = footer.getBoundingClientRect();
-    return Math.min(1, Math.max(0, (window.innerHeight - r.top) / r.height));
-  }, []);
-
-  /* ── rAF render loop with lerp smoothing ── */
-  const render = useCallback(() => {
+  /* ── rAF loop with 1:1 progress formula & lerp smoothing ── */
+  const loop = useCallback(() => {
     const word = wordRef.current;
     if (!word) return;
 
-    // Check prefers-reduced-motion
+    // Reduced motion check
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) {
-      const k = parseFloat(word.dataset.k || '1');
-      word.style.transform = `scaleY(${k.toFixed(4)})`;
-      return; // no loop needed
+      word.style.transform = `scaleY(${kRef.current.toFixed(4)})`;
+      return;
     }
 
-    const target = progress();
+    const scrollY = getScrollY();
+    const fullH = fullHRef.current;
+    const delay = delayRef.current;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const growStart = maxScroll - fullH - delay;
+
+    // Target reaches 1 exactly at maxScroll
+    const target = Math.min(1, Math.max(0, (scrollY - growStart - delay) / fullH));
+
+    // If Lenis smooth-scroll is active, it already interpolates the scroll frames smoothly.
+    // Use EASE = 1 when Lenis is active to avoid double smoothing; otherwise use EASE = 0.10.
+    const easeFactor = (window as any).__lenis ? 1 : EASE;
     let shown = shownRef.current;
-    shown += (target - shown) * EASE;
+    shown += (target - shown) * easeFactor;
     if (Math.abs(target - shown) < 0.0005) shown = target;
     shownRef.current = shown;
 
-    const s = Math.min(1, Math.max(0, (shown - START) / (1 - START)));
-    const k = parseFloat(word.dataset.k || '1');
-    word.style.transform = `scaleY(${(k * s).toFixed(4)})`;
+    word.style.transform = `scaleY(${(kRef.current * shown).toFixed(4)})`;
 
-    rafRef.current = requestAnimationFrame(render);
-  }, [progress]);
+    rafRef.current = requestAnimationFrame(loop);
+  }, []);
 
   useEffect(() => {
-    const word = wordRef.current;
-    if (!word) return;
-
-    // Walk up to find the footer element (parent of .footer-reveal__word-wrap)
-    footerRef.current = word.closest('.footer-reveal');
-
     const onResize = () => fit();
+    window.addEventListener('resize', onResize);
 
-    // Wait for fonts then start
+    const resizeObserver = new ResizeObserver(() => fit());
+    resizeObserver.observe(document.body);
+
     document.fonts.ready.then(() => {
       fit();
-      rafRef.current = requestAnimationFrame(render);
+      rafRef.current = requestAnimationFrame(loop);
     });
-
-    window.addEventListener('resize', onResize);
 
     return () => {
       window.removeEventListener('resize', onResize);
+      resizeObserver.disconnect();
       cancelAnimationFrame(rafRef.current);
     };
-  }, [fit, render]);
+  }, [fit, loop]);
 
   return (
-    <div className="footer-reveal__word-wrap" ref={wrapRef} id="word-wrap">
-      <div
-        className="footer-reveal__word"
-        ref={wordRef}
-        id="reveal-word"
-        aria-hidden="true"
-      >
+    <div className="word-wrap" ref={wrapRef} id="wrap" aria-hidden="true">
+      <div className="word" ref={wordRef} id="word">
         {WORD}
       </div>
     </div>

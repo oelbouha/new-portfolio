@@ -1,6 +1,5 @@
-import { useRef } from 'react';
 import type { FooterProps } from './Footer.types';
-import { WordReveal } from './WordReveal';
+// import { WordReveal } from './WordReveal';
 
 const TECH_STACKS = [
   'React.js',
@@ -22,8 +21,6 @@ const TECH_STACKS = [
 ];
 
 export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
-  const footerRef = useRef<HTMLElement>(null);
-
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (onNavigate) {
       e.preventDefault();
@@ -32,9 +29,9 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
   };
 
   return (
-    <footer ref={footerRef} className="footer-reveal w-full">
-      {/* ── Existing footer content (scrolls normally above the word) ── */}
-      <div className="footer-reveal__meta pt-4 pb-6 sm:pb-10">
+    <div className="w-full">
+      {/* ── Section: Tech Marquee & Call To Action Banner ── */}
+      <section className="w-full pt-4 pb-4">
         {/* Tech Stacks & Skills Scrolling Marquee — Aligned with content width, edge-faded, borderless */}
         <div className="px-4 sm:px-6 lg:px-10 w-full mt-2 sm:mt-4 mb-10 sm:mb-16 lg:mb-20 select-none">
           <div 
@@ -57,7 +54,7 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
           </div>
         </div>
 
-        {/* Ready for your new website CTA Banner — Full viewport height with subtle margins */}
+        {/* Ready for your new website CTA Banner */}
         <div className="px-4 sm:px-6 lg:px-10 my-2 sm:my-3 lg:my-4 w-full">
           <div
             data-cursor-invert="true"
@@ -92,9 +89,15 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
             </button>
           </div>
         </div>
+      </section>
 
-        {/* Footer Info Section — 3 Columns with independent top borders matching Grigoletti */}
-        <div className="px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 pb-4 sm:pb-6 w-full">
+      {/* ── The Footer: Reused existing footer, final section of document ── */}
+      <footer
+        id="footer"
+        className="footer w-full relative overflow-hidden"
+      >
+        {/* Existing footer links and content above the word */}
+        <div className="meta px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 pb-6 w-full">
           {/* 3 Columns Grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 w-full">
             {/* Column 1 (Left - Cols 1-6): Icon & Badge */}
@@ -176,7 +179,7 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
           </div>
 
           {/* Bottom Row — Border Top added & columns aligned 1:1 with columns above */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center mt-8 sm:mt-10 pt-4 sm:pt-5 border-t border-black/15 dark:border-white/15 text-[14px] leading-[1.2] font-['PP_Neue_Montreal_Medium',sans-serif] text-[#555] dark:text-[#aaa]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center mt-6 sm:mt-8 pt-3 sm:pt-4 border-t border-black/15 dark:border-white/15 text-[14px] leading-[1.2] font-['PP_Neue_Montreal_Medium',sans-serif] text-[#555] dark:text-[#aaa]">
             <div className="col-span-1 md:col-span-6 text-left">
               © 2026 | Outman Elbouhali
             </div>
@@ -188,10 +191,10 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Giant word reveal (grows from bottom on scroll) ── */}
-      <WordReveal />
-    </footer>
+        {/* ── Giant Word Reveal (grows from bottom edge) ── */}
+        {/* <WordReveal /> */}
+      </footer>
+    </div>
   );
 }

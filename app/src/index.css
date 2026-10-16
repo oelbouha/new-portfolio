@@ -1,7 +1,15 @@
 /* ============================================
    FONTS - PP Neue Corp + PP Neue Corp Tight Ultrabold + Space Grotesk + IBM Plex Mono
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Anton&display=swap');
+
+@font-face {
+  font-family: 'Anton';
+  src: url('/font/Anton.ttf') format('truetype');
+  font-weight: 400 700 800 900;
+  font-style: normal;
+  font-display: block;
+}
 
 @font-face {
   font-family: 'PP Neue Corp Tight Ultrabold';
@@ -865,39 +873,57 @@ html.lenis, html.lenis body {
 }
 
 /* ============================================
-   GIANT WORD REVEAL
+   GIANT WORD REVEAL (MEASURED 1:1 SCROLL EFFECT)
    ============================================ */
-.footer-reveal {
+.footer {
   position: relative;
-  height: 100svh;
-  min-height: 560px;
   overflow: hidden;
   background: var(--background);
 }
 
-.footer-reveal__meta {
+.footer .meta {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
-.footer-reveal__word-wrap {
+.word-wrap {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 2rem;
   height: 0;
   overflow: hidden;
   pointer-events: none;
+  z-index: 2;
 }
 
-.footer-reveal__word {
+@media (min-width: 640px) {
+  .word-wrap {
+    bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .word-wrap {
+    bottom: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .word-wrap {
+    bottom: 4rem;
+  }
+}
+
+.word {
   position: absolute;
   left: 0;
   white-space: nowrap;
   line-height: 1;
   text-transform: uppercase;
-  font-family: 'PP Neue Corp Compressed Ultrabold', 'PP Neue Corp Tight Ultrabold', Impact, sans-serif;
-  font-weight: 800;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 700;
+  letter-spacing: normal;
   color: var(--text);
   will-change: transform;
   user-select: none;
@@ -905,7 +931,7 @@ html.lenis, html.lenis body {
 
 /* Reduced motion: show at full size, no animation */
 @media (prefers-reduced-motion: reduce) {
-  .footer-reveal__word {
+  .word {
     transform: scaleY(1) !important;
   }
 }
