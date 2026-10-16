@@ -27,6 +27,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'PP Neue Corp Compressed Ultrabold';
+  src: url('/font/PPNeueCorp-CompressedUltrabold-BF6732c5caef1cd.otf') format('opentype');
+  font-weight: 700 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -854,6 +862,52 @@ html.lenis, html.lenis body {
   display: block;
   color: var(--text);
   transition: none;        /* remove — GSAP owns transform, CSS must not touch it */
+}
+
+/* ============================================
+   GIANT WORD REVEAL
+   ============================================ */
+.footer-reveal {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.footer-reveal__meta {
+  position: relative;
+  z-index: 2;
+}
+
+.footer-reveal__word-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.footer-reveal__word {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: 'PP Neue Corp Compressed Ultrabold', 'PP Neue Corp Tight Ultrabold', Impact, sans-serif;
+  font-weight: 800;
+  color: var(--text);
+  will-change: transform;
+  user-select: none;
+}
+
+/* Reduced motion: show at full size, no animation */
+@media (prefers-reduced-motion: reduce) {
+  .footer-reveal__word {
+    transform: scaleY(1) !important;
+  }
 }
 
 /* ============================================
