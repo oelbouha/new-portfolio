@@ -95,8 +95,8 @@ export const layoutConfig: LayoutConfig = {
     ],
     banner: {
       subtitle: "Let's talk!",
-      headingLine1: 'READY FOR YOUR',
-      headingLine2: 'NEXT PRODUCT?',
+      headingLine1: 'Ready for your',
+      headingLine2: 'next product?',
       buttonText: 'BOOK A CALL',
       avatar: {
         src: '/profile.png',

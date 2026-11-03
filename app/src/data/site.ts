@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
   location: 'Tétouan, Morocco · Worldwide Remote',
   language: 'en',
   twitterHandle: '@oelbouha',
-  defaultOgImage: 'https://www.outmanelbouhali.online/images/icon.png',
+  defaultOgImage: 'https://www.outmanelbouhali.online/og.png',
   socialLinks: {
     github: 'https://github.com/oelbouha',
     linkedin: 'https://www.linkedin.com/in/outman-elbouhali/',

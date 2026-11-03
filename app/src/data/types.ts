@@ -271,6 +271,7 @@ export interface ServicesOverviewPage {
   };
   intro: {
     tag: string;
+    heading?: string;
     statement: string;
   };
   faq: {
@@ -293,6 +294,7 @@ export interface HomePage {
   };
   intro: {
     tag: string;
+    heading?: string;
     statement: string;
   };
   video: {

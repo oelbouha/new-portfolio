@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { openMenu, closeMenu } from '@/lib/animations';
 import { useTheme } from '@/context/ThemeContext';
-import { layoutConfig, servicesRegistry } from '@/data';
+import { layoutConfig } from '@/data';
 import { navbarStyles } from './Navbar/Navbar.styles';
 
 interface FullscreenMenuProps {
@@ -262,15 +262,9 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
   const { navbar, fullscreenMenu } = layoutConfig;
 
-  // Primary Pages in Col 1 — from data
+  // Primary Pages in Col 1 & Services in Col 2 — all centrally managed in layoutConfig.fullscreenMenu
   const col1Items = fullscreenMenu.col1;
-
-  // Services dynamically generated from servicesRegistry in Col 2
-  const col2Items = servicesRegistry.map((s) => ({
-    label: s.navLabel.toUpperCase(),
-    href: `/services/${s.slug}`,
-    img: s.hero.image.src,
-  }));
+  const col2Items = fullscreenMenu.col2;
 
   // Called by SVGMenuItem when user clicks a nav link
   const handleMenuItemNavigate = (href: string) => {
@@ -300,9 +294,14 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
       wasOpen.current = false;
       setIsInteractive(false);
 
-      // If navigating, skip closeMenu's page-restore animation —
-      // the page transition overlay is opaque and handles everything.
-      if (isNavigatingRef.current) {
+      // If navigating / page-transition active, skip closeMenu's animation —
+      // the page transition overlay is sweeping down and handles the transition.
+      const isTransitionActive =
+        isNavigatingRef.current ||
+        (typeof document !== 'undefined' &&
+          document.querySelector<HTMLElement>('.page-transition')?.style.display === 'block');
+
+      if (isTransitionActive) {
         isNavigatingRef.current = false;
         isAnimating.current = false;
         menu.classList.remove('is-open');
@@ -352,7 +351,6 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
               href="/"
               onClick={(e) => {
                 e.preventDefault();
-                onClose();
                 onNavigate?.('/');
               }}
               className="link"
@@ -386,7 +384,6 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
                 href="/"
                 onClick={(e) => {
                   e.preventDefault();
-                  onClose();
                   onNavigate?.('/');
                 }}
                 className="link"

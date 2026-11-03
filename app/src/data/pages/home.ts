@@ -9,9 +9,9 @@ import { keywords } from '../keywords';
 
 export const home: HomePage = {
   seo: {
-    title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
+    title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
     description:
-      'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+      'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
     path: '/',
     ogImage: siteConfig.defaultOgImage,
     primaryKeyword: keywords.home.primary,
@@ -19,25 +19,26 @@ export const home: HomePage = {
     schemaType: 'Person',
   },
   hero: {
-    words: ['I BUILD', 'DIGITAL', 'PRODUCTS'],
+    words: ['I build', 'digital', 'products'],
   },
   intro: {
-    tag: '[ FULL-STACK DEVELOPER ]',
+    tag: '[ Full-Stack Developer ]',
+    heading: 'Web & Mobile App Development',
     statement:
-      'FULL STACK WEB AND MOBILE APP DEVELOPMENT — FROM FRONTEND TO BACKEND, MOBILE TO AUTOMATION. I TURN IDEAS INTO PRODUCTS THAT ACTUALLY WORK.',
+      'Full stack web and mobile app development — from frontend to backend, mobile to automation. I turn ideas into products that actually work.',
   },
   video: {
     src: 'https://studionamma.vercel.app/videos/cut/video-matera2.webm',
     type: 'video/webm',
   },
   playground: {
-    label: 'SELECTED PROJECTS',
-    title: 'PLAYGROUND',
-    badge: 'PORTFOLIO',
+    label: 'Selected Projects',
+    title: 'Playground',
+    badge: 'Portfolio',
     href: '/work',
   },
   servicesTeaser: {
-    title: 'SERVICES',
+    title: 'Services',
     items: [
       {
         slug: 'web-application-development',
@@ -105,8 +106,8 @@ export const home: HomePage = {
   },
   cta: {
     desc: "Have an idea, a product to build, or a workflow to automate?\nLet's make it real.",
-    buttonText: 'say hello',
-    line1: "LET'S BUILD",
-    line2: 'TOGETHER',
+    buttonText: 'Say hello',
+    line1: "Let's build",
+    line2: 'Together',
   },
 };

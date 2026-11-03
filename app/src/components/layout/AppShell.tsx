@@ -28,6 +28,11 @@ export function AppShell({ children }: AppShellProps) {
   const pageRef = useRef<HTMLDivElement>(null);
   const isTransitioningRef = useRef(false);
   const safetyTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const menuOpenRef = useRef(false);
+
+  useEffect(() => {
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
 
   // Listen for custom open-contact events
   useEffect(() => {
@@ -56,6 +61,11 @@ export function AppShell({ children }: AppShellProps) {
 
     if (transition) transition.style.display = 'none';
     if (overlay && page) gsap.set([overlay, page], { clearProps: 'all' });
+    const menu = document.querySelector<HTMLElement>('.nav-menu');
+    const menuContent = document.querySelector<HTMLElement>('.nav-menu_component');
+    if (menu) menu.classList.remove('is-open');
+    if (menu && menuContent) gsap.set([menu, menuContent], { clearProps: 'all' });
+    document.body.style.overflow = '';
     isTransitioningRef.current = false;
     ScrollTrigger.refresh();
   }, []);
@@ -86,9 +96,10 @@ export function AppShell({ children }: AppShellProps) {
 
   const handleNavigate = useCallback(
     (href: string) => {
-      setMenuOpen(false);
+      const wasInMenu = menuOpenRef.current;
 
       if (href.startsWith('#')) {
+        if (wasInMenu) setMenuOpen(false);
         const id = href.slice(1);
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -96,6 +107,7 @@ export function AppShell({ children }: AppShellProps) {
       }
 
       if (href.startsWith('/#')) {
+        if (wasInMenu) setMenuOpen(false);
         const id = href.slice(2);
         if (pathname !== '/') {
           handleNavigate('/');
@@ -114,6 +126,7 @@ export function AppShell({ children }: AppShellProps) {
       const page = pageRef.current;
 
       if (!transition || !overlay || !page) {
+        if (wasInMenu) setMenuOpen(false);
         router.push(href);
         return;
       }
@@ -149,12 +162,24 @@ export function AppShell({ children }: AppShellProps) {
         defaults: { ease: 'power4.inOut' },
       });
 
-      // Phase 1: Match exact menu open timing and transform (rotation 10, x 300, y 450, scale 1.5)
-      tl.to(
-        page,
-        { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5, duration: 1.8 },
-        0
-      );
+      // Phase 1: Animate the active view and sweep overlay down (single unified transition)
+      if (wasInMenu) {
+        const menuContent = document.querySelector<HTMLElement>('.nav-menu_component');
+        if (menuContent) {
+          tl.to(
+            menuContent,
+            { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5, duration: 1.8 },
+            0
+          );
+        }
+      } else {
+        tl.to(
+          page,
+          { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5, duration: 1.8 },
+          0
+        );
+      }
+
       tl.to(
         overlay,
         { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)', duration: 1.8 },
@@ -167,8 +192,17 @@ export function AppShell({ children }: AppShellProps) {
         0.4
       );
 
-      // Midpoint: screen is covered by overlay. Trigger route change.
+      // Midpoint: screen is covered by overlay. Close menu cleanly & trigger route change.
       tl.call(() => {
+        if (wasInMenu) {
+          const menu = document.querySelector<HTMLElement>('.nav-menu');
+          const menuContent = document.querySelector<HTMLElement>('.nav-menu_component');
+          if (menu) menu.classList.remove('is-open');
+          if (menu && menuContent) gsap.set([menu, menuContent], { clearProps: 'all' });
+          document.body.style.overflow = '';
+          setMenuOpen(false);
+        }
+
         if (normalizedCurrent === normalizedTarget) {
           window.scrollTo(0, 0);
           gsap.to(overlay, {

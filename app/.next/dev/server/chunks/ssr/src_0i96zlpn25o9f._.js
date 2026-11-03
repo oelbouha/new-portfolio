@@ -16,10 +16,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$
 const metadata = {
     metadataBase: new URL('https://www.outmanelbouhali.online'),
     title: {
-        default: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
+        default: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
         template: '%s'
     },
-    description: 'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+    description: 'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
     authors: [
         {
             name: 'Outman Elbouhali',
@@ -27,29 +27,33 @@ const metadata = {
         }
     ],
     creator: 'Outman Elbouhali',
+    robots: {
+        index: true,
+        follow: true
+    },
     openGraph: {
         type: 'website',
         locale: 'en_US',
         url: 'https://www.outmanelbouhali.online',
         siteName: 'Outman Elbouhali',
-        title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
-        description: 'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+        title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
+        description: 'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
         images: [
             {
-                url: 'https://www.outmanelbouhali.online/opengraph-image',
+                url: 'https://www.outmanelbouhali.online/og.png',
                 width: 1200,
                 height: 630,
-                alt: 'Outman Elbouhali - Full Stack Web & Mobile App Developer'
+                alt: 'Outman Elbouhali | Full Stack Web & Mobile Developer'
             }
         ]
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
-        description: 'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+        title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
+        description: 'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
         creator: '@oelbouha',
         images: [
-            'https://www.outmanelbouhali.online/opengraph-image'
+            'https://www.outmanelbouhali.online/og.png'
         ]
     },
     icons: {
@@ -66,7 +70,7 @@ function RootLayout({ children }) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("head", {}, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 56,
+                lineNumber: 60,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
@@ -74,18 +78,18 @@ function RootLayout({ children }) {
                     children: children
                 }, void 0, false, {
                     fileName: "[project]/src/app/layout.tsx",
-                    lineNumber: 58,
+                    lineNumber: 62,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 57,
+                lineNumber: 61,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/layout.tsx",
-        lineNumber: 55,
+        lineNumber: 59,
         columnNumber: 5
     }, this);
 }

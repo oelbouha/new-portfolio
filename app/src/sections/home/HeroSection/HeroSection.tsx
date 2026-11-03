@@ -178,10 +178,11 @@ export function HeroSection({ preloaderDone = true }: HeroSectionProps = {}) {
 
       <div className={heroSectionStyles.inner}>
         <h1 className={heroSectionStyles.title}>
-          <span className="sr-only">Full Stack Web and Mobile App Development — Outman Elbouhali</span>
+          <span className="sr-only">Full Stack Web & Mobile Developer</span>
           {home.hero.words.map((word, i) => (
             <span
               key={word}
+              aria-hidden="true"
               ref={(el) => { wordsRef.current[i] = el; }}
               className={heroSectionStyles.hoverWord}
               onMouseEnter={handleMouseEnter}

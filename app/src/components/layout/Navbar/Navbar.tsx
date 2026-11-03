@@ -159,7 +159,7 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
 
   return (
     <header className={navbarStyles.wrapper}>
-      <nav ref={topRef} className={cn('nav-top', navbarStyles.bar)}>
+      <nav ref={topRef} aria-label="Main navigation" className={cn('nav-top', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
           {/* Mobile Layout (< md) */}
           <div className="flex md:hidden items-center justify-between w-full">
@@ -296,7 +296,7 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
       </nav>
 
       {/* Bottom Nav Bar */}
-      <nav ref={bottomRef} className={cn('nav-bottom hidden md:flex', navbarStyles.bar)}>
+      <nav ref={bottomRef} aria-label="Status navigation" className={cn('nav-bottom hidden md:flex', navbarStyles.bar)}>
         <div className={navbarStyles.inner}>
           <span className={navbarStyles.text} style={{ opacity: 0.6 }}>
             {navbar.tickerText}

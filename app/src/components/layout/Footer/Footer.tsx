@@ -93,14 +93,19 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
               data-cursor-hover={footer.banner.buttonText}
               data-cursor-icon="↗"
               aria-label={footer.banner.buttonText}
-              className="mt-8 sm:mt-12 inline-flex items-center gap-2.5 sm:gap-3 px-3.5 py-2 sm:px-4 sm:py-2 rounded-[4px] bg-[#ebe9e4] hover:bg-white text-black transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] group cursor-pointer"
+              className="mt-8 sm:mt-12 relative overflow-hidden inline-flex items-center gap-2.5 sm:gap-3 px-3.5 py-2 sm:px-4 sm:py-2 rounded-[4px] bg-[#ebe9e4] text-black transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] group cursor-pointer"
             >
+              {/* Blue background fill scaling from left to right on hover */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-blue-600 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out pointer-events-none"
+              />
               <img
                 src={footer.banner.avatar.src}
                 alt={footer.banner.avatar.alt}
-                className="w-5 h-5 sm:w-6 sm:h-6 rounded-[3px] object-cover shrink-0"
+                className="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-[3px] object-cover shrink-0"
               />
-              <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] font-medium tracking-normal text-black">
+              <span className="relative z-10 font-['PP_Neue_Montreal_Medium',sans-serif] text-[13px] sm:text-[14px] font-medium tracking-normal text-black transition-colors duration-300 group-hover:text-white">
                 {footer.banner.buttonText}
               </span>
             </button>
@@ -126,58 +131,61 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
               </div>
             </div>
 
-            {/* Column 2 (Middle - Cols 7-9): Dynamic Pages & Services */}
-            <div className="col-span-1 md:col-span-3 border-t border-black/15 dark:border-white/15 pt-5 sm:pt-6 flex flex-col items-start gap-2">
-              <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mb-1">
-                {footerColumns[0].title}
-              </span>
-              {footerColumns[0].links.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
+            {/* Column 2 & 3: Navigation & Links */}
+            <nav aria-label="Footer navigation" className="contents">
+              {/* Column 2 (Middle - Cols 7-9): Dynamic Pages & Services */}
+              <div className="col-span-1 md:col-span-3 border-t border-black/15 dark:border-white/15 pt-5 sm:pt-6 flex flex-col items-start gap-2">
+                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mb-1">
+                  {footerColumns[0].title}
+                </span>
+                {footerColumns[0].links.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <button
+                  onClick={handleContact}
+                  className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
                 >
-                  {link.label}
-                </Link>
-              ))}
-              <button
-                onClick={handleContact}
-                className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
-              >
-                Contact
-              </button>
-            </div>
+                  Contact
+                </button>
+              </div>
 
-            {/* Column 3 (Right - Cols 10-12): Services & Social */}
-            <div className="col-span-1 md:col-span-3 border-t border-black/15 dark:border-white/15 pt-5 sm:pt-6 flex flex-col items-start gap-2">
-              <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mb-1">
-                {footerColumns[1].title}
-              </span>
-              {footerColumns[1].links.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {/* Column 3 (Right - Cols 10-12): Services & Social */}
+              <div className="col-span-1 md:col-span-3 border-t border-black/15 dark:border-white/15 pt-5 sm:pt-6 flex flex-col items-start gap-2">
+                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mb-1">
+                  {footerColumns[1].title}
+                </span>
+                {footerColumns[1].links.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
-              <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mt-3 mb-1">
-                {footerColumns[2].title}
-              </span>
-              {footerColumns[2].links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+                <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mt-3 mb-1">
+                  {footerColumns[2].title}
+                </span>
+                {footerColumns[2].links.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
           </div>
 
           {/* Bottom Row */}

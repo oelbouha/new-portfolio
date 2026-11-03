@@ -201,11 +201,11 @@ async function ServiceDetailPage({ params }) {
                                             columnNumber: 15
                                         }, this),
                                         service.hero.image?.src && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "mt-12 sm:mt-16 w-full rounded-[4px] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl aspect-[16/9] max-h-[560px] bg-neutral-900",
+                                            className: "mt-12 sm:mt-16 w-full rounded-[4px] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                 src: service.hero.image.src,
                                                 alt: service.hero.image.alt,
-                                                className: "w-full h-full object-cover",
+                                                className: "w-full h-auto block",
                                                 loading: "eager"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/services/[slug]/page.tsx",
@@ -1296,8 +1296,8 @@ const layoutConfig = {
         ],
         banner: {
             subtitle: "Let's talk!",
-            headingLine1: 'READY FOR YOUR',
-            headingLine2: 'NEXT PRODUCT?',
+            headingLine1: 'Ready for your',
+            headingLine2: 'next product?',
             buttonText: 'BOOK A CALL',
             avatar: {
                 src: '/profile.png',
@@ -1534,8 +1534,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$keywords$2e$t
 ;
 const home = {
     seo: {
-        title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
-        description: 'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+        title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
+        description: 'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
         path: '/',
         ogImage: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$site$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["siteConfig"].defaultOgImage,
         primaryKeyword: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$keywords$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["keywords"].home.primary,
@@ -1544,27 +1544,28 @@ const home = {
     },
     hero: {
         words: [
-            'I BUILD',
-            'DIGITAL',
-            'PRODUCTS'
+            'I build',
+            'digital',
+            'products'
         ]
     },
     intro: {
-        tag: '[ FULL-STACK DEVELOPER ]',
-        statement: 'FULL STACK WEB AND MOBILE APP DEVELOPMENT — FROM FRONTEND TO BACKEND, MOBILE TO AUTOMATION. I TURN IDEAS INTO PRODUCTS THAT ACTUALLY WORK.'
+        tag: '[ Full-Stack Developer ]',
+        heading: 'Web & Mobile App Development',
+        statement: 'Full stack web and mobile app development — from frontend to backend, mobile to automation. I turn ideas into products that actually work.'
     },
     video: {
         src: 'https://studionamma.vercel.app/videos/cut/video-matera2.webm',
         type: 'video/webm'
     },
     playground: {
-        label: 'SELECTED PROJECTS',
-        title: 'PLAYGROUND',
-        badge: 'PORTFOLIO',
+        label: 'Selected Projects',
+        title: 'Playground',
+        badge: 'Portfolio',
         href: '/work'
     },
     servicesTeaser: {
-        title: 'SERVICES',
+        title: 'Services',
         items: [
             {
                 slug: 'web-application-development',
@@ -1630,9 +1631,9 @@ const home = {
     },
     cta: {
         desc: "Have an idea, a product to build, or a workflow to automate?\nLet's make it real.",
-        buttonText: 'say hello',
-        line1: "LET'S BUILD",
-        line2: 'TOGETHER'
+        buttonText: 'Say hello',
+        line1: "Let's build",
+        line2: 'Together'
     }
 };
 }),
@@ -3445,7 +3446,7 @@ const siteConfig = {
     location: 'Tétouan, Morocco · Worldwide Remote',
     language: 'en',
     twitterHandle: '@oelbouha',
-    defaultOgImage: 'https://www.outmanelbouhali.online/images/icon.png',
+    defaultOgImage: 'https://www.outmanelbouhali.online/og.png',
     socialLinks: {
         github: 'https://github.com/oelbouha',
         linkedin: 'https://www.linkedin.com/in/outman-elbouhali/',

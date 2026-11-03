@@ -71,6 +71,12 @@ function AppShell({ children }) {
     const pageRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const isTransitioningRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
     const safetyTimerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const menuOpenRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        menuOpenRef.current = menuOpen;
+    }, [
+        menuOpen
+    ]);
     // Listen for custom open-contact events
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const handleOpen = ()=>setContactOpen(true);
@@ -99,6 +105,16 @@ function AppShell({ children }) {
         ], {
             clearProps: 'all'
         });
+        const menu = document.querySelector('.nav-menu');
+        const menuContent = document.querySelector('.nav-menu_component');
+        if (menu) menu.classList.remove('is-open');
+        if (menu && menuContent) __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].set([
+            menu,
+            menuContent
+        ], {
+            clearProps: 'all'
+        });
+        document.body.style.overflow = '';
         isTransitioningRef.current = false;
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$ScrollTrigger$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ScrollTrigger"].refresh();
     }, []);
@@ -129,8 +145,9 @@ function AppShell({ children }) {
         completeTransition
     ]);
     const handleNavigate = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((href)=>{
-        setMenuOpen(false);
+        const wasInMenu = menuOpenRef.current;
         if (href.startsWith('#')) {
+            if (wasInMenu) setMenuOpen(false);
             const id = href.slice(1);
             const el = document.getElementById(id);
             if (el) el.scrollIntoView({
@@ -139,6 +156,7 @@ function AppShell({ children }) {
             return;
         }
         if (href.startsWith('/#')) {
+            if (wasInMenu) setMenuOpen(false);
             const id = href.slice(2);
             if (pathname !== '/') {
                 handleNavigate('/');
@@ -156,6 +174,7 @@ function AppShell({ children }) {
         const overlay = overlayRef.current;
         const page = pageRef.current;
         if (!transition || !overlay || !page) {
+            if (wasInMenu) setMenuOpen(false);
             router.push(href);
             return;
         }
@@ -183,15 +202,29 @@ function AppShell({ children }) {
                 ease: 'power4.inOut'
             }
         });
-        // Phase 1: Match exact menu open timing and transform (rotation 10, x 300, y 450, scale 1.5)
-        tl.to(page, {
-            rotation: 10,
-            x: 300,
-            y: 450,
-            opacity: 0,
-            scale: 1.5,
-            duration: 1.8
-        }, 0);
+        // Phase 1: Animate the active view and sweep overlay down (single unified transition)
+        if (wasInMenu) {
+            const menuContent = document.querySelector('.nav-menu_component');
+            if (menuContent) {
+                tl.to(menuContent, {
+                    rotation: 10,
+                    x: 300,
+                    y: 450,
+                    opacity: 0,
+                    scale: 1.5,
+                    duration: 1.8
+                }, 0);
+            }
+        } else {
+            tl.to(page, {
+                rotation: 10,
+                x: 300,
+                y: 450,
+                opacity: 0,
+                scale: 1.5,
+                duration: 1.8
+            }, 0);
+        }
         tl.to(overlay, {
             clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)',
             duration: 1.8
@@ -203,8 +236,21 @@ function AppShell({ children }) {
             duration: 1.2,
             ease: 'power4.inOut'
         }, 0.4);
-        // Midpoint: screen is covered by overlay. Trigger route change.
+        // Midpoint: screen is covered by overlay. Close menu cleanly & trigger route change.
         tl.call(()=>{
+            if (wasInMenu) {
+                const menu = document.querySelector('.nav-menu');
+                const menuContent = document.querySelector('.nav-menu_component');
+                if (menu) menu.classList.remove('is-open');
+                if (menu && menuContent) __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].set([
+                    menu,
+                    menuContent
+                ], {
+                    clearProps: 'all'
+                });
+                document.body.style.overflow = '';
+                setMenuOpen(false);
+            }
             if (normalizedCurrent === normalizedTarget) {
                 window.scrollTo(0, 0);
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(overlay, {
@@ -270,7 +316,7 @@ function AppShell({ children }) {
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$shared$2f$CustomCursor$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CustomCursor"], {}, void 0, false, {
                     fileName: "[project]/src/components/layout/AppShell.tsx",
-                    lineNumber: 240,
+                    lineNumber: 274,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Navbar$2f$Navbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navbar"], {
@@ -279,7 +325,7 @@ function AppShell({ children }) {
                     onNavigate: handleNavigate
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/AppShell.tsx",
-                    lineNumber: 242,
+                    lineNumber: 276,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$FullscreenMenu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["FullscreenMenu"], {
@@ -289,7 +335,7 @@ function AppShell({ children }) {
                     onContactOpen: handleContactOpen
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/AppShell.tsx",
-                    lineNumber: 248,
+                    lineNumber: 282,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$shared$2f$ContactOverlay$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ContactOverlay"], {
@@ -297,7 +343,7 @@ function AppShell({ children }) {
                     onClose: handleContactClose
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/AppShell.tsx",
-                    lineNumber: 255,
+                    lineNumber: 289,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -309,12 +355,12 @@ function AppShell({ children }) {
                         className: "page-transition_overlay"
                     }, void 0, false, {
                         fileName: "[project]/src/components/layout/AppShell.tsx",
-                        lineNumber: 259,
+                        lineNumber: 293,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/AppShell.tsx",
-                    lineNumber: 258,
+                    lineNumber: 292,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -323,18 +369,18 @@ function AppShell({ children }) {
                     children: children
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/AppShell.tsx",
-                    lineNumber: 263,
+                    lineNumber: 297,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/layout/AppShell.tsx",
-            lineNumber: 239,
+            lineNumber: 273,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/layout/AppShell.tsx",
-        lineNumber: 238,
+        lineNumber: 272,
         columnNumber: 5
     }, this);
 }
@@ -353,7 +399,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$animations$2e$
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$ThemeContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/context/ThemeContext.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/src/data/index.ts [app-ssr] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$layout$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/layout.ts [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$services$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/data/services/index.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Navbar$2f$Navbar$2e$styles$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/layout/Navbar/Navbar.styles.ts [app-ssr] (ecmascript)");
 'use client';
 ;
@@ -587,14 +632,9 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
     const { theme, toggleTheme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$ThemeContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useTheme"])();
     const moroccoTime = useLiveClock('Africa/Casablanca');
     const { navbar, fullscreenMenu } = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$layout$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["layoutConfig"];
-    // Primary Pages in Col 1 — from data
+    // Primary Pages in Col 1 & Services in Col 2 — all centrally managed in layoutConfig.fullscreenMenu
     const col1Items = fullscreenMenu.col1;
-    // Services dynamically generated from servicesRegistry in Col 2
-    const col2Items = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$services$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["servicesRegistry"].map((s)=>({
-            label: s.navLabel.toUpperCase(),
-            href: `/services/${s.slug}`,
-            img: s.hero.image.src
-        }));
+    const col2Items = fullscreenMenu.col2;
     // Called by SVGMenuItem when user clicks a nav link
     const handleMenuItemNavigate = (href)=>{
         isNavigatingRef.current = true;
@@ -644,7 +684,6 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                     href: "/",
                                     onClick: (e)=>{
                                         e.preventDefault();
-                                        onClose();
                                         onNavigate?.('/');
                                     },
                                     className: "link",
@@ -659,12 +698,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                 children: navbar.brandName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 361,
+                                                lineNumber: 359,
                                                 columnNumber: 43
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                            lineNumber: 361,
+                                            lineNumber: 359,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,18 +713,18 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                 children: navbar.brandName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 362,
+                                                lineNumber: 360,
                                                 columnNumber: 44
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                            lineNumber: 362,
+                                            lineNumber: 360,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 351,
+                                    lineNumber: 350,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -703,12 +742,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                         children: theme === 'dark' ? 'LIGHT' : 'DARK'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                        lineNumber: 368,
+                                                        lineNumber: 366,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 367,
+                                                    lineNumber: 365,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -718,18 +757,18 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                         children: theme === 'dark' ? 'LIGHT' : 'DARK'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                        lineNumber: 371,
+                                                        lineNumber: 369,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 370,
+                                                    lineNumber: 368,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                            lineNumber: 366,
+                                            lineNumber: 364,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -744,12 +783,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                         children: navbar.menuCloseLabel
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                        lineNumber: 376,
+                                                        lineNumber: 374,
                                                         columnNumber: 45
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 376,
+                                                    lineNumber: 374,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -759,30 +798,30 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                         children: navbar.menuCloseLabel
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                        lineNumber: 377,
+                                                        lineNumber: 375,
                                                         columnNumber: 46
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 377,
+                                                    lineNumber: 375,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                            lineNumber: 375,
+                                            lineNumber: 373,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 365,
+                                    lineNumber: 363,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                            lineNumber: 350,
+                            lineNumber: 349,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -794,7 +833,6 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                         href: "/",
                                         onClick: (e)=>{
                                             e.preventDefault();
-                                            onClose();
                                             onNavigate?.('/');
                                         },
                                         className: "link",
@@ -809,12 +847,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: navbar.brandName
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 395,
+                                                    lineNumber: 392,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 392,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -824,23 +862,23 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: navbar.brandName
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 396,
+                                                    lineNumber: 393,
                                                     columnNumber: 46
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 396,
+                                                lineNumber: 393,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                        lineNumber: 385,
+                                        lineNumber: 383,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 384,
+                                    lineNumber: 382,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -857,12 +895,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: theme === 'dark' ? navbar.themeLightLabel : navbar.themeDarkLabel
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 403,
+                                                    lineNumber: 400,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 402,
+                                                lineNumber: 399,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -872,23 +910,23 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: theme === 'dark' ? navbar.themeLightLabel : navbar.themeDarkLabel
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 406,
+                                                    lineNumber: 403,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 405,
+                                                lineNumber: 402,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                        lineNumber: 401,
+                                        lineNumber: 398,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 400,
+                                    lineNumber: 397,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -905,12 +943,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: navbar.menuCloseLabel
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 413,
+                                                    lineNumber: 410,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 413,
+                                                lineNumber: 410,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -920,23 +958,23 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: navbar.menuCloseLabel
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 414,
+                                                    lineNumber: 411,
                                                     columnNumber: 46
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 414,
+                                                lineNumber: 411,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                        lineNumber: 412,
+                                        lineNumber: 409,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 411,
+                                    lineNumber: 408,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -956,12 +994,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: navbar.ctaLabel
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 427,
+                                                    lineNumber: 424,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 427,
+                                                lineNumber: 424,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -971,35 +1009,35 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                                     children: navbar.ctaHoverLabel
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                    lineNumber: 428,
+                                                    lineNumber: 425,
                                                     columnNumber: 46
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                                lineNumber: 428,
+                                                lineNumber: 425,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                        lineNumber: 419,
+                                        lineNumber: 416,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 418,
+                                    lineNumber: 415,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                            lineNumber: 383,
+                            lineNumber: 381,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                    lineNumber: 348,
+                    lineNumber: 347,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,12 +1054,12 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                         onNavigate: handleMenuItemNavigate
                                     }, item.label, false, {
                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                        lineNumber: 439,
+                                        lineNumber: 436,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                lineNumber: 437,
+                                lineNumber: 434,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1033,23 +1071,23 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                         onNavigate: handleMenuItemNavigate
                                     }, item.label, false, {
                                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                        lineNumber: 450,
+                                        lineNumber: 447,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                lineNumber: 448,
+                                lineNumber: 445,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                        lineNumber: 436,
+                        lineNumber: 433,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                    lineNumber: 435,
+                    lineNumber: 432,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1060,7 +1098,7 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                             children: fullscreenMenu.tagline
                         }, void 0, false, {
                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                            lineNumber: 464,
+                            lineNumber: 461,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1071,7 +1109,7 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                     children: fullscreenMenu.locationName
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 466,
+                                    lineNumber: 463,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1079,30 +1117,30 @@ function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }) {
                                     children: moroccoTime
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                                    lineNumber: 467,
+                                    lineNumber: 464,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                            lineNumber: 465,
+                            lineNumber: 462,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-                    lineNumber: 463,
+                    lineNumber: 460,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-            lineNumber: 339,
+            lineNumber: 338,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/layout/FullscreenMenu.tsx",
-        lineNumber: 332,
+        lineNumber: 331,
         columnNumber: 5
     }, this);
 }
@@ -1227,6 +1265,7 @@ function Navbar({ onContactOpen, onMenuOpen, onNavigate }) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                 ref: topRef,
+                "aria-label": "Main navigation",
                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('nav-top', __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Navbar$2f$Navbar$2e$styles$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navbarStyles"].bar),
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Navbar$2f$Navbar$2e$styles$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navbarStyles"].inner,
@@ -1608,6 +1647,7 @@ function Navbar({ onContactOpen, onMenuOpen, onNavigate }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                 ref: bottomRef,
+                "aria-label": "Status navigation",
                 className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('nav-bottom hidden md:flex', __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Navbar$2f$Navbar$2e$styles$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navbarStyles"].bar),
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Navbar$2f$Navbar$2e$styles$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["navbarStyles"].inner,
@@ -2796,8 +2836,8 @@ const layoutConfig = {
         ],
         banner: {
             subtitle: "Let's talk!",
-            headingLine1: 'READY FOR YOUR',
-            headingLine2: 'NEXT PRODUCT?',
+            headingLine1: 'Ready for your',
+            headingLine2: 'next product?',
             buttonText: 'BOOK A CALL',
             avatar: {
                 src: '/profile.png',
@@ -3034,8 +3074,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$keywords$2e$t
 ;
 const home = {
     seo: {
-        title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
-        description: 'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+        title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
+        description: 'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
         path: '/',
         ogImage: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$site$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["siteConfig"].defaultOgImage,
         primaryKeyword: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$keywords$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["keywords"].home.primary,
@@ -3044,27 +3084,28 @@ const home = {
     },
     hero: {
         words: [
-            'I BUILD',
-            'DIGITAL',
-            'PRODUCTS'
+            'I build',
+            'digital',
+            'products'
         ]
     },
     intro: {
-        tag: '[ FULL-STACK DEVELOPER ]',
-        statement: 'FULL STACK WEB AND MOBILE APP DEVELOPMENT — FROM FRONTEND TO BACKEND, MOBILE TO AUTOMATION. I TURN IDEAS INTO PRODUCTS THAT ACTUALLY WORK.'
+        tag: '[ Full-Stack Developer ]',
+        heading: 'Web & Mobile App Development',
+        statement: 'Full stack web and mobile app development — from frontend to backend, mobile to automation. I turn ideas into products that actually work.'
     },
     video: {
         src: 'https://studionamma.vercel.app/videos/cut/video-matera2.webm',
         type: 'video/webm'
     },
     playground: {
-        label: 'SELECTED PROJECTS',
-        title: 'PLAYGROUND',
-        badge: 'PORTFOLIO',
+        label: 'Selected Projects',
+        title: 'Playground',
+        badge: 'Portfolio',
         href: '/work'
     },
     servicesTeaser: {
-        title: 'SERVICES',
+        title: 'Services',
         items: [
             {
                 slug: 'web-application-development',
@@ -3130,9 +3171,9 @@ const home = {
     },
     cta: {
         desc: "Have an idea, a product to build, or a workflow to automate?\nLet's make it real.",
-        buttonText: 'say hello',
-        line1: "LET'S BUILD",
-        line2: 'TOGETHER'
+        buttonText: 'Say hello',
+        line1: "Let's build",
+        line2: 'Together'
     }
 };
 }),
@@ -4945,7 +4986,7 @@ const siteConfig = {
     location: 'Tétouan, Morocco · Worldwide Remote',
     language: 'en',
     twitterHandle: '@oelbouha',
-    defaultOgImage: 'https://www.outmanelbouhali.online/images/icon.png',
+    defaultOgImage: 'https://www.outmanelbouhali.online/og.png',
     socialLinks: {
         github: 'https://github.com/oelbouha',
         linkedin: 'https://www.linkedin.com/in/outman-elbouhali/',

@@ -5,37 +5,41 @@ import { AppShell } from '@/components/layout/AppShell';
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.outmanelbouhali.online'),
   title: {
-    default: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
+    default: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
     template: '%s',
   },
   description:
-    'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+    'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
   authors: [{ name: 'Outman Elbouhali', url: 'https://www.outmanelbouhali.online' }],
   creator: 'Outman Elbouhali',
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.outmanelbouhali.online',
     siteName: 'Outman Elbouhali',
-    title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
+    title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
     description:
-      'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+      'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
     images: [
       {
-        url: 'https://www.outmanelbouhali.online/opengraph-image',
+        url: 'https://www.outmanelbouhali.online/og.png',
         width: 1200,
         height: 630,
-        alt: 'Outman Elbouhali - Full Stack Web & Mobile App Developer',
+        alt: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
+    title: 'Outman Elbouhali | Full Stack Web & Mobile Developer',
     description:
-      'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
+      'Full stack developer building web and mobile apps with React, Next.js and Flutter. I help startups and SaaS teams build, launch and scale their MVP fast.',
     creator: '@oelbouha',
-    images: ['https://www.outmanelbouhali.online/opengraph-image'],
+    images: ['https://www.outmanelbouhali.online/og.png'],
   },
   icons: {
     icon: '/images/icon.png',

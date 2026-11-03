@@ -134,11 +134,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
               {/* Hero Image Showcase */}
               {service.hero.image?.src && (
-                <div className="mt-12 sm:mt-16 w-full rounded-[4px] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl aspect-[16/9] max-h-[560px] bg-neutral-900">
+                <div className="mt-12 sm:mt-16 w-full rounded-[4px] overflow-hidden border border-black/10 dark:border-white/10 shadow-2xl">
                   <img
                     src={service.hero.image.src}
                     alt={service.hero.image.alt}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto block"
                     loading="eager"
                   />
                 </div>

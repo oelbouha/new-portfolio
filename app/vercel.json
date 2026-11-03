@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/index.xml", "destination": "/sitemap.xml" },
-    { "source": "/((?!.*\\..*).*)", "destination": "/index.html" }
+    { "source": "/index.xml", "destination": "/sitemap.xml" }
   ]
 }

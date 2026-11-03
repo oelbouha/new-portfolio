@@ -116,7 +116,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps = {}) {
   return (
     <section ref={sectionRef} className={servicesSectionStyles.section} id="services">
       <div className={servicesSectionStyles.container}>
-        <div className={servicesSectionStyles.sectionTitle}>{servicesTeaser.title}</div>
+        <h2 className={servicesSectionStyles.sectionTitle}>{servicesTeaser.title}</h2>
 
         <div className={servicesSectionStyles.listWrapper}>
           {items.map((service, i) => {
