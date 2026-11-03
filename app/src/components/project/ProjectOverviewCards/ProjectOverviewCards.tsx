@@ -1,4 +1,5 @@
 import type { Project } from '@/data/projects/projects.types';
+import { ui } from '@/data';
 import { projectOverviewCardsStyles } from './ProjectOverviewCards.styles';
 
 interface ProjectOverviewCardsProps {
@@ -6,15 +7,17 @@ interface ProjectOverviewCardsProps {
 }
 
 export function ProjectOverviewCards({ project }: ProjectOverviewCardsProps) {
+  const { labels } = ui;
+
   return (
     <section className={projectOverviewCardsStyles.section}>
       <div className={projectOverviewCardsStyles.card}>
-        <span className={projectOverviewCardsStyles.label}>CLIENT</span>
-        <span className={projectOverviewCardsStyles.value}>{project.client || 'Internal / Confidential'}</span>
+        <span className={projectOverviewCardsStyles.label}>{labels.client}</span>
+        <span className={projectOverviewCardsStyles.value}>{project.client || '—'}</span>
       </div>
 
       <div className={projectOverviewCardsStyles.card}>
-        <span className={projectOverviewCardsStyles.label}>SERVICES</span>
+        <span className={projectOverviewCardsStyles.label}>{labels.servicesScope}</span>
         <div className={projectOverviewCardsStyles.list}>
           {project.services.map((svc) => (
             <span key={svc}>{svc}</span>
@@ -23,12 +26,12 @@ export function ProjectOverviewCards({ project }: ProjectOverviewCardsProps) {
       </div>
 
       <div className={projectOverviewCardsStyles.card}>
-        <span className={projectOverviewCardsStyles.label}>YEAR</span>
+        <span className={projectOverviewCardsStyles.label}>{labels.year}</span>
         <span className={projectOverviewCardsStyles.value}>{project.year}</span>
       </div>
 
       <div className={projectOverviewCardsStyles.card}>
-        <span className={projectOverviewCardsStyles.label}>WEBSITE / CODE</span>
+        <span className={projectOverviewCardsStyles.label}>{labels.projectInfo}</span>
         {project.website ? (
           <a
             href={project.website}
@@ -39,7 +42,7 @@ export function ProjectOverviewCards({ project }: ProjectOverviewCardsProps) {
             {project.website.replace('https://', '')}
           </a>
         ) : (
-          <span className={projectOverviewCardsStyles.value}>N/A</span>
+          <span className={projectOverviewCardsStyles.value}>—</span>
         )}
       </div>
     </section>

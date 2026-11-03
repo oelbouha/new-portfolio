@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PROJECTS } from '@/lib/constants';
+import { home, ui } from '@/data';
 import { selectedProjectsStyles } from './SelectedProjects.styles';
 import type { SelectedProjectsProps } from './SelectedProjects.types';
 
@@ -62,7 +63,7 @@ export function SelectedProjects({}: SelectedProjectsProps = {}) {
       {/* Section heading */}
       <div className={selectedProjectsStyles.headingWrap}>
         <div className={selectedProjectsStyles.monoWrapper}>
-          <span className={selectedProjectsStyles.projectsLabel}>Selected projects</span>
+          <span className={selectedProjectsStyles.projectsLabel}>{home.playground.label}</span>
         </div>
         <a
           href="/work"
@@ -70,7 +71,7 @@ export function SelectedProjects({}: SelectedProjectsProps = {}) {
           className={selectedProjectsStyles.headingLink}
           style={{ textDecoration: 'none' }}
         >
-          <div className={selectedProjectsStyles.projectsTitle}>Playground</div>
+          <div className={selectedProjectsStyles.projectsTitle}>{home.playground.title}</div>
         </a>
       </div>
 
@@ -133,7 +134,7 @@ export function SelectedProjects({}: SelectedProjectsProps = {}) {
           data-cursor-hover="Work"
         >
           <div className={selectedProjectsStyles.monoWrapper}>
-            <span className="text-mono">See all projects</span>
+            <span className="text-mono">{ui.buttons.allProjects}</span>
           </div>
           <svg
             className={selectedProjectsStyles.arrowSvg}

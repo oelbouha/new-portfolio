@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { home } from '@/data';
 import { portfolioCarouselStyles } from './PortfolioCarousel.styles';
 import type { PortfolioCarouselProps, ViewMode, ProjectItem } from './PortfolioCarousel.types';
 
@@ -131,7 +132,7 @@ export function PortfolioCarousel({ onNavigate }: PortfolioCarouselProps = {}) {
           className={portfolioCarouselStyles.labelWrapper}
         >
           <div className={portfolioCarouselStyles.labelRow}>
-            <span className={portfolioCarouselStyles.label}>My Work</span>
+            <span className={portfolioCarouselStyles.label}>{home.playground.label}</span>
             <div className={portfolioCarouselStyles.line}></div>
           </div>
         </motion.div>
@@ -146,7 +147,7 @@ export function PortfolioCarousel({ onNavigate }: PortfolioCarouselProps = {}) {
         >
           <div className={portfolioCarouselStyles.headerInner}>
             <div className={portfolioCarouselStyles.titleRow}>
-              <h2 className={portfolioCarouselStyles.title}>Selected Work</h2>
+              <h2 className={portfolioCarouselStyles.title}>{home.playground.title}</h2>
             </div>
 
             {/* Grid Toggle */}

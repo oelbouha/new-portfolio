@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ui } from '@/data';
 import type { ProjectDetailInfosProps } from './ProjectDetailInfos.types';
 
 const fadeIn = {
@@ -11,6 +12,8 @@ const fadeIn = {
 };
 
 export function ProjectDetailInfos({ credits, services, client, year, tags }: ProjectDetailInfosProps) {
+  const { labels } = ui;
+
   return (
     <section className="relative w-full py-[clamp(4rem,8vw,10rem)] px-[clamp(1rem,2.5vw,2.5rem)]">
       <div className="mx-auto w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-[clamp(2.5rem,5vw,6rem)] items-start">
@@ -26,7 +29,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
           >
             <div className="flex items-center gap-4">
               <span className="font-['IBM_Plex_Mono',monospace] text-xs font-bold tracking-widest uppercase opacity-60">
-                CREDITS
+                {labels.credits}
               </span>
               <div className="flex-1 h-px bg-current opacity-15" />
             </div>
@@ -57,7 +60,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
         >
           <div className="flex items-center gap-4">
             <span className="font-['IBM_Plex_Mono',monospace] text-xs font-bold tracking-widest uppercase opacity-60">
-              SERVICES / SCOPE
+              {labels.servicesScope}
             </span>
             <div className="flex-1 h-px bg-current opacity-15" />
           </div>
@@ -85,7 +88,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
         >
           <div className="flex items-center gap-4">
             <span className="font-['IBM_Plex_Mono',monospace] text-xs font-bold tracking-widest uppercase opacity-60">
-              PROJECT OVERVIEW
+              {labels.projectOverview}
             </span>
             <div className="flex-1 h-px bg-current opacity-15" />
           </div>
@@ -93,7 +96,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
           <div className="grid grid-cols-2 gap-6">
             <div>
               <span className="block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-1">
-                CLIENT
+                {labels.client}
               </span>
               <span className="font-bold text-base sm:text-lg uppercase tracking-tight">
                 {client || '—'}
@@ -102,7 +105,7 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
 
             <div>
               <span className="block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-1">
-                YEAR
+                {labels.year}
               </span>
               <span className="font-bold text-base sm:text-lg uppercase tracking-tight">
                 {year}
@@ -112,14 +115,14 @@ export function ProjectDetailInfos({ credits, services, client, year, tags }: Pr
 
           {tags && tags.length > 0 && (
             <div className="pt-2">
-              <span className="block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-3">
-                TECHNOLOGY STACK
+              <span className="block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-2">
+                {labels.stack}
               </span>
               <div className="flex flex-wrap gap-2">
                 {tags.map((t) => (
                   <span
                     key={t}
-                    className="inline-flex items-center font-['IBM_Plex_Mono',monospace] text-[0.68rem] font-bold tracking-wider uppercase border border-current opacity-70 rounded-full px-3.5 py-1"
+                    className="font-['IBM_Plex_Mono',monospace] text-xs uppercase px-2 py-0.5 rounded bg-current/5 border border-current/10"
                   >
                     {t}
                   </span>

@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ui } from '@/data';
 import { projectDetailNextStyles } from './ProjectDetailNext.styles';
 import type { ProjectDetailNextProps } from './ProjectDetailNext.types';
 
 export function ProjectDetailNext({ nextProject, onNavigate }: ProjectDetailNextProps) {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const { labels, buttons } = ui;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!badgeRef.current || !linkRef.current) return;
@@ -39,12 +41,12 @@ export function ProjectDetailNext({ nextProject, onNavigate }: ProjectDetailNext
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
         >
-          <span className={projectDetailNextStyles.label}>NEXT PROJECT</span>
+          <span className={projectDetailNextStyles.label}>{labels.nextProject}</span>
           <div className={projectDetailNextStyles.titleWrapper}>
             <h2 className={projectDetailNextStyles.title}>{nextProject.title}</h2>
           </div>
           <div ref={badgeRef} className={projectDetailNextStyles.badge}>
-            <span>OPEN PROJECT</span>
+            <span>{buttons.openProject}</span>
           </div>
         </Link>
       </div>

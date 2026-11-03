@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ui } from '@/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,10 +68,10 @@ export function Preloader({ onComplete }: PreloaderProps) {
     <div ref={preloaderRef} className="preloader" aria-hidden="true">
       <div className="preloader-top">
         <span className="preloader-name" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.55 }}>
-          Portfolio
+          {ui.preloader.portfolio}
         </span>
         <span className="preloader-name" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.4 }}>
-          Loading
+          {ui.preloader.loading}
         </span>
       </div>
 
@@ -82,7 +83,7 @@ export function Preloader({ onComplete }: PreloaderProps) {
         <div className="preloader-bar-track">
           <div ref={barRef} className="preloader-bar-fill" />
         </div>
-        <div className="preloader-status">Crafting your experience</div>
+        <div className="preloader-status">{ui.preloader.status}</div>
       </div>
     </div>
   );

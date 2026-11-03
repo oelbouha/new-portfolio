@@ -75,7 +75,7 @@ function spawnImage(cx: number, cy: number, container: HTMLDivElement) {
     });
 }
 
-import { homeData } from '@/data/home.data';
+import { home } from '@/data';
 
 export function HeroSection({ preloaderDone = true }: HeroSectionProps = {}) {
   const intervalRef  = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -176,7 +176,7 @@ export function HeroSection({ preloaderDone = true }: HeroSectionProps = {}) {
 
       <div className={heroSectionStyles.inner}>
         <h1 className={heroSectionStyles.title}>
-          {homeData.hero.words.map((word, i) => (
+          {home.hero.words.map((word, i) => (
             <span
               key={word}
               ref={(el) => { wordsRef.current[i] = el; }}

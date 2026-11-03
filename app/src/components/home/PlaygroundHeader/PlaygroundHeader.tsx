@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { MouseEvent } from 'react';
+import { home } from '@/data';
 import { playgroundHeaderStyles } from './PlaygroundHeader.styles';
 
 interface PlaygroundHeaderProps {
@@ -8,7 +9,8 @@ interface PlaygroundHeaderProps {
 }
 
 export function PlaygroundHeader({ className = '', onNavigate }: PlaygroundHeaderProps) {
-  const href = '/work';
+  const { playground } = home;
+  const href = playground.href;
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!onNavigate) return;
@@ -19,17 +21,17 @@ export function PlaygroundHeader({ className = '', onNavigate }: PlaygroundHeade
   return (
     <header className={`${playgroundHeaderStyles.header} ${className}`}>
       <div className={playgroundHeaderStyles.labelWrap}>
-        <span className={playgroundHeaderStyles.label}>SELECTED PROJECTS</span>
+        <span className={playgroundHeaderStyles.label}>{playground.label}</span>
       </div>
       <Link
         to={href}
         onClick={handleClick}
         className={playgroundHeaderStyles.titleLink}
-        data-cursor-hover="PORTFOLIO"
+        data-cursor-hover={playground.badge}
         data-cursor-icon="↗"
         aria-label="View all portfolio projects"
       >
-        <h2 className={playgroundHeaderStyles.title}>PLAYGROUND</h2>
+        <h2 className={playgroundHeaderStyles.title}>{playground.title}</h2>
       </Link>
     </header>
   );

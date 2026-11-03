@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
-import { aboutData } from '@/data/about.data';
+import { about } from '@/data';
 import { aboutExperienceStyles } from './AboutExperience.styles';
 import type { AboutExperienceProps } from './AboutExperience.types';
 
 export function AboutExperience({ className = '' }: AboutExperienceProps) {
+  const { experience } = about;
+
   return (
     <section className={`${aboutExperienceStyles.section} ${className}`}>
       <div className={aboutExperienceStyles.container}>
@@ -16,15 +18,15 @@ export function AboutExperience({ className = '' }: AboutExperienceProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className={aboutExperienceStyles.tag}>{aboutData.experience.tag}</span>
-            <h2 className={aboutExperienceStyles.title}>
-              EXPERIENCE &<br />EDUCATION
+            <span className={aboutExperienceStyles.tag}>{experience.tag}</span>
+            <h2 className={aboutExperienceStyles.title} style={{ whiteSpace: 'pre-line' }}>
+              {experience.title}
             </h2>
           </motion.div>
 
           {/* Experience Items */}
           <div className={aboutExperienceStyles.listWrapper}>
-            {aboutData.experience.items.map((exp, index) => (
+            {experience.items.map((exp, index) => (
               <motion.div
                 key={exp.company}
                 className={aboutExperienceStyles.itemCard}

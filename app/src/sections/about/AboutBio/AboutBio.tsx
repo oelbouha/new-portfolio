@@ -1,17 +1,16 @@
 import { motion } from 'framer-motion';
 import { ScrollHeadline } from '@/components/shared/ScrollHeadline';
-import { aboutData } from '@/data/about.data';
+import { about } from '@/data';
 import { aboutBioStyles } from './AboutBio.styles';
 import type { AboutBioProps } from './AboutBio.types';
 
 export function AboutBio({ className = '' }: AboutBioProps) {
+  const { bio } = about;
+
   return (
     <section className={`${aboutBioStyles.section} ${className}`}>
       <div className={aboutBioStyles.container}>
-        <ScrollHeadline
-          tag={aboutData.bio.tag}
-          statement={aboutData.bio.statement}
-        />
+        <ScrollHeadline tag={bio.tag} statement={bio.statement} />
 
         <motion.p
           className={aboutBioStyles.paragraph}
@@ -20,7 +19,7 @@ export function AboutBio({ className = '' }: AboutBioProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {aboutData.bio.paragraph}
+          {bio.paragraph}
         </motion.p>
       </div>
     </section>

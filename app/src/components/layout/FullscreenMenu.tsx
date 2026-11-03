@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { openMenu, closeMenu } from '@/lib/animations';
 import { useTheme } from '@/context/ThemeContext';
+import { layoutConfig, servicesRegistry } from '@/data';
 import { navbarStyles } from './Navbar/Navbar.styles';
 
 interface FullscreenMenuProps {
@@ -15,6 +16,7 @@ function useLiveClock(tz: string) {
   const [time, setTime] = useState('');
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const update = () => {
       setTime(
         new Date().toLocaleTimeString('en-US', {
@@ -34,47 +36,6 @@ function useLiveClock(tz: string) {
   return time;
 }
 
-const COL_1_ITEMS = [
-  {
-    label: 'HOME',
-    href: '/',
-    img: '/images/call-to-action/home.jpeg',
-  },
-  {
-    label: 'WORK',
-    href: '/work',
-    img: '/images/call-to-action/work.jpeg',
-  },
-  {
-    label: 'SERVICES',
-    href: '/#services',
-    img: '/images/call-to-action/services.jpeg',
-  },
-  {
-    label: 'ABOUT',
-    href: '/about',
-    img: '/images/call-to-action/about.jpeg',
-  },
-];
-
-const COL_2_ITEMS = [
-  {
-    label: 'STUDIO',
-    href: '/about',
-    img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
-  },
-  {
-    label: 'PLANS',
-    href: '/work',
-    img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80',
-  },
-  {
-    label: 'NEWS',
-    href: '/about',
-    img: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80',
-  },
-];
-
 function SVGMenuItem({
   label,
   href,
@@ -91,19 +52,19 @@ function SVGMenuItem({
 }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const textRef = useRef<SVGTextElement>(null);
-  const blackRectRef = useRef<SVGRectElement>(null);
   const rectClipRef = useRef<SVGRectElement>(null);
   const imgRef = useRef<SVGImageElement>(null);
-  const clipId = useRef(`menu-clip-${label.toLowerCase()}`);
+  const clipId = useRef(`menu-clip-${label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`);
 
   const targetRectWidth = 120;
   const gap = 14;
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     let isCancelled = false;
 
     const measureAndInit = () => {
-      if (!svgRef.current || !textRef.current || !blackRectRef.current || !rectClipRef.current || !imgRef.current) {
+      if (!svgRef.current || !textRef.current || !rectClipRef.current || !imgRef.current) {
         return;
       }
 
@@ -153,7 +114,9 @@ function SVGMenuItem({
     };
 
     if (document.fonts) {
-      document.fonts.ready.then(measureAndInit);
+      document.fonts.ready.then(() => {
+        if (!isCancelled) measureAndInit();
+      });
     } else {
       measureAndInit();
     }
@@ -295,6 +258,18 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
   const { theme, toggleTheme } = useTheme();
   const moroccoTime = useLiveClock('Africa/Casablanca');
 
+  const { navbar, fullscreenMenu } = layoutConfig;
+
+  // Primary Pages in Col 1 — from data
+  const col1Items = fullscreenMenu.col1;
+
+  // Services dynamically generated from servicesRegistry in Col 2
+  const col2Items = servicesRegistry.map((s) => ({
+    label: s.navLabel.toUpperCase(),
+    href: `/services/${s.slug}`,
+    img: s.hero.image.src,
+  }));
+
   // Called by SVGMenuItem when user clicks a nav link
   const handleMenuItemNavigate = (href: string) => {
     isNavigatingRef.current = true;
@@ -302,6 +277,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
   };
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const page = document.querySelector<HTMLElement>('.page-main');
     const menu = menuRef.current;
     const content = menuContentRef.current;
@@ -314,8 +290,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
       if (isAnimating.current) return;
       isAnimating.current = true;
       const tl = openMenu(page, menu, content);
-      tl?.eventCallback('onComplete', () => { 
-        isAnimating.current = false; 
+      tl?.eventCallback('onComplete', () => {
+        isAnimating.current = false;
         setIsInteractive(true);
       });
     } else if (!isOpen && wasOpen.current) {
@@ -335,8 +311,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
       if (isAnimating.current) return;
       isAnimating.current = true;
-      closeMenu(page, menu, content, () => { 
-        isAnimating.current = false; 
+      closeMenu(page, menu, content, () => {
+        isAnimating.current = false;
         setIsInteractive(false);
       });
     }
@@ -344,6 +320,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
   // ESC key
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const fn = (e: KeyboardEvent) => { if (e.key === 'Escape' && isOpen) onClose(); };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
@@ -369,9 +346,18 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
         <div className="absolute top-0 inset-x-0 w-full px-4 py-4 sm:px-6 lg:px-10 z-30 pointer-events-auto">
           {/* Mobile Layout (< md): OUTMAN on left, Dark Mode + CLOSE on right */}
           <div className="flex md:hidden items-center justify-between w-full">
-            <a href="/" className="link" style={{ textDecoration: 'none' }}>
-              <div className="link_first"><span className={navbarStyles.text}>OUTMAN</span></div>
-              <div className="link_second"><span className={navbarStyles.text}>OUTMAN</span></div>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+                onNavigate?.('/');
+              }}
+              className="link"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="link_first"><span className={navbarStyles.text}>{navbar.brandName}</span></div>
+              <div className="link_second"><span className={navbarStyles.text}>{navbar.brandName}</span></div>
             </a>
 
             <div className="flex items-center gap-4 sm:gap-6">
@@ -385,8 +371,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
               </button>
 
               <button onClick={onClose} aria-label="Close menu" className="link flex items-center">
-                <div className="link_first"><span className={navbarStyles.text}>CLOSE</span></div>
-                <div className="link_second"><span className={navbarStyles.text}>CLOSE</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>{navbar.menuCloseLabel}</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>{navbar.menuCloseLabel}</span></div>
               </button>
             </div>
           </div>
@@ -394,27 +380,36 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
           {/* Desktop Layout (md and up): Exact 12-Column Grid matching Navbar */}
           <div className="hidden md:grid md:grid-cols-12 items-center w-full">
             <div className="col-span-2 flex items-center justify-start">
-              <a href="/" className="link" style={{ textDecoration: 'none' }}>
-                <div className="link_first"><span className={navbarStyles.text}>OUTMAN</span></div>
-                <div className="link_second"><span className={navbarStyles.text}>OUTMAN</span></div>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClose();
+                  onNavigate?.('/');
+                }}
+                className="link"
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="link_first"><span className={navbarStyles.text}>{navbar.brandName}</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>{navbar.brandName}</span></div>
               </a>
             </div>
 
             <div className="col-start-3 col-span-3 flex items-center justify-start">
               <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
                 <div className="link_first">
-                  <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                  <span className={navbarStyles.text}>{theme === 'dark' ? navbar.themeLightLabel : navbar.themeDarkLabel}</span>
                 </div>
                 <div className="link_second">
-                  <span className={navbarStyles.text}>{theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}</span>
+                  <span className={navbarStyles.text}>{theme === 'dark' ? navbar.themeLightLabel : navbar.themeDarkLabel}</span>
                 </div>
               </button>
             </div>
 
             <div className="col-start-9 col-span-2 flex items-center justify-start">
               <button onClick={onClose} aria-label="Close menu" className="link">
-                <div className="link_first"><span className={navbarStyles.text}>CLOSE</span></div>
-                <div className="link_second"><span className={navbarStyles.text}>CLOSE</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>{navbar.menuCloseLabel}</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>{navbar.menuCloseLabel}</span></div>
               </button>
             </div>
 
@@ -427,8 +422,8 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
                 className="link"
                 aria-label="Open contact"
               >
-                <div className="link_first"><span className={navbarStyles.text}>LET'S TALK!</span></div>
-                <div className="link_second"><span className={navbarStyles.text}>CONTACT</span></div>
+                <div className="link_first"><span className={navbarStyles.text}>{navbar.ctaLabel}</span></div>
+                <div className="link_second"><span className={navbarStyles.text}>{navbar.ctaHoverLabel}</span></div>
               </button>
             </div>
           </div>
@@ -438,7 +433,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
         <div className="absolute inset-0 pt-24 pb-20 px-4 sm:px-6 lg:px-10 flex items-center justify-start z-10 w-full">
           <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-0 sm:gap-y-1 w-full items-center ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
             <div className="flex flex-col items-start w-full">
-              {COL_1_ITEMS.map((item) => (
+              {col1Items.map((item) => (
                 <SVGMenuItem
                   key={item.label}
                   {...item}
@@ -449,7 +444,7 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
               ))}
             </div>
             <div className="flex flex-col items-start w-full">
-              {COL_2_ITEMS.map((item) => (
+              {col2Items.map((item) => (
                 <SVGMenuItem
                   key={item.label}
                   {...item}
@@ -464,9 +459,9 @@ export function FullscreenMenu({ isOpen, onClose, onNavigate, onContactOpen }: F
 
         {/* 3. Bottom Footer Bar — Exactly Pinned to Bottom with matching px-4 sm:px-6 lg:px-10 */}
         <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-4 py-4 sm:px-6 lg:px-10 border-t border-black/10 dark:border-white/10 z-30 pointer-events-auto bg-[var(--nav-menu-bg)]">
-          <span className={`${navbarStyles.text} opacity-60`}>WE CRAFT BOLD DESIGN &amp; CLEAN CODE.</span>
+          <span className={`${navbarStyles.text} opacity-60`}>{fullscreenMenu.tagline}</span>
           <div className="flex items-center gap-3">
-            <span className={`${navbarStyles.text} opacity-60`}>MOROCCO</span>
+            <span className={`${navbarStyles.text} opacity-60`}>{fullscreenMenu.locationName}</span>
             <span className={navbarStyles.text}>{moroccoTime}</span>
           </div>
         </div>

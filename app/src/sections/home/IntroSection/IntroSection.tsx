@@ -1,5 +1,5 @@
 import { ScrollHeadline } from '@/components/shared/ScrollHeadline';
-import { homeData } from '@/data/home.data';
+import { home } from '@/data';
 import { introSectionStyles } from './IntroSection.styles';
 
 export function IntroSection() {
@@ -7,8 +7,8 @@ export function IntroSection() {
     <section className={introSectionStyles.section} id="intro">
       <div className={introSectionStyles.inner}>
         <ScrollHeadline
-          tag={homeData.intro.tag}
-          statement={homeData.intro.statement}
+          tag={home.intro.tag}
+          statement={home.intro.statement}
         />
       </div>
     </section>

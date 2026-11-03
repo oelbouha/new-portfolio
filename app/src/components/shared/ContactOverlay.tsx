@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { CONTACT_SPOTLIGHT_IMAGE } from '@/lib/constants';
+import { ui, layoutConfig } from '@/data';
 import { SpotlightHeading } from '@/components/shared/SpotlightHeading';
 
 interface ContactOverlayProps {
@@ -18,7 +18,10 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isFullyDisplayed, setIsFullyDisplayed] = useState(false);
 
+  const { contactModal, buttons } = ui;
+
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const overlay = overlayRef.current;
     const content = contentRef.current;
     const page = document.querySelector<HTMLElement>('.page-main');
@@ -33,7 +36,6 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
       setIsFullyDisplayed(false);
       isAnimating.current = true;
 
-      // Same as openMenu: page flies off, overlay clips in from polygon
       overlay.classList.add('is-open');
       document.body.style.overflow = 'hidden';
 
@@ -58,13 +60,11 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
       if (page) tl.to(page, { rotation: 10, x: 300, y: 450, opacity: 0, scale: 1.5 }, 0);
       tl.to(overlay, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%)' }, 0);
       tl.to(content, { rotation: 0, x: 0, y: 0, scale: 1, opacity: 1 }, 0);
-
     } else if (!isOpen && wasOpen.current) {
       wasOpen.current = false;
       setIsFullyDisplayed(false);
       isAnimating.current = true;
 
-      // Same as closeMenu: page comes back, overlay clips out
       const page2 = document.querySelector<HTMLElement>('.page-main');
 
       const tl = gsap.timeline({
@@ -89,12 +89,17 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
 
   useEffect(() => () => {
     timelineRef.current?.kill();
-    document.body.style.overflow = '';
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
   }, []);
 
   // ESC key
   useEffect(() => {
-    const fn = (e: KeyboardEvent) => { if (e.key === 'Escape' && isOpen) onClose(); };
+    if (typeof window === 'undefined') return;
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) onClose();
+    };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
   }, [isOpen, onClose]);
@@ -114,22 +119,33 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
       aria-hidden={!isOpen}
     >
       <div ref={contentRef} className="contact-overlay_panel">
-        <button type="button" className="contact-close" onClick={onClose} aria-label="Close contact">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <button
+          type="button"
+          className="contact-close"
+          onClick={onClose}
+          aria-label="Close contact modal"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <line x1="1" y1="1" x2="11" y2="11" />
             <line x1="11" y1="1" x2="1" y2="11" />
           </svg>
-          <span className="contact-close-label">Close</span>
+          <span className="contact-close-label">{layoutConfig.navbar.menuCloseLabel}</span>
         </button>
 
         <div>
           {!submitted ? (
             <form className="contact-form" onSubmit={handleSubmit}>
-              {/* Reusable Spotlight Heading for Let's Talk Together */}
               <SpotlightHeading
-                line1="LET'S WORK"
-                line2="TOGETHER"
-                imageSrc={CONTACT_SPOTLIGHT_IMAGE}
+                line1={contactModal.headlineLine1}
+                line2={contactModal.headlineLine2}
+                imageSrc={contactModal.spotlightImage}
                 targetRectWidth={80}
                 gap={6}
                 fontSize={80}
@@ -139,38 +155,43 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
                 className="mb-4"
               />
 
-              <p className="text-mono" style={{ marginBottom: '1.5rem', opacity: 0.45, letterSpacing: '0.1em' }}>
-                WORK WITH US IF AVERAGE ISN&apos;T YOUR THING.
+              <p
+                className="text-mono"
+                style={{ marginBottom: '1.5rem', opacity: 0.45, letterSpacing: '0.1em' }}
+              >
+                {contactModal.subheadlineLine1}
                 <br />
-                DROP IT, WE&apos;LL BUILD IT!
+                {contactModal.subheadlineLine2}
               </p>
 
               <div className="contact-field-wrap">
-                <label className="contact-label">Name</label>
+                <label className="contact-label">{contactModal.fields.nameLabel}</label>
                 <input
                   className="contact-input"
                   type="text"
                   name="name"
-                  placeholder="Chuck Norris"
+                  placeholder={contactModal.fields.namePlaceholder}
                   autoComplete="name"
-                />
-              </div>
-
-              <div className="contact-field-wrap">
-                <label className="contact-label">Email</label>
-                <input
-                  className="contact-input"
-                  type="email"
-                  name="email"
-                  placeholder="hello@yourstudio.com"
                   required
                 />
               </div>
 
               <div className="contact-field-wrap">
-                <label className="contact-label">Interest</label>
+                <label className="contact-label">{contactModal.fields.emailLabel}</label>
+                <input
+                  className="contact-input"
+                  type="email"
+                  name="email"
+                  placeholder={contactModal.fields.emailPlaceholder}
+                  autoComplete="email"
+                  required
+                />
+              </div>
+
+              <div className="contact-field-wrap">
+                <label className="contact-label">{contactModal.fields.interestLabel}</label>
                 <div className="contact-radios">
-                  {['Web Development', 'UI/UX Design', 'Branding', 'Full Package'].map((opt) => (
+                  {contactModal.fields.interestOptions.map((opt) => (
                     <label className="contact-radio-label" key={opt}>
                       <input
                         type="radio"
@@ -186,32 +207,41 @@ export function ContactOverlay({ isOpen, onClose }: ContactOverlayProps) {
               </div>
 
               <div className="contact-field-wrap">
-                <label className="contact-label">Message</label>
+                <label className="contact-label">{contactModal.fields.messageLabel}</label>
                 <textarea
                   className="contact-textarea"
                   name="message"
-                  placeholder="Tell me about your project, deadline, budget…"
+                  placeholder={contactModal.fields.messagePlaceholder}
                   rows={4}
                   required
                 />
               </div>
 
               <button type="submit" className="contact-submit" style={{ fontWeight: 700 }}>
-                Send message →
+                {buttons.sendMsg}
               </button>
             </form>
           ) : (
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h2 className="cta-heading" style={{ color: 'var(--text)', marginBottom: '1rem' }}>Thank you!</h2>
+            <div
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}
+            >
+              <h2 className="cta-heading" style={{ color: 'var(--text)', marginBottom: '1rem' }}>
+                {contactModal.success.title}
+              </h2>
               <p className="text-mono" style={{ opacity: 0.6, marginTop: '1rem' }}>
-                I'll get back to you very soon.
+                {contactModal.success.message}
               </p>
               <button
                 onClick={onClose}
                 className="contact-close"
                 style={{ marginTop: '3rem' }}
               >
-                Continue browsing →
+                {buttons.continueBrowsing}
               </button>
             </div>
           )}

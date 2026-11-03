@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { aboutData } from '@/data/about.data';
+import { about } from '@/data';
 import { aboutHeroStyles } from './AboutHero.styles';
 import type { AboutHeroProps } from './AboutHero.types';
 
@@ -12,10 +12,10 @@ export function AboutHero({ className = '' }: AboutHeroProps) {
   const maskRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const mask = maskRef.current;
     if (!mask) return;
 
-    // Top-to-bottom scroll reveal: compressed scroll range so image is fully revealed as user scrolls
     gsap.fromTo(
       mask,
       { clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' },
@@ -34,7 +34,6 @@ export function AboutHero({ className = '' }: AboutHeroProps) {
 
   return (
     <section className={`${aboutHeroStyles.section} ${className}`}>
-      {/* Three-Line Headline — Centered full-screen using Tailwind CSS */}
       <div className={aboutHeroStyles.headlineWrapper}>
         <motion.h1
           className={aboutHeroStyles.line1}
@@ -42,7 +41,7 @@ export function AboutHero({ className = '' }: AboutHeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {aboutData.hero.line1}
+          {about.hero.line1}
         </motion.h1>
         <motion.h1
           className={aboutHeroStyles.line2}
@@ -50,7 +49,7 @@ export function AboutHero({ className = '' }: AboutHeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
         >
-          {aboutData.hero.line2}
+          {about.hero.line2}
         </motion.h1>
         <motion.h1
           className={aboutHeroStyles.line3}
@@ -58,17 +57,16 @@ export function AboutHero({ className = '' }: AboutHeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
         >
-          {aboutData.hero.line3}
+          {about.hero.line3}
         </motion.h1>
       </div>
 
-      {/* Profile Photo — Clean Scroll Reveal Animation */}
       <div className={aboutHeroStyles.imageWrapper}>
         <div className={aboutHeroStyles.imageFrame}>
           <div ref={maskRef} className={aboutHeroStyles.imageMask} style={{ willChange: 'clip-path' }}>
             <img
-              src={aboutData.hero.imageSrc}
-              alt={aboutData.hero.imageAlt}
+              src={about.hero.image.src}
+              alt={about.hero.image.alt}
               className={aboutHeroStyles.image}
             />
           </div>

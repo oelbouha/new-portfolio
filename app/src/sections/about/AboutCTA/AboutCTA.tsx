@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { aboutData } from '@/data/about.data';
+import { about } from '@/data';
 import { aboutCTAStyles } from './AboutCTA.styles';
 import type { AboutCTAProps } from './AboutCTA.types';
 
@@ -10,8 +10,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
   const statementRef = useRef<HTMLParagraphElement>(null);
+  const { cta } = about;
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const stmt = statementRef.current;
     if (!stmt) return;
 
@@ -33,9 +35,8 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
   return (
     <section className={`${aboutCTAStyles.section} ${className}`}>
       <div className={aboutCTAStyles.container}>
-        {/* Scroll Scrub Animated Bold Statement */}
         <p ref={statementRef} className={aboutCTAStyles.statement} style={{ willChange: 'opacity' }}>
-          {aboutData.cta.statement}
+          {cta.statement}
         </p>
 
         <motion.p
@@ -45,10 +46,9 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          {aboutData.cta.subtitle}
+          {cta.subtitle}
         </motion.p>
 
-        {/* Let's Talk CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
             aria-label="Open contact form"
           >
             <div className={aboutCTAStyles.monoWrapper}>
-              <span className={aboutCTAStyles.monoText}>{aboutData.cta.buttonText}</span>
+              <span className={aboutCTAStyles.monoText}>{cta.buttonText}</span>
             </div>
             <svg
               className={aboutCTAStyles.svgArrow}

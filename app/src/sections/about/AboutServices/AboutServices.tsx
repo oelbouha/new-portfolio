@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
-import { aboutData } from '@/data/about.data';
+import { about } from '@/data';
 import { aboutServicesStyles } from './AboutServices.styles';
 import type { AboutServicesProps } from './AboutServices.types';
 
 export function AboutServices({ className = '' }: AboutServicesProps) {
+  const { services } = about;
+
   return (
     <section className={`${aboutServicesStyles.section} ${className}`}>
       <div className={aboutServicesStyles.container}>
@@ -16,13 +18,13 @@ export function AboutServices({ className = '' }: AboutServicesProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className={aboutServicesStyles.tag}>{aboutData.services.tag}</span>
-            <h2 className={aboutServicesStyles.title}>{aboutData.services.title}</h2>
+            <span className={aboutServicesStyles.tag}>{services.tag}</span>
+            <h2 className={aboutServicesStyles.title}>{services.title}</h2>
           </motion.div>
 
           {/* Service Items */}
           <div className={aboutServicesStyles.listWrapper}>
-            {aboutData.services.items.map((service, index) => (
+            {services.items.map((service, index) => (
               <motion.div
                 key={service.title}
                 className={aboutServicesStyles.itemCard}

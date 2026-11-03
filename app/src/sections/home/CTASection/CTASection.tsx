@@ -1,16 +1,18 @@
-import { CLIENT_NAMES, CONTACT_SPOTLIGHT_IMAGE } from '@/lib/constants';
-import { homeData } from '@/data/home.data';
+import { home, layoutConfig, ui } from '@/data';
 import { ctaSectionStyles } from './CTASection.styles';
 import { SpotlightHeading } from '@/components/shared/SpotlightHeading';
 import type { CTASectionProps } from './CTASection.types';
 
 export function CTASection({ onContactOpen }: CTASectionProps) {
+  const { cta } = home;
+  const marqueeItems = layoutConfig.footer.techStacks;
+
   return (
     <>
-      {/* Client Logos Marquee */}
+      {/* Marquee */}
       <section className={ctaSectionStyles.marqueeSection}>
         <div className={ctaSectionStyles.marqueeWrapper}>
-          {CLIENT_NAMES.map((name, i) => (
+          {[...marqueeItems, ...marqueeItems].map((name, i) => (
             <span key={`${name}-${i}`} className={ctaSectionStyles.clientName}>
               {name}
             </span>
@@ -22,12 +24,10 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
       <section className={ctaSectionStyles.ctaSection} id="contact">
         <div className={ctaSectionStyles.container}>
           <div className={ctaSectionStyles.layoutRow}>
-            {/* LEFT: desc text + say hello button */}
+            {/* LEFT: desc text + button */}
             <div className={ctaSectionStyles.descWrapper}>
-              <p className={ctaSectionStyles.descText}>
-                {homeData.cta.desc.split('\n')[0]}
-                <br />
-                {homeData.cta.desc.split('\n')[1]}
+              <p className={ctaSectionStyles.descText} style={{ whiteSpace: 'pre-line' }}>
+                {cta.desc}
               </p>
 
               <button
@@ -37,7 +37,7 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
                 aria-label="Open contact form"
               >
                 <div className={ctaSectionStyles.monoWrapper}>
-                  <span className={ctaSectionStyles.monoText}>{homeData.cta.buttonText}</span>
+                  <span className={ctaSectionStyles.monoText}>{cta.buttonText}</span>
                 </div>
                 <svg
                   className={ctaSectionStyles.svgArrow}
@@ -58,16 +58,15 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
               </button>
             </div>
 
-            {/* RIGHT: Reusable Spotlight Heading */}
+            {/* RIGHT: SpotlightHeading */}
             <div className={ctaSectionStyles.headingWrapper}>
               <SpotlightHeading
-                line1={homeData.cta.line1}
-                line2={homeData.cta.line2}
-                imageSrc={CONTACT_SPOTLIGHT_IMAGE}
-                targetRectWidth={15}
-                fontSize={15}
-                gap={1}
-                triggerOnScroll={true}
+                line1={cta.line1}
+                line2={cta.line2}
+                imageSrc={ui.contactModal.spotlightImage}
+                targetRectWidth={120}
+                gap={14}
+                triggerOnScroll
               />
             </div>
           </div>
@@ -76,4 +75,3 @@ export function CTASection({ onContactOpen }: CTASectionProps) {
     </>
   );
 }
-

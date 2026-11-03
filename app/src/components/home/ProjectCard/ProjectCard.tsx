@@ -17,6 +17,16 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
     onNavigate(href);
   };
 
+  const imageSrc =
+    typeof project.thumbnail === 'string'
+      ? project.thumbnail
+      : (project.thumbnail as any)?.src || (project.heroImage as any)?.src || (project.heroImage as any) || '';
+
+  const imageAlt =
+    typeof project.thumbnail === 'object' && (project.thumbnail as any)?.alt
+      ? (project.thumbnail as any).alt
+      : `${project.title} portfolio thumbnail`;
+
   return (
     <MotionCard
       className={projectCardStyles.motionShell}
@@ -34,8 +44,8 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
       >
         <div className={projectCardStyles.imageWrapper}>
           <img
-            src={project.thumbnail}
-            alt={project.title}
+            src={imageSrc}
+            alt={imageAlt}
             className={projectCardStyles.image}
             loading="lazy"
           />

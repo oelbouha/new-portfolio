@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { home } from '@/data';
 import { videoSectionStyles } from './VideoSection.styles';
 
 export function VideoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useScrollReveal<HTMLDivElement>({ y: 60, duration: 1.2, ease: 'power4.out', start: 'top 90%' });
-
 
   return (
     <section className={videoSectionStyles.section}>
@@ -24,8 +24,8 @@ export function VideoSection() {
             style={{ pointerEvents: 'none' }}
           >
             <source
-              src="https://studionamma.vercel.app/videos/cut/video-matera2.webm"
-              type="video/webm"
+              src={home.video.src}
+              type={home.video.type}
             />
           </video>
 

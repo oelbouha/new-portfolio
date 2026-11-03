@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// TODO: Wire SeoHead + JSON-LD once SSG is configured
+// import { home } from '@/data';
+// import { SeoHead } from '@/components/shared/SeoHead';
+// import { generatePersonSchema, generateWebSiteSchema } from '@/lib/jsonLd';
 import { HeroSection } from '@/sections/home/HeroSection';
 import { VideoSection } from '@/sections/home/VideoSection';
 import { ServicesSection } from '@/sections/home/ServicesSection';
@@ -46,7 +50,7 @@ export function Home({ preloaderDone = true, onContactOpen, onNavigate }: HomePr
         <VideoSection />
         <IntroSection />
         <PlaygroundSection onNavigate={onNavigate} />
-        <ServicesSection />
+        <ServicesSection onNavigate={onNavigate} />
       </main>
       <Footer onContactOpen={onContactOpen} onNavigate={onNavigate} />
     </div>

@@ -1,3 +1,4 @@
+import { ui } from '@/data';
 import { projectDetailIntroStyles } from './ProjectDetailIntro.styles';
 import type { ProjectDetailIntroProps } from './ProjectDetailIntro.types';
 
@@ -10,12 +11,14 @@ function ArrowIcon() {
 }
 
 export function ProjectDetailIntro({ overview, description, website }: ProjectDetailIntroProps) {
+  const { labels, buttons } = ui;
+
   return (
     <section className={projectDetailIntroStyles.section}>
       <div className={projectDetailIntroStyles.container}>
         <div className={projectDetailIntroStyles.labelCol}>
           <div className={projectDetailIntroStyles.monoWrapper}>
-            <span className={projectDetailIntroStyles.monoText}>Project info</span>
+            <span className={projectDetailIntroStyles.monoText}>{labels.projectInfo}</span>
           </div>
         </div>
         <div className={projectDetailIntroStyles.bodyCol}>
@@ -30,7 +33,7 @@ export function ProjectDetailIntro({ overview, description, website }: ProjectDe
               className={projectDetailIntroStyles.visitLink}
             >
               <div className={projectDetailIntroStyles.monoWrapper}>
-                <span className={projectDetailIntroStyles.monoText}>Visit website</span>
+                <span className={projectDetailIntroStyles.monoText}>{buttons.visitWebsite}</span>
               </div>
               <span className={projectDetailIntroStyles.arrowIcon}><ArrowIcon /></span>
             </a>

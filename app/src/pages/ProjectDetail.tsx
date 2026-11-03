@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
-import { projectsData } from '@/data/projects/projects.data';
+import { allProjects } from '@/data';
 import { Footer } from '@/components/layout/Footer';
 import { ProjectDetailHero } from '@/components/project/ProjectDetailHero';
 import { ProjectDetailCover } from '@/components/project/ProjectDetailCover';
@@ -27,50 +27,54 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
   const coverRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
 
-  const project = projectsData.find((p) => p.slug === slug) ?? null;
-  const currentIndex = project ? projectsData.findIndex((p) => p.slug === slug) : -1;
-  const nextProject = project ? projectsData[(currentIndex + 1) % projectsData.length] : null;
+  const project = allProjects.find((p) => p.slug === slug) ?? null;
+  const currentIndex = project ? allProjects.findIndex((p) => p.slug === slug) : -1;
+  const nextProject = project ? allProjects[(currentIndex + 1) % allProjects.length] : null;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
   }, [slug]);
 
-  // GSAP entrance animations — immediate presentation upon route change
+  // GSAP entrance animations
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     if (!pageRef.current || !project) return;
 
-    // Kill any lingering ScrollTriggers from the previous page before adding new ones
     ScrollTrigger.getAll().forEach((t) => t.kill());
 
     const ctx = gsap.context(() => {
-      // Hero title reveal — smooth fade & slide up synchronized with overlay fade
       if (titleRef.current) {
-        gsap.fromTo(titleRef.current,
+        gsap.fromTo(
+          titleRef.current,
           { y: 25, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
         );
       }
 
-      // Cover image reveal
       if (coverRef.current) {
-        gsap.fromTo(coverRef.current,
+        gsap.fromTo(
+          coverRef.current,
           { y: 20, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.15 }
         );
       }
 
-      // Tagline
       if (taglineRef.current) {
-        gsap.fromTo(taglineRef.current,
+        gsap.fromTo(
+          taglineRef.current,
           { y: 40, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 1.2, ease: 'power4.out',
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power4.out',
             scrollTrigger: { trigger: taglineRef.current, start: 'top 88%' },
           }
         );
       }
 
-      // Gallery image reveals
       gsap.utils.toArray<HTMLElement>('.proj-img-reveal').forEach((el) => {
         gsap.from(el, {
           y: 60,
@@ -84,7 +88,6 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
         });
       });
 
-      // Info rows
       gsap.utils.toArray<HTMLElement>('.proj-info-row').forEach((el, i) => {
         gsap.from(el, {
           y: 30,
@@ -99,14 +102,13 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
         });
       });
 
-      // Next project title
       gsap.from('.proj-next-title', {
-        y: 50,
+        y: 80,
         opacity: 0,
         duration: 1.2,
         ease: 'power4.out',
         scrollTrigger: {
-          trigger: '.proj-next-title',
+          trigger: '.proj-next-wrap',
           start: 'top 88%',
         },
         onComplete: () => {
@@ -114,7 +116,6 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
         },
       });
 
-      // Refresh ST after entrance animations settle
       setTimeout(() => ScrollTrigger.refresh(), 1200);
     }, pageRef);
 
@@ -123,7 +124,9 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
 
   if (!project || !nextProject) return <Navigate to="/" replace />;
 
-  // Split gallery images into top half and bottom half around quote
+  const coverSrc = project.coverImage?.src || project.heroImage?.src || '';
+  const coverAlt = project.coverImage?.alt || project.heroImage?.alt || `${project.title} cover`;
+
   const [, ...galleryImages] = project.images;
   const midIndex = Math.floor(galleryImages.length / 2);
   const topImages = galleryImages.slice(0, midIndex);
@@ -141,7 +144,8 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
 
         {/* 2. Cover Image */}
         <ProjectDetailCover
-          coverImage={project.coverImage || project.heroImage}
+          coverImage={coverSrc}
+          alt={coverAlt}
           title={project.title}
           coverRef={coverRef}
         />
@@ -190,7 +194,7 @@ export default function ProjectDetail({ onNavigate, onContactOpen }: ProjectDeta
         <ProjectDetailNext nextProject={nextProject} onNavigate={onNavigate} />
       </div>
 
-      {/* 10. Footer (Full Width) */}
+      {/* 10. Footer */}
       <Footer onContactOpen={onContactOpen} onNavigate={onNavigate} />
     </main>
   );

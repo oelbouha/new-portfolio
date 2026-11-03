@@ -1,5 +1,23 @@
-export * from './home.data';
-export * from './about.data';
-export * from './work.data';
-export * from './layout.data';
-export * from './projects/projects.data';
+/**
+ * Central data export module.
+ * Single entry point for all site data, page content, SEO blocks, and registries.
+ */
+
+export * from './types';
+export * from './site';
+export * from './keywords';
+export * from './layout';
+export * from './ui';
+export * from './pages/home';
+export * from './pages/about';
+export * from './pages/projects';
+export * from './pages/contact';
+export * from './pages/not-found';
+export * from './services';
+
+// Aliases for legacy component compatibility during refactoring
+export { home as homeData } from './pages/home';
+export { about as aboutData } from './pages/about';
+export { layoutConfig as layoutData } from './layout';
+export { allProjects as projectsData } from './pages/projects';
+export { projectsPage as workPageData } from './pages/projects';
