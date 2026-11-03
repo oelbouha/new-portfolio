@@ -2,4 +2,5 @@
   "rewrites": [
     { "source": "/index.xml", "destination": "/sitemap.xml" }
   ]
+  
 }
