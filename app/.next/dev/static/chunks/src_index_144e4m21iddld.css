@@ -868,10 +868,6 @@ img, video {
   aspect-ratio: 16 / 10;
 }
 
-.aspect-\[16\/9\] {
-  aspect-ratio: 16 / 9;
-}
-
 .aspect-\[3\/4\] {
   aspect-ratio: 3 / 4;
 }
@@ -1050,10 +1046,6 @@ img, video {
 
 .max-h-\[300px\] {
   max-height: 300px;
-}
-
-.max-h-\[560px\] {
-  max-height: 560px;
 }
 
 .max-h-\[85px\] {
@@ -2107,6 +2099,11 @@ img, video {
   background-color: #00000005;
 }
 
+.bg-blue-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+}
+
 .bg-border {
   background-color: hsl(var(--border));
 }
@@ -2184,11 +2181,6 @@ img, video {
 
 .bg-white\/20 {
   background-color: #fff3;
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
 }
 
 .bg-gradient-to-b {
@@ -5816,11 +5808,6 @@ html.lenis, html.lenis body {
   background-color: hsl(var(--sidebar-accent));
 }
 
-.hover\:bg-white:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
 .hover\:bg-white\/20:hover {
   background-color: #fff3;
 }
@@ -7169,10 +7156,6 @@ html.lenis, html.lenis body {
 
   .sm\:mt-16 {
     margin-top: 4rem;
-  }
-
-  .sm\:mt-20 {
-    margin-top: 5rem;
   }
 
   .sm\:mt-4 {

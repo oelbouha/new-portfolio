@@ -1,72 +1,9 @@
-{"timestamp":"00:00:02.348","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:11.644","source":"Server","level":"LOG","message":"○ Compiling / ..."}
-{"timestamp":"00:00:15.524","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:00:25.342","source":"Browser","level":"WARN","message":"GSAP target  not found. https://gsap.com"}
-{"timestamp":"00:00:25.648","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target  not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/sections/home/HeroSection/HeroSection.tsx:127:12)\\u001b[22m\""}
-{"timestamp":"00:01:30.398","source":"Server","level":"LOG","message":"✓ Compiled in 293ms"}
-{"timestamp":"00:01:32.567","source":"Browser","level":"WARN","message":"GSAP target  not found. https://gsap.com"}
-{"timestamp":"00:01:32.681","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target  not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/sections/home/HeroSection/HeroSection.tsx:127:12)\\u001b[22m\""}
-{"timestamp":"00:02:12.705","source":"Server","level":"LOG","message":"✓ Compiled in 265ms"}
-{"timestamp":"00:02:20.683","source":"Server","level":"LOG","message":"✓ Compiled in 234ms"}
-{"timestamp":"00:02:34.241","source":"Server","level":"LOG","message":"✓ Compiled in 288ms"}
-{"timestamp":"00:02:45.915","source":"Server","level":"LOG","message":"✓ Compiled in 221ms"}
-{"timestamp":"00:02:52.999","source":"Server","level":"LOG","message":"✓ Compiled in 215ms"}
-{"timestamp":"00:02:59.111","source":"Server","level":"LOG","message":"✓ Compiled in 230ms"}
-{"timestamp":"00:03:47.689","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:03:47.748","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:42:41)\\u001b[22m\""}
-{"timestamp":"00:03:47.749","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:03:47.756","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:49:78)\\u001b[22m\""}
-{"timestamp":"00:04:53.846","source":"Browser","level":"WARN","message":"Element not found: .proj-next-wrap"}
-{"timestamp":"00:04:53.901","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mElement not found:\\u001b[39m\" \"\\u001b[33m.proj-next-wrap\\u001b[39m\" \"\\u001b[2m(src/components/project/ProjectDetailClient.tsx:94:12)\\u001b[22m\""}
-{"timestamp":"00:04:53.901","source":"Browser","level":"WARN","message":"Element not found: .proj-next-wrap"}
-{"timestamp":"00:04:53.906","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mElement not found:\\u001b[39m\" \"\\u001b[33m.proj-next-wrap\\u001b[39m\" \"\\u001b[2m(src/components/project/ProjectDetailClient.tsx:94:12)\\u001b[22m\""}
-{"timestamp":"00:05:15.444","source":"Browser","level":"WARN","message":"Element not found: .proj-next-wrap"}
-{"timestamp":"00:05:15.445","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mElement not found:\\u001b[39m\" \"\\u001b[33m.proj-next-wrap\\u001b[39m\" \"\\u001b[2m(src/components/project/ProjectDetailClient.tsx:94:12)\\u001b[22m\""}
-{"timestamp":"00:05:15.445","source":"Browser","level":"WARN","message":"Element not found: .proj-next-wrap"}
-{"timestamp":"00:05:15.445","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mElement not found:\\u001b[39m\" \"\\u001b[33m.proj-next-wrap\\u001b[39m\" \"\\u001b[2m(src/components/project/ProjectDetailClient.tsx:94:12)\\u001b[22m\""}
-{"timestamp":"00:05:24.926","source":"Browser","level":"WARN","message":"Element not found: .proj-next-wrap"}
-{"timestamp":"00:05:24.926","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mElement not found:\\u001b[39m\" \"\\u001b[33m.proj-next-wrap\\u001b[39m\" \"\\u001b[2m(src/components/project/ProjectDetailClient.tsx:94:12)\\u001b[22m\""}
-{"timestamp":"00:05:24.927","source":"Browser","level":"WARN","message":"Element not found: .proj-next-wrap"}
-{"timestamp":"00:05:24.927","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mElement not found:\\u001b[39m\" \"\\u001b[33m.proj-next-wrap\\u001b[39m\" \"\\u001b[2m(src/components/project/ProjectDetailClient.tsx:94:12)\\u001b[22m\""}
-{"timestamp":"00:06:38.618","source":"Server","level":"LOG","message":"✓ Compiled in 258ms"}
-{"timestamp":"00:06:52.380","source":"Server","level":"LOG","message":"✓ Compiled in 248ms"}
-{"timestamp":"00:07:00.598","source":"Server","level":"LOG","message":"✓ Compiled in 261ms"}
-{"timestamp":"00:07:15.147","source":"Server","level":"LOG","message":"✓ Compiled in 359ms"}
-{"timestamp":"00:07:15.201","source":"Server","level":"ERROR","message":"⨯ ReferenceError: AboutSection is not defined"}
-{"timestamp":"00:07:15.280","source":"Browser","level":"ERROR","message":"Uncaught ReferenceError: AboutSection is not defined\n    at HomePage (src/app/page.tsx:53:12)\n  \u001b[90m51 |\u001b[0m           <\u001b[33mPlaygroundSection\u001b[0m />\n  \u001b[90m52 |\u001b[0m           <\u001b[33mServicesSection\u001b[0m />\n\u001b[31m\u001b[1m>\u001b[0m \u001b[90m53 |\u001b[0m           <\u001b[33mAboutSection\u001b[0m />\n  \u001b[90m   |\u001b[0m            \u001b[31m\u001b[1m^\u001b[0m\n  \u001b[90m54 |\u001b[0m         </main>\n  \u001b[90m55 |\u001b[0m         <\u001b[33mFooter\u001b[0m />\n  \u001b[90m56 |\u001b[0m       </div>"}
-{"timestamp":"00:07:15.280","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught ReferenceError: AboutSection is not defined\\u001b[39m\\n\\u001b[31m    at HomePage (src/app/page.tsx:53:12)\\u001b[39m\\n  \\u001b[90m51 |\\u001b[0m           <\\u001b[33mPlaygroundSection\\u001b[0m />\\n  \\u001b[90m52 |\\u001b[0m           <\\u001b[33mServicesSection\\u001b[0m />\\n\\u001b[31m\\u001b[1m>\\u001b[0m \\u001b[90m53 |\\u001b[0m           <\\u001b[33mAboutSection\\u001b[0m />\\n  \\u001b[90m   |\\u001b[0m            \\u001b[31m\\u001b[1m^\\u001b[0m\\n  \\u001b[90m54 |\\u001b[0m         </main>\\n  \\u001b[90m55 |\\u001b[0m         <\\u001b[33mFooter\\u001b[0m />\\n  \\u001b[90m56 |\\u001b[0m       </div>\""}
-{"timestamp":"00:07:20.061","source":"Server","level":"LOG","message":"✓ Compiled in 218ms"}
-{"timestamp":"00:07:20.502","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:09:03.187","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:09:17.530","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:09:17.538","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:43:8)\\u001b[22m\""}
-{"timestamp":"00:09:17.538","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:09:17.542","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:50:6)\\u001b[22m\""}
-{"timestamp":"00:09:24.440","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:09:24.441","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:43:8)\\u001b[22m\""}
-{"timestamp":"00:09:24.441","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:09:24.442","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:50:6)\\u001b[22m\""}
-{"timestamp":"00:09:35.349","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:09:35.350","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:43:8)\\u001b[22m\""}
-{"timestamp":"00:09:35.350","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:09:35.351","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:50:6)\\u001b[22m\""}
-{"timestamp":"00:12:43.917","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:12:43.918","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:43:8)\\u001b[22m\""}
-{"timestamp":"00:12:43.918","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:12:43.918","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:50:6)\\u001b[22m\""}
-{"timestamp":"00:20:45.015","source":"Server","level":"LOG","message":"✓ Compiled in 374ms"}
-{"timestamp":"00:21:09.550","source":"Server","level":"LOG","message":"✓ Compiled in 265ms"}
-{"timestamp":"00:21:19.379","source":"Server","level":"LOG","message":"✓ Compiled in 470ms"}
-{"timestamp":"00:21:28.968","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload due to a runtime error."}
-{"timestamp":"00:21:29.013","source":"Server","level":"LOG","message":"✓ Compiled in 239ms"}
-{"timestamp":"00:21:29.402","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:21:48.978","source":"Server","level":"LOG","message":"✓ Compiled in 275ms"}
-{"timestamp":"00:21:51.965","source":"Server","level":"LOG","message":"✓ Compiled in 238ms"}
-{"timestamp":"00:22:03.926","source":"Server","level":"LOG","message":"✓ Compiled in 280ms"}
-{"timestamp":"00:22:19.034","source":"Server","level":"LOG","message":"✓ Compiled in 312ms"}
-{"timestamp":"00:28:41.670","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:28:41.685","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:43:74)\\u001b[22m\""}
-{"timestamp":"00:28:41.685","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
-{"timestamp":"00:28:41.691","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:50:21)\\u001b[22m\""}
-{"timestamp":"00:29:42.623","source":"Browser","level":"WARN","message":"GSAP target  not found. https://gsap.com"}
-{"timestamp":"00:29:42.644","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target  not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/sections/home/HeroSection/HeroSection.tsx:127:12)\\u001b[22m\""}
+{"timestamp":"00:00:01.358","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:06.843","source":"Server","level":"LOG","message":"○ Compiling / ..."}
+{"timestamp":"00:00:09.484","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:11.201","source":"Browser","level":"WARN","message":"GSAP target  not found. https://gsap.com"}
+{"timestamp":"00:00:11.216","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target  not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/sections/home/HeroSection/HeroSection.tsx:127:12)\\u001b[22m\""}
+{"timestamp":"00:00:11.326","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
+{"timestamp":"00:00:11.363","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:43:8)\\u001b[22m\""}
+{"timestamp":"00:00:11.363","source":"Browser","level":"WARN","message":"GSAP target [object NodeList] not found. https://gsap.com"}
+{"timestamp":"00:00:11.368","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mGSAP target [object NodeList] not found. https://gsap.com\\u001b[39m\" \"\\u001b[2m(src/lib/animations.ts:50:6)\\u001b[22m\""}
