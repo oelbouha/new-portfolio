@@ -24,7 +24,7 @@ export const home: HomePage = {
   intro: {
     tag: '[ FULL-STACK DEVELOPER ]',
     statement:
-      'FROM FRONTEND TO BACKEND, MOBILE TO AUTOMATION — I TURN IDEAS INTO PRODUCTS THAT ACTUALLY WORK.',
+      'FULL STACK WEB AND MOBILE APP DEVELOPMENT — FROM FRONTEND TO BACKEND, MOBILE TO AUTOMATION. I TURN IDEAS INTO PRODUCTS THAT ACTUALLY WORK.',
   },
   video: {
     src: 'https://studionamma.vercel.app/videos/cut/video-matera2.webm',

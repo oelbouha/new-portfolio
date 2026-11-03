@@ -1,10 +1,10 @@
 /**
- * Reusable SEO Head component using react-helmet-async.
- * Injects meta tags, canonical links, OpenGraph, Twitter, and JSON-LD schemas
- * into the document <head>.
+ * Reusable SEO Head component with native React 19 metadata support
+ * and dynamic client-side updates.
+ * Injects meta tags, canonical links, OpenGraph, Twitter, and JSON-LD schemas.
  */
 
-import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 import { siteConfig } from '@/data/site';
 import type { SeoData } from '@/data/types';
 
@@ -21,8 +21,45 @@ export function SeoHead({ seo, jsonLd }: SeoHeadProps) {
 
   const schemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    // Update document title
+    document.title = seo.title;
+
+    // Helper to create or update meta tag
+    const setMeta = (nameOrProperty: string, key: 'name' | 'property', value: string) => {
+      let el = document.querySelector<HTMLMetaElement>(`meta[${key}="${nameOrProperty}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(key, nameOrProperty);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', value);
+    };
+
+    setMeta('description', 'name', seo.description);
+    setMeta('robots', 'name', seo.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
+    setMeta('og:title', 'property', seo.title);
+    setMeta('og:description', 'property', seo.description);
+    setMeta('og:url', 'property', canonicalUrl);
+    setMeta('og:image', 'property', ogImage);
+    setMeta('twitter:title', 'name', seo.title);
+    setMeta('twitter:description', 'name', seo.description);
+    setMeta('twitter:image', 'name', ogImage);
+
+    // Canonical link
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', canonicalUrl);
+  }, [seo, canonicalUrl, ogImage]);
+
   return (
-    <Helmet>
+    <>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <link rel="canonical" href={canonicalUrl} />
@@ -52,10 +89,9 @@ export function SeoHead({ seo, jsonLd }: SeoHeadProps) {
         <script
           key={`schema-${index}`}
           type="application/ld+json"
-        >
-          {JSON.stringify(schema)}
-        </script>
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       ))}
-    </Helmet>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { ThemeProvider } from '@/context/ThemeContext';
-import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Home } from '@/pages/Home';
 import ProjectDetail from '@/pages/ProjectDetail';
@@ -217,13 +216,11 @@ function AppInner() {
 function App() {
   return (
     <ThemeProvider>
-      <HelmetProvider>
-        <BrowserRouter>
-          <SmoothScroll>
-            <AppInner />
-          </SmoothScroll>
-        </BrowserRouter>
-      </HelmetProvider>
+      <BrowserRouter>
+        <SmoothScroll>
+          <AppInner />
+        </SmoothScroll>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
