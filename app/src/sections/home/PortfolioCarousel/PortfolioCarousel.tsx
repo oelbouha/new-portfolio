@@ -1,7 +1,9 @@
+'use client';
+
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { home } from '@/data';
 import { portfolioCarouselStyles } from './PortfolioCarousel.styles';
@@ -253,7 +255,7 @@ function ProjectCard({ project, onNavigate }: { project: ProjectItem; onNavigate
 
   return (
     <Link
-      to={`/work/${project.slug}`}
+      href={`/work/${project.slug}`}
       onClick={handleClick}
       ref={cardRef as any}
       onMouseMove={handleMouseMove}

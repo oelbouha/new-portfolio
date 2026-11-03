@@ -1,8 +1,19 @@
+'use client';
+
+import Link from 'next/link';
 import type { FooterProps } from './Footer.types';
 import { layoutConfig, servicesRegistry } from '@/data';
 
 export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
   const { footer } = layoutConfig;
+
+  const handleContact = () => {
+    if (onContactOpen) {
+      onContactOpen();
+    } else if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-contact'));
+    }
+  };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (onNavigate) {
@@ -78,7 +89,7 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
 
             {/* Book a Call Button */}
             <button
-              onClick={onContactOpen}
+              onClick={handleContact}
               data-cursor-hover={footer.banner.buttonText}
               data-cursor-icon="↗"
               aria-label={footer.banner.buttonText}
@@ -121,17 +132,16 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
                 {footerColumns[0].title}
               </span>
               {footerColumns[0].links.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
                   className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <button
-                onClick={onContactOpen}
+                onClick={handleContact}
                 className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150 text-left cursor-pointer"
               >
                 Contact
@@ -144,14 +154,13 @@ export function Footer({ onContactOpen, onNavigate }: FooterProps = {}) {
                 {footerColumns[1].title}
               </span>
               {footerColumns[1].links.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
                   className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[14px] leading-[1.2] text-[#555] dark:text-[#aaa] hover:text-[#111] dark:hover:text-white transition-colors duration-150"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
 
               <span className="font-['PP_Neue_Montreal_Medium',sans-serif] text-[11px] uppercase tracking-wider text-[#888] mt-3 mb-1">

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useId } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -34,7 +34,8 @@ export function SpotlightHeading({
   const line2Ref = useRef<SVGTextElement>(null);
   const rectClipRef = useRef<SVGRectElement>(null);
   const imgRef = useRef<SVGImageElement>(null);
-  const clipIdRef = useRef(`spotlight-clip-${Math.random().toString(36).substring(2, 9)}`);
+  const uniqueId = useId();
+  const clipId = `spotlight-clip-${uniqueId.replace(/:/g, '')}`;
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
@@ -173,7 +174,7 @@ export function SpotlightHeading({
       className={`w-full h-auto overflow-visible ${className}`}
     >
       <defs>
-        <clipPath id={clipIdRef.current}>
+        <clipPath id={clipId}>
           <rect ref={rectClipRef} x="0" y="0" width="0" height="0" rx="0" />
         </clipPath>
       </defs>
@@ -195,7 +196,7 @@ export function SpotlightHeading({
       </text>
 
       {/* Line 2 - Expanding Image (Directly clipped without black rect background) */}
-      <g clipPath={`url(#${clipIdRef.current})`}>
+      <g clipPath={`url(#${clipId})`}>
         <image
           ref={imgRef}
           href={imageSrc}

@@ -1,3 +1,5 @@
+'use client';
+
 import { ScrollHeadline } from '@/components/shared/ScrollHeadline';
 import { home } from '@/data';
 import { introSectionStyles } from './IntroSection.styles';

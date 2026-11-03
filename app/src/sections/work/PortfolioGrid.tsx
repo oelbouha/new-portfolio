@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Columns2, Columns3, Columns4 } from 'lucide-react';
 
@@ -67,7 +69,7 @@ export function PortfolioGrid() {
           {projects.map((project) => (
             <Link
               key={project.id}
-              to={`/work/${project.id}`}
+              href={`/work/${project.id}`}
               className="group relative overflow-hidden rounded-xl aspect-[4/3]"
             >
               <img

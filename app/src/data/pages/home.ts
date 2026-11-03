@@ -9,7 +9,7 @@ import { keywords } from '../keywords';
 
 export const home: HomePage = {
   seo: {
-    title: 'Full Stack Web & Mobile App Developer | Outman Elbouhali',
+    title: 'Full Stack Web & Mobile App Development | Outman Elbouhali',
     description:
       'Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation.',
     path: '/',

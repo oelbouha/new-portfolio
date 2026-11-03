@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { about } from '@/data';
 import { aboutServicesStyles } from './AboutServices.styles';

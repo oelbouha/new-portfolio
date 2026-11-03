@@ -35,9 +35,9 @@ export function getServiceBySlug(slug: string): ServiceDetail | undefined {
 // Services Overview Page Content & SEO definition
 export const servicesOverviewPage: ServicesOverviewPage = {
   seo: {
-    title: 'Web and Mobile App Development Services | Outman Elbouhali',
+    title: 'Full Stack Development Services | Outman Elbouhali',
     description:
-      'Professional web and mobile app development services by Outman Elbouhali. Custom web apps, Flutter iOS & Android apps, Django APIs, and n8n automations.',
+      'Full stack development services by Outman Elbouhali: custom web application engineering, Flutter mobile apps, Django REST APIs, and automated n8n workflows.',
     path: '/services',
     ogImage: siteConfig.defaultOgImage,
     primaryKeyword: keywords.servicesOverview.primary,
@@ -46,7 +46,7 @@ export const servicesOverviewPage: ServicesOverviewPage = {
   },
   hero: {
     badge: '// ENGINEERING & CONSULTING CAPABILITIES',
-    title: 'Web and Mobile App Development Services',
+    title: 'Full Stack Development Services',
     subtitle:
       'I engineer high-performance web applications, cross-platform mobile apps, scalable backend APIs, and automated business workflows for startups and growing businesses.',
     ctaButton: 'Discuss your project',

@@ -1,0 +1,40 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/1mvrrglt5sw9_.js"
+3:"/_next/static/chunks/0014emwhi32-z.js"
+4:"/_next/static/chunks/0cwd-6r-zgab2.js"
+5:"/_next/static/chunks/35dnap4cd25sp.js"
+6:"/_next/static/chunks/243lih31iafvv.js"
+7:I[10400,["$2","$3","$4","$5","$6"],"AppShell"]
+8:"/_next/static/chunks/1ua2kfq9s-me6.js"
+9:I[39756,["$8"],"default"]
+a:I[37457,["$8"],"default"]
+b:"/_next/static/chunks/3zt_16xndew4w.js"
+c:I[22016,["$2","$3","$4","$5","$6","$b"],""]
+13:I[97367,["$8"],"OutletBoundary"]
+14:"$Sreact.suspense"
+17:"ViewportBoundary"
+18:I[97367,["$8"],"$17"]
+19:"MetadataBoundary"
+1a:I[97367,["$8"],"$19"]
+:HL["/_next/static/chunks/28y0vkila8m9q.css","style"]
+e:X
+11:X
+11:C
+12:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-[var(--background)] text-[var(--text)] flex flex-col items-center justify-center px-4 text-center","children":[["$","span",null,{"className":"font-mono text-xs uppercase tracking-widest opacity-60 mb-4 block","children":"[ 404 ERROR ]"}],["$","h1",null,{"className":"font-['PP_Neue_Corp_Tight_Ultrabold'] text-6xl sm:text-8xl lg:text-9xl uppercase tracking-wider mb-6","children":"PAGE NOT FOUND"}],["$","p",null,{"className":"font-['Space_Grotesk'] text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-md mb-8","children":"The link you followed may be broken, or the page may have been moved."}],["$","div",null,{"className":"flex flex-wrap items-center justify-center gap-4","children":[["$","$Lc",null,{"href":"/","className":"inline-flex items-center gap-2 px-6 py-3 rounded-[4px] bg-[var(--text)] text-[var(--background)] font-mono text-xs uppercase tracking-wider font-semibold","children":"Return Home →"}],["$","$Lc",null,{"href":"/work","className":"inline-flex items-center gap-2 px-6 py-3 rounded-[4px] border border-black/15 dark:border-white/20 font-mono text-xs uppercase tracking-wider opacity-80 hover:opacity-100","children":"View Projects"}]]}]]}],[["$","script","script-0",{"src":"/_next/static/chunks/3zt_16xndew4w.js","async":true}]],["$","$L13",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]]}],"p":"$@16","v":null,"s":"$e"}}]]
+f:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L9",null,{"parallelRouterKey":"children","template":["$","$La",null,{}]}]]}],"p":"$@10","v":"$11","s":"$e"},"c":"$Q12"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/28y0vkila8m9q.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/1mvrrglt5sw9_.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/0014emwhi32-z.js","async":true}],["$","script","script-2",{"src":"/_next/static/chunks/0cwd-6r-zgab2.js","async":true}],["$","script","script-3",{"src":"/_next/static/chunks/35dnap4cd25sp.js","async":true}],["$","script","script-4",{"src":"/_next/static/chunks/243lih31iafvv.js","async":true}]],["$","html",null,{"lang":"en","children":[["$","head",null,{}],["$","body",null,{"children":["$","$L7",null,{"children":["$","$L9",null,{"parallelRouterKey":"children","template":["$","$La",null,{}],"notFound":[["$","div",null,{"className":"min-h-screen bg-[var(--background)] text-[var(--text)] flex flex-col items-center justify-center px-4 text-center","children":[["$","span",null,{"className":"font-mono text-xs uppercase tracking-widest opacity-60 mb-4 block","children":"[ 404 ERROR ]"}],["$","h1",null,{"className":"font-['PP_Neue_Corp_Tight_Ultrabold'] text-6xl sm:text-8xl lg:text-9xl uppercase tracking-wider mb-6","children":"PAGE NOT FOUND"}],["$","p",null,{"className":"font-['Space_Grotesk'] text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-md mb-8","children":"The link you followed may be broken, or the page may have been moved."}],["$","div",null,{"className":"flex flex-wrap items-center justify-center gap-4","children":[["$","$Lc",null,{"href":"/","className":"inline-flex items-center gap-2 px-6 py-3 rounded-[4px] bg-[var(--text)] text-[var(--background)] font-mono text-xs uppercase tracking-wider font-semibold","children":"Return Home →"}],["$","$Lc",null,{"href":"/work","className":"inline-flex items-center gap-2 px-6 py-3 rounded-[4px] border border-black/15 dark:border-white/20 font-mono text-xs uppercase tracking-wider opacity-80 hover:opacity-100","children":"View Projects"}]]}]]}],[]]}]}]}]]}]]}],"p":"$@d","v":null,"s":"$e"},"c":"$Qf"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L18",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$14",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Page Not Found | Outman Elbouhali"}],["$","meta","1",{"name":"description","content":"The requested page could not be found. Explore custom web and mobile app development projects by Outman Elbouhali."}],["$","link","2",{"rel":"author","href":"https://www.outmanelbouhali.online"}],["$","meta","3",{"name":"author","content":"Outman Elbouhali"}],["$","meta","4",{"name":"creator","content":"Outman Elbouhali"}],["$","meta","5",{"name":"robots","content":"noindex, nofollow"}],["$","meta","6",{"name":"google-site-verification","content":"EcGE3PdZqpQEjizvuyJ01sP8p88JIfv2eGNQnAwFs38"}],["$","meta","7",{"property":"og:title","content":"Full Stack Web & Mobile App Development | Outman Elbouhali"}],["$","meta","8",{"property":"og:description","content":"Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation."}],["$","meta","9",{"property":"og:url","content":"https://www.outmanelbouhali.online"}],["$","meta","10",{"property":"og:site_name","content":"Outman Elbouhali"}],["$","meta","11",{"property":"og:locale","content":"en_US"}],["$","meta","12",{"property":"og:image","content":"https://www.outmanelbouhali.online/opengraph-image?73728434a2c91b2f"}],["$","meta","13",{"property":"og:image:type","content":"image/png"}],["$","meta","14",{"property":"og:image:width","content":"1200"}],["$","meta","15",{"property":"og:image:height","content":"630"}],["$","meta","16",{"property":"og:image:alt","content":"Outman Elbouhali - Full Stack Web & Mobile App Developer"}],["$","meta","17",{"property":"og:type","content":"website"}],["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","19",{"name":"twitter:creator","content":"@oelbouha"}],["$","meta","20",{"name":"twitter:title","content":"Full Stack Web & Mobile App Development | Outman Elbouhali"}],"$L1b","$L1c","$L1d","$L1e","$L1f"]}]}],null]}],null]}],"p":"$@20","v":null,"s":"$e"}},"a":"$@21","u":"$@22","b":"yKvKLEpCxDbXCto5bYbb3"}
+23:I[27201,["$8"],"IconMark"]
+15:null
+1b:["$","meta","21",{"name":"twitter:description","content":"Independent Full Stack Developer specializing in custom web development, Flutter cross-platform mobile apps, Django APIs, and n8n workflow automation."}]
+1c:["$","meta","22",{"name":"twitter:image","content":"https://www.outmanelbouhali.online/opengraph-image"}]
+1d:["$","link","23",{"rel":"icon","href":"/images/icon.png"}]
+1e:["$","link","24",{"rel":"apple-touch-icon","href":"/images/icon.png"}]
+1f:["$","$L23","25",{}]
+e:300
+22:true
+e:C
+21:0
+10:"$undefined"
+d:"$undefined"
+20:"$undefined"
+16:"$undefined"

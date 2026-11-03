@@ -1,4 +1,7 @@
+'use client';
+
 import { useState, useEffect, useRef, useCallback } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { projectsPage } from '@/data';
 
@@ -71,6 +74,7 @@ export function WorkProjectsList({ onNavigate }: WorkProjectsListProps) {
           <div className="col-span-1 lg:col-span-8 flex items-start">
             <h1 className="font-['PP_Neue_Corp_Tight_Ultrabold'] text-[clamp(4.5rem,12vw,12.5rem)] uppercase leading-[0.82] tracking-[-0.01em] text-[var(--text)] select-none">
               {header.title}
+              <span className="sr-only"> — Full Stack Web and Mobile Portfolio Case Studies</span>
             </h1>
           </div>
 

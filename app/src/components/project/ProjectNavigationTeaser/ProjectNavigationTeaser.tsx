@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { projectsData } from '@/data/projects/projects.data';
 import { projectNavigationTeaserStyles } from './ProjectNavigationTeaser.styles';
 
@@ -18,12 +18,12 @@ export function ProjectNavigationTeaser({ currentSlug }: ProjectNavigationTeaser
 
   return (
     <section className={projectNavigationTeaserStyles.section}>
-      <Link to={`/work/${prevProject.slug}`} className={projectNavigationTeaserStyles.teaserCard}>
+      <Link href={`/work/${prevProject.slug}`} className={projectNavigationTeaserStyles.teaserCard}>
         <span className={projectNavigationTeaserStyles.direction}>← PREVIOUS PROJECT</span>
         <h3 className={projectNavigationTeaserStyles.title}>{prevProject.title}</h3>
       </Link>
 
-      <Link to={`/work/${nextProject.slug}`} className={projectNavigationTeaserStyles.teaserCard}>
+      <Link href={`/work/${nextProject.slug}`} className={projectNavigationTeaserStyles.teaserCard}>
         <span className={projectNavigationTeaserStyles.direction}>NEXT PROJECT →</span>
         <h3 className={projectNavigationTeaserStyles.title}>{nextProject.title}</h3>
       </Link>

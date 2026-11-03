@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
@@ -34,32 +36,33 @@ export function AboutHero({ className = '' }: AboutHeroProps) {
 
   return (
     <section className={`${aboutHeroStyles.section} ${className}`}>
-      <div className={aboutHeroStyles.headlineWrapper}>
-        <motion.h1
-          className={aboutHeroStyles.line1}
+      <h1 className={aboutHeroStyles.headlineWrapper}>
+        <motion.span
+          className={`${aboutHeroStyles.line1} block`}
           initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {about.hero.line1}
-        </motion.h1>
-        <motion.h1
-          className={aboutHeroStyles.line2}
+        </motion.span>
+        <motion.span
+          className={`${aboutHeroStyles.line2} block`}
           initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
         >
           {about.hero.line2}
-        </motion.h1>
-        <motion.h1
-          className={aboutHeroStyles.line3}
+        </motion.span>
+        <motion.span
+          className={`${aboutHeroStyles.line3} block`}
           initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
         >
           {about.hero.line3}
-        </motion.h1>
-      </div>
+        </motion.span>
+        <span className="sr-only"> — Outman Elbouhali Full-Stack Developer</span>
+      </h1>
 
       <div className={aboutHeroStyles.imageWrapper}>
         <div className={aboutHeroStyles.imageFrame}>

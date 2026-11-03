@@ -1,5 +1,7 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import type { MouseEvent } from 'react';
 import { cn } from '@/lib/utils';
 import { projectCardMotion, projectCardStyles } from './ProjectCard.styles';
@@ -36,7 +38,7 @@ export function ProjectCard({ project, index = 0, className = '', onNavigate }: 
       transition={motionVariant.transition}
     >
       <Link
-        to={href}
+        href={href}
         onClick={handleClick}
         className={cn(projectCardStyles.card, className)}
         data-cursor-hover="Open project"

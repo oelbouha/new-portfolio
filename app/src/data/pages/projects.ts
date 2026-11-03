@@ -15,7 +15,7 @@ export const allProjects: ProjectItem[] = [
     year: '2026',
     tagline: 'The modern freelance marketplace built for speed.',
     description:
-      'A freelance full-stack platform built with Next.js and Django, containerized with Docker on a production VPS.',
+      'A freelance full-stack platform built with Next.js and Django, containerized with Docker and NGINX on a secure production VPS environment.',
     overview:
       'Skatys is a custom-engineered web application combining a hyper-fast Next.js frontend with a robust Django REST backend. Deployed on a Linux VPS using Docker containers and NGINX reverse proxy for high security and performance.',
     conclusion:
@@ -247,7 +247,7 @@ export const allProjects: ProjectItem[] = [
     year: '2025',
     tagline: 'Mobile habit tracker & wellness interface built for daily engagement.',
     description:
-      'A sleek habit tracking and personal wellness iOS & Android app built with React Native and modern micro-interactions.',
+      'A sleek habit tracking and personal wellness mobile application built with cross-platform architecture, fluid gestures, and modern micro-interactions.',
     overview:
       'Habivio is a mobile wellness platform designed to turn positive daily rituals into lasting habits. Featuring intuitive progress rings, streak analytics, and bespoke haptic feedback loops, the app provides a frictionless user experience that keeps users focused and motivated.',
     conclusion:
@@ -310,7 +310,7 @@ export const allProjects: ProjectItem[] = [
     tagline:
       'A custom WordPress recipe platform built for SEO, content publishing, and automation.',
     description:
-      'A freelance WordPress project involving custom website development, SEO infrastructure, search engine integrations, social media automation, and automated indexing workflows.',
+      'A custom WordPress platform featuring tailored theme engineering, technical SEO infrastructure, search indexing, and automated social workflows.',
     overview:
       'Saladly is a custom WordPress website developed as a freelance project for a recipe and food content platform. I built and customized the WordPress website, developed the content structure for recipes and blog posts, organized the recipe categories, and implemented the website architecture around SEO and content discoverability. The project also included Google Search Console and Bing Webmaster Tools integration, automated social media publishing for new content, and automated workflows for requesting search engine indexing when new recipes and blog posts are published.',
     conclusion:
@@ -382,7 +382,7 @@ export const allProjects: ProjectItem[] = [
     year: '2025',
     tagline: 'n8n & Make custom integration pipelines.',
     description:
-      'Enterprise automation pipeline connecting multiple SaaS tools, webhooks, and AI agents for workflow optimization.',
+      'An enterprise automation pipeline connecting multiple SaaS tools, webhooks, and AI agents for end-to-end operational workflow optimization.',
     overview:
       'Constructed scalable automation architectures using self-hosted n8n instances and Make. Built custom webhooks, data transformation scripts, error recovery loops, and AI-powered categorization pipelines to automate routine business workflows.',
     conclusion:
@@ -439,7 +439,7 @@ export const allProjects: ProjectItem[] = [
     year: '2025',
     tagline: 'VPS container orchestration & CI/CD deployment.',
     description:
-      'Production VPS orchestration system leveraging Docker containers, NGINX reverse proxy, and automated CI/CD.',
+      'Production VPS orchestration system leveraging Docker containers, NGINX reverse proxy, automated SSL certificates, and streamlined CI/CD flows.',
     overview:
       'Designed and deployed a resilient server infrastructure on a Linux VPS. Isolated services into lightweight Docker containers, configured multi-domain SSL with Let’s Encrypt, and orchestrated automated zero-downtime deployment pipelines with GitHub Actions.',
     conclusion:

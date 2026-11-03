@@ -13,12 +13,12 @@ import { keywords } from '../keywords';
 
 export const n8nAutomation: ServiceDetail = {
   slug: 'n8n-automation',
-  title: 'n8n Developer & AI Workflow Automation Consulting',
+  title: 'n8n Developer & AI Workflow Automation',
   navLabel: 'n8n Automation',
   shortDescription:
     'Hire an experienced n8n developer for self-hosted workflow automation, AI agents integration, and API connectors. Cut operational costs with zero per-step execution fees.',
   seo: {
-    title: 'n8n Developer & AI Workflow Automation Consulting | Outman Elbouhali',
+    title: 'n8n Developer & AI Workflow Automation | Outman Elbouhali',
     description:
       'Hire an n8n developer for self-hosted workflow automation with AI, AI agents integration, and custom CRM connectors. Reduce SaaS expenses with self-hosted n8n.',
     path: '/services/n8n-automation',

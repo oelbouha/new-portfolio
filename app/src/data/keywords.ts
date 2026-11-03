@@ -12,17 +12,15 @@ export interface PageKeywords {
 
 export const keywords: Record<string, PageKeywords> = {
   home: {
-    primary: 'full stack web and mobile app developer',
+    primary: 'full stack web and mobile app development',
     secondary: [
-      'custom web application development',
-      'MVP development services',
-      'cross-platform mobile apps',
-      'backend architecture',
-      'workflow automation',
+      'full stack development services',
+      'full stack web development services',
+      'full stack developer for hire',
     ],
   },
   servicesOverview: {
-    primary: 'web and mobile app development services',
+    primary: 'full stack development services',
     secondary: [
       'custom web development',
       'mobile app engineering',
@@ -32,8 +30,9 @@ export const keywords: Record<string, PageKeywords> = {
     ],
   },
   webAppDev: {
-    primary: 'custom web development',
+    primary: 'full stack web development services',
     secondary: [
+      'custom web development',
       'responsive website development',
       'startup web app development',
       'custom website design',

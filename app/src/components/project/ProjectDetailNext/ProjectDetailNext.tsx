@@ -1,5 +1,7 @@
+'use client';
+
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ui } from '@/data';
 import { projectDetailNextStyles } from './ProjectDetailNext.styles';
 import type { ProjectDetailNextProps } from './ProjectDetailNext.types';
@@ -30,7 +32,7 @@ export function ProjectDetailNext({ nextProject, onNavigate }: ProjectDetailNext
       <div className={projectDetailNextStyles.container}>
         <Link
           ref={linkRef}
-          to={`/work/${nextProject.slug}`}
+          href={`/work/${nextProject.slug}`}
           onClick={(e) => {
             if (onNavigate) {
               e.preventDefault();

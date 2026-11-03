@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import type { MouseEvent } from 'react';
 import { home } from '@/data';
 import { playgroundHeaderStyles } from './PlaygroundHeader.styles';
@@ -24,7 +26,7 @@ export function PlaygroundHeader({ className = '', onNavigate }: PlaygroundHeade
         <span className={playgroundHeaderStyles.label}>{playground.label}</span>
       </div>
       <Link
-        to={href}
+        href={href}
         onClick={handleClick}
         className={playgroundHeaderStyles.titleLink}
         data-cursor-hover={playground.badge}

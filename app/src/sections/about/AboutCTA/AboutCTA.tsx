@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
@@ -11,6 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
   const statementRef = useRef<HTMLParagraphElement>(null);
   const { cta } = about;
+
+  const handleContact = () => {
+    if (onContactOpen) {
+      onContactOpen();
+    } else if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-contact'));
+    }
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -57,7 +67,7 @@ export function AboutCTA({ onContactOpen, className = '' }: AboutCTAProps) {
         >
           <button
             type="button"
-            onClick={onContactOpen}
+            onClick={handleContact}
             className={aboutCTAStyles.button}
             data-cursor-hover="Let's talk"
             aria-label="Open contact form"

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useTheme } from '@/context/ThemeContext';
@@ -43,7 +45,7 @@ function CityTime({ city, tz }: { city: string; tz: string }) {
       <span className={navbarStyles.text} style={{ opacity: 0.55 }}>
         {city}
       </span>
-      <span className={navbarStyles.text}>{time}</span>
+      <span className={navbarStyles.text} suppressHydrationWarning>{time}</span>
     </div>
   );
 }
@@ -51,7 +53,7 @@ function CityTime({ city, tz }: { city: string; tz: string }) {
 export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
   const handleContactOpen = onContactOpen ?? (() => {});
   const handleMenuOpen = onMenuOpen ?? (() => {});
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, mounted } = useTheme();
   const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const isHiddenRef = useRef(false);
@@ -185,13 +187,13 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
                 aria-label="Toggle theme"
               >
                 <div className="link_first">
-                  <span className={navbarStyles.text}>
-                    {theme === 'dark' ? 'LIGHT' : 'DARK'}
+                  <span className={navbarStyles.text} suppressHydrationWarning>
+                    {!mounted ? 'DARK' : theme === 'dark' ? 'LIGHT' : 'DARK'}
                   </span>
                 </div>
                 <div className="link_second">
-                  <span className={navbarStyles.text}>
-                    {theme === 'dark' ? 'LIGHT' : 'DARK'}
+                  <span className={navbarStyles.text} suppressHydrationWarning>
+                    {!mounted ? 'DARK' : theme === 'dark' ? 'LIGHT' : 'DARK'}
                   </span>
                 </div>
               </button>
@@ -236,13 +238,21 @@ export function Navbar({ onContactOpen, onMenuOpen, onNavigate }: NavbarProps) {
             <div className="nav-item-middle col-start-3 col-span-3 flex items-center justify-start">
               <button onClick={toggleTheme} className="link" aria-label="Toggle theme">
                 <div className="link_first">
-                  <span className={navbarStyles.text}>
-                    {theme === 'dark' ? navbar.themeLightLabel : navbar.themeDarkLabel}
+                  <span className={navbarStyles.text} suppressHydrationWarning>
+                    {!mounted
+                      ? navbar.themeDarkLabel
+                      : theme === 'dark'
+                      ? navbar.themeLightLabel
+                      : navbar.themeDarkLabel}
                   </span>
                 </div>
                 <div className="link_second">
-                  <span className={navbarStyles.text}>
-                    {theme === 'dark' ? navbar.themeLightLabel : navbar.themeDarkLabel}
+                  <span className={navbarStyles.text} suppressHydrationWarning>
+                    {!mounted
+                      ? navbar.themeDarkLabel
+                      : theme === 'dark'
+                      ? navbar.themeLightLabel
+                      : navbar.themeDarkLabel}
                   </span>
                 </div>
               </button>

@@ -10,14 +10,14 @@ import { keywords } from '../keywords';
 
 export const webApplicationDevelopment: ServiceDetail = {
   slug: 'web-application-development',
-  title: 'Custom Web Development Services',
+  title: 'Full Stack Web Development Services',
   navLabel: 'Custom Web Apps',
   shortDescription:
     'Full-stack custom web development for SaaS founders and startups. Scalable React and Next.js applications engineered for speed, clean architecture, and conversion.',
   seo: {
-    title: 'Custom Web Development Services | Outman Elbouhali',
+    title: 'Full Stack Web Development Services | Outman Elbouhali',
     description:
-      'Custom web development for startups and ambitious businesses. Scalable React and Next.js web applications, responsive website development, and APIs.',
+      'Full stack web development services for startups and SaaS founders. Production React and Next.js web applications, responsive architectures, and robust APIs.',
     path: '/services/web-application-development',
     ogImage: siteConfig.defaultOgImage,
     primaryKeyword: keywords.webAppDev.primary,
@@ -26,7 +26,7 @@ export const webApplicationDevelopment: ServiceDetail = {
   },
   hero: {
     badge: '// FULL-STACK ENGINEERING',
-    headline: 'Custom Web Development for Scalable Products',
+    headline: 'Full Stack Web Development Services for Scalable Products',
     subheadline:
       'I engineer production-grade web applications from architecture and interactive UI to database schemas, third-party integrations, and automated cloud deployments.',
     ctaButton: 'Start your web project',

@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useCallback, useEffect } from 'react';
 import gsap from 'gsap';
 import { heroSectionStyles } from './HeroSection.styles';
@@ -176,6 +178,7 @@ export function HeroSection({ preloaderDone = true }: HeroSectionProps = {}) {
 
       <div className={heroSectionStyles.inner}>
         <h1 className={heroSectionStyles.title}>
+          <span className="sr-only">Full Stack Web and Mobile App Development — Outman Elbouhali</span>
           {home.hero.words.map((word, i) => (
             <span
               key={word}

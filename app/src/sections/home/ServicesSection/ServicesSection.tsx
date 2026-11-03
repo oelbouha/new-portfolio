@@ -1,4 +1,7 @@
+'use client';
+
 import { useEffect, useRef, useState, useCallback } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { home } from '@/data';
@@ -121,13 +124,12 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps = {}) {
             const serviceUrl = `/services/${service.slug}`;
 
             return (
-              <a
+              <Link
                 key={service.name + i}
                 ref={(el) => {
                   itemRefs.current[i] = el;
                 }}
                 href={serviceUrl}
-                onClick={(e) => handleLinkClick(e, serviceUrl)}
                 className="relative flex items-center justify-center w-full py-1 sm:py-2 text-center cursor-pointer select-none group text-current"
                 style={{ textDecoration: 'none' }}
                 onMouseEnter={() => setHoveredService(i)}
@@ -150,7 +152,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps = {}) {
                     {service.sub}
                   </span>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import { PlaygroundHeader } from '@/components/home/PlaygroundHeader/PlaygroundHeader';
 import { ProjectCard } from '@/components/home/ProjectCard';
 import { projectsData } from '@/data/projects/projects.data';

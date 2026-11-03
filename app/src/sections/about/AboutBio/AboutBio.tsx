@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { ScrollHeadline } from '@/components/shared/ScrollHeadline';
 import { about } from '@/data';

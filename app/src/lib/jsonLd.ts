@@ -144,3 +144,25 @@ export function generateProjectSchema(project: ProjectItem) {
     url: project.website || `${siteConfig.domain}/work/${project.slug}`,
   };
 }
+
+export function generateAboutPageSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About Outman Elbouhali',
+    description:
+      'Learn about Outman Elbouhali: background in software engineering (1337 / 42 Network), expertise across React, Flutter, Django, and production infrastructure.',
+    url: `${siteConfig.domain}/about`,
+    mainEntity: generatePersonSchema(),
+  };
+}
+
+export function generateCollectionPageSchema(name: string, description: string, path: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    description,
+    url: `${siteConfig.domain}${path}`,
+  };
+}
