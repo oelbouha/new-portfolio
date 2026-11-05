@@ -4,7 +4,7 @@
  * from the central services registry and projects registry.
  */
 
-import { writeFileSync, existsSync } from 'fs';
+import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -29,17 +29,11 @@ const serviceSlugs = [
   'wordpress-development',
 ];
 
-const projectSlugs = [
-  'skatys',
-  'revo',
-  'atlas',
-  'pong-arena',
-  'habivio',
-  'saladly',
-  'workflow-automation',
-  'docker-vps',
-  'webserv',
-];
+const projectsDataPath = resolve(ROOT, 'src', 'data', 'projects', 'projects.data.ts');
+const projectsData = readFileSync(projectsDataPath, 'utf-8');
+const projectSlugs = [...projectsData.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map(
+  ([, slug]) => slug
+);
 
 const urls = [
   '<!-- Core Pages -->',
