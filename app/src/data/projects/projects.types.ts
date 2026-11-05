@@ -12,6 +12,7 @@ export interface Project {
   coverImage?: string;         // optional full-bleed cover image (separate from hero)
   images: string[];
   services: string[];
+  serviceSlugs?: string[];
   client?: string;
   website?: string;
   tags?: string[]

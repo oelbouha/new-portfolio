@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { servicesRegistry } from '@/data/services';
-import { allProjects } from '@/data/pages/projects';
+import { allProjects } from '@/data/projects/projects.data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.outmanelbouhali.online';

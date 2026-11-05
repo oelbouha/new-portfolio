@@ -5,7 +5,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 65088,
+      "htmlSize": 65157,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -182,7 +182,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 91728,
+      "htmlSize": 91460,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -210,7 +210,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 128634,
+      "htmlSize": 123653,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -238,7 +238,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 123316,
+      "htmlSize": 125889,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -266,7 +266,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 128625,
+      "htmlSize": 128541,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -294,7 +294,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 129395,
+      "htmlSize": 129449,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -322,7 +322,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 121935,
+      "htmlSize": 121897,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -382,7 +382,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 70729,
+      "htmlSize": 72616,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -410,7 +410,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 67232,
+      "htmlSize": 68501,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -438,7 +438,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 67023,
+      "htmlSize": 66961,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -466,7 +466,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 68059,
+      "htmlSize": 67843,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -494,7 +494,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 67731,
+      "htmlSize": 68104,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -518,11 +518,39 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/work/quickdrop": {
+      "routeType": "page",
+      "response": "complete",
+      "compute": "static",
+      "htmlSize": 71647,
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/work/[slug]",
+      "dataRoute": "/work/quickdrop.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/work/revo": {
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 66933,
+      "htmlSize": 69187,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -550,7 +578,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 70936,
+      "htmlSize": 70968,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -578,7 +606,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 68088,
+      "htmlSize": 70805,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -606,7 +634,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 67263,
+      "htmlSize": 67609,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -634,7 +662,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 66663,
+      "htmlSize": 67762,
       "experimentalBypassFor": [
         {
           "type": "header",

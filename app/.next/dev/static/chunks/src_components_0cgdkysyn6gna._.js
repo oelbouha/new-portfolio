@@ -615,7 +615,7 @@ function ProjectDetailClient({ project, nextProject }) {
     ]);
     const coverSrc = project.coverImage?.src || project.heroImage?.src || '';
     const coverAlt = project.coverImage?.alt || project.heroImage?.alt || `${project.title} cover`;
-    const [, ...galleryImages] = project.images;
+    const galleryImages = project.images;
     const midIndex = Math.floor(galleryImages.length / 2);
     const topImages = galleryImages.slice(0, midIndex);
     const bottomImages = galleryImages.slice(midIndex);
@@ -704,7 +704,6 @@ function ProjectDetailClient({ project, nextProject }) {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$project$2f$ProjectDetailInfos$2f$ProjectDetailInfos$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ProjectDetailInfos"], {
-                        credits: project.credits,
                         services: project.services,
                         client: project.client,
                         year: project.year,
@@ -718,7 +717,7 @@ function ProjectDetailClient({ project, nextProject }) {
                         nextProject: nextProject
                     }, void 0, false, {
                         fileName: "[project]/src/components/project/ProjectDetailClient.tsx",
-                        lineNumber: 181,
+                        lineNumber: 180,
                         columnNumber: 9
                     }, this)
                 ]
@@ -729,7 +728,7 @@ function ProjectDetailClient({ project, nextProject }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$layout$2f$Footer$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Footer"], {}, void 0, false, {
                 fileName: "[project]/src/components/project/ProjectDetailClient.tsx",
-                lineNumber: 185,
+                lineNumber: 184,
                 columnNumber: 7
             }, this)
         ]
@@ -1100,14 +1099,14 @@ const fadeIn = {
             }
         })
 };
-function ProjectDetailInfos({ credits, services, client, year, tags }) {
+function ProjectDetailInfos({ services, client, year, tags }) {
     const { labels } = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$data$2f$ui$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ui"];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         className: "relative w-full py-[clamp(4rem,8vw,10rem)] px-[clamp(1rem,2.5vw,2.5rem)]",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "mx-auto w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-[clamp(2.5rem,5vw,6rem)] items-start",
             children: [
-                credits && credits.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                     className: "flex flex-col gap-6",
                     variants: fadeIn,
                     initial: "hidden",
@@ -1122,62 +1121,62 @@ function ProjectDetailInfos({ credits, services, client, year, tags }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: "font-['IBM_Plex_Mono',monospace] text-xs font-bold tracking-widest uppercase opacity-60",
-                                    children: labels.credits
+                                    children: labels.servicesScope
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 31,
-                                    columnNumber: 15
+                                    lineNumber: 29,
+                                    columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex-1 h-px bg-current opacity-15"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 34,
-                                    columnNumber: 15
+                                    lineNumber: 32,
+                                    columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 30,
-                            columnNumber: 13
+                            lineNumber: 28,
+                            columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "space-y-4",
-                            children: credits.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex items-center justify-between gap-4 py-1.5 ",
+                            className: "flex flex-col gap-3",
+                            children: services.map((svc)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-3 py-1 ",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-['IBM_Plex_Mono',monospace] text-xs uppercase opacity-70",
-                                            children: c.role
+                                            className: "text-xs opacity-40",
+                                            children: "✦"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 40,
-                                            columnNumber: 19
+                                            lineNumber: 38,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "font-bold text-sm sm:text-base uppercase tracking-tight",
-                                            children: c.name
+                                            children: svc
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 43,
-                                            columnNumber: 19
+                                            lineNumber: 39,
+                                            columnNumber: 17
                                         }, this)
                                     ]
-                                }, c.role + c.name, true, {
+                                }, svc, true, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 39,
-                                    columnNumber: 17
+                                    lineNumber: 37,
+                                    columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 37,
-                            columnNumber: 13
+                            lineNumber: 35,
+                            columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                    lineNumber: 22,
-                    columnNumber: 11
+                    lineNumber: 20,
+                    columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                     className: "flex flex-col gap-6",
@@ -1194,61 +1193,86 @@ function ProjectDetailInfos({ credits, services, client, year, tags }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: "font-['IBM_Plex_Mono',monospace] text-xs font-bold tracking-widest uppercase opacity-60",
-                                    children: labels.servicesScope
+                                    children: labels.projectOverview
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 62,
+                                    lineNumber: 56,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex-1 h-px bg-current opacity-15"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 59,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 61,
+                            lineNumber: 55,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-col gap-3",
-                            children: services.map((svc)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex items-center gap-3 py-1 ",
+                            className: "grid grid-cols-2 gap-6",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-xs opacity-40",
-                                            children: "✦"
+                                            className: "block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-1",
+                                            children: labels.client
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 71,
-                                            columnNumber: 17
+                                            lineNumber: 64,
+                                            columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-bold text-sm sm:text-base uppercase tracking-tight",
-                                            children: svc
+                                            className: "font-bold text-base sm:text-lg uppercase tracking-tight",
+                                            children: client || '—'
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 72,
-                                            columnNumber: 17
+                                            lineNumber: 67,
+                                            columnNumber: 15
                                         }, this)
                                     ]
-                                }, svc, true, {
+                                }, void 0, true, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 70,
-                                    columnNumber: 15
-                                }, this))
-                        }, void 0, false, {
+                                    lineNumber: 63,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-1",
+                                            children: labels.year
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
+                                            lineNumber: 73,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "font-bold text-base sm:text-lg uppercase tracking-tight",
+                                            children: year
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
+                                            lineNumber: 76,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
+                                    lineNumber: 72,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 68,
+                            lineNumber: 62,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                    lineNumber: 53,
+                    lineNumber: 47,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1266,118 +1290,44 @@ function ProjectDetailInfos({ credits, services, client, year, tags }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: "font-['IBM_Plex_Mono',monospace] text-xs font-bold tracking-widest uppercase opacity-60",
-                                    children: labels.projectOverview
+                                    children: labels.stack
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 90,
+                                    lineNumber: 93,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex-1 h-px bg-current opacity-15"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 93,
+                                    lineNumber: 96,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 89,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "grid grid-cols-2 gap-6",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-1",
-                                            children: labels.client
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 98,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-bold text-base sm:text-lg uppercase tracking-tight",
-                                            children: client || '—'
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 101,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 97,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-1",
-                                            children: labels.year
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 107,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-bold text-base sm:text-lg uppercase tracking-tight",
-                                            children: year
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 110,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 106,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 96,
+                            lineNumber: 92,
                             columnNumber: 11
                         }, this),
                         tags && tags.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "pt-2",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "block font-['IBM_Plex_Mono',monospace] text-[0.68rem] tracking-wider uppercase opacity-55 mb-2",
-                                    children: labels.stack
-                                }, void 0, false, {
+                            className: "flex flex-wrap gap-2",
+                            children: tags.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "font-['IBM_Plex_Mono',monospace] text-xs uppercase px-2 py-0.5 rounded bg-current/5 border border-current/10",
+                                    children: t
+                                }, t, false, {
                                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 118,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-wrap gap-2",
-                                    children: tags.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-['IBM_Plex_Mono',monospace] text-xs uppercase px-2 py-0.5 rounded bg-current/5 border border-current/10",
-                                            children: t
-                                        }, t, false, {
-                                            fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                            lineNumber: 123,
-                                            columnNumber: 19
-                                        }, this))
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                                    lineNumber: 121,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                                    lineNumber: 102,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
                             fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                            lineNumber: 117,
+                            lineNumber: 100,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/project/ProjectDetailInfos/ProjectDetailInfos.tsx",
-                    lineNumber: 81,
+                    lineNumber: 84,
                     columnNumber: 9
                 }, this)
             ]

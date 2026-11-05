@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { allProjects } from '@/data/pages/projects';
+import { allProjects } from '@/data/projects/projects.data';
 import { generateProjectSchema, generateBreadcrumbSchema } from '@/lib/jsonLd';
 import { JsonLd } from '@/components/shared/JsonLd';
 import { ProjectDetailClient } from '@/components/project/ProjectDetailClient';
@@ -34,6 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    authors: [{ name: 'Outman Elbouhali' }],
+    category: project.category,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -42,6 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: canonicalUrl,
       type: 'article',
+      siteName: 'Outman Elbouhali Portfolio',
+      publishedTime: `${project.year}-01-01T00:00:00.000Z`,
+      authors: ['Outman Elbouhali'],
+      tags: project.tags,
       images: [
         {
           url: ogImage,
@@ -56,6 +62,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       images: [ogImage],
+      creator: '@oelbouha',
+      site: '@oelbouha',
     },
   };
 }

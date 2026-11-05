@@ -29,7 +29,7 @@ if (phase === 'pre') {
   const dataFiles = [
     { file: 'src/data/pages/home.ts', label: '/' },
     { file: 'src/data/pages/about.ts', label: '/about' },
-    { file: 'src/data/pages/projects.ts', label: '/work' },
+    { file: 'src/data/projects/projects.data.ts', label: '/work' },
     { file: 'src/data/services/index.ts', label: '/services' },
     { file: 'src/data/services/web-application-development.ts', label: '/services/web-application-development' },
     { file: 'src/data/services/flutter-app-development.ts', label: '/services/flutter-app-development' },

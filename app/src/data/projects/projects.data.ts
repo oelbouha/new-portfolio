@@ -1,7 +1,11 @@
 
 import type { Project } from './projects.types';
+import type { ProjectImage, ProjectItem, ProjectsPage } from '@/data/types';
+import { siteConfig } from '@/data/site';
+import { keywords } from '@/data/keywords';
 
 export const projectsData: Project[] = [
+
 
 {
   slug: 'skatys',
@@ -19,7 +23,6 @@ export const projectsData: Project[] = [
   heroImage: '/images/skatys/Skatys Website .png',
   coverImage: '/images/skatys/Skatys Website .png',
   images: [
-    '/images/skatys/skatys website .png',
     '/images/skatys/skatys website.png',
     '/images/skatys/skatys website mobile 3.png',
     '/images/skatys/skatys website mobile 1.png',
@@ -32,6 +35,7 @@ export const projectsData: Project[] = [
     'Content & Insights Presentation',
     'Docker VPS Deployment',
   ],
+  serviceSlugs: ['web-application-development', 'django-python-development'],
   client: 'Skatys Inc.',
   website: 'https://skatys.com/',
   tags: [
@@ -48,12 +52,6 @@ export const projectsData: Project[] = [
     'A modern corporate digital platform connecting company information, business solutions, and industry insights through a full-stack architecture.',
   quoteAuthor: 'Project Highlights',
   quoteRole: 'Full-Stack Development',
-  credits: [
-    { role: 'Full-Stack Development', name: 'Outman El Bouhali' },
-    { role: 'Frontend Architecture', name: 'Outman El Bouhali' },
-    { role: 'Backend Development', name: 'Outman El Bouhali' },
-    { role: 'Infrastructure & Deployment', name: 'Outman El Bouhali' },
-  ],
 },
 
 {
@@ -72,7 +70,7 @@ export const projectsData: Project[] = [
   heroImage: '/images/atlas/atlass.jpeg',
   coverImage: '/images/atlas/atlass.jpeg',
   images: [
-    '/images/atlas/atlass.jpeg',
+    // '/images/atlas/atlass.jpeg',
     '/images/atlas/atlas 2.jpeg',
     '/images/atlas/atlas 1.jpeg',
   ],
@@ -84,6 +82,7 @@ export const projectsData: Project[] = [
     'Adaptive UI Architecture',
     'Cross-Platform Engineering',
   ],
+  serviceSlugs: ['flutter-app-development'],
   client: 'Sahara Flora',
   website: '',
   tags: [
@@ -99,12 +98,6 @@ export const projectsData: Project[] = [
     'One unified Flutter codebase designed to adapt to mobile touch interactions and Android TV navigation.',
   quoteAuthor: 'Project Highlights',
   quoteRole: 'Cross-Platform Architecture',
-  credits: [
-    { role: 'Flutter Development', name: 'Outman El Bouhali' },
-    { role: 'Application Architecture', name: 'Outman El Bouhali' },
-    { role: 'Android TV Development', name: 'Outman El Bouhali' },
-    { role: 'Responsive UI Development', name: 'Outman El Bouhali' },
-  ],
 },
 
 {
@@ -134,6 +127,7 @@ export const projectsData: Project[] = [
     'Responsive Web Design',
     'UI/UX Implementation',
   ],
+  serviceSlugs: ['web-application-development'],
   client: 'Revo Advertising',
   website: 'https://revo.com',
   tags: [
@@ -149,11 +143,6 @@ export const projectsData: Project[] = [
     'A professional digital portfolio designed to communicate an advertising agency’s identity, showcase its work, and present its services.',
   quoteAuthor: 'Project Highlights',
   quoteRole: 'Frontend Development',
-  credits: [
-    { role: 'Frontend Development', name: 'Outman El Bouhali' },
-    { role: 'React Architecture', name: 'Outman El Bouhali' },
-    { role: 'UI/UX Implementation', name: 'Outman El Bouhali' },
-  ],
 },
 
 
@@ -175,7 +164,7 @@ export const projectsData: Project[] = [
     images: [
       '/images/pong/pongarena1.jpeg',
       '/images/pong/pongarena1.jpeg',
-      '/images/pong/Create_a_mockup_2k_202602141751.jpeg',
+      // '/images/pong/Create_a_mockup_2k_202602141751.jpeg',
     ],
     services: [
       'Full Stack Development',
@@ -183,6 +172,7 @@ export const projectsData: Project[] = [
       'JavaScript Frontend',
       'WebSocket Architecture',
     ],
+    serviceSlugs: ['django-python-development', 'web-application-development'],
     client: '42 Network / Open Source',
     website: 'https://github.com/oelbouha/ft_transcendence',
     tags: ['Django', 'JavaScript', 'WebSockets', 'Full Stack'],
@@ -191,12 +181,57 @@ export const projectsData: Project[] = [
       'A complete real-time multiplayer experience combining solid backend architecture with responsive gameplay.',
     quoteAuthor: '42 Network',
     quoteRole: 'Open Source Community',
-    credits: [
-      { role: 'Full Stack Development', name: 'Outman El Bouha' },
-      { role: 'Real-Time Architecture', name: 'Outman El Bouha' },
-      { role: 'Game Development', name: 'Outman El Bouha' },
-    ],
   },
+
+
+{
+  slug: 'quickdrop',
+  title: 'QuickDrop',
+  category: 'Peer-to-Peer Mobile Application',
+  year: '2025',
+  tagline: 'A Flutter marketplace connecting senders with travelers for package delivery.',
+  description:
+    'A peer-to-peer package delivery mobile application built with Flutter and Firebase, connecting senders with travelers through secure payments, messaging, and real-time delivery updates.',
+  overview:
+    'QuickDrop is a cross-platform mobile application that connects people who need to ship packages with travelers moving along the same route. Senders can create shipment listings, while couriers can publish trips, manage deliveries, and earn money along their routes. The platform includes Google authentication, Firebase-backed user and shipment management, in-app messaging, real-time status tracking, push notifications, ratings, and secure Stripe payments.',
+  conclusion:
+    'Delivered a complete peer-to-peer delivery platform combining mobile product design, Firebase services, real-time communication, push notifications, and secure payment processing.',
+  thumbnail: '/images/quickdrop/quickdrop-app.png',
+  heroImage: '/images/quickdrop/quickdrop-app.png',
+  coverImage: '/images/quickdrop/quickdrop-app.png',
+  images: [
+    '/images/quickdrop/quickdrop-app2.png',
+    '/images/quickdrop/quickdrop-app.png',
+    '/images/quickdrop/quickdrop-app1.png',
+  ],
+  services: [
+    'Flutter Mobile Development',
+    'Firebase Authentication',
+    'Cloud Firestore & Storage',
+    'Google Sign-In',
+    'Push Notifications',
+    'Stripe Payment Integration',
+    'Real-Time Messaging & Tracking',
+  ],
+  serviceSlugs: ['flutter-app-development'],
+  client: 'QuickDrop',
+  website: '',
+  tags: [
+    'Flutter',
+    'Dart',
+    'Firebase',
+    'Google Sign-In',
+    'Cloud Firestore',
+    'Firebase Messaging',
+    'Stripe',
+    'Peer-to-Peer Delivery',
+  ],
+  link: 'https://github.com/oelbouha/quickdrop',
+  quote:
+    'A connected delivery marketplace that turns everyday travel routes into a reliable way to move packages between people.',
+  quoteAuthor: 'Project Highlights',
+  quoteRole: 'Mobile Product Development',
+},
 
   {
     slug: 'habivio',
@@ -214,10 +249,10 @@ export const projectsData: Project[] = [
     heroImage: '/images/habivio/habivio.png',
     coverImage: '/images/habivio/habivio.png',
     images: [
-      '/images/habivio/habivio.png',
+      // '/images/habivio/habivio.png',
       '/images/habivio/habivio 1.png',
       '/images/habivio/habivio 2.png',
-      '/images/habivio/habivio 3.png',
+      // '/images/habivio/habivio 3.png',
     ],
     services: [
       'Mobile Product Design',
@@ -225,6 +260,7 @@ export const projectsData: Project[] = [
       'UX Interaction Architecture',
       'Local Storage & Sync',
     ],
+    serviceSlugs: ['flutter-app-development'],
     client: 'Habivio Wellness',
     website: '',
     tags: ['Mobile UX', 'React Native', 'TypeScript', 'Wellness'],
@@ -233,10 +269,6 @@ export const projectsData: Project[] = [
       'A masterclass in minimal, friction-free mobile product engineering with high-touch tactile feedback.',
     quoteAuthor: 'Product Review',
     quoteRole: 'Mobile UX & Interaction Design',
-    credits: [
-      { role: 'Mobile App Development', name: 'Outman El Bouhali' },
-      { role: 'UI/UX Design', name: 'Outman El Bouhali' },
-    ],
   },
 
    {
@@ -263,7 +295,7 @@ export const projectsData: Project[] = [
   coverImage: '/images/salad/salad recipes.png',
 
   images: [
-    '/images/salad/salad recipes.png',
+    // '/images/salad/salad recipes.png',
     '/images/salad/salad recipes 1.png',
    '/images/salad/salad recipes 2.png',
   ],
@@ -277,6 +309,7 @@ export const projectsData: Project[] = [
     'Social Media Automation',
     'Search Indexing Automation',
   ],
+  serviceSlugs: ['wordpress-development', 'n8n-automation'],
 
   client: 'Daily Salad Recipes',
 
@@ -301,13 +334,6 @@ export const projectsData: Project[] = [
   quoteAuthor: 'Daily Salad Recipes',
 
   quoteRole: 'Freelance Web Development',
-
-  credits: [
-    { role: 'WordPress Development', name: 'Outman El Bouhali' },
-    { role: 'Custom Theme Development', name: 'Outman El Bouhali' },
-    { role: 'SEO & Search Integration', name: 'Outman El Bouhali' },
-    { role: 'Automation & Integrations', name: 'Outman El Bouhali' },
-  ],
 },
 
 
@@ -327,10 +353,10 @@ export const projectsData: Project[] = [
     heroImage: '/images/docker.jpeg',
     coverImage: '/images/docker.jpeg',
     images: [
-      '/images/docker.jpeg',
+      // '/images/docker.jpeg',
       '/images/docker1.png',
       '/images/docker2.webp',
-      '/images/docker5.png',
+      // '/images/docker5.png',
     ],
     services: [
       'Docker Containerization',
@@ -338,6 +364,7 @@ export const projectsData: Project[] = [
       'NGINX Reverse Proxy',
       'CI/CD Pipelines',
     ],
+    serviceSlugs: ['n8n-automation'],
     client: 'Cloud Infrastructure',
     website: '',
     tags: ['Docker', 'Linux VPS', 'NGINX', 'DevOps', 'CI/CD'],
@@ -346,10 +373,6 @@ export const projectsData: Project[] = [
       'Robust server hardening and container orchestration that cut deployment friction to zero.',
     quoteAuthor: 'DevOps Architecture',
     quoteRole: 'Infrastructure Highlights',
-    credits: [
-      { role: 'DevOps Engineering', name: 'Outman El Bouhali' },
-      { role: 'System Administration', name: 'Outman El Bouhali' },
-    ],
   },
 
   {
@@ -368,7 +391,7 @@ export const projectsData: Project[] = [
     heroImage: '/images/webserv.png',
     coverImage: '/images/webserv.png',
     images: [
-      '/images/webserv.png',
+      // '/images/webserv.png',
       '/images/webserv2.png',
       '/images/webserv1.avif',
     ],
@@ -378,6 +401,7 @@ export const projectsData: Project[] = [
       'HTTP/1.1 Protocol Engine',
       'CGI Execution Layer',
     ],
+    serviceSlugs: ['web-application-development'],
     client: '42 Network / Systems Project',
     website: 'https://github.com/oelbouha/webserv',
     tags: ['C++', 'HTTP/1.1', 'Sockets', 'Network Systems', 'epoll'],
@@ -386,9 +410,6 @@ export const projectsData: Project[] = [
       'A deeply engineered socket server with meticulous state machines and asynchronous I/O multiplexing.',
     quoteAuthor: 'Systems Review',
     quoteRole: 'Core Network Engineering',
-    credits: [
-      { role: 'Lead Systems Developer', name: 'Outman El Bouhali' },
-    ],
   },
 
   {
@@ -407,7 +428,7 @@ export const projectsData: Project[] = [
     heroImage: '/images/call-to-action/n8n Automation Workflow .png',
     coverImage: '/images/call-to-action/n8n Automation Workflow .png',
     images: [
-      '/images/call-to-action/n8n Automation Workflow .png',
+      // '/images/call-to-action/n8n Automation Workflow .png',
       '/images/n8n/automation.png',
       '/images/n8n/automation .png',
     ],
@@ -417,6 +438,7 @@ export const projectsData: Project[] = [
       'Data Transformation',
       'Workflow Optimization',
     ],
+    serviceSlugs: ['n8n-automation'],
     client: 'Internal & Client Systems',
     website: '',
     tags: ['n8n', 'Automation', 'Webhooks', 'REST APIs', 'Pipelines'],
@@ -425,12 +447,51 @@ export const projectsData: Project[] = [
       'Turned complex multi-tool operational headaches into reliable, zero-touch background automation.',
     quoteAuthor: 'Automation Engineering',
     quoteRole: 'Integration Systems',
-    credits: [
-      { role: 'Automation Architect', name: 'Outman El Bouhali' },
-    ],
   },
 
  
 ];
+
+function toImage(src: string, alt: string): ProjectImage {
+  return { src, alt };
+}
+
+export const allProjects: ProjectItem[] = projectsData.map((project) => ({
+  ...project,
+  tagline: project.tagline || project.title,
+  overview: project.overview || project.description,
+  conclusion: project.conclusion || project.description,
+  thumbnail: toImage(project.thumbnail, `${project.title} project thumbnail`),
+  heroImage: toImage(project.heroImage, `${project.title} project hero preview`),
+  coverImage: toImage(project.coverImage || project.heroImage, `${project.title} project showcase`),
+  images: project.images.map((src, index) =>
+    toImage(src, `${project.title} project showcase image ${index + 1}`)
+  ),
+  client: project.client || 'Independent Project',
+  website: project.website || '',
+  tags: project.tags || [],
+  serviceSlugs: project.serviceSlugs || [],
+  link: project.link || '',
+}));
+
+export const projectsPage: ProjectsPage = {
+  seo: {
+    title: 'Projects & Case Studies | Outman Elbouhali Portfolio',
+    description:
+      'Explore real projects by Outman Elbouhali, including full-stack websites, mobile applications, Django systems, WordPress platforms, and workflow automation.',
+    path: '/work',
+    ogImage: siteConfig.defaultOgImage,
+    primaryKeyword: keywords.projects.primary,
+    secondaryKeywords: keywords.projects.secondary,
+    schemaType: 'CollectionPage',
+  },
+  header: {
+    title: 'PROJECTS',
+    badge: 'PORTFOLIO',
+    description:
+      "I've helped founders, businesses, and engineering teams build, launch, and scale digital products with solid architecture.",
+  },
+  projects: allProjects,
+};
 
 

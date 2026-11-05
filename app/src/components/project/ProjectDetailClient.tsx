@@ -114,7 +114,7 @@ export function ProjectDetailClient({ project, nextProject }: ProjectDetailClien
   const coverSrc = project.coverImage?.src || project.heroImage?.src || '';
   const coverAlt = project.coverImage?.alt || project.heroImage?.alt || `${project.title} cover`;
 
-  const [, ...galleryImages] = project.images;
+  const galleryImages = project.images;
   const midIndex = Math.floor(galleryImages.length / 2);
   const topImages = galleryImages.slice(0, midIndex);
   const bottomImages = galleryImages.slice(midIndex);
@@ -168,9 +168,8 @@ export function ProjectDetailClient({ project, nextProject }: ProjectDetailClien
           <ProjectDetailGallery images={galleryImages} title={project.title} />
         )}
 
-        {/* 8. Credits & Scope Info */}
+        {/* 8. Scope and project overview */}
         <ProjectDetailInfos
-          credits={project.credits}
           services={project.services}
           client={project.client}
           year={project.year}

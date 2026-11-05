@@ -873,12 +873,12 @@ const projectsData = [
     {
         slug: 'skatys',
         title: 'Skatys',
-        category: 'Full Stack Web App',
+        category: 'Full-Stack Corporate Website',
         year: '2026',
-        tagline: 'The modern freelance marketplace built for speed.',
-        description: 'A freelance full-stack platform built with Next.js and Django, containerized with Docker on a production VPS.',
-        overview: 'Skatys is a custom-engineered web application combining a hyper-fast Next.js frontend with a robust Django REST backend. Deployed on a Linux VPS using Docker containers and NGINX reverse proxy for high security and performance.',
-        conclusion: 'Delivered a production-ready freelance platform with high-speed rendering, seamless API integration, and custom UI components.',
+        tagline: 'A modern digital presence for an SAP and digital transformation company.',
+        description: 'A full-stack corporate website developed for SKATYS Inc., presenting the company, its expertise, SAP solutions, services, and industry insights through a modern digital experience.',
+        overview: 'SKATYS is a corporate web platform developed to establish and strengthen the company’s digital presence. The website presents the company’s identity, expertise, business solutions, and services while providing an Insights & News section for sharing industry knowledge and company updates. Built with Next.js and Django, the platform combines a modern frontend with a structured backend architecture, supported by PostgreSQL and Docker-based deployment on a production VPS.',
+        conclusion: 'Delivered a full-stack corporate website combining company presentation, business solution showcases, content sections, and production infrastructure.',
         thumbnail: '/images/skatys/skatys lab.png',
         heroImage: '/images/skatys/Skatys Website .png',
         coverImage: '/images/skatys/Skatys Website .png',
@@ -889,74 +889,143 @@ const projectsData = [
             '/images/skatys/skatys website mobile 1.png'
         ],
         services: [
-            'Web Architecture',
+            'Corporate Website Development',
+            'Full-Stack Development',
             'Next.js Frontend',
-            'Django API',
-            'Docker VPS Setup'
+            'Django Backend & API',
+            'Content & Insights Presentation',
+            'Docker VPS Deployment'
         ],
         client: 'Skatys Inc.',
         website: 'https://skatys.com/',
         tags: [
-            'Freelance',
             'Next.js',
             'Django',
+            'Python',
+            'PostgreSQL',
             'Docker',
-            'PostgreSQL'
+            'Corporate Website',
+            'Full Stack'
         ],
         link: 'https://skatys.com/',
-        quote: 'An exceptional team that transformed our vision into a high-performance platform. Delivered beyond expectations.',
-        quoteAuthor: 'Skatys Inc.',
-        quoteRole: 'Product Owner',
+        quote: 'A modern corporate digital platform connecting company information, business solutions, and industry insights through a full-stack architecture.',
+        quoteAuthor: 'Project Highlights',
+        quoteRole: 'Full-Stack Development',
         credits: [
             {
-                role: 'Full Stack Development',
+                role: 'Full-Stack Development',
                 name: 'Outman El Bouhali'
             },
             {
-                role: 'Architecture & DevOps',
+                role: 'Frontend Architecture',
                 name: 'Outman El Bouhali'
             },
             {
-                role: 'UI/UX Design',
+                role: 'Backend Development',
+                name: 'Outman El Bouhali'
+            },
+            {
+                role: 'Infrastructure & Deployment',
+                name: 'Outman El Bouhali'
+            }
+        ]
+    },
+    {
+        slug: 'atlas',
+        title: 'Sahara Flora',
+        category: 'Cross-Platform Mobile Application',
+        year: '2026',
+        tagline: 'A unified Flutter application across mobile and Android TV.',
+        description: 'A cross-platform application developed with Flutter and Dart, designed to deliver an adaptive experience across Android smartphones and TV devices.',
+        overview: 'Sahara Flora is a cross-platform application developed using Flutter and Dart. The project focuses on a shared application architecture that adapts to different Android environments, including smartphones and television screens. It emphasizes responsive layouts, reusable components, and adaptive interfaces for different screen sizes and interaction methods.',
+        conclusion: 'Developed a unified Flutter application architecture supporting mobile and Android TV experiences through a shared codebase.',
+        thumbnail: '/images/atlas/atlas book thumbanil.jpeg',
+        heroImage: '/images/atlas/atlass.jpeg',
+        coverImage: '/images/atlas/atlass.jpeg',
+        images: [
+            '/images/atlas/atlass.jpeg',
+            '/images/atlas/atlas 2.jpeg',
+            '/images/atlas/atlas 1.jpeg'
+        ],
+        services: [
+            'Flutter Development',
+            'Dart Development',
+            'Android Application Development',
+            'Android TV Development',
+            'Adaptive UI Architecture',
+            'Cross-Platform Engineering'
+        ],
+        client: 'Sahara Flora',
+        website: '',
+        tags: [
+            'Flutter',
+            'Dart',
+            'Android',
+            'Android TV',
+            'Mobile Development',
+            'Cross-Platform'
+        ],
+        link: '',
+        quote: 'One unified Flutter codebase designed to adapt to mobile touch interactions and Android TV navigation.',
+        quoteAuthor: 'Project Highlights',
+        quoteRole: 'Cross-Platform Architecture',
+        credits: [
+            {
+                role: 'Flutter Development',
+                name: 'Outman El Bouhali'
+            },
+            {
+                role: 'Application Architecture',
+                name: 'Outman El Bouhali'
+            },
+            {
+                role: 'Android TV Development',
+                name: 'Outman El Bouhali'
+            },
+            {
+                role: 'Responsive UI Development',
                 name: 'Outman El Bouhali'
             }
         ]
     },
     {
         slug: 'revo',
-        title: 'Revo',
-        category: 'React Web Application',
+        title: 'Revo Advertising',
+        category: 'Agency Portfolio Website',
         year: '2025',
-        tagline: 'A modern web experience built with React.',
-        description: 'A responsive web application built with React.js, focused on modern UI, reusable components, and a smooth user experience.',
-        overview: 'Revo is a modern web application developed with React.js. The project focuses on building a responsive and scalable frontend architecture using reusable components, clean UI patterns, and optimized rendering for a smooth experience across different screen sizes.',
-        conclusion: 'Delivered a responsive React.js web application with a reusable component architecture, polished interface, and strong focus on performance and user experience.',
+        tagline: 'A digital portfolio showcasing the creative identity of Revo Advertising.',
+        description: 'A modern React-based agency portfolio website developed for Revo Advertising, presenting the agency’s identity, creative work, and professional services through a responsive digital experience.',
+        overview: 'Revo Advertising is a portfolio website created to establish the agency’s online presence and showcase its brand identity, creative capabilities, and services. Developed with React.js, the website focuses on presenting the agency professionally through a modern interface, structured content, reusable components, and responsive layouts optimized for different devices.',
+        conclusion: 'Delivered a modern agency portfolio website that communicates Revo Advertising’s identity and presents its creative work and services through a responsive React experience.',
         thumbnail: '/images/revo/revo lab.png',
         heroImage: '/images/revo/revo thumbnail.jpeg',
         coverImage: '/images/revo/revo4.jpeg',
         images: [
             '/images/revo/revo.jpeg',
-            '/images/revo/revo.jpeg',
             '/images/revo/revoo.jpeg'
         ],
         services: [
-            'React Development',
+            'Agency Portfolio Development',
+            'React.js Development',
             'Frontend Architecture',
-            'Responsive UI',
+            'Creative Work Presentation',
+            'Responsive Web Design',
             'UI/UX Implementation'
         ],
-        client: 'Revo',
+        client: 'Revo Advertising',
         website: 'https://revo.com',
         tags: [
             'React.js',
             'JavaScript',
-            'Frontend',
-            'Responsive Design'
+            'Agency Portfolio',
+            'Web Development',
+            'Responsive Design',
+            'UI/UX'
         ],
         link: 'https://github.com/oelbouha/Revo',
-        quote: 'Engineered with a modular component architecture focused on smooth UI state transitions, clean rendering patterns, and high-performance cross-device layout flexibility.',
-        quoteAuthor: 'Architecture Note',
-        quoteRole: 'Frontend Design & Technical Highlights',
+        quote: 'A professional digital portfolio designed to communicate an advertising agency’s identity, showcase its work, and present its services.',
+        quoteAuthor: 'Project Highlights',
+        quoteRole: 'Frontend Development',
         credits: [
             {
                 role: 'Frontend Development',
@@ -968,58 +1037,6 @@ const projectsData = [
             },
             {
                 role: 'UI/UX Implementation',
-                name: 'Outman El Bouhali'
-            }
-        ]
-    },
-    {
-        slug: 'atlas',
-        title: 'Atlas',
-        category: 'Cross-Platform Mobile App',
-        year: '2026',
-        tagline: 'One Flutter application, built for mobile and TV.',
-        description: 'A cross-platform application built with Flutter, designed to run across Android phones and TV devices from a shared codebase.',
-        overview: 'Atlas is a cross-platform application developed with Flutter and Dart, designed to provide a consistent experience across Android smartphones and TV devices. The project focuses on responsive layouts, adaptive interfaces, and reusable Flutter components that scale across different screen sizes and interaction models.',
-        conclusion: 'Built a flexible Flutter application capable of adapting its interface across Android phones and TV platforms while maintaining a consistent and responsive user experience.',
-        thumbnail: '/images/atlas/atlas book thumbanil.jpeg',
-        heroImage: '/images/atlas/atlass.jpeg',
-        coverImage: '/images/atlas/atlass.jpeg',
-        images: [
-            '/images/atlas/atlass.jpeg',
-            '/images/atlas/atlas 2.jpeg',
-            // '/images/atlas/atlas.jpeg',
-            '/images/atlas/atlas 1.jpeg'
-        ],
-        services: [
-            'Flutter Development',
-            'Android Development',
-            'TV App Development',
-            'Responsive UI'
-        ],
-        client: 'Atlas',
-        website: '',
-        tags: [
-            'Flutter',
-            'Dart',
-            'Android',
-            'Android TV',
-            'Responsive UI'
-        ],
-        link: '',
-        quote: 'Designed to seamlessly bridge mobile touch interaction and Android TV directional navigation using a single unified Flutter codebase.',
-        quoteAuthor: 'Product Concept',
-        quoteRole: 'Cross-Platform Strategy & UX Architecture',
-        credits: [
-            {
-                role: 'Flutter Development',
-                name: 'Outman El Bouhali'
-            },
-            {
-                role: 'Cross-Platform Architecture',
-                name: 'Outman El Bouhali'
-            },
-            {
-                role: 'Responsive UI Development',
                 name: 'Outman El Bouhali'
             }
         ]
